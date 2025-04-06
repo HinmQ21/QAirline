@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const db = require('./models');
 const flightRoutes = require('./routes/flight');
 const authRoutes = require('./routes/auth');
+const airportRoutes = require('./routes/airport');
+const airplaneRoutes = require('./routes/airplane');
 
 const app = express();
 
@@ -13,12 +15,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/flights', flightRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/airports', airportRoutes);
+app.use('/api/airplanes', airplaneRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to QAirline API' });
 });
 
 app.use((req, res, next) => {
+  console.log(req.body)
   res.status(404).json({
     success: false,
     message: 'Endpoint không tồn tại'
