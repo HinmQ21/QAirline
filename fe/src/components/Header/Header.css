@@ -1,0 +1,75 @@
+.fixed-header {
+  background: #f8f4f7;
+  padding-top: 13px;
+  position: sticky;
+  top: -13px;
+  z-index: 20;
+}
+  
+.fixed-header .navbar {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 110px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.fixed-header #pc-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-left: 100px;
+  list-style-type: none;
+}
+
+.fixed-header .actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.fixed-header .signup-btn {
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.fixed-header .signin-btn {
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.fixed-header .signin-btn:hover {
+  background: #d32f2f;
+  transform: translateY(-5px);
+}
+
+.fixed-header .signup-btn:hover {
+  background: #d32f2f;
+  color: white;
+  transform: translateY(-5px);
+}
+
+.fixed-header #pc-nav a {
+  color: #535353;
+  transition: color 0.3s ease;
+}
+
+.fixed-header #pc-nav a:hover {
+  color: darkred;
+}
