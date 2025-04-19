@@ -1,0 +1,16 @@
+[
+  {
+    "flightCode": "QA123",
+    "from": "Hà Nội",
+    "to": "TP.HCM",
+    "departureTime": "2025-05-01 08:00",
+    "aircraft": "Airbus A321"
+  },
+  {
+    "flightCode": "QA456",
+    "from": "Đà Nẵng",
+    "to": "Hà Nội",
+    "departureTime": "2025-05-01 14:30",
+    "aircraft": "Boeing 737"
+  }
+]

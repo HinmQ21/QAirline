@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+@import "tailwindcss/utilities.css" layer(utilities);
+
+
+@layer components {
+  .homepage-bg {
+    @apply relative bg-cover bg-center bg-no-repeat;
+    background-image: url('/home/bg.png');
+  }
+}
