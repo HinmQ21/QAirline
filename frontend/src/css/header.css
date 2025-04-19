@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer components {
+  .header {
+    @apply fixed top-0 left-0 w-full
+      z-[999] flex items-center justify-between
+      font-bold text-white text-2xl
+      transition-all duration-400 ease-in-out;
+  }
+
+  .headerTop {
+    @apply h-[100px] bg-transparent shadow-none;
+  }
+
+  .headerScrolled {
+    @apply h-[60px] bg-gray-950 shadow-md;
+  }
+}
