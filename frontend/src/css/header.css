@@ -12,11 +12,15 @@
       transition-all duration-400 ease-in-out;
   }
 
-  .headerTop {
+  .header-top {
     @apply h-[100px] bg-transparent shadow-none;
   }
 
-  .headerScrolled {
+  .header-scrolled {
     @apply h-[60px] bg-gray-950 shadow-md;
+  }
+
+  .header-link {
+    @apply hover:text-red-500 text-base cursor-pointer transition-all duration-300;
   }
 }
