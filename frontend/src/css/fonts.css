@@ -1,11 +1,26 @@
 /* 
 Which font to use?
-- inter: tiêu đề, không có chân.
-- pt-serif: trang trọng, có chân.
-- montserrat: chữ giãn dài, không có chân.
-- shantell-sans: poetic, user reviews, ...
-- poppins: general purpose, chữ tròn dễ đọc
-- special-gothic-expanded-one: font thương hiệu
+
+- inter-{thin => black}:
+  tiêu đề, không chân
+
+- pt-serif-{regular / bold}:
+  trang trọng, có chân
+
+- montserrat-{thin => black}:
+  chữ giãn dài, không chân
+
+- shantell-sans-{light => extrabold}:
+  poetic, bay bướm, user reviews, ...
+
+- poppins-{thin => black}:
+  general purpose, chữ tròn dễ đọc
+
+- national-park-{extralight => extrabold}: 
+  văn bản dài, chữ co ngắn, không chân
+
+- special-gothic-expanded-one-regular:
+  font thương hiệu QAirline
 */
 
 
@@ -211,6 +226,55 @@ Which font to use?
     "BNCE" 0,
     "INFM" 0,
     "SPAC" 0;
+}
+
+.national-park-extralight {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.national-park-light {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.national-park-regular {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.national-park-medium {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.national-park-semibold {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.national-park-bold {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.national-park-extrabold {
+  font-family: "National Park", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
 }
 
 .poppins-thin {
