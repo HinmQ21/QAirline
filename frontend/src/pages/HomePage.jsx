@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import fullpage from "fullpage.js";
 import "fullpage.js/dist/fullpage.min.css";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { SloganRow } from "../components/home/Slogans";
 import { FlightBooking } from "../components/home/FlightBooking";
 import { TopDestinations } from "../components/home/TopDestinations";
+import { WhyChooseUs } from "../components/home/WhyChooseUs";
 
 
 export const HomePage = () => {
@@ -42,7 +44,7 @@ export const HomePage = () => {
     <>
       <Header isAtTop={currentDest === 0} />
       <div id="homepage">
-        <div className="section homepage-bg">
+        <div className="section homepage-bg-image">
           <div className="min-h-screen flex flex-col justify-between">
             <div></div>
             <FlightBooking />
@@ -51,17 +53,21 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
-            <div className="bg-gray-100 mx-30 mt-25 shadow-2xl rounded-4xl">
+            <div className="mini-page mt-25 mb-10">
               <div className="m-15">
-                <div className="flex flex-col justify-start">
-                  <TopDestinations />
-                </div>
+                <TopDestinations />
+              </div>
+              <div className="m-15 mt-22">
+                <WhyChooseUs />
               </div>
             </div>
           </div>
         </div>
         <div className="section homepage-bg-gradient">
-          <p className="w-full text-center text-white">Trang 3</p>
+          <div className="min-h-screen flex flex-col justify-between">
+            <div></div>
+            <Footer />
+          </div>
         </div>
       </div>
     </>

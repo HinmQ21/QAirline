@@ -38,3 +38,5 @@
   25% { transform: translateX(-3px); }
   75% { transform: translateX(3px); }
 }
+
+.fp-watermark { scale: 0 }

@@ -8,61 +8,64 @@ import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 
 
-const DestinationCard = ({dest}) => (
+const DestinationCard = ({ dest }) => (
   <div className="flex flex-col">
-  <div className="group relative w-full h-86">
-    <img
-      src={dest.image}
-      alt={dest.name}
-      className="w-full h-full object-cover
+    <div className="group relative w-full h-86">
+      <img
+        src={dest.image}
+        alt={dest.name}
+        className="w-full h-full object-cover
                  filter group-hover:blur-lg group-hover:brightness-80
                  transition-all duration-200"
-    />
-    <p className="absolute inset-0 flex items-center justify-center
+      />
+      <p className="absolute inset-0 flex items-center justify-center
                   px-10 shantell-sans-regular
                   text-white text-lg opacity-0 group-hover:opacity-100
                   transition-opacity duration-200">
-      {dest.description}
-    </p>
-  </div>
-  <div className="w-full flex flex-col items-start justify-between
-              bg-gray-300 pt-2 pb-3 px-4">
-    <div className="flex items-center text-black gap-1.5">
-      <RiCompass3Line />
-      <div className="text-sm w-fit">{dest.location}</div>
+        {dest.description}
+      </p>
     </div>
-    <p className="text-lg montserrat-semibold
-                  text-transparent bg-clip-text homepage-bg-gradient">
-      {dest.name}
-    </p>
-    <div className="w-full mt-1 flex justify-between items-center">
-      <div className="flex items-center gap-1.5">
-        <p className="text-md poppins-medium text-gray-800">From:</p>
-        <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
+    <div className="w-full flex flex-col items-start justify-between
+                    bg-gray-300 pt-2 pb-3 px-4">
+      <div className="flex items-center text-black gap-1.5">
+        <RiCompass3Line />
+        <div className="text-sm w-fit">{dest.location}</div>
       </div>
-      <button className="
-        bg-pink-950
-        hover:bg-red-500
-        text-white
-        transition-all duration-300
-        py-2 px-4 rounded-2xl poppins-medium text-sm cursor-pointer
-      ">
-        Book Now
-      </button>
+      <p className="text-lg montserrat-semibold
+                  text-transparent bg-clip-text homepage-bg-gradient">
+        {dest.name}
+      </p>
+      <div className="w-full mt-1 flex justify-between items-center">
+        <div className="flex items-center gap-1.5">
+          <p className="text-md poppins-medium text-gray-800">From:</p>
+          <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
+        </div>
+        <button className="
+          bg-pink-950 hover:bg-red-500 text-white
+          transition-all duration-300
+          py-2 px-4 rounded-2xl poppins-medium text-sm cursor-pointer
+        ">
+          Book Now
+        </button>
+      </div>
     </div>
   </div>
-</div>
 )
 
 
 export const TopDestinations = () => {
   const [sliderRef, instanceRef] = useKeenSlider({
-    slides: {
-      perView: 3,
-      spacing: 12,
-    },
+    slides: { perView: 3, spacing: 12 },
     loop: true,
-    drag: false
+    drag: false,
+    breakpoints: {
+      "(max-width: 64rem)": {
+        slides: { perView: 2, spacing: 12 }
+      },
+      "(max-width: 48rem)": {
+        slides: { perView: 1, spacing: 12 }
+      }
+    }
   })
 
   const intervalRef = useRef(null)
@@ -85,11 +88,11 @@ export const TopDestinations = () => {
   }
 
   return (
-    <div className='flex flex-col content-center'>
+    <div className='flex flex-col'>
       <div className='flex mb-10 justify-between items-end'>
         <div>
-          <p className='text-gray-800 inter-semibold text-4xl'>Top Destinations</p>
-          <p className='text-gray-500 inter-regular w-lg mt-2'>
+          <h2 className='inter-semibold'>Popular Destination</h2>
+          <p className='w-lg'>
             Explore the world's most popular spots, find your dream getaway and book your next adventure with ease!
           </p>
         </div>
@@ -100,7 +103,7 @@ export const TopDestinations = () => {
       </div>
       <div className="flex items-center relative">
         <RxDoubleArrowLeft onClick={
-          () => {stopAutoSlide(); instanceRef.current?.prev(); startAutoSlide();}
+          () => { stopAutoSlide(); instanceRef.current?.prev(); startAutoSlide(); }
         } size="22" className="absolute left-[-2.2em] cursor-pointer animate-wiggle hover:animate-none" />
         <div
           ref={sliderRef} className="keen-slider"
@@ -113,7 +116,7 @@ export const TopDestinations = () => {
           ))}
         </div>
         <RxDoubleArrowRight onClick={
-          () => {stopAutoSlide(); instanceRef.current?.next(); startAutoSlide();}
+          () => { stopAutoSlide(); instanceRef.current?.next(); startAutoSlide(); }
         } size="22" className="absolute right-[-2.2em] cursor-pointer animate-wiggle hover:animate-none" />
       </div>
     </div>

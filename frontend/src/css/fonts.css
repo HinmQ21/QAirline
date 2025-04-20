@@ -1,3 +1,14 @@
+/* 
+Which font to use?
+- inter: tiêu đề, không có chân.
+- pt-serif: trang trọng, có chân.
+- montserrat: chữ giãn dài, không có chân.
+- shantell-sans: poetic, user reviews, ...
+- poppins: general purpose, chữ tròn dễ đọc
+- special-gothic-expanded-one: font thương hiệu
+*/
+
+
 .inter-thin {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -58,6 +69,18 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 900;
+  font-style: normal;
+}
+
+.pt-serif-regular {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-serif-bold {
+  font-family: "PT Serif", serif;
+  font-weight: 700;
   font-style: normal;
 }
 
