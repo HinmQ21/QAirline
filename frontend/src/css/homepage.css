@@ -6,12 +6,28 @@
 
 
 @layer components {
-  .homepage-bg {
+  .homepage-bg-image {
     @apply relative bg-cover bg-center bg-no-repeat;
     background-image: url('/home/bg.png');
   }
 
   .homepage-bg-gradient {
     @apply bg-gradient-to-r from-gray-900 to-pink-950;
+  }
+
+  .homepage-bg-solid {
+    @apply bg-gray-100;
+  }
+
+  .mini-page h2.inter-semibold {
+    @apply text-gray-800 text-4xl;
+  }
+
+  .mini-page h2.inter-semibold + p {
+    @apply text-gray-500 mt-2;
+  }
+
+  .mini-page {
+    @apply bg-gray-100 mx-30 shadow-2xl rounded-4xl;
   }
 }
