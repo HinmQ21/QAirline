@@ -7,6 +7,7 @@
 @import "./css/fonts.css";
 @import "./css/header.css";
 @import "./css/homepage.css";
+@config "../tailwind.config.js";
 
 
 @layer components {
@@ -30,4 +31,10 @@
 
 #fp-nav ul li a span {
   background: white !important;
+}
+
+@keyframes wiggle {
+  0%, 100% {transform: translateX(0px); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
 }

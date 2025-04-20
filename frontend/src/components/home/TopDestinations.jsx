@@ -1,46 +1,121 @@
+import { Link } from "react-router-dom";
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
+import { RiCompass3Line } from "react-icons/ri";
+import destinationsMock from "../../data/top_destinations.json";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 
-const destinations = [
-  { name: "Paris", image: "/home/paris.webp" },
-  { name: "Tokyo", image: "/home/tokyo.jpg" },
-  { name: "New York", image: "/home/newyork.jpg" },
-  { name: "London", image: "/home/london.jpg" },
-  { name: "Rome", image: "/home/rome.jpeg" },
-  { name: "Hà Nội", image: "/home/hanoi.jpg" },
-];
+
+const DestinationCard = ({dest}) => (
+  <div className="flex flex-col">
+  <div className="group relative w-full h-86">
+    <img
+      src={dest.image}
+      alt={dest.name}
+      className="w-full h-full object-cover
+                 filter group-hover:blur-lg group-hover:brightness-80
+                 transition-all duration-200"
+    />
+    <p className="absolute inset-0 flex items-center justify-center
+                  px-10 shantell-sans-regular
+                  text-white text-lg opacity-0 group-hover:opacity-100
+                  transition-opacity duration-200">
+      {dest.description}
+    </p>
+  </div>
+  <div className="w-full flex flex-col items-start justify-between
+              bg-gray-300 pt-2 pb-3 px-4">
+    <div className="flex items-center text-black gap-1.5">
+      <RiCompass3Line />
+      <div className="text-sm w-fit">{dest.location}</div>
+    </div>
+    <p className="text-lg montserrat-semibold
+                  text-transparent bg-clip-text homepage-bg-gradient">
+      {dest.name}
+    </p>
+    <div className="w-full mt-1 flex justify-between items-center">
+      <div className="flex items-center gap-1.5">
+        <p className="text-md poppins-medium text-gray-800">From:</p>
+        <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
+      </div>
+      <button className="
+        bg-pink-950
+        hover:bg-red-500
+        text-white
+        transition-all duration-300
+        py-2 px-4 rounded-2xl poppins-medium text-sm cursor-pointer
+      ">
+        Book Now
+      </button>
+    </div>
+  </div>
+</div>
+)
+
 
 export const TopDestinations = () => {
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      perView: 4,
-      spacing: 16,
+      perView: 3,
+      spacing: 12,
     },
     loop: true,
+    drag: false
   })
 
+  const intervalRef = useRef(null)
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    startAutoSlide()
+    return () => stopAutoSlide()
+  }, [instanceRef])
+
+  const startAutoSlide = () => {
+    if (intervalRef.current) return
+    intervalRef.current = setInterval(() => {
       instanceRef.current?.next()
     }, 3000)
+  }
 
-    return () => clearInterval(interval)
-  }, [instanceRef])
+  const stopAutoSlide = () => {
+    clearInterval(intervalRef.current)
+    intervalRef.current = null
+  }
 
   return (
     <div className='flex flex-col content-center'>
-      <p className='text-white text-center poppins-semibold text-3xl mb-5'>Top destinations</p>
-      <div ref={sliderRef} className="keen-slider">
-        {destinations.map((dest, i) => (
-          <div key={i} className="keen-slider__slide rounded-xl overflow-hidden relative">
-            <img src={dest.image} alt={dest.name} className='w-full h-100 object-cover' />
-            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-lg p-2 text-center">
-              {dest.name}
+      <div className='flex mb-10 justify-between items-end'>
+        <div>
+          <p className='text-gray-800 inter-semibold text-4xl'>Top Destinations</p>
+          <p className='text-gray-500 inter-regular w-lg mt-2'>
+            Explore the world's most popular spots, find your dream getaway and book your next adventure with ease!
+          </p>
+        </div>
+        <Link to='/destinations' className="h-fit flex items-center text-red-600 hover:text-red-400">
+          <p className="montserrat-semibold">See All Destinations</p>
+          <MdOutlineKeyboardArrowRight className="ml-2" size="1.3em" />
+        </Link>
+      </div>
+      <div className="flex items-center relative">
+        <RxDoubleArrowLeft onClick={
+          () => {stopAutoSlide(); instanceRef.current?.prev(); startAutoSlide();}
+        } size="22" className="absolute left-[-2.2em] cursor-pointer animate-wiggle hover:animate-none" />
+        <div
+          ref={sliderRef} className="keen-slider"
+          onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}
+        >
+          {destinationsMock.map((dest, i) => (
+            <div key={i} className="keen-slider__slide select-text rounded-xl overflow-hidden relative">
+              <DestinationCard dest={dest} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <RxDoubleArrowRight onClick={
+          () => {stopAutoSlide(); instanceRef.current?.next(); startAutoSlide();}
+        } size="22" className="absolute right-[-2.2em] cursor-pointer animate-wiggle hover:animate-none" />
       </div>
     </div>
-  )
+  );
 }

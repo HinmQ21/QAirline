@@ -49,12 +49,18 @@ export const HomePage = () => {
             <SloganRow />
           </div>
         </div>
-        <div className="section bg-gray-950">
-          <div className="p-30">
-            <TopDestinations />
+        <div className="section homepage-bg-gradient">
+          <div className="min-h-screen flex flex-col justify-start">
+            <div className="bg-gray-100 mx-30 mt-25 shadow-2xl rounded-4xl">
+              <div className="m-15">
+                <div className="flex flex-col justify-start">
+                  <TopDestinations />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="section bg-gray-950">
+        <div className="section homepage-bg-gradient">
           <p className="w-full text-center text-white">Trang 3</p>
         </div>
       </div>

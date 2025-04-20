@@ -14,7 +14,7 @@ export const SloganRow = () => {
   return (
     <div
       className="flex w-full text-center justify-around
-                 text-white bg-gray-950 z-1 py-7"
+                 text-white z-1 py-7 homepage-bg-gradient"
     >
       <Slogan icon={<PiAirplaneTakeoffThin size='24'/>}>Fast Booking</Slogan>
       <Slogan icon={<GoShieldCheck size='24'/>}>Secure & Reliable</Slogan>

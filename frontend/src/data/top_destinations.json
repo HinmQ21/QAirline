@@ -1,0 +1,32 @@
+[
+  {
+    "image": "/home/newyork.webp",
+    "name": "Statue of Liberty", "location": "New York, USA", "minPrice": "$1.200",
+    "description": "A global symbol of freedom standing tall in New York Harbor. Experience breathtaking views and rich American history."
+  },
+  {
+    "image": "/home/paris.jpg",
+    "name": "The Eiffel Tower", "location": "Paris, France", "minPrice": "$1.300",
+    "description": "The heart of Paris and a true icon of romance. Enjoy panoramic cityscapes from the top of this legendary landmark."
+  },
+  {
+    "image": "/home/tokyo.jpg",
+    "name": "Tokyo Downtown", "location": "Tokyo, Japan", "minPrice": "$1.400",
+    "description": "A vibrant mix of tradition and cutting-edge modernity. Dive into the neon lights, culture, and unmatched cuisine."
+  },
+  {
+    "image": "/home/london.jpg",
+    "name": "Big Ben", "location": "London, England", "minPrice": "$1.500",
+    "description": "London's timeless clock tower overlooking the River Thames. A must-see for lovers of history and British charm."
+  },
+  {
+    "image": "/home/rome.jpg",
+    "name": "Colosseum", "location": "Rome, Italy", "minPrice": "$1.600",
+    "description": "Step into ancient glory at the Colosseum. Relive the stories of gladiators in one of history's grandest arenas."
+  },
+  {
+    "image": "/home/hanoi.jpg",
+    "name": "One Pillar Pagoda", "location": "Hanoi, Vietnam", "minPrice": "$2.000",
+    "description": "A unique symbol of Vietnamese spirituality. Serene, historic, and nestled in the heart of Hanoi's cultural pulse."
+  }
+]
