@@ -68,7 +68,11 @@ export const HomePage = () => {
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-between">
             <div className="mini-page mt-25 mb-10">
-              <ResponsiveComponent />
+              {/* <ResponsiveComponent /> */}
+              <div className="flex flex-col items-center my-10 gap-3">
+                <h2 className="inter-semibold">More content</h2>
+                <img src="/miscs/coming-soon.gif" loading="lazy"/>
+              </div>
             </div>
             <div className="flex flex-col">
               <div className="mini-page mb-10">
