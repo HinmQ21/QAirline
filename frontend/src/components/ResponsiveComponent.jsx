@@ -6,7 +6,9 @@ export const ResponsiveComponent = () => {
 
   // Hàm cập nhật trạng thái screenSize khi cửa sổ thay đổi kích thước
   const handleResize = () => {
-    if (window.innerWidth >= 1024) {
+    if (window.innerWidth >= 1280) {
+      setScreenSize("xl");
+    } else if (window.innerWidth >= 1024) {
       setScreenSize("lg");
     } else if (window.innerWidth >= 768) {
       setScreenSize("md");
@@ -28,8 +30,8 @@ export const ResponsiveComponent = () => {
 
   return (
     <div>
-      <h1>Current Screen Size: {screenSize}</h1>
       <div>
+        {screenSize === "xl" && <p>Đây là màn hình siêu lớn (xl)</p>}
         {screenSize === "lg" && <p>Đây là màn hình lớn (lg)</p>}
         {screenSize === "md" && <p>Đây là màn hình vừa (md)</p>}
         {screenSize === "sm" && <p>Đây là màn hình nhỏ (sm)</p>}

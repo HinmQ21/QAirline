@@ -8,6 +8,7 @@ import { FlightBooking } from "../components/home/FlightBooking";
 import { TopDestinations } from "../components/home/TopDestinations";
 import { WhyChooseUs } from "../components/home/WhyChooseUs";
 import { ResponsiveComponent } from "../components/ResponsiveComponent";
+import { Sponsors } from "../components/home/Sponsors";
 
 
 export const HomePage = () => {
@@ -69,7 +70,14 @@ export const HomePage = () => {
             <div className="mini-page mt-25 mb-10">
               <ResponsiveComponent />
             </div>
-            <Footer />
+            <div className="flex flex-col">
+              <div className="mini-page mb-10">
+                <div className="m-10">
+                  <Sponsors />
+                </div>
+              </div>
+              <Footer />
+            </div>
           </div>
         </div>
       </div>

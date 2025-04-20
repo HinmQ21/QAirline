@@ -47,7 +47,6 @@ export const WhyChooseUs = () => {
                   </h3>
                 </div>
                 <p>{reason.description}</p>
-
               </div>
             </div>
           ))}
