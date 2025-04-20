@@ -18,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/sidebar",
     element: <SideBar />
+  },
+  {
+    path: "/flights",
+    element: <FlightsPage />
   }
   // {
   //   path: "/",
