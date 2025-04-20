@@ -1,16 +1,42 @@
 [
   {
-    "flightCode": "QA123",
+    "flightCode": "VN123",
     "from": "Hà Nội",
     "to": "TP.HCM",
-    "departureTime": "2025-05-01 08:00",
-    "aircraft": "Airbus A321"
+    "departureTime": "2023-10-01 10:00",
+    "type": "Eco",
+    "price": "1,500,000"
   },
   {
-    "flightCode": "QA456",
-    "from": "Đà Nẵng",
-    "to": "Hà Nội",
-    "departureTime": "2025-05-01 14:30",
-    "aircraft": "Boeing 737"
+    "flightCode": "VN123",
+    "from": "Hà Nội",
+    "to": "TP.HCM",
+    "departureTime": "2023-10-01 10:00",
+    "type": "Eco",
+    "price": "1,500,000"
+  },
+  {
+    "flightCode": "VN123",
+    "from": "Hà Nội",
+    "to": "TP.HCM",
+    "departureTime": "2023-10-01 10:00",
+    "type": "Eco",
+    "price": "1,500,000"
+  },
+  {
+    "flightCode": "VN123",
+    "from": "Hà Nội",
+    "to": "TP.HCM",
+    "departureTime": "2023-10-01 10:00",
+    "type": "Eco",
+    "price": "1,500,000"
+  },
+  {
+    "flightCode": "VN123",
+    "from": "Hà Nội",
+    "to": "TP.HCM",
+    "departureTime": "2023-10-01 10:00",
+    "type": "Eco",
+    "price": "1,500,000"
   }
 ]

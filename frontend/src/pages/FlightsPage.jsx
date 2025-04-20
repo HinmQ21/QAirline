@@ -1,60 +1,31 @@
 import { useState } from "react";
 import flightsMock from "../data/flights.json";
 import { Header } from "../components/Header";
+import { LuPlaneTakeoff } from "react-icons/lu";
+import { LuPlaneLanding } from "react-icons/lu";
+import { FaFilterCircleDollar } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function FlightsPage() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState({ from: "", to: "" });
-  const [results, setResults] = useState([
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-    {
-      flightCode: "VN123",
-      from: "Hà Nội",
-      to: "TP.HCM",
-      departureTime: "2023-10-01 10:00",
-      type: "Eco",
-      price: "1,500,000",
-    },
-  ]);
+  const [results, setResults] = useState(flightsMock);
+  const [passengers, setPassengers] = useState({
+    adult: 1,
+    child: 0,
+    infant: 0,
+  });
+  const [isOpen, setIsOpen] = useState(false);
+
+  const updateCount = (type, delta) => {
+    setPassengers((prev) => {
+      const newCount = Math.max(0, (prev[type] || 0) + delta);
+      return { ...prev, [type]: newCount };
+    });
+  };
+
 
   const handleSearch = () => {
     const matched = flightsMock.filter(
@@ -77,15 +48,15 @@ export default function FlightsPage() {
             onChange={onChange}
             className="flex-1 bg-transparent outline-none text-gray-700"
           />
-    </div>
+        </div>
       </div>
     );
   };
   return (
     <div>
-      <div className="fixed top-0 left-0 w-full h-24 bg-black z-40"></div>
-      <Header isAtTop={true} className="fixed top-0 left-0 w-full z-50 bg-white shadow-md" />
-      <div className="pt-24 mx-[100px] lg:mx-[200px] xl:mx-[250px]">
+      <div className="fixed top-0 left-0 w-full h-24 bg-black z-30"></div>
+      <Header isAtTop={true} className={`fixed top-0 left-0 w-full z-30 `} />
+        <div className={"pt-24 mx-[100px] lg:mx-[200px] xl:mx-[250px]"}>
         <h2 className="flex justify-center items-center m-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 m-4 mb-8">
@@ -93,19 +64,19 @@ export default function FlightsPage() {
             "Start Destination",
             query.from,
             (e) => setQuery({ ...query, from: e.target.value }),
-             // Pass the icon component
+            LuPlaneTakeoff // Pass the icon component
           )}
           {flightsearchInput(
             "End Destination",
             query.to,
             (e) => setQuery({ ...query, to: e.target.value }),
-             // Pass the icon component
+            LuPlaneLanding // Pass the icon component
           )}
           {flightsearchInput(
             "Maximum Price",
             query.to,
             (e) => setQuery({ ...query, to: e.target.value }),
-            
+            FaFilterCircleDollar
           )}
         </div>
 
@@ -141,7 +112,10 @@ export default function FlightsPage() {
                 </div>
 
                 {/* Book Now Button */}
-                <button className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-3">
+                <button 
+                  className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-3"
+                  onClick={() => setIsOpen(true)}
+                >
                   Book Now
                 </button>
               </div>
@@ -152,6 +126,68 @@ export default function FlightsPage() {
           )}
         </div>
       </div>
+
+      {/* Modal */}
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 flex z-50 items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 transition-all duration-200 ">
+             
+              <div className="bg-white z-60 rounded-xl max-h-[calc(100vh-5em)] max-w-lg scale-90 overflow-y-auto overscroll-contain w-full p-6 transition-transform">
+                <h2 className="text-center font-bold text-lg mb-4">Select Passengers</h2>
+
+                {/* Passenger Types */}
+                {["adult", "child", "infant"].map((type) => (
+                  <div key={type} className="flex justify-between items-center py-2">
+                    <div>
+                      <p className="font-medium capitalize">{type}</p>
+                      <p className="text-sm text-gray-500">
+                        {type === "adult" && "More than 12 years old"}
+                        {type === "child" && "2-11 years old"}
+                        {type === "infant" && "Less than 2 years old"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        className="bg-red-500 text-white w-8 h-8 rounded-full"
+                        onClick={() => updateCount(type, -1)}
+                      >
+                        −
+                      </button>
+                      <span>{passengers[type]}</span>
+                      <button
+                        className="bg-red-500 text-white w-8 h-8 rounded-full"
+                        onClick={() => updateCount(type, 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                <div className="flex justify-between mt-6">
+                  {/* Close Button */}
+                  <button
+                    className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Close
+                  </button>
+
+                  {/* Continue Button */}
+                  <button
+                    className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+                    onClick={() => {
+                      // Add your logic for "Continue" here
+                      setIsOpen(false);
+                      navigate("/searchflights");
+                    }}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </div> 
+        </>
+      )}
     </div>
   );
 }
