@@ -2,8 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
+
+import SearchFlights from "../pages/SearchFlights";
 import {HomePage} from "../pages/HomePage";
 import { SideBar } from "../components/SideBar";
+import { Search } from "lucide-react";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/flights",
     element: <FlightsPage />
+  },
+  {
+    path: "searchflights",
+    element: <SearchFlights />
   }
   // {
   //   path: "/",
@@ -30,7 +37,7 @@ const router = createBrowserRouter([
   // {
   //   path: "/admin",
   //   element: <AdminLayout />,
-  //   children: [
+  //   children: [  
   //     { path: "", element: <AdminDashboard /> },
   //   ],
   // },
