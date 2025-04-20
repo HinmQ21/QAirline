@@ -7,6 +7,7 @@ import { SloganRow } from "../components/home/Slogans";
 import { FlightBooking } from "../components/home/FlightBooking";
 import { TopDestinations } from "../components/home/TopDestinations";
 import { WhyChooseUs } from "../components/home/WhyChooseUs";
+import { ResponsiveComponent } from "../components/ResponsiveComponent";
 
 
 export const HomePage = () => {
@@ -65,7 +66,9 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-between">
-            <div></div>
+            <div className="mini-page mt-25 mb-10">
+              <ResponsiveComponent />
+            </div>
             <Footer />
           </div>
         </div>
