@@ -9,10 +9,6 @@ import { SideBar } from "../components/SideBar";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <FakeHomePage />
-  },
-  {
-    path: "/home",
     element: <HomePage />
   },
   {
