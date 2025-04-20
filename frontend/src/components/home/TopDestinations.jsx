@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 
 const DestinationCard = ({ dest }) => (
   <div className="flex flex-col">
-    <div className="group relative w-full h-86">
+    <div className="group relative w-full h-86 cursor-pointer">
       <img
         src={dest.image}
         alt={dest.name}
@@ -21,12 +21,12 @@ const DestinationCard = ({ dest }) => (
       <p className="absolute inset-0 flex items-center justify-center
                   px-10 shantell-sans-regular
                   text-white text-lg opacity-0 group-hover:opacity-100
-                  transition-opacity duration-200">
+                  transition-opacity duration-750">
         {dest.description}
       </p>
     </div>
     <div className="w-full flex flex-col items-start justify-between
-                    bg-gray-300 pt-2 pb-3 px-4">
+                    bg-gray-300 pt-2 pb-3 px-4 select-text">
       <div className="flex items-center text-black gap-1.5">
         <RiCompass3Line />
         <div className="text-sm w-fit">{dest.location}</div>
@@ -110,7 +110,7 @@ export const TopDestinations = () => {
           onMouseEnter={stopAutoSlide} onMouseLeave={startAutoSlide}
         >
           {destinationsMock.map((dest, i) => (
-            <div key={i} className="keen-slider__slide select-text rounded-xl overflow-hidden relative">
+            <div key={i} className="keen-slider__slide not-visited:rounded-xl overflow-hidden relative">
               <DestinationCard dest={dest} />
             </div>
           ))}
