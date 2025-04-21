@@ -19,6 +19,10 @@
     @apply bg-gray-100;
   }
 
+  .mini-page h4.poppins-semibold {
+    @apply text-gray-800 text-xl;
+  }
+
   .mini-page h2.inter-semibold {
     @apply text-gray-800 text-4xl;
   }

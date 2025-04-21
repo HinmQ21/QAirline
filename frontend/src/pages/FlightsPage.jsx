@@ -55,7 +55,7 @@ export default function FlightsPage() {
   return (
     <div>
       <div className="fixed top-0 left-0 w-full h-24 bg-black z-30"></div>
-      <Header isAtTop={true} className={`fixed top-0 left-0 w-full z-30 `} />
+      <Header isAtTop={false} className={`fixed top-0 left-0 w-full z-30 `} />
         <div className={"pt-24 mx-[100px] lg:mx-[200px] xl:mx-[250px]"}>
         <h2 className="flex justify-center items-center m-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
