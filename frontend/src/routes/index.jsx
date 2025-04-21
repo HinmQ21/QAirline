@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
-
 import SearchFlights from "../pages/SearchFlights";
 import {HomePage} from "../pages/HomePage";
 import { SideBar } from "../components/SideBar";
@@ -19,12 +18,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/flights",
-    element: <FlightsPage />
+    element: <MainLayout />,
+      children: [
+        { path: "", element: <FlightsPage /> },
+      ],
   },
   {
-    path: "searchflights",
-    element: <SearchFlights />
-  }
+    path: "/searchflights",
+    element: <MainLayout />,
+      children: [
+        { path: "", element: <SearchFlights /> },
+      ],
+  },
   // {
   //   path: "/",
   //   element: <MainLayout />,

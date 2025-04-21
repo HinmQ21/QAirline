@@ -38,7 +38,7 @@ export default function FlightsPage() {
   const flightsearchInput = (placeholder, value, onChange, Icon) => {
     return (
       <div >
-        <div className="flex items-center border border-gray-300 rounded p-2 bg-white">
+        <div className="flex flex-row border border-gray-300 rounded p-2 m-2 bg-white w-80">
           {Icon && <Icon className="w-5 h-5 text-gray-500 mr-2" />}
           <input
             type="text"
@@ -46,7 +46,7 @@ export default function FlightsPage() {
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className="flex-1 bg-transparent outline-none text-gray-700"
+            className="flex-1 bg-transparent outline-none text-gray-700 w-full"
           />
         </div>
       </div>
@@ -54,12 +54,10 @@ export default function FlightsPage() {
   };
   return (
     <div>
-      <div className="fixed top-0 left-0 w-full h-24 bg-black z-30"></div>
-      <Header isAtTop={true} className={`fixed top-0 left-0 w-full z-30 `} />
         <div className={"pt-24 mx-[100px] lg:mx-[200px] xl:mx-[250px]"}>
         <h2 className="flex justify-center items-center m-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 m-4 mb-8">
+        <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full">
           {flightsearchInput(
             "Start Destination",
             query.from,
@@ -80,7 +78,7 @@ export default function FlightsPage() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <div className="flex flex-wrap justify-center items-center gap-6">
           {results.length > 0 ? (
             results.map((f, idx) => (
               <div key={idx} className="w-80 rounded-xl overflow-hidden shadow-xl bg-white">
