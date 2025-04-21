@@ -6,6 +6,7 @@ import SearchFlights from "../pages/SearchFlights";
 import {HomePage} from "../pages/HomePage";
 import { SideBar } from "../components/SideBar";
 import { Search } from "lucide-react";
+import { WeatherDisplay } from "../components/Weather";
 
 const router = createBrowserRouter([
   {

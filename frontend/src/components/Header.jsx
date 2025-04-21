@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { WeatherDisplay } from "./Weather";
 
 
 export const Header = ({ isAtTop=false }) => (
@@ -16,7 +17,11 @@ export const Header = ({ isAtTop=false }) => (
     </div>
 
     <div className="flex items-center mr-10 gap-x-4">
-      <button className="header-link poppins-regular">Sign in</button>
+      <div className={`${isAtTop ? 'opacity-0' : 'opacity-100'}
+                       transition-opacity duration-300`} op>
+        <WeatherDisplay />
+      </div>
+      <button className="header-link poppins-regular ml-5">Sign in</button>
       <p className="poppins-regular text-base">{'|'}</p>
       <button className="cursor-pointer poppins-regular text-base
       bg-red-500 border border-black
