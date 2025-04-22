@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer components {
+    .dropdown-item {
+        @apply p-0.5 m-1 w-40 rounded-lg cursor-pointer;
+    }
+
+    .dropdown-item:hover {
+        @apply bg-gray-200 text-red-700;
+    }
+}

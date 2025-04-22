@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* @import "tailwindcss/preflight.css" layer(base); */
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer components {
+    .dropdown-btn {
+        @apply flex underline cursor-pointer;
+    }
+
+    .dropdown-btn:hover {
+        @apply text-red-700;
+    }
+
+    .button-open {
+        @apply text-red-700;
+    }
+
+    .toggle-icon {
+        @apply flex justify-center items-center ml-1; 
+    }
+}
+
