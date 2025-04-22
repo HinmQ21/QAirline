@@ -1,28 +1,33 @@
-import { LuPlaneTakeoff } from "react-icons/lu";
+import { RecapCode } from "./RecapCode";
+import { RecapDate } from "./RecapDate";
 
-
-export const FlightRecap = () => {
+export const FlightRecap = ({from, to, roundtrip, start, end, passanger}) => {
     return (
         <>
-            <div className="w-full h-4/10 mb-3 flex flex-row justify-between items-center">
-                <div className="w-2/10 h-fit text-white font-bold text-xl">HAN</div>
-                <div className="w-6/10 h-full outline-white flex flex-col">
-                    <div className="w-full h-1/2 flex flex-row justify-center items-center ">
-                        <div className="text-white font-bold text-lg ">. . . . . . .</div>
-                        <div className="ml-1 w-1/10 h-1/2"><LuPlaneTakeoff className="text-white" /></div>
-                    </div>
-                    <div className="w-full h-1/2 flex flex-row justify-center items-center">
-                        <div className="mr-1 w-1/10 h-1/2"><LuPlaneTakeoff className="text-white" /></div>
-                        <div className="text-white font-bold text-lg ">. . . . . . .</div>
-                    </div>
-
+            {/* RecapCode */}
+            <div className="w-2/5 h-full px-4 flex flex-col justify-between 
+                            border-r-2 border-white">
+                <div className="w-full h-4/10 flex justify-between items-center">
+                    <RecapCode from={from} to={to} roundtrip={roundtrip}  />
                 </div>
-                <div className="w-2/10 h-fit text-white font-bold text-xl">SGN</div>
+
+                <div className="w-full h-4/10 flex justify-between items-start">
+                    <p className="inter-regular text-white">Ha Noi</p>
+                    <p className="inter-regular text-white">Sai Gon</p>
+                </div>    
+            </div>
+            {/* RecapDate */}
+            <RecapDate start={start} end={end} roundtrip={roundtrip}/>
+
+            {/* PassangerRecap */}
+            <div className="w-1/4 h-full px-2 flex flex-col justify-between
+                            border-r-2 border-white">
+                <p className="inter-regular text-white">Hanh Khach</p>
+                <p className="inter-regular text-white">{passanger}</p>
             </div>
 
-            <div className="w-full h-4/10 mt-3">
 
-            </div>
         </>
+        
     );
 }

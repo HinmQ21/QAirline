@@ -2,23 +2,50 @@ import React, { useState } from "react";
 import { CheckCircle, Circle } from "lucide-react";
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { Header } from "../components/Header";
-import { RoundTrip } from "../components/flights/search/RoundTrip";
+import { FlightRecap } from "../components/flights/search/FlightRecap";
+import { SortFlight } from "../components/flights/search/SortFlight"
+import { FlightCard } from "../components/flights/search/FlightCard";
 
 
 const flights = [
   {
     id: "QA41",
-    time: "15:30 → 17:30",
+    depatureTime: "15:30",
+    arrivalTime: "17:30",
     aircraft: "Boeing 737",
-    eco: 600000,
-    business: 0,
-    boss: 0,
+    price: {
+      eco: 4000000,
+      business: 6000000,
+    },
+    slot: {
+      eco: 100,
+      business: 100,
+    },
     booked: {
       eco: 73,
       business: 50,
-      boss: 15
     }
-  },
+
+  },  
+  {
+    id: "QA42",
+    depatureTime: "15:30",
+    arrivalTime: "17:30",
+    aircraft: "Boeing 734",
+    price: {
+      eco: 4000000,
+      business: 6000000,
+    },
+    slot: {
+      eco: 100,
+      business: 100,
+    },
+    booked: {
+      eco: 53,
+      business: 53,
+    }
+
+  },  
   // Add more flights as needed
 ];
 
@@ -54,6 +81,11 @@ const FlightSearchPage = () => {
       </div>
     );
   };
+
+  const testStart = new Date(2025, 3, 22);
+  const testEnd = new Date(2025, 4, 7);
+  const passanger = 1;
+  const destImage = "/home/hanoi.jpg";
 
   const FlightSelector = ({ flights, selectedFlight, handleSelect }) => {
     return (
@@ -117,24 +149,55 @@ const FlightSearchPage = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="flex-1 w-full h-full mt-14">
-        <div className="h-25 w-full bg-black px-10 items-center justify-center flex">
+        {/* RecapHeader */}
+        <div className="h-20 w-full bg-black px-10 items-center justify-center flex">
           <div className="w-9/10 h-full flex flex-row justify-between ">
-            <div className="w-1/2 h-full py-2">
-              {/* RoundTrip */}
-              <RoundTrip />
-
-              
+            <div className="w-3/5 h-full py-2 flex">
+              {/* Flight Recap */}
+              <FlightRecap from="CGK" to="DPS" roundtrip={true} start={testStart} end={testEnd} passanger={passanger}/>
             </div>
-            <div className="w-1/5 h-full bg-white">
-
+            <div className="w-1/5 h-full flex justify-center items-center">
+              <button className="w-3/5 h-full flex flex-col justify-center items-center 
+                                bg-red-600 hover:bg-red-700 cursor-pointer
+                                transition duration-300 ease-in-out
+                                ">
+                <LuPlaneTakeoff className="w-6 h-6 text-white"/>
+                <p className="text-white">Dat cho</p>
+              </button>
             </div>
           </div>
-
+        </div>
+        {/* Destination */}
+        <div className="w-full h-50">
+          <img
+            src={destImage}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Main  */}
+        <div className="w-full h-screen flex justify-center bg-white">
+            <div className="w-8/10 h-screen flex flex-col mt-4 gap-4">
+              <SortFlight />
+              {(flights.length > 0) ? (
+                flights.map((flight) => (
+                  <FlightCard
+                    key={flight.id}
+                    flight={flight} 
+                  />
+                ))
+              ) : (
+                <>
+                  <p>No flight available</p>
+                </>
+              )}
+            </div>
+              
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
