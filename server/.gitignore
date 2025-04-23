@@ -32,3 +32,8 @@ coverage/
 
 # Miscellaneous
 *.tgz
+
+features
+task
+
+.cursor

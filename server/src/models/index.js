@@ -72,7 +72,7 @@ db.Ticket.belongsTo(db.Seat, { foreignKey: 'seat_id' });
 
 // Admin - News (One-to-Many)
 db.Admin.hasMany(db.News, { foreignKey: 'created_by' });
-db.News.belongsTo(db.Admin, { foreignKey: 'created_by', as: 'creator' });
+db.News.belongsTo(db.Admin, { foreignKey: 'created_by', as: 'admin' });
 
 // Customer - Notification (One-to-Many)
 db.Customer.hasMany(db.Notification, { foreignKey: 'customer_id' });
