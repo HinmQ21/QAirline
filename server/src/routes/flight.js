@@ -11,11 +11,29 @@ const { authenticateAdmin, checkFlightManagerPermission } = require('../middlewa
 router.get('/', flightController.getAllFlights);
 
 /**
+ * @route   GET /api/flights/search
+ * @desc    Tìm chuyến bay theo thời gian và sân bay
+ * @access  Public
+ */
+router.get('/search', flightController.getFlightsByTimeAndAirport);
+
+/**
  * @route   GET /api/flights/:id
  * @desc    Lấy thông tin chi tiết của một chuyến bay
  * @access  Public
  */
 router.get('/:id', flightController.getFlightById);
+
+/**
+ * @route   POST /api/flights
+ * @desc    Tạo chuyến bay mới
+ * @access  Private (Admin - flight_manager hoặc super_admin)
+ */
+router.post('/',
+  authenticateAdmin,
+  checkFlightManagerPermission,
+  flightController.createFlight
+);
 
 /**
  * @route   PUT /api/flights/:id
@@ -26,6 +44,17 @@ router.put('/:id',
   authenticateAdmin, 
   checkFlightManagerPermission, 
   flightController.updateFlight
+);
+
+/**
+ * @route   DELETE /api/flights/:id
+ * @desc    Xóa chuyến bay
+ * @access  Private (Admin - flight_manager hoặc super_admin)
+ */
+router.delete('/:id',
+  authenticateAdmin,
+  checkFlightManagerPermission,
+  flightController.deleteFlight
 );
 
 module.exports = router;

@@ -6,6 +6,10 @@ const flightRoutes = require('./routes/flight');
 const authRoutes = require('./routes/auth');
 const airportRoutes = require('./routes/airport');
 const airplaneRoutes = require('./routes/airplane');
+const bookingRoutes = require('./routes/booking');
+const ticketRoutes = require('./routes/ticket');
+const adminRoutes = require('./routes/admin');
+const newsRoutes = require('./routes/news');
 
 const app = express();
 
@@ -17,13 +21,17 @@ app.use('/api/flights', flightRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/airports', airportRoutes);
 app.use('/api/airplanes', airplaneRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/tickets', ticketRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/news', newsRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to QAirline API' });
 });
 
 app.use((req, res, next) => {
-  console.log(req.body)
+  console.log(req.body)  
   res.status(404).json({
     success: false,
     message: 'Endpoint không tồn tại'

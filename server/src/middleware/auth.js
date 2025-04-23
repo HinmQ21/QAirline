@@ -22,6 +22,14 @@ exports.authenticateAdmin = async (req, res, next) => {
     
     const decoded = jwt.verify(token, JWT_SECRET);
     
+    // Make sure it's an admin token
+    if (!decoded.admin_id || decoded.type !== 'admin') {
+      return res.status(401).json({
+        success: false,
+        message: 'Token không hợp lệ cho admin, vui lòng đăng nhập với tài khoản admin'
+      });
+    }
+    
     const admin = await Admin.findByPk(decoded.admin_id);
     
     if (!admin) {
@@ -84,8 +92,8 @@ exports.authenticateUser = async (req, res, next) => {
     
     const decoded = jwt.verify(token, JWT_SECRET);
     
-    // Check if the token contains customer_id
-    if (!decoded.customer_id) {
+    // Check if the token contains customer_id and is customer type
+    if (!decoded.customer_id || decoded.type !== 'customer') {
       return res.status(401).json({
         success: false,
         message: 'Token không hợp lệ cho người dùng'
