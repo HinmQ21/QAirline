@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react';
-import DropdownButton from '../DropdownButton/DropdownButton'
-import DropdownContent from '../DropdownContent/DropdownContent'
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 import "../../../css/dropdown/Dropdown.css";
 
@@ -38,4 +37,31 @@ export const Dropdown = ({buttonText, content}) => {
             </DropdownContent>
         </div>
     )
+}
+
+export const DropdownButton = ({children, isOpen, toggle}) => {
+  return (
+    <div className={`dropdown-btn ${isOpen ? 'button-open' : null}`}  
+        onClick={toggle}
+    >
+        {children} 
+        <span className="toggle-icon">{isOpen ? <FaChevronDown /> : <FaChevronUp />}</span>
+    </div>
+  )
+}
+
+export const DropdownContent = ({children, isOpen, toggle}) => {
+  return (
+    <div className={`dropdown-content ${isOpen ? 'content-open' : null}`}>
+        {children}
+    </div>
+  )
+}
+
+export const DropdownItem = ({children, onClick}) => {
+  return (
+    <div className='dropdown-item' onClick={onClick}>
+        {children}
+    </div>
+  )
 }

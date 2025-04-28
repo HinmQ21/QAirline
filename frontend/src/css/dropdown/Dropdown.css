@@ -7,5 +7,67 @@
 @layer components {
     .dropdown {
         @apply relative ;
-    } 
+    }
+
+    .dropdown-btn {
+        @apply flex underline cursor-pointer;
+    }
+
+    .dropdown-btn:hover {
+        @apply text-red-700;
+    }
+
+    .button-open {
+        @apply text-red-700;
+    }
+
+    .toggle-icon {
+        @apply flex justify-center items-center ml-1; 
+    }
+    
+    .dropdown-content {
+      @apply  absolute min-w-full flex flex-col items-center 
+              p-1 mt-0.5 bg-white shadow-md max-h-[40vh] overflow-y-scroll
+              opacity-0; 
+    }
+  
+    .dropdown-content {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    .dropdown-content::-webkit-scrollbar {
+      display: none;
+    }
+  
+    .content-open {
+      @apply opacity-100;
+    }
+
+    .dropdown-content {
+      @apply  absolute min-w-full flex flex-col items-center 
+              p-1 mt-0.5 bg-white shadow-md max-h-[40vh] overflow-y-scroll
+              opacity-0; 
+    }
+  
+    .dropdown-content {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    .dropdown-content::-webkit-scrollbar {
+      display: none;
+    }
+  
+    .content-open {
+      @apply opacity-100;
+    }
+
+    .dropdown-item {
+      @apply p-0.5 m-1 w-40 rounded-lg cursor-pointer;
+    }
+
+    .dropdown-item:hover {
+        @apply bg-gray-200 text-red-700;
+    }
 }
