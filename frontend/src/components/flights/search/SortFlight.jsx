@@ -1,7 +1,14 @@
 import { LuPlaneTakeoff } from "react-icons/lu";
-import { Dropdown } from "../../dropdown/Dropdown/Dropdown"
-import { DropdownItem } from "../../dropdown/DropdownItem/DropdownItem";
-import { useState, useEffect, use } from "react";
+import { Dropdown, DropdownItem } from "../../dropdown/Dropdown/Dropdown"
+import { useState, useEffect, use } from "react"; 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export const SortFlight = () => {
     const [buttonText, setButtonText] = useState("Mac Dinh");
@@ -27,9 +34,9 @@ export const SortFlight = () => {
                     <LuPlaneTakeoff className="w-4 h-4 mr-2" />
                     <p className="w-fit">Bo loc</p>
                 </button>
-                <div className="w-fit h-14 flex items-end justify-end">
+                <div className="w-fit h-14 flex items-end justify-end z-10">
                     <p className="mr-2">Sap xep theo</p>
-                    <Dropdown buttonText={buttonText} content={
+                    {/* <Dropdown buttonText={buttonText} content={
                         <>
                             {
                                 sortOpt.map((item) =>  (
@@ -41,7 +48,19 @@ export const SortFlight = () => {
                                 ))
                             }
                         </>
-                    } />
+                    }/> */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-56">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                        <DropdownMenuItem>Billing</DropdownMenuItem>
+                        <DropdownMenuItem>Team</DropdownMenuItem>
+                        <DropdownMenuItem>Subscription</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
                 </div>
             </div>
         </>
