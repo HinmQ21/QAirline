@@ -31,58 +31,89 @@ const flights = [
   },  
   {
     id: "QA42",
-    depatureTime: "15:30",
-    arrivalTime: "17:30",
+    depatureTime: "16:30",
+    arrivalTime: "18:30",
     aircraft: "Boeing 734",
     price: {
-      eco: 4000000,
-      business: 6000000,
+      eco: 2000000,
+      business: 4000000,
     },
     slot: {
       eco: 100,
-      business: 50,
+      business: 100,
     },
     booked: {
       eco: 53,
-      business: 42,
+      business: 98,
     }
 
-  },  
+  },
+  {
+    id: "QA43",
+    depatureTime: "07:30",
+    arrivalTime: "10:30",
+    aircraft: "Boeing 777",
+    price: {
+      eco: 3000000,
+      business: 5000000,
+    },
+    slot: {
+      eco: 100,
+      business: 100,
+    },
+    booked: {
+      eco: 24,
+      business: 14,
+    }
+
+  },
+  {
+    id: "QA45",
+    depatureTime: "01:30",
+    arrivalTime: "04:30",
+    aircraft: "Boeing 345",
+    price: {
+      eco: 8000000,
+      business: 9000000,
+    },
+    slot: {
+      eco: 100,
+      business: 100,
+    },
+    booked: {
+      eco: 35,
+      business: 46,
+    }
+
+  },        
   // Add more flights as needed
 ];
 
 
 
 const FlightSearchPage = () => {
-  const [selectedFlight, setSelectedFlight] = useState(null);
-
-  const handleSelect = (flightId, price) => {
-    setSelectedFlight({ flightId, price });
-  };
-
-  const TicketColumn = ({ label, price = 0, booked, total, color }) => {
-    const allBooked = booked >= total;
   
-    return (
-      <div className="flex-1 px-2 text-center">
-        {allBooked ? (
-          <div className="text-gray-400 italic">
-            <div className="flex justify-center mb-1">
-              <Circle className="w-5 h-5" />
-            </div>
-            <div>All Tickets Booked</div>
-          </div>
-        ) : (
-          <>
-            <div className={`text-xl font-semibold text-${color}-700`}>
-              {price.toLocaleString()}<span className="text-sm">.000</span>
-            </div>
-            <div className="text-xs text-green-600">{booked}/{total} Booked</div>
-          </>
-        )}
-      </div>
-    );
+  const [expandCard, setExpandedCard] = useState(false);
+  const [sortOption, setSortOption] = useState("Mac Dinh");
+
+  const handleExpandCard = (flightId) => {
+    setExpandedCard((prev) => (prev === flightId ? null : flightId));  
+  }
+
+  const handleSortChange = (option) => {
+
+    setSortOption(option);
   };
+
+  const sortedFlights = [...flights].sort((a, b) => {
+    if (sortOption === "Gia tot nhat") {
+      return a.price.eco - b.price.eco;
+    } else if (sortOption === "Khoi hanh som nhat") {
+      return new Date(`2025-05-03T${a.depatureTime}:00`) - new Date(`2025-05-03T${b.depatureTime}:00`); 
+    } else {
+      return 0; // Default sorting
+    }
+  });
 
   const testStart = new Date(2025, 3, 22);
   const testEnd = new Date(2025, 4, 7);
@@ -119,14 +150,15 @@ const FlightSearchPage = () => {
           />
         </div>
         {/* Main  */}
-        <div className="w-full h-screen flex justify-center bg-white">
+        <div className="w-full min-h-screen mb-20 flex justify-center bg-white">
             <div className="w-8/10 h-fit flex flex-col mt-4 gap-4">
-              <SortFlight />
-              {(flights.length > 0) ? (
-                flights.map((flight) => (
+              <SortFlight sortOption={sortOption} onSortChange={handleSortChange} />
+              {(sortedFlights.length > 0) ? (
+                sortedFlights.map((flight) => (
                   <FlightCard
                     key={flight.id}
-                    flight={flight} 
+                    flight={flight}
+                    OnToggle={() => handleExpandCard(flight.id)}
                   />
                 ))
               ) : (
@@ -138,8 +170,7 @@ const FlightSearchPage = () => {
         </div>
           
         {/* Footer */}
-           
-          <Footer />
+        <Footer />
         
       </div>
     </>

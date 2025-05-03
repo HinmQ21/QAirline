@@ -4,12 +4,14 @@ import { PriceCard } from './PriceCard'
 import { useState } from 'react'
 
 
-export const FlightCard = ({children, flight}) => {
-  const [priceService, setPriceService] = useState(false);
+export const FlightCard = ({children, flight, OnToggle}) => {
+  
   const [serviceType, setServiceType] = useState("eco");
+  const [priceService, setPriceService] = useState(false);
   const handlePriceClick = (type) => {
     setPriceService(!priceService);
     setServiceType(type);
+    OnToggle();
   }
   return (
     <>
@@ -84,41 +86,67 @@ export const FlightCard = ({children, flight}) => {
       {priceService && (
         <div className="ml-4 py-4 w-full h-fit h-max-100 bg-gray-100 rounded-lg shadow-xl 
                         flex items-center justify-center">
-          <div className="m-2 w-2/5 h-9/10  bg-white rounded-lg shadow-lg
+          <div className={`m-2 w-3/10 h-9/10  bg-white rounded-lg shadow-lg
                           flex flex-col justify-center items-start
-                          hover:border-red-700 hover:border-4
-                          
-                         "
-          >
+                          hover:border-4
+                          ${serviceType == "eco" ? "border-amber-950" : "border-red-700"}  
+                        `}> 
             {serviceType == "eco" && (
               <>
                 {/* Header */}
-                <div className="h-20 w-full
+                <div className="h-20 w-full mb-0.5
                                 rounded-t-lg rounded-b-full shadow-xl
-                                
+                                flex justify-center items-center
                                 "
                                 
                 >
-                  <p >{flight.price.eco}</p>         
+                  <p className='text-2xl font-bold text-amber-950 '>{`${new Intl.NumberFormat('vi-VN').format(flight.price.eco)} VND`}</p>         
                 </div>
                 {/* Details  */}
-                <p className="ml-4 my-2 px-2 py-2">Hành lý xách tay: 7kg</p>
-                <p className="ml-4 my-2 px-2 py-2">01 kiện hành lý ký gửi 20kg</p>
-                <p className="ml-4 my-2 px-2 py-2">Hoàn/huỷ trước giờ khởi hành: 450.000 VND</p>
-                <p className="ml-4 my-2 px-2 py-2">Chọn ghế ngồi mất phí</p>
+                <div className="h-60 w-full py-4
+                
+                                flex flex-col justify-evenly items-start gap-2
+                               ">
+                  <p className="ml-4 ">Hành lý xách tay: 7kg</p>
+                  <p className="ml-4 ">01 kiện hành lý ký gửi 20kg</p>
+                  <p className="ml-4 ">Hoàn/huỷ trước giờ khởi hành: 450.000 VND</p>
+                  <p className="ml-4 ">Chọn ghế ngồi mất phí</p>
+
+                </div>
+
+                {/* ViewMore  */}
+                <div className="h-20 w-full py-4 px-4">
+                  <p className="underline text-amber-950" onClick={() => {}}>(*) Xem chi tiet</p>
+                </div>
               </>
             )}
             {serviceType == "business" && (
               <>
                 {/* Header */}
+                <div className="h-20 w-full
+                                rounded-t-lg rounded-b-full shadow-xl
+                                flex justify-center items-center
+                                "
+                                
+                >
+                  <p className='text-2xl font-bold text-red-700 '>{`${new Intl.NumberFormat('vi-VN').format(flight.price.business)} VND`}</p>         
+                </div>
                 {/* Details  */}
-                <p className="ml-4 my-2 px-2 py-2">Hành lý xách tay: 7kg</p>
-                <p className="ml-4 my-2 px-2 py-2">01 kiện hành lý ký gửi 20kg</p>
-                <p className="ml-4 my-2 px-2 py-2">Hoàn/huỷ trước giờ khởi hành: 300.000 VND</p>
-                <p className="ml-4 my-2 px-2 py-2">Thay đổi miễn phí</p>
-                <p className="ml-4 my-2 px-2 py-2">Chọn ghế ngồi miễn phí</p>
-            
+                <div className="h-60 w-full py-4
                 
+                                flex flex-col justify-evenly items-start gap-2
+                               ">
+                  <p className="ml-4 ">Hành lý xách tay: 10kg</p>
+                  <p className="ml-4 ">01 kiện hành lý ký gửi 30kg</p>
+                  <p className="ml-4 ">Hoàn/huỷ trước giờ khởi hành: 350.000 VND</p>
+                  <p className="ml-4 ">Chọn ghế ngồi KHONG mất phí</p>
+
+                </div>
+                
+                {/* ViewMore  */}
+                <div className="h-20 w-full py-4 px-4">
+                  <p className="underline text-red-600" onClick={() => {}}>(*) Xem chi tiet</p>
+                </div>
               </>
             )}
           </div>
