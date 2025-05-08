@@ -7,6 +7,7 @@ import {HomePage} from "../pages/HomePage";
 import { SideBar } from "../components/SideBar";
 import { Search } from "lucide-react";
 import { WeatherDisplay } from "../components/Weather";
+import ShadcnCommonComponents from "../components/ShadcnCommonComponents";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         { path: "", element: <SearchFlights /> },
       ],
   },
+  {
+    path: '/shadcn-test',
+    element: <ShadcnCommonComponents />
+  }
   // {
   //   path: "/",
   //   element: <MainLayout />,

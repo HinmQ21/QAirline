@@ -9,13 +9,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "../../ui/dropdown-menu"
 
 
 export const SortFlight = ({sortOption, onSortChange}) => {
-    
-
-    
     return (
         <>
             <div className="flex justify-between">
