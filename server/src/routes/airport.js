@@ -14,23 +14,23 @@ const { authenticateAdmin } = require('../middleware/auth');
  *         name: name
  *         schema:
  *           type: string
- *         description: Lọc theo tên sân bay (không phân biệt chữ hoa/thường)
+ *         description: "Lọc theo tên sân bay (không phân biệt chữ hoa/thường)"
  *         example: Tan Son Nhat
  *       - in: query
  *         name: city
  *         schema:
  *           type: string
- *         description: Lọc theo thành phố (không phân biệt chữ hoa/thường)
+ *         description: "Lọc theo thành phố (không phân biệt chữ hoa/thường)"
  *         example: Ho Chi Minh City
  *       - in: query
  *         name: country
  *         schema:
  *           type: string
- *         description: Lọc theo quốc gia (không phân biệt chữ hoa/thường)
+ *         description: "Lọc theo quốc gia (không phân biệt chữ hoa/thường)"
  *         example: Vietnam
  *     responses:
  *       200:
- *         description: Danh sách sân bay.
+ *         description: "Danh sách sân bay."
  *         content:
  *           application/json:
  *             schema:
@@ -38,7 +38,7 @@ const { authenticateAdmin } = require('../middleware/auth');
  *               items:
  *                 $ref: '#/components/schemas/Airport'
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.get('/', airportController.getAirports);
 
@@ -54,19 +54,19 @@ router.get('/', airportController.getAirports);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của sân bay.
+ *         description: "ID của sân bay."
  *         example: 1
  *     responses:
  *       200:
- *         description: Thông tin chi tiết sân bay.
+ *         description: "Thông tin chi tiết sân bay."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Airport'
  *       404:
- *         description: Không tìm thấy sân bay.
+ *         description: "Không tìm thấy sân bay."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.get('/:id', airportController.getAirportById);
 
@@ -91,19 +91,19 @@ router.get('/:id', airportController.getAirportById);
  *              country: Vietnam
  *     responses:
  *       201:
- *         description: Tạo sân bay thành công.
+ *         description: "Tạo sân bay thành công."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Airport'
  *       400:
- *         description: Dữ liệu đầu vào không hợp lệ (vd: thiếu trường, IATA code đã tồn tại).
+ *         description: "Dữ liệu đầu vào không hợp lệ (vd: thiếu trường, IATA code đã tồn tại)."
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền Admin.
+ *         description: "Không có quyền Admin."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.post('/', authenticateAdmin, airportController.createAirport);
 
@@ -121,7 +121,7 @@ router.post('/', authenticateAdmin, airportController.createAirport);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của sân bay cần cập nhật.
+ *         description: "ID của sân bay cần cập nhật."
  *         example: 2
  *     requestBody:
  *       required: true
@@ -134,21 +134,21 @@ router.post('/', authenticateAdmin, airportController.createAirport);
  *              city: Da Nang
  *     responses:
  *       200:
- *         description: Cập nhật sân bay thành công.
+ *         description: "Cập nhật sân bay thành công."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Airport'
  *       400:
- *         description: Dữ liệu đầu vào không hợp lệ.
+ *         description: "Dữ liệu đầu vào không hợp lệ."
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền Admin.
+ *         description: "Không có quyền Admin."
  *       404:
- *         description: Không tìm thấy sân bay.
+ *         description: "Không tìm thấy sân bay."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.put('/:id', authenticateAdmin, airportController.updateAirport);
 
@@ -166,11 +166,11 @@ router.put('/:id', authenticateAdmin, airportController.updateAirport);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của sân bay cần xóa.
+ *         description: "ID của sân bay cần xóa."
  *         example: 3
  *     responses:
  *       200:
- *         description: Xóa sân bay thành công.
+ *         description: "Xóa sân bay thành công."
  *         content:
  *           application/json:
  *             schema:
@@ -180,13 +180,13 @@ router.put('/:id', authenticateAdmin, airportController.updateAirport);
  *                   type: string
  *                   example: Sân bay đã được xóa thành công.
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền Admin.
+ *         description: "Không có quyền Admin."
  *       404:
- *         description: Không tìm thấy sân bay.
+ *         description: "Không tìm thấy sân bay."
  *       500:
- *         description: Lỗi máy chủ (vd: không thể xóa do có chuyến bay liên quan).
+ *         description: "Lỗi máy chủ (vd: không thể xóa do có chuyến bay liên quan)."
  */
 router.delete('/:id', authenticateAdmin, airportController.deleteAirport);
 
@@ -194,7 +194,7 @@ router.delete('/:id', authenticateAdmin, airportController.deleteAirport);
  * @swagger
  * tags:
  *   name: Airports
- *   description: Quản lý sân bay
+ *   description: "Quản lý sân bay"
  * components:
  *   schemas:
  *     Airport:

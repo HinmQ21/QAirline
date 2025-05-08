@@ -17,7 +17,7 @@ const { authenticateAdmin, authenticateUser } = require('../middleware/auth');
  *             $ref: '#/components/schemas/LoginInput'
  *     responses:
  *       200:
- *         description: Đăng nhập admin thành công
+ *         description: "Đăng nhập admin thành công"
  *         content:
  *           application/json:
  *             schema:
@@ -28,11 +28,11 @@ const { authenticateAdmin, authenticateUser } = require('../middleware/auth');
  *                 admin:
  *                   $ref: '#/components/schemas/Admin' # Assume Admin schema is defined
  *       400:
- *         description: Thiếu username hoặc password
+ *         description: "Thiếu username hoặc password"
  *       401:
- *         description: Sai username hoặc password
+ *         description: "Sai username hoặc password"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.post('/admin/login', authController.adminLogin);
 
@@ -46,17 +46,17 @@ router.post('/admin/login', authController.adminLogin);
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Thông tin admin hiện tại
+ *         description: "Thông tin admin hiện tại"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Admin'
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       403:
- *         description: Token không phải của admin
+ *         description: "Token không phải của admin"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.get('/admin/me', authenticateAdmin, authController.getCurrentAdmin);
 
@@ -74,7 +74,7 @@ router.get('/admin/me', authenticateAdmin, authController.getCurrentAdmin);
  *             $ref: '#/components/schemas/RegisterInput'
  *     responses:
  *       201:
- *         description: Đăng ký thành công
+ *         description: "Đăng ký thành công"
  *         content:
  *           application/json:
  *             schema:
@@ -84,9 +84,9 @@ router.get('/admin/me', authenticateAdmin, authController.getCurrentAdmin);
  *                      type: string
  *                      example: Đăng ký thành công. Vui lòng kiểm tra email để xác thực.
  *       400:
- *         description: Dữ liệu không hợp lệ (vd: thiếu field, email đã tồn tại)
+ *         description: "Dữ liệu không hợp lệ (vd: thiếu field, email đã tồn tại)"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.post('/register', authController.register);
 
@@ -104,7 +104,7 @@ router.post('/register', authController.register);
  *             $ref: '#/components/schemas/LoginInput'
  *     responses:
  *       200:
- *         description: Đăng nhập thành công
+ *         description: "Đăng nhập thành công"
  *         content:
  *           application/json:
  *             schema:
@@ -117,11 +117,11 @@ router.post('/register', authController.register);
  *                 user:
  *                   $ref: '#/components/schemas/User' # Assume User schema is defined
  *       400:
- *         description: Thiếu username hoặc password
+ *         description: "Thiếu username hoặc password"
  *       401:
- *         description: Sai username hoặc password / Tài khoản chưa kích hoạt
+ *         description: "Sai username hoặc password / Tài khoản chưa kích hoạt"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.post('/login', authController.login);
 
@@ -142,10 +142,10 @@ router.post('/login', authController.login);
  *             properties:
  *               refreshToken:
  *                 type: string
- *                 description: Refresh token nhận được khi đăng nhập.
+ *                 description: "Refresh token nhận được khi đăng nhập."
  *     responses:
  *       200:
- *         description: Cấp access token mới thành công
+ *         description: "Cấp access token mới thành công"
  *         content:
  *           application/json:
  *             schema:
@@ -154,11 +154,11 @@ router.post('/login', authController.login);
  *                 accessToken:
  *                   type: string
  *       400:
- *         description: Thiếu refresh token
+ *         description: "Thiếu refresh token"
  *       401:
- *         description: Refresh token không hợp lệ hoặc đã hết hạn
+ *         description: "Refresh token không hợp lệ hoặc đã hết hạn"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.post('/refresh-token', authController.refreshAccessToken);
 
@@ -179,10 +179,10 @@ router.post('/refresh-token', authController.refreshAccessToken);
  *             properties:
  *               refreshToken:
  *                 type: string
- *                 description: Refresh token cần vô hiệu hóa.
+ *                 description: "Refresh token cần vô hiệu hóa."
  *     responses:
  *       200:
- *         description: Đăng xuất thành công
+ *         description: "Đăng xuất thành công"
  *         content:
  *              application/json:
  *                  schema:
@@ -192,9 +192,9 @@ router.post('/refresh-token', authController.refreshAccessToken);
  *                              type: string
  *                              example: Đăng xuất thành công.
  *       400:
- *         description: Thiếu refresh token
+ *         description: "Thiếu refresh token"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.post('/logout', authController.logout);
 
@@ -208,7 +208,7 @@ router.post('/logout', authController.logout);
  *       - bearerAuth: [] # Requires user or admin token
  *     responses:
  *       200:
- *         description: Vô hiệu hóa tất cả token thành công
+ *         description: "Vô hiệu hóa tất cả token thành công"
  *         content:
  *              application/json:
  *                  schema:
@@ -218,11 +218,11 @@ router.post('/logout', authController.logout);
  *                              type: string
  *                              example: Đã đăng xuất khỏi tất cả thiết bị.
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
-router.post('/revoke-all-tokens',
+router.post('/revoke-all-tokens', 
   (req, res, next) => {
     // Try both authentication middlewares
     authenticateUser(req, res, (err) => {
@@ -234,7 +234,7 @@ router.post('/revoke-all-tokens',
         next();
       }
     });
-  },
+  }, 
   authController.revokeAllTokens
 );
 
@@ -248,17 +248,17 @@ router.post('/revoke-all-tokens',
  *       - bearerAuth: [] # Requires user token
  *     responses:
  *       200:
- *         description: Thông tin người dùng hiện tại
+ *         description: "Thông tin người dùng hiện tại"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       403:
- *         description: Token không phải của người dùng
+ *         description: "Token không phải của người dùng"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.get('/me', authenticateUser, authController.getCurrentUser);
 
@@ -278,17 +278,17 @@ router.get('/me', authenticateUser, authController.getCurrentUser);
  *             $ref: '#/components/schemas/UpdateProfileInput'
  *     responses:
  *       200:
- *         description: Cập nhật thông tin thành công
+ *         description: "Cập nhật thông tin thành công"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Dữ liệu không hợp lệ
+ *         description: "Dữ liệu không hợp lệ"
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.put('/profile', authenticateUser, authController.updateCustomerProfile);
 
@@ -302,7 +302,7 @@ router.put('/profile', authenticateUser, authController.updateCustomerProfile);
  *       - bearerAuth: [] # Requires user token
  *     responses:
  *       200:
- *         description: Xóa tài khoản thành công
+ *         description: "Xóa tài khoản thành công"
  *         content:
  *              application/json:
  *                  schema:
@@ -312,9 +312,9 @@ router.put('/profile', authenticateUser, authController.updateCustomerProfile);
  *                              type: string
  *                              example: Tài khoản đã được xóa thành công.
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       500:
- *         description: Lỗi máy chủ
+ *         description: "Lỗi máy chủ"
  */
 router.delete('/account', authenticateUser, authController.deleteCustomerAccount);
 
@@ -322,7 +322,7 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  * @swagger
  * tags:
  *   name: Auth
- *   description: Xác thực và quản lý tài khoản người dùng/admin
+ *   description: "Xác thực và quản lý tài khoản người dùng/admin"
  * components:
  *   schemas:
  *     LoginInput:
@@ -350,17 +350,17 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *       properties:
  *         username:
  *           type: string
- *           description: Tên đăng nhập duy nhất
+ *           description: "Tên đăng nhập duy nhất"
  *           example: newuser
  *         email:
  *           type: string
  *           format: email
- *           description: Email duy nhất
+ *           description: "Email duy nhất"
  *           example: newuser@example.com
  *         password:
  *           type: string
  *           format: password
- *           description: Mật khẩu (sẽ được hash)
+ *           description: "Mật khẩu (sẽ được hash)"
  *           example: securePassword456
  *         fullName:
  *           type: string
@@ -439,10 +439,10 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *       properties:
  *         message:
  *           type: string
- *           description: Thông báo lỗi
+ *           description: "Thông báo lỗi"
  *         error:
  *           type: object
- *           description: Chi tiết lỗi (tùy chọn)
+ *           description: "Chi tiết lỗi (tùy chọn)"
  *       required:
  *         - message
  *
