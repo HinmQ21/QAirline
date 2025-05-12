@@ -6,6 +6,7 @@ import destinationsMock from "../../data/top_destinations.json";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
+import { MiniPageH2, MiniPageP } from "../MiniPage";
 
 
 const DestinationCard = ({ dest }) => (
@@ -91,10 +92,10 @@ export const TopDestinations = () => {
     <div className='flex flex-col'>
       <div className='flex mb-10 justify-between items-end'>
         <div>
-          <h2 className='inter-semibold'>Popular Destination</h2>
-          <p className='w-lg'>
+          <MiniPageH2>Popular Destination</MiniPageH2>
+          <MiniPageP className="w-lg">
             Explore the world's most popular spots, find your dream getaway and book your next adventure with ease!
-          </p>
+          </MiniPageP>
         </div>
         <Link to='/destinations' className="h-fit flex items-center text-red-600 hover:text-red-400">
           <p className="montserrat-semibold">See All Destinations</p>

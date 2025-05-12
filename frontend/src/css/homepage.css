@@ -18,20 +18,4 @@
   .homepage-bg-solid {
     @apply bg-gray-100;
   }
-
-  .mini-page h4.poppins-semibold {
-    @apply text-gray-800 text-xl;
-  }
-
-  .mini-page h2.inter-semibold {
-    @apply text-gray-800 text-4xl;
-  }
-
-  .mini-page h2.inter-semibold + p {
-    @apply text-gray-500 mt-2;
-  }
-
-  .mini-page {
-    @apply bg-gray-100 mx-30 shadow-2xl rounded-4xl;
-  }
 }

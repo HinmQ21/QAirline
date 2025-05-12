@@ -2,6 +2,7 @@ import { FiGlobe } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa";
 import { PiSeatBold } from "react-icons/pi";
 import { LuPlane } from "react-icons/lu";
+import { MiniPageH2 } from "../MiniPage";
 
 
 const ICON_SIZE = "45";
@@ -29,29 +30,27 @@ const reasons = [
   }
 ];
 
-export const WhyChooseUs = () => {
-  return (
-    <div className="flex flex-col">
-      <div className="flex flex-col items-center">
-      <h2 className="inter-semibold mb-7">Why choose QAirline?</h2>
-        <div className="flex flex-wrap gap-5 max-w-[90%] justify-center">
-          {reasons.map((reason) => (
-            <div className="flex-1 rounded-xl min-w-50 cursor-pointer
+export const WhyChooseUs = () => (
+  <div className="flex flex-col">
+    <div className="flex flex-col items-center">
+      <MiniPageH2 className="mb-7">Why choose us?</MiniPageH2>
+      <div className="flex flex-wrap gap-5 max-w-[90%] justify-center">
+        {reasons.map((reason) => (
+          <div className="flex-1 rounded-xl min-w-50 cursor-pointer
                             bg-gradient-to-tr from-purple-950 to-pink-900 w-full">
-              <div className="flex flex-col items-center h-full text-center
+            <div className="flex flex-col items-center h-full text-center
                               py-5 gap-4 justify-evenly px-4 text-white">
-                <div className="flex flex-col items-center gap-3">
-                  {reason.icon}
-                  <h3 className="poppins-semibold text-2xl leading-[28px]">
-                    {reason.title}
-                  </h3>
-                </div>
-                <p>{reason.description}</p>
+              <div className="flex flex-col items-center gap-3">
+                {reason.icon}
+                <h3 className="poppins-semibold text-2xl leading-[28px]">
+                  {reason.title}
+                </h3>
               </div>
+              <p>{reason.description}</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
-  )
-}
+  </div>
+);

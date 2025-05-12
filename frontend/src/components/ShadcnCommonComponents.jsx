@@ -16,6 +16,13 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Calendar } from "@/components/ui/calendar";
+import { ToastProvider, Toast, ToastTitle, ToastDescription } from "@/components/ui/toast";
+import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui/command";
+import { Skeleton } from "@/components/ui/skeleton";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const ShadcnCommonComponents = () => {
   return (
@@ -126,6 +133,64 @@ const ShadcnCommonComponents = () => {
       </div>
 
       <Separator className="my-6" />
+
+      <div className="flex items-center space-x-4">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>SC</AvatarFallback>
+        </Avatar>
+        <span>Avatar Component</span>
+      </div>
+
+      <div>
+        <Label className="block mb-2">Skeleton</Label>
+        <Skeleton className="h-6 w-1/2 rounded" />
+      </div>
+
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <Button variant="link">Hover card</Button>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-64">
+          Info shown on hover
+        </HoverCardContent>
+      </HoverCard>
+
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Open Sheet</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Sheet Title</SheetTitle>
+          </SheetHeader>
+          <p>This is the sheet content</p>
+        </SheetContent>
+      </Sheet>
+
+      <div>
+        <Label className="block mb-2">Calendar</Label>
+        <p>See more <a href="https://date-picker.luca-felix.com/" className=" hover:text-red-600">this link</a>.</p>
+      </div>
+
+      <div>
+        <Label className="block mb-2">Command Palette</Label>
+        <Command className="border rounded-md">
+          <CommandInput placeholder="Search..." />
+          <CommandList>
+            <CommandItem>Option A</CommandItem>
+            <CommandItem>Option B</CommandItem>
+            <CommandItem>Option C</CommandItem>
+          </CommandList>
+        </Command>
+      </div>
+
+      <ToastProvider>
+        <Toast>
+          <ToastTitle>Notification</ToastTitle>
+          <ToastDescription>This is a toast notification.</ToastDescription>
+        </Toast>
+      </ToastProvider>
     </div>
   );
 };
