@@ -8,6 +8,7 @@ import { FlightBooking } from "../components/home/FlightBooking";
 import { TopDestinations } from "../components/home/TopDestinations";
 import { WhyChooseUs } from "../components/home/WhyChooseUs";
 import { Sponsors } from "../components/home/Sponsors";
+import { MiniPage, MiniPageH4, MiniPageH2 } from "../components/MiniPage";
 
 
 
@@ -56,38 +57,38 @@ export const HomePage = () => {
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
 
-            <div className="mini-page mt-25">
+            <MiniPage className="mt-25">
               <div className="flex items-center">
-                <h4 className="poppins-semibold">
+                <MiniPageH4>
                   Recent News
-
-                </h4>
+                </MiniPageH4>
               </div>
-            </div>
-            <div className="mini-page mb-10 ">
+            </MiniPage>
+
+            <MiniPage className="mb-10">
               <div className="m-15">
                 <TopDestinations />
               </div>
               <div className="m-15 mt-22">
                 <WhyChooseUs />
               </div>
-            </div>
+            </MiniPage>
           </div>
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-between">
-            <div className="mini-page mt-25 mb-10">
+            <MiniPage className="mt-25 mb-10">
               <div className="flex flex-col items-center my-10 gap-3">
-                <h2 className="inter-semibold">More content</h2>
+                <MiniPageH2>More content</MiniPageH2>
                 <img src="/miscs/coming-soon.gif" loading="lazy" />
               </div>
-            </div>
+            </MiniPage>
             <div className="flex flex-col">
-              <div className="mini-page mb-10">
+              <MiniPage className="mb-10">
                 <div className="m-10">
                   <Sponsors />
                 </div>
-              </div>
+              </MiniPage>
               <Footer />
             </div>
           </div>

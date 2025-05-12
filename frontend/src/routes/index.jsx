@@ -8,6 +8,7 @@ import { SideBar } from "../components/SideBar";
 import { Search } from "lucide-react";
 import { WeatherDisplay } from "../components/Weather";
 import ShadcnCommonComponents from "../components/ShadcnCommonComponents";
+import { AdminLoginPage } from "../pages/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/shadcn-test',
     element: <ShadcnCommonComponents />
+  },
+  {
+    path: '/admin',
+    element: <AdminLoginPage />
   }
   // {
   //   path: "/",
