@@ -8,7 +8,7 @@ import { FlightBooking } from "../components/home/FlightBooking";
 import { TopDestinations } from "../components/home/TopDestinations";
 import { WhyChooseUs } from "../components/home/WhyChooseUs";
 import { Sponsors } from "../components/home/Sponsors";
-import { MiniPage, MiniPageH4, MiniPageH2 } from "../components/MiniPage";
+import { MiniPage, MiniPageH } from "../components/MiniPage";
 
 
 
@@ -56,20 +56,9 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
-
-            <MiniPage className="mt-25">
-              <div className="flex items-center">
-                <MiniPageH4>
-                  Recent News
-                </MiniPageH4>
-              </div>
-            </MiniPage>
-
-            <MiniPage className="mb-10">
-              <div className="m-15">
+            <MiniPage className="mt-25 mb-10">
+              <div className="flex flex-col m-15 gap-y-22">
                 <TopDestinations />
-              </div>
-              <div className="m-15 mt-22">
                 <WhyChooseUs />
               </div>
             </MiniPage>
@@ -79,7 +68,7 @@ export const HomePage = () => {
           <div className="min-h-screen flex flex-col justify-between">
             <MiniPage className="mt-25 mb-10">
               <div className="flex flex-col items-center my-10 gap-3">
-                <MiniPageH2>More content</MiniPageH2>
+                <MiniPageH>More content</MiniPageH>
                 <img src="/miscs/coming-soon.gif" loading="lazy" />
               </div>
             </MiniPage>

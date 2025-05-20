@@ -52,7 +52,7 @@ export const Sponsors = () => {
               {
                 triple.map((sponsor, idx) => (
                   <img src={`/sponsors/${sponsor.src}`} alt={sponsor.alt}
-                    className={`w-36 h-10 absolute brightness-0
+                    className={`w-36 h-10 absolute
                       transition-all duration-500
                       ${indexToShow === idx
                         ? 'opacity-100 blur-[0px] scale-100'
