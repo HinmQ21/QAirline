@@ -76,6 +76,59 @@ exports.getAllFlights = async (req, res) => {
   }
 };
 
+exports.getFlightPaged = async (req, res) => {
+  const { pageSize = 10, pageNumber = 1 } = req.body;
+
+  try {
+    // Get total count for pagination
+    const totalCount = await Flight.count();
+    
+    // Calculate total pages
+    const totalPages = Math.ceil(totalCount / pageSize);
+    
+    // Get flights with pagination
+    const flights = await Flight.findAll({
+      offset: (pageNumber - 1) * pageSize,
+      limit: pageSize,
+      include: [
+        {
+          model: Airport,
+          as: 'departureAirport',
+          attributes: ['airport_id', 'code', 'name', 'city', 'country']
+        },
+        {
+          model: Airport,
+          as: 'arrivalAirport',
+          attributes: ['airport_id', 'code', 'name', 'city', 'country']
+        },
+        {
+          model: Airplane,
+          attributes: ['airplane_id', 'code', 'manufacturer', 'model', 'total_seats']
+        }
+      ],
+      order: [['departure_time', 'ASC']]
+    });
+    
+    res.status(200).json({
+      success: true,
+      pagination: {
+        totalItems: totalCount,
+        totalPages: totalPages,
+        currentPage: pageNumber,
+        pageSize: pageSize
+      },
+      data: flights
+    });
+  } catch (error) {
+    console.error('Error getting flights:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Đã xảy ra lỗi khi lấy danh sách chuyến bay',
+      error: error.message
+    });
+  }
+}
+
 // Lấy thông tin chi tiết của một chuyến bay
 exports.getFlightById = async (req, res) => {
   try {

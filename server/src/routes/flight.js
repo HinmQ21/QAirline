@@ -306,6 +306,64 @@ router.delete('/:id',
 
 /**
  * @swagger
+ * /api/flights/paged:
+ *   post:
+ *     summary: Lấy danh sách chuyến bay theo phân trang
+ *     tags: [Flights]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pageSize:
+ *                 type: integer
+ *                 description: Số lượng bản ghi mỗi trang
+ *                 default: 10
+ *                 example: 10
+ *               pageNumber:
+ *                 type: integer
+ *                 description: Số trang hiện tại
+ *                 default: 1
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Danh sách chuyến bay phân trang.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     totalItems:
+ *                       type: integer
+ *                       example: 100
+ *                     totalPages:
+ *                       type: integer
+ *                       example: 10
+ *                     currentPage:
+ *                       type: integer
+ *                       example: 1
+ *                     pageSize:
+ *                       type: integer
+ *                       example: 10
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Flight'
+ *       500:
+ *         description: Lỗi máy chủ.
+ */
+router.post('/paged', flightController.getFlightPaged);
+
+/**
+ * @swagger
  * tags:
  *   name: Flights
  *   description: Quản lý các chuyến bay
