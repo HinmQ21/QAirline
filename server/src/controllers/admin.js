@@ -8,26 +8,16 @@ exports.getDashboardStats = async (req, res) => {
     // Get current date and first day of month
     const now = new Date();
     const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    
-    // Count total customers
-    const totalCustomers = await Customer.count();
-    
-    // Count new customers this month
-    const newCustomersThisMonth = await Customer.count({
-      where: {
-        created_at: {
-          [Op.gte]: firstDayOfMonth
-        }
-      }
-    });
-    
-    // Count total flights
-    const totalFlights = await Flight.count();
-    
-    // Count active flights (departing today or in the future)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
+    // Count total customers
+    const totalCustomers = await Customer.count();
+
+    // Count total flights
+    const totalFlights = await Flight.count();
+
+    // Count active flights (departing today or in the future)
     const activeFlights = await Flight.count({
       where: {
         departure_time: {
@@ -35,76 +25,62 @@ exports.getDashboardStats = async (req, res) => {
         }
       }
     });
-    
+
     // Count total bookings
     const totalBookings = await Booking.count();
-    
+
     // Count bookings this month
     const bookingsThisMonth = await Booking.count({
       where: {
-        created_at: {
+        booking_date: {
           [Op.gte]: firstDayOfMonth
         }
       }
     });
-    
+
     // Calculate total revenue
     const allBookings = await Booking.findAll({
       where: {
-        status: 'confirmed'
+        status: 'booked'
       },
       attributes: ['total_price']
     });
-    
+
     const totalRevenue = allBookings.reduce((sum, booking) => sum + parseFloat(booking.total_price), 0);
-    
+
     // Calculate revenue this month
     const monthBookings = await Booking.findAll({
       where: {
-        status: 'confirmed',
-        created_at: {
+        status: 'booked',
+        booking_date: {
           [Op.gte]: firstDayOfMonth
         }
       },
       attributes: ['total_price']
     });
-    
+
     const revenueThisMonth = monthBookings.reduce((sum, booking) => sum + parseFloat(booking.total_price), 0);
     
-    // Get top 5 most popular routes
-    const popularRoutes = await Flight.findAll({
-      attributes: [
-        'origin_airport_id',
-        'destination_airport_id',
-        [Flight.sequelize.fn('count', Flight.sequelize.col('flight_id')), 'flight_count']
-      ],
-      include: [
-        {
-          model: Airport,
-          as: 'originAirport',
-          attributes: ['name', 'city', 'country']
-        },
-        {
-          model: Airport,
-          as: 'destinationAirport',
-          attributes: ['name', 'city', 'country']
-        },
-        {
-          model: Booking,
-          attributes: []
-        }
-      ],
-      group: ['origin_airport_id', 'destination_airport_id', 'originAirport.airport_id', 'destinationAirport.airport_id'],
-      order: [[Flight.sequelize.fn('count', Flight.sequelize.col('Bookings.booking_id')), 'DESC']],
-      limit: 5
-    });
+    // Total tickets count
+    const totalTickets = await Ticket.count();
     
+    // Tickets sold today
+    const ticketsToday = await Ticket.count({
+      include: [{
+        model: Booking,
+        where: {
+          booking_date: {
+            [Op.gte]: today
+          }
+        }
+      }]
+    });
+
     res.status(200).json({
       success: true,
       data: {
         customers: {
-          total: totalCustomers,
-          newThisMonth: newCustomersThisMonth
+          total: totalCustomers
         },
         flights: {
           total: totalFlights,
@@ -114,11 +90,14 @@ exports.getDashboardStats = async (req, res) => {
           total: totalBookings,
           thisMonth: bookingsThisMonth
         },
+        tickets: {
+          total: totalTickets,
+          today: ticketsToday
+        },
         revenue: {
           total: totalRevenue,
           thisMonth: revenueThisMonth
         },
-        popularRoutes
       }
     });
   } catch (error) {
@@ -141,12 +120,12 @@ exports.getAllAdmins = async (req, res) => {
         message: 'Bạn không có quyền xem danh sách quản trị viên'
       });
     }
-    
+
     const admins = await Admin.findAll({
       attributes: ['admin_id', 'username', 'email', 'full_name', 'role'],
       order: [['admin_id', 'ASC']]
     });
-    
+
     res.status(200).json({
       success: true,
       data: admins
@@ -171,9 +150,9 @@ exports.createAdmin = async (req, res) => {
         message: 'Bạn không có quyền tạo quản trị viên mới'
       });
     }
-    
+
     const { username, password, email, full_name, role } = req.body;
-    
+
     // Validate input
     if (!username || !password || !email || !role) {
       return res.status(400).json({
@@ -181,7 +160,7 @@ exports.createAdmin = async (req, res) => {
         message: 'Vui lòng cung cấp đầy đủ thông tin'
       });
     }
-    
+
     // Check if role is valid
     const validRoles = ['flight_manager', 'news_manager', 'super_admin'];
     if (!validRoles.includes(role)) {
@@ -190,7 +169,7 @@ exports.createAdmin = async (req, res) => {
         message: 'Loại tài khoản không hợp lệ'
       });
     }
-    
+
     // Check if username already exists
     const existingUsername = await Admin.findOne({ where: { username } });
     if (existingUsername) {
@@ -199,7 +178,7 @@ exports.createAdmin = async (req, res) => {
         message: 'Tên đăng nhập đã tồn tại'
       });
     }
-    
+
     // Check if email already exists
     const existingEmail = await Admin.findOne({ where: { email } });
     if (existingEmail) {
@@ -208,11 +187,11 @@ exports.createAdmin = async (req, res) => {
         message: 'Email đã được sử dụng'
       });
     }
-    
+
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    
+
     // Create new admin
     const newAdmin = await Admin.create({
       username,
@@ -221,7 +200,7 @@ exports.createAdmin = async (req, res) => {
       full_name: full_name || '',
       role
     });
-    
+
     res.status(201).json({
       success: true,
       message: 'Tạo quản trị viên mới thành công',
@@ -253,20 +232,20 @@ exports.updateAdmin = async (req, res) => {
         message: 'Bạn không có quyền cập nhật thông tin quản trị viên'
       });
     }
-    
+
     const { admin_id } = req.params;
     const { email, full_name, role } = req.body;
-    
+
     // Find admin
     const admin = await Admin.findByPk(admin_id);
-    
+
     if (!admin) {
       return res.status(404).json({
         success: false,
         message: 'Không tìm thấy quản trị viên'
       });
     }
-    
+
     // Prevent updating the super admin that is currently logged in
     if (admin.admin_id === req.admin.admin_id && admin.role === 'super_admin' && role && role !== 'super_admin') {
       return res.status(400).json({
@@ -274,7 +253,7 @@ exports.updateAdmin = async (req, res) => {
         message: 'Không thể thay đổi quyền của tài khoản super admin hiện tại'
       });
     }
-    
+
     // Check if role is valid
     if (role) {
       const validRoles = ['flight_manager', 'news_manager', 'super_admin'];
@@ -285,7 +264,7 @@ exports.updateAdmin = async (req, res) => {
         });
       }
     }
-    
+
     // Check if email is already taken (if changing email)
     if (email && email !== admin.email) {
       const existingEmail = await Admin.findOne({ where: { email } });
@@ -296,14 +275,14 @@ exports.updateAdmin = async (req, res) => {
         });
       }
     }
-    
+
     // Update admin
     await admin.update({
       email: email || admin.email,
       full_name: full_name || admin.full_name,
       role: role || admin.role
     });
-    
+
     res.status(200).json({
       success: true,
       message: 'Cập nhật thông tin quản trị viên thành công',
@@ -335,19 +314,19 @@ exports.deleteAdmin = async (req, res) => {
         message: 'Bạn không có quyền xóa quản trị viên'
       });
     }
-    
+
     const { admin_id } = req.params;
-    
+
     // Find admin
     const admin = await Admin.findByPk(admin_id);
-    
+
     if (!admin) {
       return res.status(404).json({
         success: false,
         message: 'Không tìm thấy quản trị viên'
       });
     }
-    
+
     // Prevent deleting themselves
     if (admin.admin_id === req.admin.admin_id) {
       return res.status(400).json({
@@ -355,10 +334,10 @@ exports.deleteAdmin = async (req, res) => {
         message: 'Không thể xóa tài khoản quản trị viên đang đăng nhập'
       });
     }
-    
+
     // Delete admin
     await admin.destroy();
-    
+
     res.status(200).json({
       success: true,
       message: 'Xóa quản trị viên thành công'
@@ -371,4 +350,4 @@ exports.deleteAdmin = async (req, res) => {
       error: error.message
     });
   }
-}; 
+};

@@ -333,11 +333,11 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *       properties:
  *         username:
  *           type: string
- *           example: johndoe
+ *           example: admin
  *         password:
  *           type: string
  *           format: password
- *           example: password123
+ *           example: Admin123!
  *     RegisterInput:
  *       type: object
  *       required:
@@ -361,7 +361,7 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *           type: string
  *           format: password
  *           description: "Mật khẩu (sẽ được hash)"
- *           example: securePassword456
+ *           example: Password123
  *         fullName:
  *           type: string
  *           example: John Doe
