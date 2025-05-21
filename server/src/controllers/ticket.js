@@ -149,3 +149,43 @@ exports.generateETicket = async (req, res) => {
     });
   }
 };
+
+exports.getAllTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.findAll({
+      include: [
+        { model: Seat },
+        { 
+          model: Booking,
+          include: [{ 
+            model: Flight,
+            attributes: ["flight_id", "departure_time"],
+            include: [
+              { model: Airport, 
+                as: 'departureAirport', 
+                attributes: ["city"]},
+              { model: Airport, 
+                as: 'arrivalAirport', 
+                attributes: ["city"]},
+              { model: Airplane, 
+                attributes: ["code"]
+               }
+            ]
+          }]
+        }
+      ]
+    });
+    res.status(200).json({
+      success: true,
+      count: tickets.length,
+      data: tickets
+    });
+  } catch (error) {
+    console.error('Error fetching all tickets:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi lấy danh sách vé',
+      error: process.env.NODE_ENV === 'production' ? {} : error
+    });
+  }
+}
