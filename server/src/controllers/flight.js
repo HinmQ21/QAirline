@@ -1,4 +1,4 @@
-const { Flight, Airport, Airplane, Admin, Seat } = require('../models');
+const { Flight, Airport, Airplane, Admin, Seat, Notification, Booking, Customer } = require('../models');
 const { Op } = require('sequelize');
 
 exports.getAllFlights = async (req, res) => {
@@ -75,6 +75,59 @@ exports.getAllFlights = async (req, res) => {
     });
   }
 };
+
+exports.getFlightPaged = async (req, res) => {
+  const { pageSize = 10, pageNumber = 1 } = req.body;
+
+  try {
+    // Get total count for pagination
+    const totalCount = await Flight.count();
+    
+    // Calculate total pages
+    const totalPages = Math.ceil(totalCount / pageSize);
+    
+    // Get flights with pagination
+    const flights = await Flight.findAll({
+      offset: (pageNumber - 1) * pageSize,
+      limit: pageSize,
+      include: [
+        {
+          model: Airport,
+          as: 'departureAirport',
+          attributes: ['airport_id', 'code', 'name', 'city', 'country']
+        },
+        {
+          model: Airport,
+          as: 'arrivalAirport',
+          attributes: ['airport_id', 'code', 'name', 'city', 'country']
+        },
+        {
+          model: Airplane,
+          attributes: ['airplane_id', 'code', 'manufacturer', 'model', 'total_seats']
+        }
+      ],
+      order: [['departure_time', 'ASC']]
+    });
+    
+    res.status(200).json({
+      success: true,
+      pagination: {
+        totalItems: totalCount,
+        totalPages: totalPages,
+        currentPage: pageNumber,
+        pageSize: pageSize
+      },
+      data: flights
+    });
+  } catch (error) {
+    console.error('Error getting flights:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Đã xảy ra lỗi khi lấy danh sách chuyến bay',
+      error: error.message
+    });
+  }
+}
 
 // Lấy thông tin chi tiết của một chuyến bay
 exports.getFlightById = async (req, res) => {
@@ -183,6 +236,9 @@ exports.updateFlight = async (req, res) => {
       }
     }
     
+    // Kiểm tra nếu status được cập nhật thành delay hoặc cancelled
+    const statusChanged = status && flight.status !== status && (status === 'delay' || status === 'cancelled');
+    
     // Cập nhật thông tin chuyến bay
     const updatedFlight = await flight.update({
       flight_number: flight_number || flight.flight_number,
@@ -195,6 +251,68 @@ exports.updateFlight = async (req, res) => {
       updated_by: req.admin.admin_id,
       updated_at: new Date()
     });
+    
+    // Nếu trạng thái chuyến bay được cập nhật thành delay hoặc cancelled, tạo thông báo
+    if (statusChanged) {
+      try {
+        // Lấy tất cả bookings liên quan đến chuyến bay này
+        const bookings = await Booking.findAll({
+          where: { flight_id: flightId },
+          include: [{
+            model: Customer,
+            attributes: ['customer_id']
+          }]
+        });
+        
+        // Lấy thông tin chi tiết chuyến bay để đưa vào thông báo
+        const flightDetails = await Flight.findByPk(flightId, {
+          include: [
+            {
+              model: Airport,
+              as: 'departureAirport',
+              attributes: ['code', 'name', 'city']
+            },
+            {
+              model: Airport,
+              as: 'arrivalAirport',
+              attributes: ['code', 'name', 'city']
+            }
+          ]
+        });
+        
+        // Tạo nội dung thông báo dựa trên trạng thái
+        let title, message, notificationType;
+        
+        if (status === 'delay') {
+          title = `Chuyến bay ${flightDetails.flight_number} bị trì hoãn`;
+          message = `Chuyến bay ${flightDetails.flight_number} từ ${flightDetails.departureAirport.name} (${flightDetails.departureAirport.city}) đến ${flightDetails.arrivalAirport.name} (${flightDetails.arrivalAirport.city}) đã bị trì hoãn. Vui lòng kiểm tra lại thời gian khởi hành.`;
+          notificationType = 'delay';
+        } else if (status === 'cancelled') {
+          title = `Chuyến bay ${flightDetails.flight_number} đã bị hủy`;
+          message = `Chuyến bay ${flightDetails.flight_number} từ ${flightDetails.departureAirport.name} (${flightDetails.departureAirport.city}) đến ${flightDetails.arrivalAirport.name} (${flightDetails.arrivalAirport.city}) đã bị hủy. Vui lòng liên hệ với chúng tôi để được hỗ trợ.`;
+          notificationType = 'cancellation';
+        }
+        
+        // Tạo thông báo cho mỗi khách hàng có đặt chỗ
+        for (const booking of bookings) {
+          if (booking.Customer && booking.Customer.customer_id) {
+            await Notification.create({
+              customer_id: booking.Customer.customer_id,
+              flight_id: flightId,
+              title,
+              message,
+              type: notificationType,
+              created_at: new Date()
+            });
+          }
+        }
+        
+        console.log(`Đã tạo ${bookings.length} thông báo cho trạng thái ${status}`);
+      } catch (notificationError) {
+        console.error('Error creating notifications:', notificationError);
+        // Không trả về lỗi, tiếp tục xử lý để trả về kết quả cập nhật chuyến bay
+      }
+    }
     
     // Trả về thông tin chuyến bay đã cập nhật
     const updatedFlightData = await Flight.findByPk(flightId, {

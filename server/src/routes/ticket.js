@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ticketController = require('../controllers/ticket');
-const { authenticateUser } = require('../middleware/auth');
+const { authenticateUser, authenticateAdmin } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -96,6 +96,105 @@ router.get('/booking/:bookingId', authenticateUser, ticketController.getTicketsB
  *         description: "Lỗi máy chủ"
  */
 router.get('/:id/e-ticket', authenticateUser, ticketController.generateETicket);
+
+/**
+ * @swagger
+ * /api/tickets:
+ *   get:
+ *     summary: Lấy danh sách tất cả các vé trong hệ thống
+ *     tags: [Tickets]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: "Danh sách tất cả các vé"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 count:
+ *                   type: integer
+ *                   example: 50
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       ticket_id:
+ *                         type: integer
+ *                         example: 101
+ *                       booking_id:
+ *                         type: integer
+ *                         example: 1
+ *                       passenger_name:
+ *                         type: string
+ *                         example: "Nguyễn Văn A"
+ *                       passenger_dob:
+ *                         type: string
+ *                         format: date
+ *                         example: "1990-01-01"
+ *                       price:
+ *                         type: number
+ *                         format: decimal
+ *                         example: 1750000
+ *                       Seat:
+ *                         type: object
+ *                         properties:
+ *                           seat_id:
+ *                             type: integer
+ *                             example: 42
+ *                           seat_number:
+ *                             type: string
+ *                             example: "12A"
+ *                           class:
+ *                             type: string
+ *                             example: "Economy"
+ *                       Booking:
+ *                         type: object
+ *                         properties:
+ *                           booking_id:
+ *                             type: integer
+ *                             example: 1
+ *                           Flight:
+ *                             type: object
+ *                             properties:
+ *                               flight_id:
+ *                                 type: integer
+ *                                 example: 246
+ *                               departure_time:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 example: "2023-12-20T08:00:00Z"
+ *                               departureAirport:
+ *                                 type: object
+ *                                 properties:
+ *                                   city:
+ *                                     type: string
+ *                                     example: "Hà Nội"
+ *                               arrivalAirport:
+ *                                 type: object
+ *                                 properties:
+ *                                   city:
+ *                                     type: string
+ *                                     example: "Hồ Chí Minh"
+ *                               Airplane:
+ *                                 type: object
+ *                                 properties:
+ *                                   code:
+ *                                     type: string
+ *                                     example: "VN-A321"
+ *       401:
+ *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *       403:
+ *         description: "Không có quyền admin để thực hiện tác vụ này"
+ *       500:
+ *         description: "Lỗi máy chủ"
+ */
+router.get('/', authenticateAdmin, ticketController.getAllTickets);
 
 /**
  * @swagger
