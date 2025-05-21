@@ -251,6 +251,10 @@ router.post('/',
  *         description: Không tìm thấy chuyến bay.
  *       500:
  *         description: Lỗi máy chủ.
+ *     description: |
+ *       Cập nhật thông tin của chuyến bay. 
+ *       Khi trạng thái chuyến bay được cập nhật thành "delay" hoặc "cancelled", hệ thống sẽ tự động tạo
+ *       thông báo (notifications) cho tất cả khách hàng đã đặt vé chuyến bay này.
  */
 router.put('/:id', 
   authenticateAdmin, 
@@ -411,8 +415,18 @@ router.delete('/:id',
  *              format: float
  *          status:
  *              type: string
- *              enum: [Scheduled, On Time, Delayed, Cancelled, Departed, Arrived]
- *          # Add other updatable fields if necessary
+ *              enum: [scheduled, on_time, delay, cancelled, departed, arrived]
+ *              description: |
+ *                Trạng thái chuyến bay. Khi được cập nhật thành "delay" hoặc "cancelled",
+ *                hệ thống sẽ tự động tạo thông báo cho tất cả khách hàng đã đặt vé.
+ *          flight_number:
+ *              type: string
+ *          airplane_id:
+ *              type: integer
+ *          departure_airport_id:
+ *              type: integer
+ *          arrival_airport_id:
+ *              type: integer
  * 
  */
 
