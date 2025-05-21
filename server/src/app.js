@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 });
 
 app.use((req, res, next) => {
-  console.log(req.body)  
+  console.log(req.body)
   res.status(404).json({
     success: false,
     message: 'Endpoint không tồn tại'
@@ -55,6 +55,9 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 db.sequelize.sync().then(() => {
+  console.log('Kết nối đến cơ sở dữ liệu thành công!');
+  console.log(`Database: ${process.env.DB_NAME}, Host: ${process.env.DB_HOST}, Port: ${process.env.DB_PORT}`);
+
   app.listen(PORT, () => {
     console.log(`Server đang chạy trên cổng ${PORT}`);
   });

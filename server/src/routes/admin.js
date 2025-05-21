@@ -19,36 +19,73 @@ const { authenticateAdmin } = require('../middleware/auth');
  *             schema:
  *               type: object
  *               properties:
- *                 totalCustomers:
- *                   type: integer
- *                   example: 1250
- *                 totalFlights:
- *                   type: integer
- *                   example: 320
- *                 totalBookings:
- *                   type: integer
- *                   example: 4500
- *                 recentBookings:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Booking'
- *                 monthlyRevenue:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       month:
- *                         type: string
- *                         example: "Jan 2024"
- *                       revenue:
- *                         type: number
- *                         example: 1250000000
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     customers:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: integer
+ *                           example: 1250
+ *                     flights:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: integer
+ *                           example: 320
+ *                         active:
+ *                           type: integer
+ *                           example: 42
+ *                     bookings:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: integer
+ *                           example: 4500
+ *                         thisMonth:
+ *                           type: integer
+ *                           example: 120
+ *                     tickets:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: integer
+ *                           example: 5200
+ *                         today:
+ *                           type: integer
+ *                           example: 35
+ *                     revenue:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                           example: 1250000000
+ *                         thisMonth:
+ *                           type: number
+ *                           example: 75000000
  *       401:
  *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       403:
  *         description: "Không có quyền Admin"
  *       500:
  *         description: "Lỗi máy chủ"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Đã xảy ra lỗi khi lấy thống kê tổng quan"
+ *                 error:
+ *                   type: string
  */
 router.get('/dashboard', authenticateAdmin, adminController.getDashboardStats);
 
@@ -95,9 +132,9 @@ router.get('/users', authenticateAdmin, adminController.getAllAdmins);
  *           example:
  *             username: newadmin
  *             password: Admin@123
- *             fullName: Nguyễn Văn Admin
- *             email: admin@example.com
- *             role: FLIGHT_MANAGER
+ *             full_name: Nguyễn Văn Admin
+ *             email: admin@qairline.com
+ *             role: flight_manager
  *     responses:
  *       201:
  *         description: "Tạo người dùng admin thành công"
@@ -139,7 +176,7 @@ router.post('/users', authenticateAdmin, adminController.createAdmin);
  *           schema:
  *             $ref: '#/components/schemas/UpdateAdminInput'
  *           example:
- *             fullName: Nguyễn Văn Admin Mới
+ *             full_name: Nguyễn Văn Admin Mới
  *             email: newadmin@example.com
  *             role: SUPER_ADMIN
  *     responses:
@@ -216,17 +253,17 @@ router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin
  *         username:
  *           type: string
  *           example: admin
- *         fullName:
+ *         full_name:
  *           type: string
  *           example: Nguyễn Văn Admin
  *         email:
  *           type: string
  *           format: email
- *           example: admin@example.com
+ *           example: admin@qairline.com
  *         role:
  *           type: string
- *           enum: [SUPER_ADMIN, FLIGHT_MANAGER, CUSTOMER_SUPPORT]
- *           example: SUPER_ADMIN
+ *           enum: [super_admin, flight_manager, customer_support]
+ *           example: flight_manager
  *         created_at:
  *           type: string
  *           format: date-time
@@ -238,7 +275,7 @@ router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin
  *       required:
  *         - username
  *         - password
- *         - fullName
+ *         - full_name
  *         - email
  *         - role
  *       properties:
@@ -249,7 +286,7 @@ router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin
  *           type: string
  *           format: password
  *           description: "Mật khẩu"
- *         fullName:
+ *         full_name:
  *           type: string
  *           description: "Họ tên đầy đủ"
  *         email:
@@ -258,12 +295,12 @@ router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin
  *           description: "Email duy nhất"
  *         role:
  *           type: string
- *           enum: [SUPER_ADMIN, FLIGHT_MANAGER, CUSTOMER_SUPPORT]
+ *           enum: [super_admin, flight_manager, customer_support]
  *           description: "Vai trò của admin"
  *     UpdateAdminInput:
  *       type: object
  *       properties:
- *         fullName:
+ *         full_name:
  *           type: string
  *           description: "Họ tên đầy đủ"
  *         email:
@@ -272,7 +309,7 @@ router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin
  *           description: "Email duy nhất"
  *         role:
  *           type: string
- *           enum: [SUPER_ADMIN, FLIGHT_MANAGER, CUSTOMER_SUPPORT]
+ *           enum: [super_admin, flight_manager, customer_support]
  *           description: "Vai trò của admin"
  *         password:
  *           type: string
