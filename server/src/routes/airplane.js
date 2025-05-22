@@ -11,28 +11,40 @@ const { authenticateAdmin } = require('../middleware/auth');
  *     tags: [Airplanes]
  *     parameters:
  *       - in: query
+ *         name: code
+ *         schema:
+ *           type: string
+ *         description: "Lọc theo mã máy bay"
+ *       - in: query
+ *         name: manufacturer
+ *         schema:
+ *           type: string
+ *         description: "Lọc theo nhà sản xuất (không phân biệt chữ hoa/thường)"
+ *       - in: query
  *         name: model
  *         schema:
  *           type: string
  *         description: "Lọc theo mẫu máy bay (không phân biệt chữ hoa/thường)"
- *         example: Boeing 787
- *       - in: query
- *         name: registrationNumber
- *         schema:
- *           type: string
- *         description: "Lọc theo số hiệu đăng ký (không phân biệt chữ hoa/thường)"
- *         example: VN-A888
  *     responses:
  *       200:
- *         description: "Danh sách máy bay."
+ *         description: "Danh sách máy bay"
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Airplane'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 count:
+ *                   type: integer
+ *                   example: 5
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Airplane'
  *       500:
- *         description: "Lỗi máy chủ."
+ *         description: "Lỗi máy chủ"
  */
 router.get('/', airplaneController.getAirplanes);
 
@@ -48,19 +60,24 @@ router.get('/', airplaneController.getAirplanes);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của máy bay."
- *         example: 1
+ *         description: "ID của máy bay"
  *     responses:
  *       200:
- *         description: "Thông tin chi tiết máy bay."
+ *         description: "Thông tin chi tiết máy bay"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Airplane'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   $ref: '#/components/schemas/Airplane'
  *       404:
- *         description: "Không tìm thấy máy bay."
+ *         description: "Không tìm thấy máy bay với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ."
+ *         description: "Lỗi khi lấy thông tin máy bay"
  */
 router.get('/:id', airplaneController.getAirplaneById);
 
@@ -77,28 +94,54 @@ router.get('/:id', airplaneController.getAirplaneById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateAirplaneInput'
- *           example:
- *              model: Airbus A321
- *              registrationNumber: VN-A699
- *              totalSeats: 184
- *              economySeats: 168
- *              businessSeats: 16
+ *             type: object
+ *             required:
+ *               - code
+ *               - total_seats
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 description: "Mã máy bay (unique)"
+ *               manufacturer:
+ *                 type: string
+ *                 description: "Nhà sản xuất"
+ *               model:
+ *                 type: string
+ *                 description: "Mẫu máy bay"
+ *               total_seats:
+ *                 type: integer
+ *                 description: "Tổng số ghế"
+ *               seat_configuration:
+ *                 type: array
+ *                 description: "Cấu hình ghế"
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     seat_number:
+ *                       type: string
+ *                     class:
+ *                       type: string
+ *                       enum: [economy, business, first]
  *     responses:
  *       201:
- *         description: "Tạo máy bay thành công."
+ *         description: "Tạo máy bay thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Airplane'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Tạo máy bay thành công
+ *                 data:
+ *                   $ref: '#/components/schemas/Airplane'
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ (vd: thiếu trường, số hiệu đã tồn tại)."
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ."
- *       403:
- *         description: "Không có quyền Admin."
+ *         description: "Vui lòng cung cấp mã máy bay và tổng số ghế / Mã máy bay đã tồn tại trong hệ thống"
  *       500:
- *         description: "Lỗi máy chủ."
+ *         description: "Lỗi khi tạo máy bay"
  */
 router.post('/', authenticateAdmin, airplaneController.createAirplane);
 
@@ -116,36 +159,48 @@ router.post('/', authenticateAdmin, airplaneController.createAirplane);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của máy bay cần cập nhật."
- *         example: 2
+ *         description: "ID của máy bay cần cập nhật"
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateAirplaneInput'
- *           example:
- *              model: Boeing 787-9 Dreamliner
- *              totalSeats: 290
- *              economySeats: 250
- *              businessSeats: 40
+ *             type: object
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 description: "Mã máy bay"
+ *               manufacturer:
+ *                 type: string
+ *                 description: "Nhà sản xuất"
+ *               model:
+ *                 type: string
+ *                 description: "Mẫu máy bay"
+ *               total_seats:
+ *                 type: integer
+ *                 description: "Tổng số ghế"
  *     responses:
  *       200:
- *         description: "Cập nhật máy bay thành công."
+ *         description: "Cập nhật máy bay thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Airplane'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Cập nhật máy bay thành công
+ *                 data:
+ *                   $ref: '#/components/schemas/Airplane'
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ."
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ."
- *       403:
- *         description: "Không có quyền Admin."
+ *         description: "Mã máy bay đã tồn tại trong hệ thống"
  *       404:
- *         description: "Không tìm thấy máy bay."
+ *         description: "Không tìm thấy máy bay với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ."
+ *         description: "Lỗi khi cập nhật máy bay"
  */
 router.put('/:id', authenticateAdmin, airplaneController.updateAirplane);
 
@@ -163,27 +218,27 @@ router.put('/:id', authenticateAdmin, airplaneController.updateAirplane);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của máy bay cần xóa."
- *         example: 3
+ *         description: "ID của máy bay cần xóa"
  *     responses:
  *       200:
- *         description: "Xóa máy bay thành công."
+ *         description: "Xóa máy bay thành công"
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 message:
  *                   type: string
- *                   example: Máy bay đã được xóa thành công.
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ."
- *       403:
- *         description: "Không có quyền Admin."
+ *                   example: Xóa máy bay thành công
  *       404:
- *         description: "Không tìm thấy máy bay."
+ *         description: "Không tìm thấy máy bay với ID đã cung cấp"
+ *       409:
+ *         description: "Không thể xóa máy bay đang được sử dụng trong chuyến bay"
  *       500:
- *         description: "Lỗi máy chủ (vd: không thể xóa do có chuyến bay liên quan)."
+ *         description: "Lỗi khi xóa máy bay"
  */
 router.delete('/:id', authenticateAdmin, airplaneController.deleteAirplane);
 

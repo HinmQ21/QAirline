@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,16 +9,49 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MiniPage, MiniPageH } from "@/components/MiniPage";
-import { adminLogin } from "@/services/admin/auth";
+import { adminLogin, adminMe } from "@/services/admin/auth";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username không được để trống"),
   password: z.string().min(6, "Password phải từ 6 ký tự"),
 });
 
+const checkLogin = async (navigate) => {
+  const token = localStorage.getItem("adminAccessToken");
+  if (token != null) {
+    try {
+      toast.promise(
+        adminMe(),
+        {
+          loading: 'Đang chuyển hướng...',
+          success: (_) => {
+            navigate("/admin/dashboard");
+          },
+          error: (err) => {
+            const res = err.response;
+            let errMsg;
+            if (res !== undefined) {
+              errMsg = res.data.message;
+            } else {
+              errMsg = err.toString();
+            }
+            return `Lỗi: ${errMsg}`;
+          }
+        }
+      )
+    } catch (err) {
+      console.log(err.toString());
+    }
+  }
+};
 
 export const AdminLoginPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => { checkLogin(navigate); }, [navigate]);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,12 +64,15 @@ export const AdminLoginPage = () => {
     toast.promise(
       adminLogin(values.username, values.password),
       {
-        loading: 'Đang đăng nhập...',
-        success: 'Đăng nhập thành công!',
+        loading: 'Vui lòng chờ...',
+        success: (_) => {
+          checkLogin(navigate);
+          return 'Đăng nhập thành công!';
+        },
         error: (err) => {
           const res = err.response;
           let errMsg;
-          if (res !== null) {
+          if (res !== undefined) {
             errMsg = res.data.message;
           } else {
             errMsg = err.toString();

@@ -82,9 +82,9 @@ const _AuthButtons = () => {
 }
 
 
-export const Header = ({ isAtTop = false }) => (
+export const Header = ({ isAtTop = false, className = "" }) => (
   <div className={
-    `header ${isAtTop ? 'header-top' : 'header-scrolled'}`
+    `header ${isAtTop ? 'header-top' : 'header-scrolled'} ${className}`
   }>
     <div className="flex items-center ml-10">
       <Link to="/" className="special-gothic-expanded-one-regular text-2xl">QAIRLINE</Link>

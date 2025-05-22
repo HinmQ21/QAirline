@@ -11,81 +11,52 @@ const { authenticateAdmin, checkFlightManagerPermission } = require('../middlewa
  *     tags: [Flights]
  *     parameters:
  *       - in: query
- *         name: departureAirport
+ *         name: flight_number
  *         schema:
  *           type: string
- *         description: Mã sân bay đi (IATA code)
- *         example: SGN
+ *         description: "Số hiệu chuyến bay"
  *       - in: query
- *         name: arrivalAirport
- *         schema:
- *           type: string
- *         description: Mã sân bay đến (IATA code)
- *         example: HAN
- *       - in: query
- *         name: departureTime
- *         schema:
- *           type: string
- *           format: date-time
- *         description: Thời gian khởi hành (ISO 8601 format)
- *         example: 2024-08-15T10:00:00Z
- *       - in: query
- *         name: arrivalTime
- *         schema:
- *           type: string
- *           format: date-time
- *         description: Thời gian đến (ISO 8601 format)
- *         example: 2024-08-15T12:00:00Z
- *       - in: query
- *         name: minPrice
- *         schema:
- *           type: number
- *           format: float
- *         description: Giá vé tối thiểu
- *         example: 500000
- *       - in: query
- *         name: maxPrice
- *         schema:
- *           type: number
- *           format: float
- *         description: Giá vé tối đa
- *         example: 2000000
- *       - in: query
- *         name: airline
- *         schema:
- *           type: string
- *         description: Hãng hàng không
- *         example: Vietnam Airlines
- *       - in: query
- *         name: page
+ *         name: departure_airport
  *         schema:
  *           type: integer
- *           default: 1
- *         description: Trang hiện tại (phân trang)
+ *         description: "ID của sân bay đi"
  *       - in: query
- *         name: limit
+ *         name: arrival_airport
  *         schema:
  *           type: integer
- *           default: 10
- *         description: Số lượng kết quả mỗi trang (phân trang)
+ *         description: "ID của sân bay đến"
+ *       - in: query
+ *         name: departure_date
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: "Ngày khởi hành (YYYY-MM-DD)"
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [scheduled, boarding, in_flight, landed, cancelled, delayed]
+ *         description: "Trạng thái chuyến bay"
  *     responses:
  *       200:
- *         description: Danh sách chuyến bay.
+ *         description: "Danh sách chuyến bay"
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 flights:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 count:
+ *                   type: integer
+ *                   example: 10
+ *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Flight' # Assume Flight schema is defined
- *                 totalPages:
- *                   type: integer
- *                 currentPage:
- *                    type: integer
+ *                     type: object
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Đã xảy ra lỗi khi lấy danh sách chuyến bay"
  */
 router.get('/', flightController.getAllFlights);
 
@@ -101,14 +72,14 @@ router.get('/', flightController.getAllFlights);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của sân bay đi.
+ *         description: "ID của sân bay đi."
  *         example: 1
  *       - in: query
  *         name: arrivalAirportId
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của sân bay đến.
+ *         description: "ID của sân bay đến."
  *         example: 2
  *       - in: query
  *         name: departureDate
@@ -116,11 +87,11 @@ router.get('/', flightController.getAllFlights);
  *         schema:
  *           type: string
  *           format: date
- *         description: Ngày khởi hành (YYYY-MM-DD).
+ *         description: "Ngày khởi hành (YYYY-MM-DD)."
  *         example: 2024-08-15
  *     responses:
  *       200:
- *         description: Danh sách chuyến bay phù hợp.
+ *         description: "Danh sách chuyến bay phù hợp"
  *         content:
  *           application/json:
  *             schema:
@@ -128,9 +99,9 @@ router.get('/', flightController.getAllFlights);
  *               items:
  *                 $ref: '#/components/schemas/Flight'
  *       400:
- *         description: Thiếu tham số tìm kiếm.
+ *         description: "Thiếu tham số tìm kiếm"
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ".
  */
 router.get('/search', flightController.getFlightsByTimeAndAirport);
 
@@ -146,19 +117,19 @@ router.get('/search', flightController.getFlightsByTimeAndAirport);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của chuyến bay.
+ *         description: "ID của chuyến bay".
  *         example: 1
  *     responses:
  *       200:
- *         description: Thông tin chi tiết chuyến bay.
+ *         description: "Thông tin chi tiết chuyến bay."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Flight'
  *       404:
- *         description: Không tìm thấy chuyến bay.
+ *         description: "Không tìm thấy chuyến bay."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.get('/:id', flightController.getFlightById);
 
@@ -187,19 +158,19 @@ router.get('/:id', flightController.getFlightById);
  *             airline: Vietnam Airlines
  *     responses:
  *       201:
- *         description: Tạo chuyến bay thành công.
+ *         description: "Tạo chuyến bay thành công."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Flight'
  *       400:
- *         description: Dữ liệu đầu vào không hợp lệ.
+ *         description: "Dữ liệu đầu vào không hợp lệ."
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền thực hiện hành động này.
+ *         description: "Không có quyền thực hiện hành động này."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.post('/',
   authenticateAdmin,
@@ -221,7 +192,7 @@ router.post('/',
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của chuyến bay cần cập nhật.
+ *         description: "ID của chuyến bay cần cập nhật."
  *         example: 1
  *     requestBody:
  *       required: true
@@ -236,25 +207,25 @@ router.post('/',
  *             status: On Time # Example: On Time, Delayed, Cancelled
  *     responses:
  *       200:
- *         description: Cập nhật chuyến bay thành công.
+ *         description: "Cập nhật chuyến bay thành công."
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Flight'
  *       400:
- *         description: Dữ liệu đầu vào không hợp lệ.
+ *         description: "Dữ liệu đầu vào không hợp lệ."
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền thực hiện hành động này.
+ *         description: "Không có quyền thực hiện hành động này."
  *       404:
- *         description: Không tìm thấy chuyến bay.
+ *         description: "Không tìm thấy chuyến bay."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  *     description: |
- *       Cập nhật thông tin của chuyến bay. 
+ *       "Cập nhật thông tin của chuyến bay. 
  *       Khi trạng thái chuyến bay được cập nhật thành "delay" hoặc "cancelled", hệ thống sẽ tự động tạo
- *       thông báo (notifications) cho tất cả khách hàng đã đặt vé chuyến bay này.
+ *       thông báo (notifications) cho tất cả khách hàng đã đặt vé chuyến bay này."
  */
 router.put('/:id', 
   authenticateAdmin, 
@@ -276,11 +247,11 @@ router.put('/:id',
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID của chuyến bay cần xóa.
+ *         description: "ID của chuyến bay cần xóa."
  *         example: 1
  *     responses:
  *       200:
- *         description: Xóa chuyến bay thành công.
+ *         description: "Xóa chuyến bay thành công."
  *         content:
  *           application/json:
  *              schema:
@@ -288,15 +259,15 @@ router.put('/:id',
  *                  properties:
  *                      message:
  *                          type: string
- *                          example: Chuyến bay đã được xóa thành công.
+ *                          example: "Chuyến bay đã được xóa thành công."
  *       401:
- *         description: Chưa xác thực hoặc token không hợp lệ.
+ *         description: "Chưa xác thực hoặc token không hợp lệ."
  *       403:
- *         description: Không có quyền thực hiện hành động này.
+ *         description: "Không có quyền thực hiện hành động này."
  *       404:
- *         description: Không tìm thấy chuyến bay.
+ *         description: "Không tìm thấy chuyến bay."
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.delete('/:id',
   authenticateAdmin,
@@ -319,17 +290,17 @@ router.delete('/:id',
  *             properties:
  *               pageSize:
  *                 type: integer
- *                 description: Số lượng bản ghi mỗi trang
+ *                 description: "Số lượng bản ghi mỗi trang"
  *                 default: 10
  *                 example: 10
  *               pageNumber:
  *                 type: integer
- *                 description: Số trang hiện tại
+ *                 description: "Số trang hiện tại"
  *                 default: 1
  *                 example: 1
  *     responses:
  *       200:
- *         description: Danh sách chuyến bay phân trang.
+ *         description: "Danh sách chuyến bay phân trang."
  *         content:
  *           application/json:
  *             schema:
@@ -358,7 +329,7 @@ router.delete('/:id',
  *                   items:
  *                     $ref: '#/components/schemas/Flight'
  *       500:
- *         description: Lỗi máy chủ.
+ *         description: "Lỗi máy chủ."
  */
 router.post('/paged', flightController.getFlightPaged);
 
@@ -366,7 +337,7 @@ router.post('/paged', flightController.getFlightPaged);
  * @swagger
  * tags:
  *   name: Flights
- *   description: Quản lý các chuyến bay
+ *   description: "Quản lý các chuyến bay"
  * components:
  *   schemas:
  *     Flight:
@@ -374,46 +345,46 @@ router.post('/paged', flightController.getFlightPaged);
  *       properties:
  *         id:
  *           type: integer
- *           description: ID của chuyến bay
+ *           description: "ID của chuyến bay"
  *           example: 1
  *         flightNumber:
  *           type: string
- *           description: Số hiệu chuyến bay
+ *           description: "Số hiệu chuyến bay"
  *           example: VN256
  *         departureAirportId:
  *           type: integer
- *           description: ID sân bay đi
+ *           description: "ID sân bay đi"
  *           example: 1
  *         arrivalAirportId:
  *           type: integer
- *           description: ID sân bay đến
+ *           description: "ID sân bay đến"
  *           example: 2
  *         departureTime:
  *           type: string
  *           format: date-time
- *           description: Thời gian khởi hành dự kiến
+ *           description: "Thời gian khởi hành dự kiến"
  *           example: 2024-08-15T10:00:00Z
  *         arrivalTime:
  *           type: string
  *           format: date-time
- *           description: Thời gian đến dự kiến
+ *           description: "Thời gian đến dự kiến"
  *           example: 2024-08-15T12:00:00Z
  *         airplaneId:
  *           type: integer
- *           description: ID máy bay thực hiện chuyến bay
+ *           description: "ID máy bay thực hiện chuyến bay"
  *           example: 3
  *         basePrice:
  *           type: number
  *           format: float
- *           description: Giá vé cơ bản
+ *           description: "Giá vé cơ bản"
  *           example: 1500000
  *         status:
  *           type: string
- *           description: Trạng thái chuyến bay
+ *           description: "Trạng thái chuyến bay"
  *           example: On Time
  *         airline:
  *           type: string
- *           description: Hãng hàng không
+ *           description: "Hãng hàng không"
  *           example: Vietnam Airlines
  *         createdAt:
  *           type: string
@@ -475,8 +446,8 @@ router.post('/paged', flightController.getFlightPaged);
  *              type: string
  *              enum: [scheduled, on_time, delay, cancelled, departed, arrived]
  *              description: |
- *                Trạng thái chuyến bay. Khi được cập nhật thành "delay" hoặc "cancelled",
- *                hệ thống sẽ tự động tạo thông báo cho tất cả khách hàng đã đặt vé.
+ *                "Trạng thái chuyến bay. Khi được cập nhật thành "delay" hoặc "cancelled",
+ *                hệ thống sẽ tự động tạo thông báo cho tất cả khách hàng đã đặt vé."
  *          flight_number:
  *              type: string
  *          airplane_id:

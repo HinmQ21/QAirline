@@ -16,7 +16,7 @@ export const FlightCard = ({children, flight, OnToggle}) => {
   return (
     <>
       {/* FlightCard */}
-      <div className="m-4 w-full h-50 bg-white rounded-lg shadow-xl border-t-2 border-t-gray-300
+      <div className="w-full h-50 bg-white rounded-4xl shadow-xl border-t-gray-300
                       flex items-center ">
         {/* FlightInfo */}
         <div className="m-2 w-3/5 h-full

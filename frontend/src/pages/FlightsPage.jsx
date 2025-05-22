@@ -5,6 +5,7 @@ import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
 import { FaFilterCircleDollar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { MiniPage } from "@/components/MiniPage";
 
 
 
@@ -52,10 +53,10 @@ export default function FlightsPage() {
       </div>
     );
   };
-  return (
-    <div>
-        <div className={"pt-24 mx-[100px] lg:mx-[200px] xl:mx-[250px]"}>
-        <h2 className="flex justify-center items-center m-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
+  return <>
+    <MiniPage>
+      <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
+        <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
         <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full">
           {flightsearchInput(
@@ -78,7 +79,7 @@ export default function FlightsPage() {
           )}
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-6">
+        <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
           {results.length > 0 ? (
             results.map((f, idx) => (
               <div key={idx} className="w-80 rounded-xl overflow-hidden shadow-xl bg-white">
@@ -110,7 +111,7 @@ export default function FlightsPage() {
                 </div>
 
                 {/* Book Now Button */}
-                <button 
+                <button
                   className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-3"
                   onClick={() => setIsOpen(true)}
                 >
@@ -124,68 +125,68 @@ export default function FlightsPage() {
           )}
         </div>
       </div>
+    </MiniPage>
 
-      {/* Modal */}
-      {isOpen && (
-        <>
-          <div className="fixed inset-0 flex z-50 items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 transition-all duration-200 ">
-             
-              <div className="bg-white z-60 rounded-xl max-h-[calc(100vh-5em)] max-w-lg scale-90 overflow-y-auto overscroll-contain w-full p-6 transition-transform">
-                <h2 className="text-center font-bold text-lg mb-4">Select Passengers</h2>
+    {/* Modal */}
+    {isOpen && (
+      <>
+        <div className="fixed inset-0 flex z-50 items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 transition-all duration-200 ">
 
-                {/* Passenger Types */}
-                {["adult", "child", "infant"].map((type) => (
-                  <div key={type} className="flex justify-between items-center py-2">
-                    <div>
-                      <p className="font-medium capitalize">{type}</p>
-                      <p className="text-sm text-gray-500">
-                        {type === "adult" && "More than 12 years old"}
-                        {type === "child" && "2-11 years old"}
-                        {type === "infant" && "Less than 2 years old"}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        className="bg-red-500 text-white w-8 h-8 rounded-full"
-                        onClick={() => updateCount(type, -1)}
-                      >
-                        −
-                      </button>
-                      <span>{passengers[type]}</span>
-                      <button
-                        className="bg-red-500 text-white w-8 h-8 rounded-full"
-                        onClick={() => updateCount(type, 1)}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <div className="flex justify-between mt-6">
-                  {/* Close Button */}
+          <div className="bg-white z-60 rounded-xl max-h-[calc(100vh-5em)] max-w-lg scale-90 overflow-y-auto overscroll-contain w-full p-6 transition-transform">
+            <h2 className="text-center font-bold text-lg mb-4">Select Passengers</h2>
+
+            {/* Passenger Types */}
+            {["adult", "child", "infant"].map((type) => (
+              <div key={type} className="flex justify-between items-center py-2">
+                <div>
+                  <p className="font-medium capitalize">{type}</p>
+                  <p className="text-sm text-gray-500">
+                    {type === "adult" && "More than 12 years old"}
+                    {type === "child" && "2-11 years old"}
+                    {type === "infant" && "Less than 2 years old"}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
                   <button
-                    className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
-                    onClick={() => setIsOpen(false)}
+                    className="bg-red-500 text-white w-8 h-8 rounded-full"
+                    onClick={() => updateCount(type, -1)}
                   >
-                    Close
+                    −
                   </button>
-
-                  {/* Continue Button */}
+                  <span>{passengers[type]}</span>
                   <button
-                    className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
-                    onClick={() => {
-                      // Add your logic for "Continue" here
-                      setIsOpen(false);
-                      navigate("/searchflights");
-                    }}
+                    className="bg-red-500 text-white w-8 h-8 rounded-full"
+                    onClick={() => updateCount(type, 1)}
                   >
-                    Continue
+                    +
                   </button>
                 </div>
               </div>
-            </div> 
-        </>
-      )}
-    </div>
-  );
+            ))}
+            <div className="flex justify-between mt-6">
+              {/* Close Button */}
+              <button
+                className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+                onClick={() => setIsOpen(false)}
+              >
+                Close
+              </button>
+
+              {/* Continue Button */}
+              <button
+                className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+                onClick={() => {
+                  // Add your logic for "Continue" here
+                  setIsOpen(false);
+                  navigate("/searchflights");
+                }}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    )}
+  </>;
 }

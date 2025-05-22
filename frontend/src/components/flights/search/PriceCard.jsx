@@ -7,7 +7,7 @@ export const PriceCard = ({type, slot, booked, price, roundstyle, onClick }) => 
     <>    
       <div className={`h-full min-w-50 ml-1 relative
                       flex flex-col justify-center items-center
-                      ${roundstyle == true ? "rounded-r-lg" : ""}
+                      ${roundstyle == true ? "rounded-r-4xl" : ""}
                       ${booked >= slot ? "cursor-auto bg-gray-400 " : "cursor-pointer"}
                       ${(type === "eco" && booked < slot) ? "bg-amber-950" : ""}
                       ${(type === "business" && booked < slot) ? "bg-red-600" : ""}
