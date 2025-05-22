@@ -117,7 +117,7 @@ router.get('/search', flightController.getFlightsByTimeAndAirport);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của chuyến bay".
+ *         description: "ID của chuyến bay"
  *         example: 1
  *     responses:
  *       200:
