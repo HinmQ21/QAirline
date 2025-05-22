@@ -101,7 +101,7 @@ router.get('/', flightController.getAllFlights);
  *       400:
  *         description: "Thiếu tham số tìm kiếm"
  *       500:
- *         description: "Lỗi máy chủ".
+ *         description: "Lỗi máy chủ"
  */
 router.get('/search', flightController.getFlightsByTimeAndAirport);
 
@@ -117,7 +117,7 @@ router.get('/search', flightController.getFlightsByTimeAndAirport);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của chuyến bay".
+ *         description: "ID của chuyến bay"
  *         example: 1
  *     responses:
  *       200:
