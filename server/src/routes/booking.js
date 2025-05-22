@@ -7,7 +7,7 @@ const { authenticateUser } = require('../middleware/auth');
  * @swagger
  * /api/bookings:
  *   post:
- *     summary: Tạo đặt chỗ mới với vé
+ *     summary: Tạo đặt vé mới với thông tin hành khách
  *     tags: [Bookings]
  *     security:
  *       - bearerAuth: []
@@ -16,41 +16,68 @@ const { authenticateUser } = require('../middleware/auth');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateBookingInput'
- *           example:
- *             flightId: 1
- *             contactEmail: customer@example.com
- *             contactPhone: "0912345678"
- *             passengers: [
- *               {
- *                 fullName: "Nguyễn Văn A",
- *                 dateOfBirth: "1990-01-01",
- *                 passportNumber: "P12345678",
- *                 seatNumber: "12A"
- *               },
- *               {
- *                 fullName: "Trần Thị B",
- *                 dateOfBirth: "1992-05-15",
- *                 passportNumber: "P87654321",
- *                 seatNumber: "12B"
- *               }
- *             ]
- *             paymentMethod: "CREDIT_CARD"
+ *             type: object
+ *             required:
+ *               - flight_id
+ *               - passengers
+ *             properties:
+ *               flight_id:
+ *                 type: integer
+ *                 description: "ID của chuyến bay"
+ *               passengers:
+ *                 type: array
+ *                 description: "Thông tin hành khách"
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - name
+ *                     - seat_id
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       description: "Tên hành khách"
+ *                     dob:
+ *                       type: string
+ *                       format: date
+ *                       description: "Ngày sinh (YYYY-MM-DD)"
+ *                     seat_id:
+ *                       type: integer
+ *                       description: "ID của ghế đã chọn"
+ *                     price:
+ *                       type: number
+ *                       description: "Giá vé"
+ *               total_price:
+ *                 type: number
+ *                 description: "Tổng giá tiền"
  *     responses:
  *       201:
- *         description: "Đặt chỗ thành công"
+ *         description: "Đặt vé thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Booking'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Đặt vé thành công"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     booking:
+ *                       type: object
+ *                     tickets:
+ *                       type: array
+ *                       items:
+ *                         type: object
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ hoặc ghế đã được đặt"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *         description: "Vui lòng cung cấp ID chuyến bay và thông tin hành khách / Không thể đặt vé cho chuyến bay đã khởi hành / Không thể đặt vé cho chuyến bay đã bị hủy / Không thể chọn trùng ghế cho các hành khách / Một hoặc nhiều ghế không tồn tại, không có sẵn, hoặc không thuộc máy bay của chuyến bay này / Một hoặc nhiều ghế đã được đặt, vui lòng chọn ghế khác"
  *       404:
- *         description: "Không tìm thấy chuyến bay"
+ *         description: "Không tìm thấy chuyến bay với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi tạo đặt vé"
  */
 router.post('/', authenticateUser, bookingController.createBooking);
 
@@ -58,42 +85,30 @@ router.post('/', authenticateUser, bookingController.createBooking);
  * @swagger
  * /api/bookings:
  *   get:
- *     summary: Lấy tất cả đặt chỗ của khách hàng hiện tại
+ *     summary: Lấy tất cả đặt vé của khách hàng hiện tại
  *     tags: [Bookings]
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: status
- *         schema:
- *           type: string
- *           enum: [confirmed, cancelled, completed]
- *         description: "Lọc theo trạng thái đặt chỗ"
- *       - in: query
- *         name: fromDate
- *         schema:
- *           type: string
- *           format: date
- *         description: "Lọc từ ngày (YYYY-MM-DD)"
- *       - in: query
- *         name: toDate
- *         schema:
- *           type: string
- *           format: date
- *         description: "Lọc đến ngày (YYYY-MM-DD)"
  *     responses:
  *       200:
- *         description: "Danh sách đặt chỗ"
+ *         description: "Danh sách đặt vé"
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/BookingSummary'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 count:
+ *                   type: integer
+ *                   example: 5
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi lấy danh sách đặt vé"
  */
 router.get('/', authenticateUser, bookingController.getCustomerBookings);
 
@@ -101,7 +116,7 @@ router.get('/', authenticateUser, bookingController.getCustomerBookings);
  * @swagger
  * /api/bookings/{id}:
  *   get:
- *     summary: Lấy chi tiết đặt chỗ theo ID
+ *     summary: Lấy chi tiết đặt vé theo ID
  *     tags: [Bookings]
  *     security:
  *       - bearerAuth: []
@@ -111,23 +126,26 @@ router.get('/', authenticateUser, bookingController.getCustomerBookings);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của đặt chỗ"
- *         example: 1
+ *         description: "ID của đặt vé"
  *     responses:
  *       200:
- *         description: "Chi tiết đặt chỗ"
+ *         description: "Chi tiết đặt vé"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Booking'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
  *       403:
- *         description: "Không có quyền truy cập đặt chỗ này"
+ *         description: "Bạn không có quyền xem đặt vé này"
  *       404:
- *         description: "Không tìm thấy đặt chỗ"
+ *         description: "Không tìm thấy đặt vé với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi lấy thông tin đặt vé"
  */
 router.get('/:id', authenticateUser, bookingController.getBookingById);
 
@@ -135,7 +153,7 @@ router.get('/:id', authenticateUser, bookingController.getBookingById);
  * @swagger
  * /api/bookings/{id}/cancel:
  *   put:
- *     summary: Hủy đặt chỗ
+ *     summary: Hủy đặt vé
  *     tags: [Bookings]
  *     security:
  *       - bearerAuth: []
@@ -145,31 +163,31 @@ router.get('/:id', authenticateUser, bookingController.getBookingById);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của đặt chỗ cần hủy"
- *         example: 1
+ *         description: "ID của đặt vé cần hủy"
  *     responses:
  *       200:
- *         description: "Hủy đặt chỗ thành công"
+ *         description: "Hủy đặt vé thành công"
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 message:
  *                   type: string
- *                   example: Đặt chỗ đã được hủy thành công
- *                 booking:
- *                   $ref: '#/components/schemas/Booking'
+ *                   example: "Đã hủy đặt vé thành công"
+ *                 data:
+ *                   type: object
  *       400:
- *         description: "Không thể hủy đặt chỗ (đã quá thời hạn hoặc đã hoàn thành)"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *         description: "Không thể hủy đặt vé đã hoàn thành / Không thể hủy đặt vé đã bị hủy trước đó / Không thể hủy đặt vé cho chuyến bay đã khởi hành"
  *       403:
- *         description: "Không có quyền hủy đặt chỗ này"
+ *         description: "Bạn không có quyền hủy đặt vé này"
  *       404:
- *         description: "Không tìm thấy đặt chỗ"
+ *         description: "Không tìm thấy đặt vé với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi hủy đặt vé"
  */
 router.put('/:id/cancel', authenticateUser, bookingController.cancelBooking);
 
@@ -177,7 +195,7 @@ router.put('/:id/cancel', authenticateUser, bookingController.cancelBooking);
  * @swagger
  * /api/bookings/{id}/confirmation:
  *   get:
- *     summary: Tạo xác nhận đặt chỗ
+ *     summary: Lấy xác nhận đặt vé
  *     tags: [Bookings]
  *     security:
  *       - bearerAuth: []
@@ -187,32 +205,26 @@ router.put('/:id/cancel', authenticateUser, bookingController.cancelBooking);
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của đặt chỗ"
- *         example: 1
+ *         description: "ID của đặt vé"
  *     responses:
  *       200:
- *         description: "Xác nhận đặt chỗ"
+ *         description: "Xác nhận đặt vé"
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 bookingReference:
- *                   type: string
- *                   example: "QA12345"
- *                 bookingDetails:
- *                   $ref: '#/components/schemas/Booking'
- *                 confirmationHtml:
- *                   type: string
- *                   description: "HTML của xác nhận đặt chỗ để hiển thị hoặc in"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
  *       403:
- *         description: "Không có quyền truy cập đặt chỗ này"
+ *         description: "Bạn không có quyền xem xác nhận đặt vé này"
  *       404:
- *         description: "Không tìm thấy đặt chỗ"
+ *         description: "Không tìm thấy đặt vé với ID đã cung cấp"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi tạo xác nhận đặt vé"
  */
 router.get('/:id/confirmation', authenticateUser, bookingController.generateBookingConfirmation);
 

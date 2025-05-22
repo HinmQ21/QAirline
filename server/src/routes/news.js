@@ -16,29 +16,41 @@ const { authenticateAdmin } = require('../middleware/auth');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateNewsInput'
- *           example:
- *             title: "QAirline mở đường bay mới đến Phú Quốc"
- *             content: "QAirline vừa công bố mở đường bay mới từ Hà Nội đến Phú Quốc từ tháng 6/2024..."
- *             summary: "Đường bay mới từ Hà Nội đến Phú Quốc sẽ hoạt động từ tháng 6/2024"
- *             categoryId: 1
- *             imageUrl: "https://example.com/images/phu-quoc.jpg"
- *             isPublished: true
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: "Tiêu đề tin tức"
+ *               content:
+ *                 type: string
+ *                 description: "Nội dung tin tức"
+ *               category:
+ *                 type: string
+ *                 enum: [introduction, promotion, announcement, news]
+ *                 description: "Danh mục tin tức"
  *     responses:
  *       201:
- *         description: "Tạo bài viết tin tức thành công"
+ *         description: "Đã tạo tin tức thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/News'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Đã tạo tin tức thành công"
+ *                 data:
+ *                   type: object
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền Admin"
+ *         description: "Vui lòng cung cấp tiêu đề và nội dung tin tức / Danh mục không hợp lệ"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi tạo tin tức"
  */
 router.post('/', authenticateAdmin, newsController.createNews);
 
@@ -62,10 +74,11 @@ router.post('/', authenticateAdmin, newsController.createNews);
  *           default: 10
  *         description: "Số lượng bài viết trên mỗi trang"
  *       - in: query
- *         name: categoryId
+ *         name: category
  *         schema:
- *           type: integer
- *         description: "Lọc theo ID danh mục"
+ *           type: string
+ *           enum: [introduction, promotion, announcement, news]
+ *         description: "Lọc theo danh mục"
  *       - in: query
  *         name: search
  *         schema:
@@ -79,27 +92,30 @@ router.post('/', authenticateAdmin, newsController.createNews);
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/News'
- *                 pagination:
  *                   type: object
  *                   properties:
- *                     totalItems:
+ *                     news:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                     total:
  *                       type: integer
  *                       example: 50
- *                     totalPages:
- *                       type: integer
- *                       example: 5
- *                     currentPage:
+ *                     page:
  *                       type: integer
  *                       example: 1
  *                     limit:
  *                       type: integer
  *                       example: 10
+ *                     totalPages:
+ *                       type: integer
+ *                       example: 5
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi lấy danh sách tin tức"
  */
 router.get('/', newsController.getAllNews);
 
@@ -136,18 +152,23 @@ router.get('/categories', newsController.getNewsCategories);
  *         schema:
  *           type: integer
  *         description: "ID của bài viết tin tức"
- *         example: 1
  *     responses:
  *       200:
  *         description: "Chi tiết bài viết tin tức"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/News'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
  *       404:
- *         description: "Không tìm thấy bài viết tin tức"
+ *         description: "Không tìm thấy tin tức"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi lấy thông tin tin tức"
  */
 router.get('/:news_id', newsController.getNewsById);
 
@@ -166,34 +187,45 @@ router.get('/:news_id', newsController.getNewsById);
  *         schema:
  *           type: integer
  *         description: "ID của bài viết tin tức cần cập nhật"
- *         example: 1
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateNewsInput'
- *           example:
- *             title: "QAirline mở đường bay mới đến Phú Quốc - Cập nhật"
- *             content: "Nội dung đã được cập nhật..."
- *             isPublished: false
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: "Tiêu đề tin tức"
+ *               content:
+ *                 type: string
+ *                 description: "Nội dung tin tức"
+ *               category:
+ *                 type: string
+ *                 enum: [introduction, promotion, announcement, news]
+ *                 description: "Danh mục tin tức"
  *     responses:
  *       200:
- *         description: "Cập nhật bài viết tin tức thành công"
+ *         description: "Đã cập nhật tin tức thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/News'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Đã cập nhật tin tức thành công"
+ *                 data:
+ *                   type: object
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền Admin"
+ *         description: "Danh mục không hợp lệ"
  *       404:
- *         description: "Không tìm thấy bài viết tin tức"
+ *         description: "Không tìm thấy tin tức"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi cập nhật tin tức"
  */
 router.put('/:news_id', authenticateAdmin, newsController.updateNews);
 
@@ -212,26 +244,24 @@ router.put('/:news_id', authenticateAdmin, newsController.updateNews);
  *         schema:
  *           type: integer
  *         description: "ID của bài viết tin tức cần xóa"
- *         example: 1
  *     responses:
  *       200:
- *         description: "Xóa bài viết tin tức thành công"
+ *         description: "Đã xóa tin tức thành công"
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 message:
  *                   type: string
- *                   example: Bài viết tin tức đã được xóa thành công
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền Admin"
+ *                   example: "Đã xóa tin tức thành công"
  *       404:
- *         description: "Không tìm thấy bài viết tin tức"
+ *         description: "Không tìm thấy tin tức"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi xóa tin tức"
  */
 router.delete('/:news_id', authenticateAdmin, newsController.deleteNews);
 
