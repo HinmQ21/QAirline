@@ -7,17 +7,13 @@ export const adminApi = axios.create({ baseURL: API_BASE_URL });
 
 api.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("userAccessToken");
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });
 
 adminApi.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("adminAccessToken");
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });
 

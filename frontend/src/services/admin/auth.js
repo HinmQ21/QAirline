@@ -11,3 +11,7 @@ export const adminLogin = async (username, password) => {
 
   return res.data;
 };
+
+export const adminMe = async () => {
+  return await adminApi.get("/auth/admin/me");
+};
