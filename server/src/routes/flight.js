@@ -101,7 +101,7 @@ router.get('/', flightController.getAllFlights);
  *       400:
  *         description: "Thiếu tham số tìm kiếm"
  *       500:
- *         description: "Lỗi máy chủ".
+ *         description: "Lỗi máy chủ"
  */
 router.get('/search', flightController.getFlightsByTimeAndAirport);
 
