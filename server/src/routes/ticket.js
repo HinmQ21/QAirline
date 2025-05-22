@@ -7,7 +7,7 @@ const { authenticateUser, authenticateAdmin } = require('../middleware/auth');
  * @swagger
  * /api/tickets/booking/{bookingId}:
  *   get:
- *     summary: Lấy danh sách vé cho một đặt chỗ
+ *     summary: Lấy danh sách vé cho một đặt vé
  *     tags: [Tickets]
  *     security:
  *       - bearerAuth: []
@@ -17,25 +17,29 @@ const { authenticateUser, authenticateAdmin } = require('../middleware/auth');
  *         required: true
  *         schema:
  *           type: integer
- *         description: "ID của đặt chỗ"
- *         example: 1
+ *         description: "ID của đặt vé"
  *     responses:
  *       200:
  *         description: "Danh sách vé"
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Ticket'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền truy cập đặt chỗ này"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 count:
+ *                   type: integer
+ *                   example: 2
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
  *       404:
- *         description: "Không tìm thấy đặt chỗ"
+ *         description: "Không tìm thấy đặt vé hoặc bạn không có quyền truy cập"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi lấy danh sách vé"
  */
 router.get('/booking/:bookingId', authenticateUser, ticketController.getTicketsByBooking);
 
@@ -54,7 +58,6 @@ router.get('/booking/:bookingId', authenticateUser, ticketController.getTicketsB
  *         schema:
  *           type: integer
  *         description: "ID của vé"
- *         example: 1
  *     responses:
  *       200:
  *         description: "Vé điện tử"
@@ -63,37 +66,42 @@ router.get('/booking/:bookingId', authenticateUser, ticketController.getTicketsB
  *             schema:
  *               type: object
  *               properties:
- *                 ticketNumber:
- *                   type: string
- *                   example: "QA-T12345"
- *                 ticketDetails:
- *                   $ref: '#/components/schemas/Ticket'
- *                 flightDetails:
- *                   $ref: '#/components/schemas/Flight'
- *                 passengerDetails:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
  *                   type: object
  *                   properties:
- *                     name:
+ *                     ticket_number:
  *                       type: string
- *                       example: "Nguyễn Văn A"
- *                     dateOfBirth:
+ *                       example: "QAT-00000123"
+ *                     passenger:
+ *                       type: object
+ *                       properties:
+ *                         name:
+ *                           type: string
+ *                         dob:
+ *                           type: string
+ *                           format: date
+ *                     seat:
+ *                       type: object
+ *                       properties:
+ *                         number:
+ *                           type: string
+ *                         class:
+ *                           type: string
+ *                     flight:
+ *                       type: object
+ *                     booking:
+ *                       type: object
+ *                     price:
+ *                       type: number
+ *                     qr_code:
  *                       type: string
- *                       format: date
- *                       example: "1990-01-01"
- *                     passportNumber:
- *                       type: string
- *                       example: "P12345678"
- *                 eTicketHtml:
- *                   type: string
- *                   description: "HTML của vé điện tử để hiển thị hoặc in"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền truy cập vé này"
  *       404:
- *         description: "Không tìm thấy vé"
+ *         description: "Không tìm thấy vé hoặc bạn không có quyền truy cập"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi tạo vé điện tử"
  */
 router.get('/:id/e-ticket', authenticateUser, ticketController.generateETicket);
 
@@ -101,7 +109,7 @@ router.get('/:id/e-ticket', authenticateUser, ticketController.generateETicket);
  * @swagger
  * /api/tickets:
  *   get:
- *     summary: Lấy danh sách tất cả các vé trong hệ thống
+ *     summary: Lấy danh sách tất cả các vé trong hệ thống (yêu cầu quyền Admin)
  *     tags: [Tickets]
  *     security:
  *       - bearerAuth: []
@@ -123,76 +131,8 @@ router.get('/:id/e-ticket', authenticateUser, ticketController.generateETicket);
  *                   type: array
  *                   items:
  *                     type: object
- *                     properties:
- *                       ticket_id:
- *                         type: integer
- *                         example: 101
- *                       booking_id:
- *                         type: integer
- *                         example: 1
- *                       passenger_name:
- *                         type: string
- *                         example: "Nguyễn Văn A"
- *                       passenger_dob:
- *                         type: string
- *                         format: date
- *                         example: "1990-01-01"
- *                       price:
- *                         type: number
- *                         format: decimal
- *                         example: 1750000
- *                       Seat:
- *                         type: object
- *                         properties:
- *                           seat_id:
- *                             type: integer
- *                             example: 42
- *                           seat_number:
- *                             type: string
- *                             example: "12A"
- *                           class:
- *                             type: string
- *                             example: "Economy"
- *                       Booking:
- *                         type: object
- *                         properties:
- *                           booking_id:
- *                             type: integer
- *                             example: 1
- *                           Flight:
- *                             type: object
- *                             properties:
- *                               flight_id:
- *                                 type: integer
- *                                 example: 246
- *                               departure_time:
- *                                 type: string
- *                                 format: date-time
- *                                 example: "2023-12-20T08:00:00Z"
- *                               departureAirport:
- *                                 type: object
- *                                 properties:
- *                                   city:
- *                                     type: string
- *                                     example: "Hà Nội"
- *                               arrivalAirport:
- *                                 type: object
- *                                 properties:
- *                                   city:
- *                                     type: string
- *                                     example: "Hồ Chí Minh"
- *                               Airplane:
- *                                 type: object
- *                                 properties:
- *                                   code:
- *                                     type: string
- *                                     example: "VN-A321"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền admin để thực hiện tác vụ này"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Lỗi khi lấy danh sách vé"
  */
 router.get('/', authenticateAdmin, ticketController.getAllTickets);
 

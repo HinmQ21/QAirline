@@ -67,25 +67,8 @@ const { authenticateAdmin } = require('../middleware/auth');
  *                         thisMonth:
  *                           type: number
  *                           example: 75000000
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Không có quyền Admin"
  *       500:
- *         description: "Lỗi máy chủ"
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Đã xảy ra lỗi khi lấy thống kê tổng quan"
- *                 error:
- *                   type: string
+ *         description: "Đã xảy ra lỗi khi lấy thống kê tổng quan"
  */
 router.get('/dashboard', authenticateAdmin, adminController.getDashboardStats);
 
@@ -93,7 +76,7 @@ router.get('/dashboard', authenticateAdmin, adminController.getDashboardStats);
  * @swagger
  * /api/admin/users:
  *   get:
- *     summary: Lấy danh sách tất cả người dùng admin
+ *     summary: Lấy danh sách tất cả người dùng admin (yêu cầu quyền Super Admin)
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
@@ -103,15 +86,19 @@ router.get('/dashboard', authenticateAdmin, adminController.getDashboardStats);
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Admin'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Admin'
  *       403:
- *         description: "Không có quyền Super Admin"
+ *         description: "Bạn không có quyền xem danh sách quản trị viên"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi lấy danh sách quản trị viên"
  */
 router.get('/users', authenticateAdmin, adminController.getAllAdmins);
 
@@ -119,7 +106,7 @@ router.get('/users', authenticateAdmin, adminController.getAllAdmins);
  * @swagger
  * /api/admin/users:
  *   post:
- *     summary: Tạo người dùng admin mới
+ *     summary: Tạo người dùng admin mới (yêu cầu quyền Super Admin)
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
@@ -128,28 +115,52 @@ router.get('/users', authenticateAdmin, adminController.getAllAdmins);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateAdminInput'
- *           example:
- *             username: newadmin
- *             password: Admin@123
- *             full_name: Nguyễn Văn Admin
- *             email: admin@qairline.com
- *             role: flight_manager
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *               - email
+ *               - role
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: "Tên đăng nhập"
+ *               password:
+ *                 type: string
+ *                 description: "Mật khẩu"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: "Email"
+ *               full_name:
+ *                 type: string
+ *                 description: "Họ và tên"
+ *               role:
+ *                 type: string
+ *                 enum: [flight_manager, news_manager, super_admin]
+ *                 description: "Loại tài khoản"
  *     responses:
  *       201:
  *         description: "Tạo người dùng admin thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Admin'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Tạo quản trị viên thành công"
+ *                 data:
+ *                   $ref: '#/components/schemas/Admin'
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ hoặc username/email đã tồn tại"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *         description: "Vui lòng cung cấp đầy đủ thông tin / Loại tài khoản không hợp lệ / Tên đăng nhập đã tồn tại / Email đã được sử dụng"
  *       403:
- *         description: "Không có quyền Super Admin"
+ *         description: "Bạn không có quyền tạo quản trị viên mới"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi tạo quản trị viên mới"
  */
 router.post('/users', authenticateAdmin, adminController.createAdmin);
 
@@ -157,7 +168,7 @@ router.post('/users', authenticateAdmin, adminController.createAdmin);
  * @swagger
  * /api/admin/users/{admin_id}:
  *   put:
- *     summary: Cập nhật thông tin người dùng admin
+ *     summary: Cập nhật thông tin người dùng admin (yêu cầu quyền Super Admin)
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
@@ -168,34 +179,51 @@ router.post('/users', authenticateAdmin, adminController.createAdmin);
  *         schema:
  *           type: integer
  *         description: "ID của người dùng admin cần cập nhật"
- *         example: 2
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateAdminInput'
- *           example:
- *             full_name: Nguyễn Văn Admin Mới
- *             email: newadmin@example.com
- *             role: SUPER_ADMIN
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: "Email"
+ *               full_name:
+ *                 type: string
+ *                 description: "Họ và tên"
+ *               role:
+ *                 type: string
+ *                 enum: [flight_manager, news_manager, super_admin]
+ *                 description: "Loại tài khoản"
+ *               password:
+ *                 type: string
+ *                 description: "Mật khẩu mới (nếu muốn thay đổi)"
  *     responses:
  *       200:
  *         description: "Cập nhật người dùng admin thành công"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Admin'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Cập nhật thông tin quản trị viên thành công"
+ *                 data:
+ *                   $ref: '#/components/schemas/Admin'
  *       400:
- *         description: "Dữ liệu đầu vào không hợp lệ hoặc email đã tồn tại"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *         description: "Loại tài khoản không hợp lệ / Email đã được sử dụng bởi tài khoản khác"
  *       403:
- *         description: "Không có quyền Super Admin"
+ *         description: "Bạn không có quyền cập nhật quản trị viên"
  *       404:
- *         description: "Không tìm thấy người dùng admin"
+ *         description: "Không tìm thấy quản trị viên"
  *       500:
- *         description: "Lỗi máy chủ"
+ *         description: "Đã xảy ra lỗi khi cập nhật thông tin quản trị viên"
  */
 router.put('/users/:admin_id', authenticateAdmin, adminController.updateAdmin);
 
@@ -225,7 +253,7 @@ router.put('/users/:admin_id', authenticateAdmin, adminController.updateAdmin);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Người dùng admin đã được xóa thành công
+ *                   example: "Người dùng admin đã được xóa thành công"
  *       401:
  *         description: "Chưa xác thực hoặc token không hợp lệ"
  *       403:
