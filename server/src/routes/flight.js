@@ -35,7 +35,7 @@ const { authenticateAdmin, checkFlightManagerPermission } = require('../middlewa
  *         name: status
  *         schema:
  *           type: string
- *           enum: [scheduled, boarding, in_flight, landed, cancelled, delayed]
+ *           enum: [scheduled, delayed, cancelled]
  *         description: "Trạng thái chuyến bay"
  *     responses:
  *       200:
@@ -444,7 +444,7 @@ router.post('/paged', flightController.getFlightPaged);
  *              format: float
  *          status:
  *              type: string
- *              enum: [scheduled, on_time, delay, cancelled, departed, arrived]
+ *              enum: [scheduled, delayed, cancelled]
  *              description: |
  *                "Trạng thái chuyến bay. Khi được cập nhật thành "delay" hoặc "cancelled",
  *                hệ thống sẽ tự động tạo thông báo cho tất cả khách hàng đã đặt vé."
