@@ -1,5 +1,5 @@
-export const MiniPage = ({ children, className = "" }) => (
-  <div className={`bg-gray-100 shadow-2xl rounded-4xl mx-30 ${className}`}>
+export const MiniPage = ({ children, className = "", mx = 30 }) => (
+  <div className={`bg-gray-100 shadow-2xl rounded-4xl mx-${mx} ${className}`}>
     {children}
   </div>
 );

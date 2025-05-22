@@ -45,7 +45,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Header isAtTop={currentDest === 0} />
+      <Header isAtTop={currentDest === 0} className="header-floating" />
       <div id="homepage">
         <div className="section homepage-bg-image">
           <div className="min-h-screen flex flex-col justify-between">

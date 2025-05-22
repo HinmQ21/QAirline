@@ -101,7 +101,6 @@ const FlightSearchPage = () => {
   }
 
   const handleSortChange = (option) => {
-
     setSortOption(option);
   };
 
@@ -122,9 +121,9 @@ const FlightSearchPage = () => {
 
   return (
     <>
-      <div className="flex-1 w-full h-full mt-14">
+      <div className="flex-1 w-full h-full">
         {/* RecapHeader */}
-        <div className="h-20 w-full bg-black px-10 items-center justify-center flex">
+        <div className="h-20 w-full px-10 items-center justify-center flex">
           <div className="w-9/10 h-full flex flex-row justify-between ">
             <div className="w-3/5 h-full py-2 flex">
               {/* Flight Recap */}
@@ -141,17 +140,20 @@ const FlightSearchPage = () => {
             </div>
           </div>
         </div>
+
         {/* Destination */}
-        <div className="w-full h-50">
+        {/* TODO: nên uncomment chỗ này ko Thành ơi */}
+        {/* <div className="w-full h-50">
           <img
             src={destImage}
             alt=""
             className="w-full h-full object-cover"
           />
-        </div>
+        </div> */}
+
         {/* Main  */}
-        <div className="w-full min-h-screen mb-20 flex justify-center bg-white">
-            <div className="w-8/10 h-fit flex flex-col mt-4 gap-4">
+        <div className="w-full min-h-screen mb-12 flex justify-center">
+            <div className="w-8/10 h-fit flex flex-col mt-4 gap-12 items-center">
               <SortFlight sortOption={sortOption} onSortChange={handleSortChange} />
               {(sortedFlights.length > 0) ? (
                 sortedFlights.map((flight) => (
@@ -168,10 +170,6 @@ const FlightSearchPage = () => {
               )}
             </div>              
         </div>
-          
-        {/* Footer */}
-        <Footer />
-        
       </div>
     </>
   );
