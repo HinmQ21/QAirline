@@ -1,11 +1,12 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const path = require('path');
 
-// Xác định URL của server Swagger dựa vào môi trường
-const serverUrl = process.env.SWAGGER_SERVER_URL
-  || (process.env.NODE_ENV === 'production'
-    ? `https://${process.env.RENDER_EXTERNAL_URL || `${process.env.RENDER_SERVICE_NAME}.onrender.com`}`
-    : `http://localhost:${process.env.PORT || 5000}`);
+// Xác định URL server Swagger trên Render hoặc local
+const isProd = process.env.NODE_ENV === 'production';
+const renderUrl = process.env.RENDER_EXTERNAL_URL; // Render tự động cung cấp
+const serverUrl = isProd && renderUrl
+  ? `https://${renderUrl}`
+  : `http://localhost:${process.env.PORT || 5000}`;
 
 const options = {
   definition: {
@@ -18,9 +19,7 @@ const options = {
     servers: [
       {
         url: serverUrl,
-        description: process.env.NODE_ENV === 'production'
-          ? 'Production server'
-          : 'Development server',
+        description: isProd ? 'Production server' : 'Development server',
       },
     ],
     components: {
@@ -32,7 +31,7 @@ const options = {
         },
       },
     },
-    // Nếu hầu hết endpoint yêu cầu auth, bạn có thể mở comment
+    // Nếu hầu hết endpoint yêu cầu auth, bạn có thể bật:
     // security: [{ bearerAuth: [] }],
   },
   apis: [
@@ -41,5 +40,4 @@ const options = {
   ],
 };
 
-const swaggerSpec = swaggerJsdoc(options);
-module.exports = swaggerSpec;
+module.exports = swaggerJsdoc(options);
