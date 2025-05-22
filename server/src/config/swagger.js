@@ -1,6 +1,12 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const path = require('path');
 
+// Xác định URL của server Swagger dựa vào môi trường
+const serverUrl = process.env.SWAGGER_SERVER_URL
+  || (process.env.NODE_ENV === 'production'
+    ? `https://${process.env.RENDER_EXTERNAL_URL || `${process.env.RENDER_SERVICE_NAME}.onrender.com`}`
+    : `http://localhost:${process.env.PORT || 5000}`);
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -11,15 +17,11 @@ const options = {
     },
     servers: [
       {
-        // Adjust the URL based on your environment variable or actual server address
-        url: `http://localhost:${process.env.PORT || 5000}`, 
-        description: 'Development server',
+        url: serverUrl,
+        description: process.env.NODE_ENV === 'production'
+          ? 'Production server'
+          : 'Development server',
       },
-      // Add more servers if needed (e.g., production)
-      // {
-      //   url: 'https://api.qairline.com', // Example production URL
-      //   description: 'Production server',
-      // },
     ],
     components: {
       securitySchemes: {
@@ -29,24 +31,9 @@ const options = {
           bearerFormat: 'JWT',
         },
       },
-      // Define reusable schemas, parameters, responses etc. here
-      // schemas: {
-      //   ErrorResponse: {
-      //     type: 'object',
-      //     properties: {
-      //       message: { type: 'string', description: 'Error message' },
-      //       error: { type: 'object', description: 'Optional error details' },
-      //     },
-      //     required: ['message'],
-      //   },
-      // },
     },
-    // Apply security globally if most endpoints require authentication
-    // security: [
-    //   {
-    //     bearerAuth: [], 
-    //   },
-    // ],
+    // Nếu hầu hết endpoint yêu cầu auth, bạn có thể mở comment
+    // security: [{ bearerAuth: [] }],
   },
   // Path to the API docs files relative to the project root
   // swaggerDefinition needs to know where to find the JSDoc comments
@@ -58,5 +45,4 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-
-module.exports = swaggerSpec; 
+module.exports = swaggerSpec;
