@@ -23,10 +23,29 @@ const { authenticateAdmin, authenticateUser } = require('../middleware/auth');
  *             schema:
  *               type: object
  *               properties:
- *                 token:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
  *                   type: string
- *                 admin:
- *                   $ref: '#/components/schemas/Admin' # Assume Admin schema is defined
+ *                   example: Đăng nhập thành công
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     admin_id:
+ *                       type: integer
+ *                     username:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     full_name:
+ *                       type: string
+ *                     role:
+ *                       type: string
+ *                 accessToken:
+ *                   type: string
+ *                 refreshToken:
+ *                   type: string
  *       400:
  *         description: "Thiếu username hoặc password / Sai username hoặc password"
  *       500:
@@ -48,11 +67,15 @@ router.post('/admin/login', authController.adminLogin);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Admin'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Token không phải của admin"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   $ref: '#/components/schemas/Admin'
+ *       404:
+ *         description: "Không tìm thấy thông tin admin"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -78,9 +101,27 @@ router.get('/admin/me', authenticateAdmin, authController.getCurrentAdmin);
  *             schema:
  *               type: object
  *               properties:
- *                  message:
- *                      type: string
- *                      example: Đăng ký thành công. Vui lòng kiểm tra email để xác thực.
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Đăng ký thành công
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     customer_id:
+ *                       type: integer
+ *                     username:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     full_name:
+ *                       type: string
+ *                 accessToken:
+ *                   type: string
+ *                 refreshToken:
+ *                   type: string
  *       400:
  *         description: "Dữ liệu không hợp lệ (vd: thiếu field, email đã tồn tại)"
  *       500:
@@ -108,14 +149,29 @@ router.post('/register', authController.register);
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Đăng nhập thành công
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     customer_id:
+ *                       type: integer
+ *                     username:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     full_name:
+ *                       type: string
  *                 accessToken:
  *                   type: string
  *                 refreshToken:
  *                   type: string
- *                 user:
- *                   $ref: '#/components/schemas/User' # Assume User schema is defined
  *       400:
- *         description: "Thiếu username hoặc password / Sai username hoặc password / Tài khoản chưa kích hoạt"
+ *         description: "Thiếu username hoặc password / Sai username hoặc password"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -147,12 +203,15 @@ router.post('/login', authController.login);
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 accessToken:
  *                   type: string
  *       400:
  *         description: "Thiếu refresh token"
  *       401:
- *         description: "Refresh token không hợp lệ hoặc đã hết hạn"
+ *         description: "Refresh token không hợp lệ, đã hết hạn hoặc người dùng/admin không tồn tại"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -248,11 +307,15 @@ router.post('/revoke-all-tokens',
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
- *       403:
- *         description: "Token không phải của người dùng"
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
+ *       404:
+ *         description: "Không tìm thấy thông tin người dùng"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -278,11 +341,33 @@ router.get('/me', authenticateUser, authController.getCurrentUser);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Cập nhật thông tin thành công
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     customer_id:
+ *                       type: integer
+ *                     username:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     full_name:
+ *                       type: string
+ *                     phone:
+ *                       type: string
+ *                     address:
+ *                       type: string
  *       400:
  *         description: "Dữ liệu không hợp lệ"
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *       404:
+ *         description: "Không tìm thấy thông tin người dùng"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -304,11 +389,16 @@ router.put('/profile', authenticateUser, authController.updateCustomerProfile);
  *                  schema:
  *                      type: object
  *                      properties:
+ *                          success:
+ *                              type: boolean
+ *                              example: true
  *                          message:
  *                              type: string
- *                              example: Tài khoản đã được xóa thành công.
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ"
+ *                              example: Xóa tài khoản thành công
+ *       400:
+ *         description: "Không thể xóa tài khoản khi còn đơn đặt vé đang hoạt động"
+ *       404:
+ *         description: "Không tìm thấy thông tin người dùng"
  *       500:
  *         description: "Lỗi máy chủ"
  */
