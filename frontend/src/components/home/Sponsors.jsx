@@ -45,7 +45,7 @@ export const Sponsors = () => {
         TRUSTED BY :
       </h3>
       <div className="flex flex-wrap justify-center items-center gap-8
-                      border-2 py-4 px-7 border-pink-950 rounded-3xl">
+                      border-2 py-3 px-7 border-pink-950 rounded-3xl">
         {
           sponsorTriples.map((triple) => (
             <div className="relative w-32 h-10">
@@ -69,7 +69,7 @@ export const Sponsors = () => {
       <p className="montserrat-medium text-center text-gray-900 text-lg">
         Follow us on:
       </p>
-      <div className="flex gap-3 px-3 py-2 border-2 rounded-2xl border-pink-950">
+      <div className="flex gap-3 px-4 py-2 border-2 rounded-2xl border-pink-950">
         <FaFacebook size="22" color="blue" className="cursor-pointer" />
         <FaYoutube size="22" color="red" className="cursor-pointer" />
         <FaInstagram size="22" color="purple" className="cursor-pointer" />

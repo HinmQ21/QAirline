@@ -28,9 +28,7 @@ const { authenticateAdmin, authenticateUser } = require('../middleware/auth');
  *                 admin:
  *                   $ref: '#/components/schemas/Admin' # Assume Admin schema is defined
  *       400:
- *         description: "Thiếu username hoặc password"
- *       401:
- *         description: "Sai username hoặc password"
+ *         description: "Thiếu username hoặc password / Sai username hoặc password"
  *       500:
  *         description: "Lỗi máy chủ"
  */
@@ -117,9 +115,7 @@ router.post('/register', authController.register);
  *                 user:
  *                   $ref: '#/components/schemas/User' # Assume User schema is defined
  *       400:
- *         description: "Thiếu username hoặc password"
- *       401:
- *         description: "Sai username hoặc password / Tài khoản chưa kích hoạt"
+ *         description: "Thiếu username hoặc password / Sai username hoặc password / Tài khoản chưa kích hoạt"
  *       500:
  *         description: "Lỗi máy chủ"
  */

@@ -18,15 +18,27 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Calendar } from "@/components/ui/calendar";
-import { ToastProvider, Toast, ToastTitle, ToastDescription } from "@/components/ui/toast";
 import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui/command";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
+import { API_BASE_URL } from "@/constants/env";
+
 const ShadcnCommonComponents = () => {
   return (
     <div className="p-6 space-y-8 bg-gray-100 min-h-screen">
+      <div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline">BACKEND API BASE URL</Button>
+            </TooltipTrigger>
+            <TooltipContent>{API_BASE_URL}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+
       <Button className="bg-blue-600 hover:bg-blue-700 text-white">Click me</Button>
 
       <div className="space-y-2">
@@ -117,17 +129,6 @@ const ShadcnCommonComponents = () => {
       </Popover>
 
       <div>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline">Hover me</Button>
-            </TooltipTrigger>
-            <TooltipContent>This is a tooltip</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
-
-      <div>
         <Label className="block mb-2">Progress</Label>
         <Progress value={65} className="w-full h-4" />
       </div>
@@ -156,21 +157,23 @@ const ShadcnCommonComponents = () => {
         </HoverCardContent>
       </HoverCard>
 
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button>Open Sheet</Button>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Sheet Title</SheetTitle>
-          </SheetHeader>
-          <p>This is the sheet content</p>
-        </SheetContent>
-      </Sheet>
+      <div>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button>Open Sheet</Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Sheet Title</SheetTitle>
+            </SheetHeader>
+            <p>This is the sheet content</p>
+          </SheetContent>
+        </Sheet>
+      </div>
 
       <div>
         <Label className="block mb-2">Calendar</Label>
-        <p>See more <a href="https://date-picker.luca-felix.com/" className=" hover:text-red-600">this link</a>.</p>
+        <p>See more <a href="https://date-picker.luca-felix.com/" className=" text-blue-600 hover:text-red-600">this link</a>.</p>
       </div>
 
       <div>
@@ -184,13 +187,6 @@ const ShadcnCommonComponents = () => {
           </CommandList>
         </Command>
       </div>
-
-      <ToastProvider>
-        <Toast>
-          <ToastTitle>Notification</ToastTitle>
-          <ToastDescription>This is a toast notification.</ToastDescription>
-        </Toast>
-      </ToastProvider>
     </div>
   );
 };

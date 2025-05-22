@@ -12,10 +12,6 @@
       transition-all duration-400 ease-in-out;
   }
 
-  .header .special-gothic-expanded-one-regular {
-    @apply font-bold text-2xl;
-  }
-
   .header-top {
     @apply h-[100px] bg-transparent shadow-none;
   }

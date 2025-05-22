@@ -77,7 +77,7 @@ exports.adminLogin = async (req, res) => {
     
     // Kiểm tra admin tồn tại
     if (!admin) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Username hoặc password không chính xác'
       });
@@ -90,7 +90,7 @@ exports.adminLogin = async (req, res) => {
     // const isMatch = password === admin.password;
     
     if (!isMatch) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Username hoặc password không chính xác'
       });
@@ -239,7 +239,7 @@ exports.login = async (req, res) => {
     
     // Check if user exists
     if (!user) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Username hoặc password không chính xác'
       });
@@ -249,7 +249,7 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     
     if (!isMatch) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'Username hoặc password không chính xác'
       });

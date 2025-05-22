@@ -87,7 +87,7 @@ export const Header = ({ isAtTop = false }) => (
     `header ${isAtTop ? 'header-top' : 'header-scrolled'}`
   }>
     <div className="flex items-center ml-10">
-      <Link to="/" className="special-gothic-expanded-one-regular">QAIRLINE</Link>
+      <Link to="/" className="special-gothic-expanded-one-regular text-2xl">QAIRLINE</Link>
       <div className="flex ml-22 gap-x-10">
         <Link to="/" className="header-link poppins-regular">Home</Link>
         <Link to="/flights" className="header-link poppins-regular">Flights</Link>
