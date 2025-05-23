@@ -2,7 +2,7 @@ import { FiGlobe } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa";
 import { PiSeatBold } from "react-icons/pi";
 import { LuPlane } from "react-icons/lu";
-import { MiniPageH } from "../MiniPage";
+import { MiniPageH } from "../misc/MiniPage";
 
 
 const ICON_SIZE = "45";

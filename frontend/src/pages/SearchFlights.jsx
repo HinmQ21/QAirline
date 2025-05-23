@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { CheckCircle, Circle } from "lucide-react";
 import { LuPlaneTakeoff } from "react-icons/lu";
-import { Header } from "../components/Header";
-import { FlightRecap } from "../components/flights/search/FlightRecap";
-import { SortFlight } from "../components/flights/search/SortFlight"
-import { FlightCard } from "../components/flights/search/FlightCard";
-
-import { Footer } from "../components/Footer";
+import { FlightRecap } from "@/components/flights/search/FlightRecap";
+import { SortFlight } from "@/components/flights/search/SortFlight"
+import { FlightCard } from "@/components/flights/search/FlightCard";
 
 
 const flights = [

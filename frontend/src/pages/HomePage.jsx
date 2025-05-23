@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import fullpage from "fullpage.js";
 import "fullpage.js/dist/fullpage.min.css";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { SloganRow } from "../components/home/Slogans";
-import { FlightBooking } from "../components/home/FlightBooking";
-import { TopDestinations } from "../components/home/TopDestinations";
-import { WhyChooseUs } from "../components/home/WhyChooseUs";
-import { Sponsors } from "../components/home/Sponsors";
-import { MiniPage, MiniPageH } from "../components/MiniPage";
+import { Header } from "@/components/layouts/Header";
+import { Footer } from "@/components/layouts/Footer";
+import { SloganRow } from "@/components/home/Slogans";
+import { FlightBooking } from "@/components/home/FlightBooking";
+import { TopDestinations } from "@/components/home/TopDestinations";
+import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { Sponsors } from "@/components/home/Sponsors";
+import { MiniPage, MiniPageH } from "@/components/misc/MiniPage";
 
 
 

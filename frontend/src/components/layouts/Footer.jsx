@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MiniPage } from "./MiniPage";
+import { MiniPage } from "@/components/misc/MiniPage";
 
 export const Footer = () => (
   <MiniPage className="rounded-b-none">

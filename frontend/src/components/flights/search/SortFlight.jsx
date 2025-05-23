@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu"
-import { MiniPage } from "@/components/MiniPage";
+import { MiniPage } from "@/components/misc/MiniPage";
 
 
 export const SortFlight = ({ sortOption, onSortChange }) => {

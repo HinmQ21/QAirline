@@ -6,7 +6,7 @@ import destinationsMock from "../../data/top_destinations.json";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import { MiniPageH, MiniPageP } from "../MiniPage";
+import { MiniPageH, MiniPageP } from "../misc/MiniPage";
 
 
 const DestinationCard = ({ dest }) => (
