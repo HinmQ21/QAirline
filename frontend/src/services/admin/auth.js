@@ -1,4 +1,4 @@
-import { adminApi } from "@/lib/axios";
+import { adminApi } from "@/lib/axios/admin";
 
 export const adminLogin = async (username, password) => {
   const res = await adminApi.post("/auth/admin/login", { username, password });

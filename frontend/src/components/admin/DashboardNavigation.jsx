@@ -1,13 +1,19 @@
 import { Fragment } from 'react';
 import { IoHomeOutline, IoHome } from "react-icons/io5";
+import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
 import { FaRegPenToSquare, FaPenToSquare } from "react-icons/fa6";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const navItems = [
   { icon: IoHomeOutline, iconOnHover: IoHome },
   { icon: FaRegPenToSquare, iconOnHover: FaPenToSquare },
 ];
 
-export const DashboardNavigationIcon = ({ icon: Icon, iconOnHover: IconOnHover, isSelected, onClick }) => (
+export const DashboardNavigationIcon = ({ icon: Icon, iconOnHover: IconOnHover, isSelected, onClick, className = "" }) => (
   <div onClick={onClick} className={`
     rounded-4xl shadow-xl cursor-pointer
     relative group
@@ -21,6 +27,7 @@ export const DashboardNavigationIcon = ({ icon: Icon, iconOnHover: IconOnHover, 
       hover:w-14 hover:h-14 hover:bg-teal-600 hover:shadow-teal-600/60"
     )
     }
+    ${className}
   `}>{
       (isSelected === true) ? (
         <IconOnHover size="24" className="absolute opacity-100 text-white" />
@@ -39,20 +46,70 @@ export const DashboardNavigationIcon = ({ icon: Icon, iconOnHover: IconOnHover, 
     }</div>
 )
 
-export const DashboardNavigation = ({ selectedTab, onTabSelect }) => {
-  return <div className="flex flex-col h-screen justify-center w-30 items-center">
+export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
+  <div className="flex flex-col h-screen justify-between w-30 items-center">
+    <div className="flex flex-col grow justify-center items-center">
+      {
+        navItems.map((item, idx) => (
+          <Fragment key={idx}>
+            <DashboardNavigationIcon
+              icon={item.icon}
+              iconOnHover={item.iconOnHover}
+              isSelected={selectedTab === idx}
+              onClick={() => onTabSelect(idx)}
+            />
+            {(idx === 0) && <div className="w-[2px] h-5 bg-gray-600" />}
+          </Fragment>
+        ))
+      }
+    </div>
+    <LogoutButton className="mb-5" />
+  </div>
+);
+
+const LogoutButton = ({ className = "" }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <DashboardNavigationIcon
+          icon={IoLogOutOutline}
+          iconOnHover={IoLogOut}
+          className={`${className}`}
+        />
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Đăng xuất</DialogTitle>
+          <DialogDescription>Bạn sẽ được đăng xuất khỏi trang admin.</DialogDescription>
+          <DialogFooter>
+            <DialogClose type="button"
+              className="cursor-pointer bg-gray-500 px-3 py-2 text-white rounded-xl"
+            >
+              Không
+            </DialogClose>
+            <DialogClose type="button"
+              className="cursor-pointer bg-red-500 px-3 py-2 text-white rounded-xl"
+              onClick={() => onLogoutEvent(navigate)}
+            >
+              Có
+            </DialogClose>
+          </DialogFooter>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+const onLogoutEvent = (navigate) => {
+  toast.promise(
+    async () => {
+      localStorage.clear();
+      navigate("/admin");
+    },
     {
-      navItems.map((item, idx) => (
-        <Fragment key={idx}>
-          <DashboardNavigationIcon
-            icon={item.icon}
-            iconOnHover={item.iconOnHover}
-            isSelected={selectedTab === idx}
-            onClick={() => onTabSelect(idx)}
-          />
-          {(idx === 0) && <div className="w-[2px] h-5 bg-gray-600" />}
-        </Fragment>
-      ))
+      loading: "Đang chuyển hướng...",
     }
-  </div>;
-};
+  );
+}

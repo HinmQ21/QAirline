@@ -4,8 +4,6 @@ export const MiniPage = ({ children, className = "", mx = 30 }) => (
   </div>
 );
 
-
-
 export const MiniPageH = ({ children, className = "" }) => (
   <p className={`inter-semibold text-gray-800 text-4xl ${className}`}>{children}</p>
 );

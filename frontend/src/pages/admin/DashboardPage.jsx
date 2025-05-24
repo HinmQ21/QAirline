@@ -1,9 +1,11 @@
+import { AdminDashboardContent } from "@/components/admin/dashboard_contents/DashboardContent";
 import { DashboardNavigation } from "@/components/admin/DashboardNavigation";
+import { ThemeProvider } from "@/components/theme-provider";
 import { useState, useEffect } from "react";
 
 export const AdminDashboardPage = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
   const [navY, setNavY] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const onTabSelect = (idx) => {
     setSelectedTab(idx);
@@ -25,18 +27,18 @@ export const AdminDashboardPage = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gray-300">
-      <div
-        className="absolute left-0 transition-transform duration-400 ease-out"
-        style={{ transform: `translateY(${navY}px)` }}
-      >
-        <DashboardNavigation selectedTab={selectedTab} onTabSelect={onTabSelect} />
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <div className="relative min-h-screen bg-gray-300">
+        <div
+          className="absolute left-0 transition-transform duration-400 ease-out"
+          style={{ transform: `translateY(${navY}px)` }}
+        >
+          <DashboardNavigation selectedTab={selectedTab} onTabSelect={onTabSelect} />
+        </div>
+        <div className="ml-30">
+          <AdminDashboardContent index={selectedTab} />
+        </div>
       </div>
-
-      <div className="ml-30">
-        <div className="h-screen">page 1</div>
-        <div className="h-screen">page 2</div>
-      </div>
-    </div>
+    </ThemeProvider>
   );
 };
