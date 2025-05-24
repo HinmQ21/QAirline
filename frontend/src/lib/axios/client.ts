@@ -28,7 +28,7 @@ api.interceptors.response.use(
         localStorage.setItem("userAccessToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return clientApi(originalRequest);
+        return api(originalRequest);
       } catch (e) {
         // TODO: is it safe to do this?
         localStorage.clear();

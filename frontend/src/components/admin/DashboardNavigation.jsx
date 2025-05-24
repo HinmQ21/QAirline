@@ -3,7 +3,6 @@ import { IoHomeOutline, IoHome } from "react-icons/io5";
 import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
 import { FaRegPenToSquare, FaPenToSquare } from "react-icons/fa6";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -110,6 +109,7 @@ const onLogoutEvent = (navigate) => {
     },
     {
       loading: "Đang chuyển hướng...",
+      success: "Đăng xuất thành công!"
     }
   );
 }

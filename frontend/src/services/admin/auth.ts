@@ -1,6 +1,6 @@
 import { adminApi } from "@/lib/axios/admin";
 
-export const adminLogin = async (username, password) => {
+export const adminLogin = async (username: string, password: string) => {
   const res = await adminApi.post("/auth/admin/login", { username, password });
 
   const { accessToken, refreshToken, data } = res.data;

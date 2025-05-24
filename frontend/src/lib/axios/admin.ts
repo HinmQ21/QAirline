@@ -28,7 +28,7 @@ adminApi.interceptors.response.use(
         localStorage.setItem("adminRefreshToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return clientApi(originalRequest);
+        return adminApi(originalRequest);
       } catch (e) {
         // TODO: is it safe to do this?
         localStorage.clear();
