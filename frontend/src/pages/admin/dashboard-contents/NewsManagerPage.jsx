@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateNewsButton, categoryLabels } from "./create-news";
+import { CreateNewsButton, categoryLabels } from "../../../components/admin/news-manager/create-news";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
 
 const sortLabels = {

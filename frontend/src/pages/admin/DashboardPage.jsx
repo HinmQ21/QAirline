@@ -1,7 +1,7 @@
-import { AdminDashboardContent } from "@/pages/admin/DashboardContent";
-import { DashboardNavigation } from "@/components/admin/navigation/nav";
-import { ThemeProvider } from "@/components/theme-provider";
 import { useState, useEffect } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
+import { DashboardNavigation } from "@/components/admin/navigation/nav";
 
 export const AdminDashboardPage = () => {
   const [navY, setNavY] = useState(0);
@@ -42,3 +42,12 @@ export const AdminDashboardPage = () => {
     </ThemeProvider>
   );
 };
+
+const AdminDashboardContent = ({ index }) => {
+  switch (index) {
+    case 1:
+      return <NewsManagerPage />;
+    default:
+      return <div>Page {index}</div>
+  }
+}
