@@ -5,27 +5,19 @@ import { Button } from "@/components/ui/button";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
-  Dialog, DialogDescription, DialogHeader,
-  DialogContent, DialogTitle, DialogTrigger,
-  DialogClose,
+  DialogHeader, DialogContent,
+  Dialog, DialogTitle, DialogTrigger,
 } from '@/components/ui/dialog';
 import {
+  FormField, FormItem, FormMessage,
   Form, FormControl, FormDescription,
-  FormField, FormItem, FormLabel, FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { createNews } from "@/services/admin/news";
-
-export const categoryLabels = {
-  introduction: "Giới thiệu",
-  promotion: "Khuyến mãi",
-  news: "Tin tức",
-  announcement: "Thông báo"
-};
+import { createNews, newsCategoryList, newsCategoryLabels } from "@/services/admin/news";
 
 const newsSchema = z.object({
   title: z.string()
@@ -34,22 +26,22 @@ const newsSchema = z.object({
   content: z.string()
     .nonempty("Nội dung không được để trống!")
     .max(1000, "Nội dung không được dài quá 1000 kí tự!"),
-  category: z.string().nonempty("Vui lòng chọn một danh mục!")
+  category: z.enum(newsCategoryList)
 });
 
-export const CreateNewsButton = ({ className }) => {
-  const newsForm = useForm({
+export const CreateNewsButton = ({ className }: { className?: string | undefined }) => {
+  const newsForm = useForm<z.infer<typeof newsSchema>>({
     resolver: zodResolver(newsSchema),
     defaultValues: {
       title: "",
       content: "",
-      category: ""
+      category: "news"
     },
   });
 
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: z.infer<typeof newsSchema>) => {
     toast.promise(
       createNews(values),
       {
@@ -148,7 +140,7 @@ export const CreateNewsButton = ({ className }) => {
                       <div className="flex flex-row items-center">
                         <FormControl>
                           <DropdownSelect title="Danh mục"
-                            labelMap={categoryLabels} variant="link"
+                            labelMap={newsCategoryLabels} variant="link"
                             value={field.value} setValue={field.onChange}
                             className="px-0"
                           />

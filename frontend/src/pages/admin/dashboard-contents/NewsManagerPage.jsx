@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { CreateNewsButton, categoryLabels } from "../../../components/admin/news-manager/create-news";
+import { CreateNewsButton } from "@/components/admin/news-manager/create-news";
+import { newsCategoryLabels } from "@/services/admin/news";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
+import { NewsList } from "@/components/admin/news-manager/news-list";
 
 const sortLabels = {
   newest: "Mới nhất",
@@ -10,7 +12,7 @@ const sortLabels = {
 
 const allCategoryLabels = {
   all: "Tất cả",
-  ...categoryLabels
+  ...newsCategoryLabels
 };
 
 export const NewsManagerPage = () => {
@@ -23,7 +25,7 @@ export const NewsManagerPage = () => {
         sortBy={sortBy} setSortBy={setSortBy}
         category={category} setCategory={setCategory}
       />
-
+      <NewsList />
     </div>
   );
 }

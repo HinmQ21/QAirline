@@ -70,13 +70,12 @@ export const AdminLoginPage = () => {
           return 'Đăng nhập thành công!';
         },
         error: (err) => {
-          const res = err.response;
           let errMsg;
           try {
-            errMsg = res.data.message;
+            errMsg = err.response.data.message;
           }
           catch(_) {
-            errMsg = res.toString();
+            errMsg = err.toString();
           }
           return `Lỗi: ${errMsg}`;
         }
