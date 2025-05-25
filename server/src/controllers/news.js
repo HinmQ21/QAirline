@@ -217,22 +217,3 @@ exports.deleteNews = async (req, res) => {
     });
   }
 };
-
-// Get news categories
-exports.getNewsCategories = async (req, res) => {
-  try {
-    const categories = ['introduction', 'promotion', 'announcement', 'news'];
-    
-    res.status(200).json({
-      success: true,
-      data: categories
-    });
-  } catch (error) {
-    console.error('Get news categories error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Đã xảy ra lỗi khi lấy danh mục tin tức',
-      error: error.message
-    });
-  }
-}; 
