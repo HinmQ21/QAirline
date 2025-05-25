@@ -1,9 +1,9 @@
-import { NewsManageContent } from "./NewsManage"
+import { NewsManagerPage } from "./news-manager/page"
 
 export const AdminDashboardContent = ({index}) => {
   switch (index) {
     case 1:
-      return <NewsManageContent />;
+      return <NewsManagerPage />;
     default:
       return <div>Page {index}</div>
   }

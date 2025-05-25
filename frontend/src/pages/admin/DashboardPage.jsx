@@ -1,5 +1,5 @@
-import { AdminDashboardContent } from "@/components/admin/dashboard_contents/DashboardContent";
-import { DashboardNavigation } from "@/components/admin/DashboardNavigation";
+import { AdminDashboardContent } from "@/components/admin/DashboardContent";
+import { DashboardNavigation } from "@/components/admin/navigation/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { useState, useEffect } from "react";
 
