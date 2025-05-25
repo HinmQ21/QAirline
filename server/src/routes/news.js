@@ -121,26 +121,6 @@ router.get('/', newsController.getAllNews);
 
 /**
  * @swagger
- * /api/news/categories:
- *   get:
- *     summary: Lấy tất cả danh mục tin tức
- *     tags: [News]
- *     responses:
- *       200:
- *         description: "Danh sách danh mục tin tức"
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/NewsCategory'
- *       500:
- *         description: "Lỗi máy chủ"
- */
-router.get('/categories', newsController.getNewsCategories);
-
-/**
- * @swagger
  * /api/news/{news_id}:
  *   get:
  *     summary: Lấy bài viết tin tức theo ID
