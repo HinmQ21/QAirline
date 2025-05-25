@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateNewsButton } from "./create-news";
+import { CreateNewsButton, categoryLabels } from "./create-news";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
 
 const sortLabels = {
@@ -8,12 +8,9 @@ const sortLabels = {
   oldest: "Cũ nhất",
 };
 
-const categoryLabels = {
+const allCategoryLabels = {
   all: "Tất cả",
-  introduction: "Giới thiệu",
-  promotion: "Khuyến mãi",
-  news: "Tin tức",
-  announcement: "Thông báo"
+  ...categoryLabels
 };
 
 export const NewsManagerPage = () => {
@@ -38,7 +35,7 @@ const NewsManagerPageTitle = ({ sortBy, setSortBy, category, setCategory }) => {
         <DropdownSelect title="Sắp xếp theo"
           labelMap={sortLabels} item={sortBy} setItem={setSortBy} />
         <DropdownSelect title="Danh mục"
-          labelMap={categoryLabels} item={category} setItem={setCategory} />
+          labelMap={allCategoryLabels} item={category} setItem={setCategory} />
       </div>
       <CreateNewsButton />
     </div>

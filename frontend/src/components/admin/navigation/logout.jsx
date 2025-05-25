@@ -21,16 +21,16 @@ export const LogoutButton = ({ className = "" }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Đăng xuất</DialogTitle>
+          <DialogTitle className="inter-bold">Đăng xuất</DialogTitle>
           <DialogDescription>Bạn sẽ được đăng xuất khỏi trang admin.</DialogDescription>
           <DialogFooter>
             <DialogClose type="button"
-              className="cursor-pointer bg-gray-500 px-3 py-2 text-white rounded-xl"
+              className="cursor-pointer bg-gray-800 hover:bg-gray-600 px-3 py-2 text-white rounded-md"
             >
               Không
             </DialogClose>
             <DialogClose type="button"
-              className="cursor-pointer bg-red-500 px-3 py-2 text-white rounded-xl"
+              className="cursor-pointer bg-red-500 hover:bg-red-400 px-3 py-2 text-white rounded-md"
               onClick={() => onLogoutEvent(navigate)}
             >
               Có
@@ -39,5 +39,18 @@ export const LogoutButton = ({ className = "" }) => {
         </DialogHeader>
       </DialogContent>
     </Dialog>
+  );
+}
+
+const onLogoutEvent = (navigate) => {
+  toast.promise(
+    async () => {
+      localStorage.clear();
+      navigate("/admin");
+    },
+    {
+      loading: "Đang chuyển hướng...",
+      success: "Đăng xuất thành công!"
+    }
   );
 }

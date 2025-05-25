@@ -30,16 +30,3 @@ export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
     <LogoutButton className="mb-5" />
   </div>
 );
-
-const onLogoutEvent = (navigate) => {
-  toast.promise(
-    async () => {
-      localStorage.clear();
-      navigate("/admin");
-    },
-    {
-      loading: "Đang chuyển hướng...",
-      success: "Đăng xuất thành công!"
-    }
-  );
-}
