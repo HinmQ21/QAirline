@@ -4,17 +4,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export const DropdownSelect = ({ title, labelMap, item, setItem, variant = "outline" }) => {
+export const DropdownSelect = ({ title, labelMap, value, setValue, variant = "outline", className }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={variant}>
+        <Button variant={variant} className={`${className}`}>
           <p className="poppins-regular">{title}:</p>
-          <p className="text-indigo-700 poppins-semibold">{labelMap[item]}</p>
+          <p className="text-indigo-700 poppins-semibold">{labelMap[value]}</p>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuRadioGroup value={item} onValueChange={setItem}>{
+        <DropdownMenuRadioGroup value={value} onValueChange={setValue}>{
           Object.entries(labelMap).map(([value, label]) => (
             <DropdownMenuRadioItem key={value} value={value}>
               {label}

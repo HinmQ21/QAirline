@@ -33,9 +33,9 @@ const NewsManagerPageTitle = ({ sortBy, setSortBy, category, setCategory }) => {
     <div className="flex flex-row flex-wrap gap-4 justify-around">
       <div className="flex flex-row flex-wrap gap-4">
         <DropdownSelect title="Sắp xếp theo"
-          labelMap={sortLabels} item={sortBy} setItem={setSortBy} />
+          labelMap={sortLabels} value={sortBy} setValue={setSortBy} />
         <DropdownSelect title="Danh mục"
-          labelMap={allCategoryLabels} item={category} setItem={setCategory} />
+          labelMap={allCategoryLabels} value={category} setValue={setCategory} />
       </div>
       <CreateNewsButton />
     </div>

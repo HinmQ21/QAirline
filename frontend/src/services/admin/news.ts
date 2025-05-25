@@ -7,7 +7,7 @@ export const createNews = async (data: {
   content: string;
   category: NewsCategoryType
 }) => {
-  return await adminApi.post('/api/news', data);
+  return await adminApi.post('/news', data);
 }
 
 export const getNewsList = async (params: {
@@ -16,5 +16,5 @@ export const getNewsList = async (params: {
   category: NewsCategoryType,
   search?: string | undefined
 }) => {
-  return await adminApi.get('/api/news', {params});
+  return await adminApi.get('/news', {params});
 }

@@ -72,10 +72,11 @@ export const AdminLoginPage = () => {
         error: (err) => {
           const res = err.response;
           let errMsg;
-          if (res !== undefined) {
+          try {
             errMsg = res.data.message;
-          } else {
-            errMsg = err.toString();
+          }
+          catch(_) {
+            errMsg = res.toString();
           }
           return `Lỗi: ${errMsg}`;
         }

@@ -25,12 +25,12 @@ export const LogoutButton = ({ className = "" }) => {
           <DialogDescription>Bạn sẽ được đăng xuất khỏi trang admin.</DialogDescription>
           <DialogFooter>
             <DialogClose type="button"
-              className="cursor-pointer bg-gray-800 hover:bg-gray-600 px-3 py-2 text-white rounded-md"
+              className="cursor-pointer bg-gray-900 hover:bg-gray-700 px-3 py-2 text-white rounded-lg"
             >
               Không
             </DialogClose>
             <DialogClose type="button"
-              className="cursor-pointer bg-red-500 hover:bg-red-400 px-3 py-2 text-white rounded-md"
+              className="cursor-pointer bg-red-500 hover:bg-red-400 px-3 py-2 text-white rounded-lg"
               onClick={() => onLogoutEvent(navigate)}
             >
               Có
