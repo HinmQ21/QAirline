@@ -99,7 +99,7 @@ export const Header = ({ isAtTop = false, className = "" }) => (
 
     <div className="flex items-center mr-10 gap-x-4">
       <div className={`${isAtTop ? 'opacity-0' : 'opacity-100'}
-                       transition-opacity duration-300`} op>
+                       transition-opacity duration-300`}>
         <WeatherDisplay />
       </div>
       <_AuthButtons />

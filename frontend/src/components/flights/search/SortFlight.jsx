@@ -27,7 +27,7 @@ export const SortFlight = ({ sortOption, onSortChange }) => {
         </button>
 
 
-        <MiniPage className="flex flex-col justify-center h-10" mx="0">
+        <MiniPage className="flex flex-col justify-center h-10">
           <div className="flex flex-row mx-4">
             <p className="mr-2">Sap xep theo</p>
             {/* <Dropdown buttonText={buttonText} content={

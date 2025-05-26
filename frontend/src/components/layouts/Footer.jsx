@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { MiniPage } from "@/components/misc/MiniPage";
 
 export const Footer = () => (
-  <MiniPage className="rounded-b-none">
+  <MiniPage className="rounded-b-none mx-30">
     <div className="min-w-80 flex flex-col lg:flex-row justify-between items-center">
       <div className="ml-5 lg:ml-10 mt-5">
         <Link to="/" className="text-2xl special-gothic-expanded-one-regular">

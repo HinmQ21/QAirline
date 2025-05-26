@@ -5,6 +5,7 @@ import {
 import { NavigationIcon } from "./NavigationIcon";
 import { useNavigate } from 'react-router-dom';
 import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
+import toast from 'react-hot-toast';
 
 
 export const LogoutButton = ({ className = "" }) => {

@@ -35,8 +35,8 @@ export const WhyChooseUs = () => (
     <div className="flex flex-col items-center">
       <MiniPageH className="mb-7">Why choose us?</MiniPageH>
       <div className="flex flex-wrap gap-5 max-w-[90%] justify-center">
-        {reasons.map((reason) => (
-          <div className="flex-1 rounded-xl min-w-50 cursor-pointer
+        {reasons.map((reason, index) => (
+          <div key={index} className="flex-1 rounded-xl min-w-50 cursor-pointer
                             bg-gradient-to-tr from-purple-950 to-pink-900 w-full">
             <div className="flex flex-col items-center h-full text-center
                               py-5 gap-4 justify-evenly px-4 text-white">

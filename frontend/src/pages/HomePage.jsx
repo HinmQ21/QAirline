@@ -56,7 +56,7 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
-            <MiniPage className="mt-25 mb-10">
+            <MiniPage className="mt-25 mb-10 mx-30">
               <div className="flex flex-col m-15 gap-y-22">
                 <TopDestinations />
                 <WhyChooseUs />
@@ -66,14 +66,14 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-between">
-            <MiniPage className="mt-25 mb-10">
+            <MiniPage className="mt-25 mb-10 mx-30">
               <div className="flex flex-col items-center my-10 gap-3">
                 <MiniPageH>More content</MiniPageH>
                 <img src="/miscs/coming-soon.gif" loading="lazy" />
               </div>
             </MiniPage>
             <div className="flex flex-col">
-              <MiniPage className="mb-10">
+              <MiniPage className="mb-10 mx-30">
                 <div className="m-10">
                   <Sponsors />
                 </div>

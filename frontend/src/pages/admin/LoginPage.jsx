@@ -51,6 +51,7 @@ export const AdminLoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => { checkLogin(navigate); }, [navigate]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -61,6 +62,7 @@ export const AdminLoginPage = () => {
   });
 
   function onSubmit(values) {
+    setIsSubmitting(true);
     toast.promise(
       adminLogin(values.username, values.password),
       {
@@ -71,12 +73,9 @@ export const AdminLoginPage = () => {
         },
         error: (err) => {
           let errMsg;
-          try {
-            errMsg = err.response.data.message;
-          }
-          catch(_) {
-            errMsg = err.toString();
-          }
+          try { errMsg = err.response.data.message; }
+          catch(_) { errMsg = err.toString(); }
+          setIsSubmitting(false);
           return `Lỗi: ${errMsg}`;
         }
       }
@@ -123,7 +122,7 @@ export const AdminLoginPage = () => {
                   )}
                 />
                 <div className="flex justify-center">
-                  <Button type="submit">Đăng nhập</Button>
+                  <Button type="submit" disabled={isSubmitting}>Đăng nhập</Button>
                 </div>
               </form>
             </Form>

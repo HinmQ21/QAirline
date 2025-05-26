@@ -47,11 +47,11 @@ export const Sponsors = () => {
       <div className="flex flex-wrap justify-center items-center gap-8
                       border-2 py-3 px-7 border-pink-950 rounded-3xl">
         {
-          sponsorTriples.map((triple) => (
-            <div className="relative w-32 h-10">
+          sponsorTriples.map((triple, index) => (
+            <div key={index} className="relative w-32 h-10">
               {
                 triple.map((sponsor, idx) => (
-                  <img src={`/sponsors/${sponsor.src}`} alt={sponsor.alt}
+                  <img key={idx} src={`/sponsors/${sponsor.src}`} alt={sponsor.alt}
                     className={`w-36 h-10 absolute
                       transition-all duration-500
                       ${indexToShow === idx
