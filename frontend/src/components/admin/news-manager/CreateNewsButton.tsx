@@ -8,6 +8,7 @@ import {
   FormField, FormItem, FormMessage,
   Form, FormControl, FormDescription,
 } from "@/components/ui/form"
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -15,9 +16,8 @@ import { Button } from "@/components/ui/button";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Dispatch, SetStateAction, useState } from "react";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
-import { createNews, newsCategoryList, newsCategoryLabels } from "@/services/admin/news";
+import { createNews, newsCategoryList, newsCategoryLabels, NewsType } from "@/services/admin/news";
 
 const newsSchema = z.object({
   title: z.string()
@@ -31,10 +31,10 @@ const newsSchema = z.object({
 
 type CreateNewsButtonProps = {
   className?: string | undefined;
-  setLoading: Dispatch<SetStateAction<boolean>>
+  createNewsStateAction: (news: NewsType) => void
 }
 
-export const CreateNewsButton = ({ className, setLoading }: CreateNewsButtonProps) => {
+export const CreateNewsButton = ({ className, createNewsStateAction }: CreateNewsButtonProps) => {
   const newsForm = useForm<z.infer<typeof newsSchema>>({
     resolver: zodResolver(newsSchema),
     defaultValues: {
@@ -45,8 +45,10 @@ export const CreateNewsButton = ({ className, setLoading }: CreateNewsButtonProp
   });
 
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = (values: z.infer<typeof newsSchema>) => {
+    setIsSubmitting(true);
     toast.promise(
       createNews(values),
       {
@@ -54,19 +56,17 @@ export const CreateNewsButton = ({ className, setLoading }: CreateNewsButtonProp
         error: (err) => {
           const res = err.response;
           let errMsg;
-          try {
-            errMsg = res.data.message;
-          }
-          catch (_) {
-            errMsg = res.toString();
-          }
+          try { errMsg = res.data.message; }
+          catch (_) { errMsg = res.toString(); }
+          setIsSubmitting(false);
           return `Lỗi khi tạo bài viết: ${errMsg}`;
         },
         success: (data) => {
           console.log(data);
           setOpen(false);
           newsForm.reset();
-          setLoading(true);
+          setIsSubmitting(false);
+          createNewsStateAction(data);
           return "Tạo bài viết thành công!";
         }
       }
@@ -156,7 +156,7 @@ export const CreateNewsButton = ({ className, setLoading }: CreateNewsButtonProp
                     </FormItem>
                   )}
                 />
-                <Button type="submit">
+                <Button type="submit" disabled={isSubmitting}>
                   Submit
                 </Button>
               </div>

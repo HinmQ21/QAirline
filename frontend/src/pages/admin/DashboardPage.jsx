@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
 import { DashboardNavigation } from "@/components/admin/navigation/DashboardNavigation";
 
@@ -27,19 +26,17 @@ export const AdminDashboardPage = () => {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <div className="relative min-h-screen bg-gray-200">
-        <div
-          className="absolute left-0 transition-transform duration-400 ease-out"
-          style={{ transform: `translateY(${navY}px)` }}
-        >
-          <DashboardNavigation selectedTab={selectedTab} onTabSelect={onTabSelect} />
-        </div>
-        <div className="ml-30 pt-16">
-          <AdminDashboardContent index={selectedTab} />
-        </div>
+    <div className="relative min-h-screen bg-gray-200">
+      <div
+        className="absolute left-0 transition-transform duration-400 ease-out"
+        style={{ transform: `translateY(${navY}px)` }}
+      >
+        <DashboardNavigation selectedTab={selectedTab} onTabSelect={onTabSelect} />
       </div>
-    </ThemeProvider>
+      <div className="ml-30 pt-16">
+        <AdminDashboardContent index={selectedTab} />
+      </div>
+    </div>
   );
 };
 

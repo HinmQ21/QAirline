@@ -8,6 +8,7 @@
 @import "./css/header.css";
 @import "./css/homepage.css";
 @import "tw-animate-css";
+@import 'react-loading-skeleton/dist/skeleton.css';
 
 @custom-variant dark (&:is(.dark *));
 @config "../tailwind.config.js";

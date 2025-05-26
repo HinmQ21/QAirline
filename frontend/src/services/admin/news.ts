@@ -23,20 +23,19 @@ export type NewsType = {
   title: string
 };
 
-type NewsListResponse = {
-  news: NewsType[],
-  total: number,
-  page: number,
-  limit: number
-};
-
-export const createNews = async (data: {
-  title: string;
-  content: string;
-  category: NewsCategoryType
-}) => {
-  return await adminApi.post('/news', data);
+export type CreateNewsRequest = {
+  title: string; content: string;
+  category: NewsCategoryType;
 }
+
+export const createNews = async (data: CreateNewsRequest): Promise<NewsType> => {
+  return (await adminApi.post('/news', data)).data.data;
+}
+
+export type NewsListResponse = {
+  news: NewsType[]; total: number;
+  page: number; limit: number;
+};
 
 export const getNewsList = async (params: {
   page: number,
@@ -45,4 +44,8 @@ export const getNewsList = async (params: {
   search?: string | undefined
 }): Promise<NewsListResponse> => {
   return (await adminApi.get('/news', { params })).data.data;
+}
+
+export const deleteNews = async (news_id: number ) => {
+  return await adminApi.delete(`/news/${news_id}`);
 }
