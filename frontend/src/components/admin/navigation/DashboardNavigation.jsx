@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import toast from 'react-hot-toast';
-import { LogoutButton } from "./logout";
-import { NavigationIcon } from "./nav-icon";
+import { LogoutButton } from "./LogoutButton";
+import { NavigationIcon } from "./NavigationIcon";
 import { IoHomeOutline, IoHome } from "react-icons/io5";
 import { FaRegPenToSquare, FaPenToSquare } from "react-icons/fa6";
 

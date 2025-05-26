@@ -1,9 +1,7 @@
 import dayjs from "dayjs";
-import toast from "react-hot-toast";
-import { useEffect, useState } from "react"
-import { getNewsList, newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/admin/news";
-import { AiOutlineDelete, AiFillDelete } from "react-icons/ai";
 import { Badge } from "@/components/ui/badge";
+import { AiOutlineDelete, AiFillDelete } from "react-icons/ai";
+import { newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/admin/news";
 
 const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
   let className;
@@ -16,40 +14,15 @@ const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
   return <Badge className={`${className}`}>{newsCategoryLabels[category]}</Badge>
 }
 
-export const NewsList = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    getNewsList({ page: 1, limit: 10 }).then(
-      (response) => {
-        console.log(response);
-        setData(response.data.data.news);
-      }
-    ).catch(
-      (err) => {
-        let errMsg;
-        try {
-          errMsg = err.response.data.message;
-        }
-        catch {
-          errMsg = err.toString();
-        }
-        toast.error(errMsg);
-      }
-    );
-  }, []);
-
+export const NewsList = ({data}: {data: NewsType[]}) => {
   if (data.length == 0) {
     return <div></div>;
   }
 
   return (
-    <>
-      <p>{data.length}</p>
-      <div className="flex flex-row flex-wrap justify-center w-full gap-4">
-        {data.map((e) => <NewsCard news={e} />)}
-      </div>
-    </>
+    <div className="flex flex-row flex-wrap justify-center w-full gap-4">
+      {data.map((e) => <NewsCard key={e.news_id} news={e} />)}
+    </div>
   );
 }
 

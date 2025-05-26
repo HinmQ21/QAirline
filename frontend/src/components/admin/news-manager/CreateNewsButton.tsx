@@ -1,9 +1,5 @@
 import { z } from "zod"
 import dayjs from "dayjs";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { FaRegPenToSquare } from "react-icons/fa6";
-import { zodResolver } from "@hookform/resolvers/zod"
 import {
   DialogHeader, DialogContent,
   Dialog, DialogTitle, DialogTrigger,
@@ -12,11 +8,15 @@ import {
   FormField, FormItem, FormMessage,
   Form, FormControl, FormDescription,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
-import { DropdownSelect } from "@/components/misc/DropdownSelect";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { FaRegPenToSquare } from "react-icons/fa6";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Dispatch, SetStateAction, useState } from "react";
+import { DropdownSelect } from "@/components/misc/DropdownSelect";
 import { createNews, newsCategoryList, newsCategoryLabels } from "@/services/admin/news";
 
 const newsSchema = z.object({
@@ -29,7 +29,12 @@ const newsSchema = z.object({
   category: z.enum(newsCategoryList)
 });
 
-export const CreateNewsButton = ({ className }: { className?: string | undefined }) => {
+type CreateNewsButtonProps = {
+  className?: string | undefined;
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
+
+export const CreateNewsButton = ({ className, setLoading }: CreateNewsButtonProps) => {
   const newsForm = useForm<z.infer<typeof newsSchema>>({
     resolver: zodResolver(newsSchema),
     defaultValues: {
@@ -61,6 +66,7 @@ export const CreateNewsButton = ({ className }: { className?: string | undefined
           console.log(data);
           setOpen(false);
           newsForm.reset();
+          setLoading(true);
           return "Tạo bài viết thành công!";
         }
       }

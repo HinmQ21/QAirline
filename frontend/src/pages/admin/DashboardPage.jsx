@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
-import { DashboardNavigation } from "@/components/admin/navigation/nav";
+import { DashboardNavigation } from "@/components/admin/navigation/DashboardNavigation";
 
 export const AdminDashboardPage = () => {
   const [navY, setNavY] = useState(0);

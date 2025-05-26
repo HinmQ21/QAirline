@@ -23,6 +23,13 @@ export type NewsType = {
   title: string
 };
 
+type NewsListResponse = {
+  news: NewsType[],
+  total: number,
+  page: number,
+  limit: number
+};
+
 export const createNews = async (data: {
   title: string;
   content: string;
@@ -36,6 +43,6 @@ export const getNewsList = async (params: {
   limit: number,
   category?: NewsCategoryType | undefined,
   search?: string | undefined
-}) => {
-  return await adminApi.get('/news', {params});
+}): Promise<NewsListResponse> => {
+  return (await adminApi.get('/news', { params })).data.data;
 }
