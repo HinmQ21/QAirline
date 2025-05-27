@@ -116,9 +116,7 @@ exports.getAirplanes = async (req, res) => {
  */
 exports.getAirplaneById = async (req, res) => {
   try {
-    const airplane = await Airplane.findByPk(req.params.id, {
-      include: [{ model: Seat }]
-    });
+    const airplane = await Airplane.findByPk(req.params.id);
 
     if (!airplane) {
       return res.status(404).json({

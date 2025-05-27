@@ -359,26 +359,12 @@ router.get('/:id/seats', airplaneController.getAirplaneSeats);
  *         totalSeats:
  *           type: integer
  *           example: 283
- *         economySeats:
- *           type: integer
- *           example: 253
- *         businessSeats:
- *           type: integer
- *           example: 30
- *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
  *     CreateAirplaneInput:
  *       type: object
  *       required:
  *         - model
  *         - registrationNumber
  *         - totalSeats
- *         - economySeats
- *         - businessSeats
  *       properties:
  *         model:
  *           type: string
@@ -388,22 +374,12 @@ router.get('/:id/seats', airplaneController.getAirplaneSeats);
  *         totalSeats:
  *           type: integer
  *           description: "Tổng số ghế"
- *         economySeats:
- *           type: integer
- *           description: "Số ghế hạng phổ thông"
- *         businessSeats:
- *           type: integer
- *           description: "Số ghế hạng thương gia"
  *     UpdateAirplaneInput:
  *       type: object
  *       properties:
  *         model:
  *           type: string
  *         totalSeats:
- *           type: integer
- *         economySeats:
- *           type: integer
- *         businessSeats:
  *           type: integer
  *     Seat:
  *       type: object
