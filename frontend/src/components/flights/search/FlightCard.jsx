@@ -71,6 +71,7 @@ export const FlightCard = ({children, flight, OnToggle}) => {
             price={flight.price.eco} 
             roundstyle={false}
             onClick={() => handlePriceClick("eco")}
+            selected={priceService}
           />        
           <PriceCard 
             type={"business"} 
@@ -79,6 +80,7 @@ export const FlightCard = ({children, flight, OnToggle}) => {
             price={flight.price.business} 
             roundstyle={true} 
             onClick={() => handlePriceClick("business")}
+            selected={priceService}
           />        
         </div>
       </div>

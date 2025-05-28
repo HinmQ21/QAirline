@@ -139,6 +139,8 @@ const FlightSearchPage = () => {
 
         {/* Destination */}
         {/* TODO: nên uncomment chỗ này ko Thành ơi */}
+        {/* Để em xem cách làm nó đẹp hơn */}
+        {/* Comment lại đẹp hơn thật */}
         {/* <div className="w-full h-50">
           <img
             src={destImage}
