@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
 const db = require('./models');
@@ -19,6 +20,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/flights', flightRoutes);
@@ -32,7 +35,7 @@ app.use('/api/news', newsRoutes);
 
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to QAirline API' });
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.use((req, res, next) => {
