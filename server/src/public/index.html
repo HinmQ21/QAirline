@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAirline - Hệ thống Quản lý Hàng không</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container"> 
+                <div class="nav-logo">
+                    <i class="fas fa-plane"></i>
+                    <span>QAirline</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#features" class="nav-link">Tính năng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#api" class="nav-link">API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Liên hệ</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">QAirline API</span>
+                    <br>Hệ thống Quản lý Hàng không<br>
+                </h1>
+                <p class="hero-description">
+                    Giải pháp API toàn diện cho quản lý chuyến bay, đặt vé, sân bay và các dịch vụ hàng không. 
+                    Được xây dựng với công nghệ hiện đại, đảm bảo hiệu suất cao và bảo mật tối ưu.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/api-docs" class="btn btn-primary">
+                        <i class="fas fa-book"></i>
+                        Xem API Documentation
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-info-circle"></i>
+                        Tìm hiểu thêm
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-plane-departure"></i>
+                    <h3>Quản lý Chuyến bay</h3>
+                    <p>Tạo, cập nhật và theo dõi chuyến bay</p>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Đặt vé Online</h3>
+                    <p>Hệ thống đặt vé thông minh</p>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Quản lý Sân bay</h3>
+                    <p>Thông tin sân bay toàn cầu</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tính năng chính</h2>
+                <p class="section-subtitle">Khám phá các tính năng mạnh mẽ của QAirline API</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Quản lý Chuyến bay</h3>
+                    <p>Tạo, cập nhật, xóa và tìm kiếm chuyến bay với đầy đủ thông tin lịch trình, giá vé và trạng thái.</p>
+                    <ul class="feature-list">
+                        <li>Tìm kiếm chuyến bay theo tuyến đường</li>
+                        <li>Quản lý lịch trình bay</li>
+                        <li>Cập nhật trạng thái chuyến bay</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Hệ thống Đặt vé</h3>
+                    <p>Đặt vé trực tuyến với quy trình đơn giản, thanh toán an toàn và xác nhận tức thì.</p>
+                    <ul class="feature-list">
+                        <li>Đặt vé một chiều và khứ hồi</li>
+                        <li>Chọn ghế ngồi</li>
+                        <li>Thanh toán trực tuyến</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Quản lý Sân bay</h3>
+                    <p>Cơ sở dữ liệu sân bay toàn cầu với thông tin chi tiết về vị trí, dịch vụ và cơ sở hạ tầng.</p>
+                    <ul class="feature-list">
+                        <li>Thông tin sân bay quốc tế</li>
+                        <li>Dịch vụ và tiện ích</li>
+                        <li>Thời gian bay giữa các sân bay</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Quản lý Khách hàng</h3>
+                    <p>Hệ thống quản lý thông tin khách hàng, lịch sử đặt vé và chương trình khách hàng thân thiết.</p>
+                    <ul class="feature-list">
+                        <li>Hồ sơ khách hàng</li>
+                        <li>Lịch sử giao dịch</li>
+                        <li>Chương trình tích điểm</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bảo mật & Xác thực</h3>
+                    <p>Hệ thống bảo mật đa lớp với JWT authentication, mã hóa dữ liệu và kiểm soát truy cập.</p>
+                    <ul class="feature-list">
+                        <li>JWT Authentication</li>
+                        <li>Phân quyền người dùng</li>
+                        <li>Mã hóa dữ liệu nhạy cảm</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Báo cáo & Thống kê</h3>
+                    <p>Công cụ báo cáo và phân tích dữ liệu để theo dõi hiệu suất kinh doanh và xu hướng thị trường.</p>
+                    <ul class="feature-list">
+                        <li>Báo cáo doanh thu</li>
+                        <li>Thống kê chuyến bay</li>
+                        <li>Phân tích khách hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section id="api" class="api-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">API Documentation</h2>
+                <p class="section-subtitle">Khám phá và test các API endpoints của QAirline</p>
+            </div>
+            <div class="api-content">
+                <div class="api-info">
+                    <h3>RESTful API</h3>
+                    <p>QAirline API được thiết kế theo chuẩn REST với các endpoint rõ ràng, dễ sử dụng và tài liệu chi tiết.</p>
+                    <div class="api-features">
+                        <div class="api-feature">
+                            <i class="fas fa-code"></i>
+                            <span>JSON Response Format</span>
+                        </div>
+                        <div class="api-feature">
+                            <i class="fas fa-lock"></i>
+                            <span>Secure Authentication</span>
+                        </div>
+                        <div class="api-feature">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>High Performance</span>
+                        </div>
+                        <div class="api-feature">
+                            <i class="fas fa-book-open"></i>
+                            <span>Comprehensive Documentation</span>
+                        </div>
+                    </div>
+                    <a href="/api-docs" class="btn btn-primary btn-large">
+                        <i class="fas fa-external-link-alt"></i>
+                        Mở Swagger Documentation
+                    </a>
+                </div>
+                <div class="api-preview">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">GET /api/flights</span>
+                            <span class="code-status">200 OK</span>
+                        </div>
+                        <pre><code>{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "flightNumber": "QA001",
+      "departure": "HAN",
+      "arrival": "SGN",
+      "departureTime": "2024-01-15T08:00:00Z",
+      "arrivalTime": "2024-01-15T10:30:00Z",
+      "price": 2500000,
+      "availableSeats": 150
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 25
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Liên hệ với chúng tôi</h2>
+                <p class="section-subtitle">Có câu hỏi về QAirline API? Chúng tôi sẵn sàng hỗ trợ bạn</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>support@qairline.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Hotline</h4>
+                            <p>1900 1234</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Giờ làm việc</h4>
+                            <p>24/7 - Hỗ trợ liên tục</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-plane"></i>
+                        <span>QAirline</span>
+                    </div>
+                    <p>Hệ thống API quản lý hàng không hiện đại, đáng tin cậy và bảo mật cao.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên kết nhanh</h4>
+                    <ul>
+                        <li><a href="/api-docs">API Documentation</a></li>
+                        <li><a href="#features">Tính năng</a></li>
+                        <li><a href="#contact">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Báo lỗi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 QAirline. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
