@@ -14,7 +14,7 @@ const { authenticateAdmin, authenticateUser } = require('../middleware/auth');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LoginInput'
+ *             $ref: '#/components/schemas/AdminLoginInput'
  *     responses:
  *       200:
  *         description: "Đăng nhập admin thành công"
@@ -140,7 +140,7 @@ router.post('/register', authController.register);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LoginInput'
+ *             $ref: '#/components/schemas/CustomerLoginInput'
  *     responses:
  *       200:
  *         description: "Đăng nhập thành công"
@@ -411,7 +411,7 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *   description: "Xác thực và quản lý tài khoản người dùng/admin"
  * components:
  *   schemas:
- *     LoginInput:
+ *     AdminLoginInput:
  *       type: object
  *       required:
  *         - username
@@ -424,6 +424,19 @@ router.delete('/account', authenticateUser, authController.deleteCustomerAccount
  *           type: string
  *           format: password
  *           example: Admin123!
+ *     CustomerLoginInput:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           example: newuser
+ *         password:
+ *           type: string
+ *           format: password
+ *           example: Password123
  *     RegisterInput:
  *       type: object
  *       required:

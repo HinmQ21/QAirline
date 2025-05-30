@@ -24,9 +24,11 @@ const { authenticateUser } = require('../middleware/auth');
  *               flight_id:
  *                 type: integer
  *                 description: "ID của chuyến bay"
+ *                 example: 1
  *               passengers:
  *                 type: array
- *                 description: "Thông tin hành khách"
+ *                 description: "Thông tin hành khách (tối đa 9 người)"
+ *                 maxItems: 9
  *                 items:
  *                   type: object
  *                   required:
@@ -35,20 +37,18 @@ const { authenticateUser } = require('../middleware/auth');
  *                   properties:
  *                     name:
  *                       type: string
- *                       description: "Tên hành khách"
+ *                       description: "Tên hành khách (tối đa 100 ký tự)"
+ *                       maxLength: 100
+ *                       example: "Nguyễn Văn A"
  *                     dob:
  *                       type: string
  *                       format: date
- *                       description: "Ngày sinh (YYYY-MM-DD)"
+ *                       description: "Ngày sinh (YYYY-MM-DD, tùy chọn)"
+ *                       example: "1990-01-15"
  *                     seat_id:
  *                       type: integer
  *                       description: "ID của ghế đã chọn"
- *                     price:
- *                       type: number
- *                       description: "Giá vé"
- *               total_price:
- *                 type: number
- *                 description: "Tổng giá tiền"
+ *                       example: 25
  *     responses:
  *       201:
  *         description: "Đặt vé thành công"
@@ -68,12 +68,41 @@ const { authenticateUser } = require('../middleware/auth');
  *                   properties:
  *                     booking:
  *                       type: object
+ *                       properties:
+ *                         booking_id:
+ *                           type: integer
+ *                           example: 123
+ *                         total_price:
+ *                           type: number
+ *                           example: 2500000
+ *                         status:
+ *                           type: string
+ *                           example: "booked"
  *                     tickets:
  *                       type: array
  *                       items:
  *                         type: object
+ *                         properties:
+ *                           ticket_id:
+ *                             type: integer
+ *                             example: 456
+ *                           passenger_name:
+ *                             type: string
+ *                             example: "Nguyễn Văn A"
+ *                           price:
+ *                             type: number
+ *                             example: 2500000
+ *                     flight_info:
+ *                       type: object
+ *                       properties:
+ *                         flight_number:
+ *                           type: string
+ *                           example: "VN123"
+ *                         departure_time:
+ *                           type: string
+ *                           format: date-time
  *       400:
- *         description: "Vui lòng cung cấp ID chuyến bay và thông tin hành khách / Không thể đặt vé cho chuyến bay đã khởi hành / Không thể đặt vé cho chuyến bay đã bị hủy / Không thể chọn trùng ghế cho các hành khách / Một hoặc nhiều ghế không tồn tại, không có sẵn, hoặc không thuộc máy bay của chuyến bay này / Một hoặc nhiều ghế đã được đặt, vui lòng chọn ghế khác"
+ *         description: "ID chuyến bay không hợp lệ / Vui lòng cung cấp thông tin hành khách / Không thể đặt quá 9 vé trong một lần đặt / Tên hành khách không hợp lệ / Ngày sinh không hợp lệ / Không thể đặt vé cho chuyến bay đã khởi hành / Không thể đặt vé cho chuyến bay đã bị hủy / Không thể đặt vé trong vòng 2 giờ trước giờ khởi hành / Không thể chọn trùng ghế / Ghế không có sẵn / Ghế đã được đặt"
  *       404:
  *         description: "Không tìm thấy chuyến bay với ID đã cung cấp"
  *       500:
