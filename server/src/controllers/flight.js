@@ -77,19 +77,31 @@ exports.getAllFlights = async (req, res) => {
 };
 
 exports.getFlightPaged = async (req, res) => {
-  const { pageSize = 10, pageNumber = 1 } = req.body;
+  const { pageSize = 10, pageNumber = 1 } = req.query;
 
   try {
+    // Convert to integers
+    const pageSizeInt = parseInt(pageSize);
+    const pageNumberInt = parseInt(pageNumber);
+    
+    // Validate parameters
+    if (pageSizeInt <= 0 || pageNumberInt <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'pageSize và pageNumber phải là số dương'
+      });
+    }
+    
     // Get total count for pagination
     const totalCount = await Flight.count();
     
     // Calculate total pages
-    const totalPages = Math.ceil(totalCount / pageSize);
+    const totalPages = Math.ceil(totalCount / pageSizeInt);
     
     // Get flights with pagination
     const flights = await Flight.findAll({
-      offset: (pageNumber - 1) * pageSize,
-      limit: pageSize,
+      offset: (pageNumberInt - 1) * pageSizeInt,
+      limit: pageSizeInt,
       include: [
         {
           model: Airport,
@@ -114,8 +126,8 @@ exports.getFlightPaged = async (req, res) => {
       pagination: {
         totalItems: totalCount,
         totalPages: totalPages,
-        currentPage: pageNumber,
-        pageSize: pageSize
+        currentPage: pageNumberInt,
+        pageSize: pageSizeInt
       },
       data: flights
     });
