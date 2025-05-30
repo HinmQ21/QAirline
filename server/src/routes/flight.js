@@ -146,29 +146,71 @@ router.get('/:id', flightController.getFlightById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateFlightInput' # Assume schema is defined
+ *             $ref: '#/components/schemas/CreateFlightInput'
  *           example:
- *             flightNumber: VN256
- *             departureAirportId: 1
- *             arrivalAirportId: 2
- *             departureTime: 2024-08-15T10:00:00Z
- *             arrivalTime: 2024-08-15T12:00:00Z
- *             airplaneId: 3
- *             basePrice: 1500000
- *             airline: Vietnam Airlines
+ *             flight_number: "VN256"
+ *             airplane_id: 3
+ *             departure_airport_id: 1
+ *             arrival_airport_id: 2
+ *             departure_time: "2024-08-15T10:00:00Z"
+ *             arrival_time: "2024-08-15T12:00:00Z"
+ *             status: "scheduled"
  *     responses:
  *       201:
  *         description: "Tạo chuyến bay thành công."
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Flight'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Tạo chuyến bay thành công"
+ *                 data:
+ *                   $ref: '#/components/schemas/Flight'
  *       400:
  *         description: "Dữ liệu đầu vào không hợp lệ."
- *       401:
- *         description: "Chưa xác thực hoặc token không hợp lệ."
- *       403:
- *         description: "Không có quyền thực hiện hành động này."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   examples:
+ *                     missing_fields:
+ *                       value: "Vui lòng cung cấp đầy đủ thông tin chuyến bay"
+ *                     same_airports:
+ *                       value: "Sân bay khởi hành và đến không được trùng nhau"
+ *                     invalid_time:
+ *                       value: "Thời gian đến phải sau thời gian khởi hành"
+ *                     duplicate_flight:
+ *                       value: "Mã chuyến bay đã tồn tại trong hệ thống"
+ *       404:
+ *         description: "Không tìm thấy tài nguyên liên quan."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   examples:
+ *                     airplane_not_found:
+ *                       value: "Không tìm thấy máy bay"
+ *                     departure_airport_not_found:
+ *                       value: "Không tìm thấy sân bay khởi hành"
+ *                     arrival_airport_not_found:
+ *                       value: "Không tìm thấy sân bay đến"
  *       500:
  *         description: "Lỗi máy chủ."
  */
@@ -402,34 +444,45 @@ router.post('/paged', flightController.getFlightPaged);
  *     CreateFlightInput:
  *       type: object
  *       required:
- *         - flightNumber
- *         - departureAirportId
- *         - arrivalAirportId
- *         - departureTime
- *         - arrivalTime
- *         - airplaneId
- *         - basePrice
- *         - airline
+ *         - flight_number
+ *         - airplane_id
+ *         - departure_airport_id
+ *         - arrival_airport_id
+ *         - departure_time
+ *         - arrival_time
  *       properties:
- *         flightNumber:
+ *         flight_number:
  *           type: string
- *         departureAirportId:
+ *           description: "Số hiệu chuyến bay (phải duy nhất)"
+ *           example: "VN256"
+ *         airplane_id:
  *           type: integer
- *         arrivalAirportId:
+ *           description: "ID của máy bay (phải tồn tại trong hệ thống)"
+ *           example: 3
+ *         departure_airport_id:
  *           type: integer
- *         departureTime:
+ *           description: "ID của sân bay khởi hành (phải tồn tại và khác sân bay đến)"
+ *           example: 1
+ *         arrival_airport_id:
+ *           type: integer
+ *           description: "ID của sân bay đến (phải tồn tại và khác sân bay khởi hành)"
+ *           example: 2
+ *         departure_time:
  *           type: string
  *           format: date-time
- *         arrivalTime:
+ *           description: "Thời gian khởi hành dự kiến (phải trước thời gian đến)"
+ *           example: "2024-08-15T10:00:00Z"
+ *         arrival_time:
  *           type: string
  *           format: date-time
- *         airplaneId:
- *           type: integer
- *         basePrice:
- *           type: number
- *           format: float
- *         airline:
- *            type: string
+ *           description: "Thời gian đến dự kiến (phải sau thời gian khởi hành)"
+ *           example: "2024-08-15T12:00:00Z"
+ *         status:
+ *           type: string
+ *           enum: [scheduled, delayed, cancelled]
+ *           description: "Trạng thái chuyến bay (mặc định: scheduled)"
+ *           example: "scheduled"
+ *           default: "scheduled"
  *     UpdateFlightInput:
  *        type: object
  *        properties:
