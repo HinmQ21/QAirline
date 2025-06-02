@@ -1,20 +1,8 @@
 import toast from "react-hot-toast";
-import { DropdownSelect } from "@/components/misc/DropdownSelect";
+import { useState, useEffect } from "react";
 import { NewsList } from "@/components/admin/news-manager/NewsList";
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { getNewsList, newsCategoryLabels, NewsType, NewsCategoryType } from "@/services/admin/news";
-import { CreateNewsButton } from "@/components/admin/news-manager/CreateNewsButton";
-
-const sortLabels = {
-  newest: "Mới nhất",
-  "most-popular": "Phổ biến nhất",
-  oldest: "Cũ nhất",
-};
-
-const allCategoryLabels = {
-  all: "Tất cả",
-  ...newsCategoryLabels
-};
+import { getNewsList, NewsType, NewsCategoryType } from "@/services/admin/news";
+import { NewsManagerPageTitle } from "@/components/admin/news-manager/PageTitle";
 
 export const NewsManagerPage = () => {
   const [sortBy, setSortBy] = useState("newest");
@@ -59,30 +47,8 @@ export const NewsManagerPage = () => {
         category={category} setCategory={setCategory}
         createNewsStateAction={createNewsStateAction}
       />
-      <div className="h-10"></div>
+      <div className="h-10" />
       <NewsList isLoading={isLoading} newsList={newsList} deleteNewsStateAction={deleteNewsStateAction} />
     </div>
   );
 }
-
-type NewsManagerPageTitleProps = {
-  sortBy: string;
-  setSortBy: Dispatch<SetStateAction<string>>;
-  category: string;
-  setCategory: Dispatch<SetStateAction<string>>;
-  createNewsStateAction: (news: NewsType) => void;
-};
-
-const NewsManagerPageTitle = ({ sortBy, setSortBy, category, setCategory, createNewsStateAction }: NewsManagerPageTitleProps) => {
-  return (
-    <div className="flex flex-row flex-wrap gap-4 justify-around">
-      <div className="flex flex-row flex-wrap gap-4">
-        <DropdownSelect title="Sắp xếp theo"
-          labelMap={sortLabels} value={sortBy} setValue={setSortBy} />
-        <DropdownSelect title="Danh mục"
-          labelMap={allCategoryLabels} value={category} setValue={setCategory} />
-      </div>
-      <CreateNewsButton createNewsStateAction={createNewsStateAction} />
-    </div>
-  );
-};

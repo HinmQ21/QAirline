@@ -57,7 +57,11 @@ const NewsCard = ({ news, deleteNewsStateAction }: NewsCardProps) => {
   const created_date = dayjs(news.created_at);
 
   return (
-    <div className="flex flex-row h-18 w-120 bg-white rounded-xl items-center justify-between">
+    <div className="
+      flex flex-row items-center justify-between
+      h-18 w-120 bg-white rounded-xl
+      hover:shadow-2xl transition-all duration-300
+    ">
       <div className="flex flex-row h-full items-center">
         <div className="
                 flex flex-col ml-3 items-center justify-center
@@ -178,7 +182,9 @@ export const DeleteNewsButton = (
         <DialogHeader>
           <DialogTitle>Xóa bài viết này?</DialogTitle>
         </DialogHeader>
-        <DialogDescription></DialogDescription>
+        <DialogDescription>
+          Bạn không thể hoàn tác thao tác xóa này!
+        </DialogDescription>
         <DialogFooter>
           <Button className="bg-gray-900 hover:bg-gray-700
             cursor-pointer px-3 py-2 text-white rounded-lg"
