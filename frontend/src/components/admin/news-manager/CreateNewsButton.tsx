@@ -2,9 +2,11 @@ import { z } from "zod"
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
+import { Button } from "@/components/ui/button";
+import { FaRegPenToSquare } from "react-icons/fa6";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createNews, NewsType } from "@/services/admin/news";
+import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 
 type CreateNewsButtonProps = {
   className?: string | undefined;
@@ -52,10 +54,14 @@ export const CreateNewsButton = ({ className, createNewsStateAction }: CreateNew
 
   return (
     <NewsWritingDialog
-      className={className}
+      isSubmitting={isSubmitting}
       open={open} setOpen={setOpen}
       newsForm={newsForm} onSubmit={onSubmit}
-      isSubmitting={isSubmitting} 
-    />
+    >
+      <Button variant="outline" className={`${className}`}>
+        <p className="poppins-regular">Đăng bài viết mới</p>
+        <FaRegPenToSquare />
+      </Button>
+    </NewsWritingDialog>
   );
 };

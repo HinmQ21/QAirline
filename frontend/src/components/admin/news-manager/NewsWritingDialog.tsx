@@ -3,12 +3,12 @@ import dayjs from "dayjs";
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { FaRegPenToSquare } from "react-icons/fa6";
 import { Textarea } from "@/components/ui/textarea";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
 import { newsCategoryLabels, newsCategoryList } from "@/services/admin/news";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { ReactNode } from "react";
 
 export const newsSchema = z.object({
   title: z.string()
@@ -23,20 +23,19 @@ export const newsSchema = z.object({
 type NewsWritingDialogProps = {
   open?: boolean | undefined;
   setOpen?(open: boolean): void;
-  className?: string | undefined;
   isSubmitting?: boolean | undefined;
   newsForm: UseFormReturn<z.infer<typeof newsSchema>>;
   onSubmit?(values: z.infer<typeof newsSchema>): void;
+  children: ReactNode;
 }
 
-export const NewsWritingDialog = ({ className = '', open, setOpen, newsForm, onSubmit, isSubmitting }: NewsWritingDialogProps) => {
+export const NewsWritingDialog = ({
+  open, setOpen, newsForm, onSubmit, isSubmitting, children
+}: NewsWritingDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={`${className}`}>
-          <p className="poppins-regular">Đăng bài viết mới</p>
-          <FaRegPenToSquare />
-        </Button>
+        {children}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
