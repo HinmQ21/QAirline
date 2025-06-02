@@ -26,6 +26,7 @@ export const DeleteNewsButton = (
       {
         loading: "Đang xóa bài viết",
         error: (err) => {
+          console.log(err);
           const res = err.response;
           let errMsg;
           try { errMsg = res.data.message; }

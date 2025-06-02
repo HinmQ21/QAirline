@@ -49,3 +49,7 @@ export const getNewsList = async (params: {
 export const deleteNews = async (news_id: number ) => {
   return await adminApi.delete(`/news/${news_id}`);
 }
+
+export const updateNews = async (news_id: number, data: CreateNewsRequest) => {
+  return await adminApi.put(`/news/${news_id}`, data);
+}

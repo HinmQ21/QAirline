@@ -13,6 +13,9 @@ export const NewsManagerPage = () => {
   const createNewsStateAction = (news: NewsType) => {
     setNewsList([news, ...newsList]);
   }
+  const updateNewsStateAction = (news: NewsType) => {
+    setNewsList([news, ...newsList.filter((x) => x.news_id != news.news_id)]);
+  }
   const deleteNewsStateAction = (news_id: number) => {
     setNewsList(newsList.filter(n => n.news_id !== news_id));
   }
