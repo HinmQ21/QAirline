@@ -20,7 +20,7 @@ export const CreatePlaneButton = ({
     resolver: zodResolver(planeSchema),
     defaultValues: {
       code: "",
-      manufacturer: "airbus",
+      manufacturer: "Airbus",
       model: "",
       total_seats: 300
     },

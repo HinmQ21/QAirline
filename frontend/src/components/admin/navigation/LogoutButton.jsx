@@ -17,7 +17,7 @@ export const LogoutButton = ({ className = "" }) => {
         <NavigationIcon
           icon={IoLogOutOutline}
           iconOnHover={IoLogOut}
-          className={`${className}`}
+          className={`${className} [&]:hover:bg-red-600 [&]:hover:shadow-red-600/60`}
         />
       </DialogTrigger>
       <DialogContent>

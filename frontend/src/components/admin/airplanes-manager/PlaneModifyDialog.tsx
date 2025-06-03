@@ -9,9 +9,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const planeSchema = z.object({
-  code: z.string().nonempty(),
+  code: z.string().nonempty().max(20),
   manufacturer: z.enum(manufacturerList),
-  model: z.string().nonempty(),
+  model: z.string().nonempty().max(50),
   total_seats: z.number().positive(),
 });
 

@@ -63,26 +63,27 @@ export const NewsCard = ({
   }
 
   return (
-    <NewsWritingDialog
-      open={open} setOpen={setOpen}
-      newsForm={newsForm}
-      onSubmit={onSubmit}
-      isSubmitting={isSubmitting}
-      submitText="Cập nhật"
-    >
-      <div className="
+    <div className="
       flex flex-row items-center justify-between
       h-18 w-120 bg-white rounded-xl
       hover:shadow-2xl transition-all duration-300
       cursor-pointer
     ">
-        <Tooltip>
-          <TooltipTrigger asChild>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <NewsWritingDialog
+            open={open} setOpen={setOpen}
+            newsForm={newsForm}
+            onSubmit={onSubmit}
+            isSubmitting={isSubmitting}
+            submitText="Cập nhật"
+          >
             <div className="flex flex-row h-full items-center">
               <div className="
-                    flex flex-col ml-3 items-center justify-center
-                    text-gray-900 montserrat-medium
-                  ">
+                flex flex-col ml-3 items-center justify-center
+                text-gray-900 montserrat-medium
+              ">
                 <p className="text-sm">
                   {created_date.format("MMM D")}
                 </p>
@@ -92,9 +93,9 @@ export const NewsCard = ({
               </div>
               <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
               <div className="
-                    flex flex-col justify-center
-                    text-gray-900 w-60
-                  ">
+                flex flex-col justify-center
+                text-gray-900 w-60
+              ">
                 <p className="text-xl montserrat-semibold truncate">
                   {news.title}
                 </p>
@@ -103,18 +104,19 @@ export const NewsCard = ({
                 </p>
               </div>
             </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            {`ID: ${news.news_id}`}
-          </TooltipContent>
-        </Tooltip>
-        <div className="flex flex-row h-full items-center">
-          <NewsCategoryBadge category={news.category} />
-          <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
-          <DeleteNewsButton news_id={news.news_id} deleteNewsStateAction={deleteNewsStateAction} />
-        </div>
+          </NewsWritingDialog>
+        </TooltipTrigger>
+        <TooltipContent>
+          {`ID: ${news.news_id}`}
+        </TooltipContent>
+      </Tooltip>
+
+      <div className="flex flex-row h-full items-center">
+        <NewsCategoryBadge category={news.category} />
+        <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
+        <DeleteNewsButton news_id={news.news_id} deleteNewsStateAction={deleteNewsStateAction} />
       </div>
-    </NewsWritingDialog>
+    </div>
   );
 };
 

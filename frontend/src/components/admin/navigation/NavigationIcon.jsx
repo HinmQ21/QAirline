@@ -1,10 +1,7 @@
 export const NavigationIcon = ({ icon: Icon, iconOnHover: IconOnHover, isSelected, onClick, className = "" }) => (
   <div onClick={onClick} className={`
-    rounded-4xl shadow-xl cursor-pointer
-    relative group
-    flex items-center justify-center
-    transition-all duration-300
-
+    rounded-4xl shadow-xl cursor-pointer relative group
+    flex items-center justify-center transition-all duration-300
     ${isSelected === true ? (
       "w-14 h-14 bg-indigo-500 shadow-indigo-500/60"
     ) : (
