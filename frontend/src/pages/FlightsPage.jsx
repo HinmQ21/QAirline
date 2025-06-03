@@ -1,11 +1,13 @@
 import { useState } from "react";
+
 import flightsMock from "../data/flights.json";
+import { getFlightPaged } from "../services/client/flight";
+
+import { useNavigate } from "react-router-dom";
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
 import { MiniPage } from "@/components/misc/MiniPage";
 import { FaFilterCircleDollar } from "react-icons/fa6";
-
 
 
 export default function FlightsPage() {

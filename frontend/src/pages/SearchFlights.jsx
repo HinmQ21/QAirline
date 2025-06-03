@@ -100,17 +100,21 @@ const FlightSearchPage = () => {
   const [flights, setFlights] = useState([]);
 
   useEffect(() => {
+    const fetchFlights = async () => {
+      console.log("attempting to fetch flights");
+      const flights = await getFlights();
+      setFlights(flights);
+    };
     try {
-      const fetchFlights = async () => {
-        const flights = await getFlights();
-        console.log(flights);
-        setFlights(flights);
-      };
       fetchFlights();
     } catch (error) {
       console.error("Error fetching flights:", error);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("flight: ", flights);
+  }, [flights]);
 
   const handleExpandCard = (flightId) => {
     setExpandedCard((prev) => (prev === flightId ? null : flightId));  
