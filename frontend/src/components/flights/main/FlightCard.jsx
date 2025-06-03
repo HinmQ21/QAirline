@@ -4,7 +4,7 @@ import {
 } from 'react';
 
 
-export const MainFlightCard = ({flight, formatTime, }) => {
+export const MainFlightCard = ({flight, formatTime, pressBooking }) => {
 
   return (
     <>

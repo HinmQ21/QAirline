@@ -6,12 +6,13 @@ import {
 // import flightsMock from "../data/flights.json";
 import { getFlightPaged } from "../services/client/flight";
 import { MainFlightCard } from "@/components/flights/main/FlightCard";
+import { addPricesToFlights } from "@/util/FlightPriceHelper";
+import { SearchFlight } from "@/components/flights/main/SearchFlight";
 
 import { useNavigate } from "react-router-dom";
-import { LuPlaneTakeoff } from "react-icons/lu";
-import { LuPlaneLanding } from "react-icons/lu";
 import { MiniPage } from "@/components/misc/MiniPage";
-import { FaFilterCircleDollar } from "react-icons/fa6";
+
+
 
 const itemsPerPage = 10; // Number of items to display per page
 
@@ -27,9 +28,11 @@ function formatDateTime(dateString) {
 }
 
 
+
+
 export default function FlightsPage() {
   const navigate = useNavigate();
-  const [query, setQuery] = useState({ from: "", to: "" });
+  // const [query, setQuery] = useState({ from: "", to: "" });
   const [results, setResults] = useState([]);
   const [passengers, setPassengers] = useState({
     adult: 1,
@@ -51,13 +54,6 @@ export default function FlightsPage() {
   };
 
 
-  const handleSearch = () => {
-    const matched = flightsMock.filter(
-      f => f.from.includes(query.from) && f.to.includes(query.to)
-    );
-    setResults(matched);
-  };
-
   const getFlights = async () => {
     try {
       const res = await getFlightPaged(itemsPerPage, page);
@@ -67,7 +63,10 @@ export default function FlightsPage() {
         setTotalPages(totalPages);
         //set up the data for render
         if (res.data && res.data.length > 0) {
-          setResults(res.data);
+          // Add prices to flights
+          const flightsWithPrices = addPricesToFlights(res.data);
+          setResults(flightsWithPrices);
+          
           console.log("Flight data fetched successfully:", res.data);
         } else {
           setResults([]);
@@ -80,27 +79,13 @@ export default function FlightsPage() {
 
   useEffect(() => {
     // Fetch flights when the component mounts or when the page changes
-    getFlights();
+    //getFlights();
   }, [page]);
 
-  // const inputStyle = "border border-gray-300 rounded p-2 w-full";
-  const flightsearchInput = (placeholder, value, onChange, Icon) => {
-    return (
-      <div >
-        <div className="flex flex-row border border-gray-300 rounded p-2 m-2 bg-white w-80">
-          {Icon && <Icon className="w-5 h-5 text-gray-500 mr-2" />}
-          <input
-            type="text"
-            name={name}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            className="flex-1 bg-transparent outline-none text-gray-700 w-full"
-          />
-        </div>
-      </div>
-    );
-  };
+  // const handleToggeleAirportList = () => {
+  //   setToggleAirportList((prev) => !prev);
+    
+  // }
 
   const navigatePageButton = (text, boundPageNumb, currentPage, isLowBound) => {
     const handleUpBoundClick = (p) => {
@@ -132,26 +117,7 @@ export default function FlightsPage() {
       <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
         <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
-        <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full">
-          {flightsearchInput(
-            "Start Destination",
-            query.from,
-            (e) => setQuery({ ...query, from: e.target.value }),
-            LuPlaneTakeoff // Pass the icon component
-          )}
-          {flightsearchInput(
-            "End Destination",
-            query.to,
-            (e) => setQuery({ ...query, to: e.target.value }),
-            LuPlaneLanding // Pass the icon component
-          )}
-          {flightsearchInput(
-            "Maximum Price",
-            query.to,
-            (e) => setQuery({ ...query, to: e.target.value }),
-            FaFilterCircleDollar
-          )}
-        </div>
+        <SearchFlight />
 
         <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
           {results.length > 0 ? (
