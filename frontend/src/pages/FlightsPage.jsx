@@ -1,9 +1,9 @@
 import { 
   useState,
   useEffect,
-} from "react";
+} from "react"; 
 
-import flightsMock from "../data/flights.json";
+// import flightsMock from "../data/flights.json";
 import { getFlightPaged } from "../services/client/flight";
 import { MainFlightCard } from "@/components/flights/main/FlightCard";
 
@@ -15,11 +15,22 @@ import { FaFilterCircleDollar } from "react-icons/fa6";
 
 const itemsPerPage = 10; // Number of items to display per page
 
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+  const pad = (n) => n.toString().padStart(2, "0");
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const day = pad(date.getDate());
+  const month = pad(date.getMonth() + 1);
+  const year = date.getFullYear();
+  return `${hours}:${minutes} ${day}-${month}-${year}`;
+}
+
 
 export default function FlightsPage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState({ from: "", to: "" });
-  const [results, setResults] = useState(flightsMock);
+  const [results, setResults] = useState([]);
   const [passengers, setPassengers] = useState({
     adult: 1,
     child: 0,
@@ -72,7 +83,7 @@ export default function FlightsPage() {
     getFlights();
   }, [page]);
 
-  const inputStyle = "border border-gray-300 rounded p-2 w-full";
+  // const inputStyle = "border border-gray-300 rounded p-2 w-full";
   const flightsearchInput = (placeholder, value, onChange, Icon) => {
     return (
       <div >
@@ -95,7 +106,6 @@ export default function FlightsPage() {
     const handleUpBoundClick = (p) => {
        setPage((p) => Math.min(boundPageNumb, p + 1));
     }
-
     const handleLowBoundClick = (p) => {
       setPage((p) => Math.max(1, p - 1));
     }
@@ -147,7 +157,7 @@ export default function FlightsPage() {
           {results.length > 0 ? (
             results.map((f, idx) => (
               <div key={idx}>
-                <MainFlightCard />
+                <MainFlightCard flight={f} formatTime={formatDateTime} />
               </div>
               
 

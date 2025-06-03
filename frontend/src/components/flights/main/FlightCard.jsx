@@ -4,7 +4,7 @@ import {
 } from 'react';
 
 
-export const MainFlightCard = ({f,  }) => {
+export const MainFlightCard = ({flight, formatTime, }) => {
 
   return (
     <>
@@ -20,19 +20,23 @@ export const MainFlightCard = ({f,  }) => {
           <div className="p-4">
             {/* Route */}
             <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
-              ✈️ 
+              ✈️ {flight.departureAirport.city} - {flight.departureAirport.country}
             </div>
             <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
-              ✈️
-            </div>
+              ✈️ {flight.arrivalAirport.city} - {flight.arrivalAirport.country}
+            </div>  
 
             {/* Date */}
-            <p className="text-sm text-gray-500 mt-1">Departure Date:</p>
+            <p className="text-sm text-gray-500 mt-1">
+              Departure Date: {formatTime(flight.departure_time)}
+            </p>
 
             {/* Price */}
             <div className="mt-2">
-              <p className="text-red-600 text-xl font-bold"> VNĐ</p>
-              <p className="text-xs text-gray-500"></p>
+              <p className="text-red-600 text-xl font-bold"> {flight.basePrice} VNĐ</p>
+              <p className="text-xs text-gray-500">
+                
+              </p>
             </div>
           </div>
 

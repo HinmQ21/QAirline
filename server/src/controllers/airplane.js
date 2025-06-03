@@ -244,8 +244,8 @@ exports.deleteAirplane = async (req, res) => {
  */
 exports.configureSeatLayout = async (req, res) => {
   try {
-    const { seats } = req.body;
-    
+    const seats = req.body;
+
     if (!seats || !Array.isArray(seats) || seats.length === 0) {
       return res.status(400).json({
         success: false,
