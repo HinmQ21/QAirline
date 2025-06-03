@@ -31,7 +31,8 @@ type NewsWritingDialogProps = {
 }
 
 export const NewsWritingDialog = ({
-  open, setOpen, newsForm, onSubmit, isSubmitting, children, submitText
+  open, setOpen, newsForm, onSubmit,
+  isSubmitting, children, submitText
 }: NewsWritingDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>

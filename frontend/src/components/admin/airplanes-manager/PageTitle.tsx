@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { CreatePlaneButton } from "./CreatePlaneButton";
-import { manufacturerLabels } from "@/services/admin/planes";
+import { manufacturerLabels, PlaneType } from "@/services/admin/planes";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
 
 const allManufacturerLabels = {
@@ -11,10 +11,12 @@ const allManufacturerLabels = {
 type PlanesManagerpageTitleProps = {
   manufacturer: string;
   setManufacturer: Dispatch<SetStateAction<string>>;
+  createPlaneStateAction: (plane: PlaneType) => void;
 }
 
 export const PlanesManagerpageTitle = ({
-  manufacturer, setManufacturer
+  manufacturer, setManufacturer,
+  createPlaneStateAction
 }: PlanesManagerpageTitleProps) => {
   return (
     <div className="flex flex-row flex-wrap gap-4 justify-around">
@@ -23,7 +25,7 @@ export const PlanesManagerpageTitle = ({
           labelMap={allManufacturerLabels} value={manufacturer} setValue={setManufacturer} />
       </div>
       {/* <CreateNewsButton createNewsStateAction={createNewsStateAction} /> */}
-      <CreatePlaneButton />
+      <CreatePlaneButton createPlaneStateAction={createPlaneStateAction} />
     </div>
   );
 }

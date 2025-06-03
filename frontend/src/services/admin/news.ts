@@ -12,15 +12,15 @@ export type NewsCategoryType = typeof newsCategoryList[number];
 
 export type NewsType = {
   admin: {
-    full_name: string,
-    username: string,
-  },
-  category: NewsCategoryType,
-  content: string,
-  created_at: string,
-  created_by: number,
-  news_id: number,
-  title: string
+    full_name: string;
+    username: string;
+  };
+  category: NewsCategoryType;
+  news_id: number;
+  content: string;
+  created_at: string;
+  created_by: number;
+  title: string;
 };
 
 export type CreateNewsRequest = {

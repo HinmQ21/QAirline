@@ -13,7 +13,9 @@ type CreateNewsButtonProps = {
   createNewsStateAction: (news: NewsType) => void
 }
 
-export const CreateNewsButton = ({ className, createNewsStateAction }: CreateNewsButtonProps) => {
+export const CreateNewsButton = ({
+  className, createNewsStateAction
+}: CreateNewsButtonProps) => {
   const newsForm = useForm<z.infer<typeof newsSchema>>({
     resolver: zodResolver(newsSchema),
     defaultValues: {
