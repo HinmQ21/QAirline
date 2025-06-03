@@ -3,12 +3,15 @@ import toast from 'react-hot-toast';
 import { LogoutButton } from "./LogoutButton";
 import { NavigationIcon } from "./NavigationIcon";
 import { IoHomeOutline, IoHome } from "react-icons/io5";
+import { IoAirplane, IoAirplaneOutline } from "react-icons/io5";
 import { FaRegPenToSquare, FaPenToSquare } from "react-icons/fa6";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
 
 const navItems = [
   { icon: IoHomeOutline, iconOnHover: IoHome, iconLabel: "Home" },
   { icon: FaRegPenToSquare, iconOnHover: FaPenToSquare, iconLabel: "News" },
+  { icon: IoAirplaneOutline, iconOnHover: IoAirplane, iconLabel: "Airplanes" }
 ];
 
 export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
@@ -30,7 +33,7 @@ export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
                 {item.iconLabel}
               </TooltipContent>
             </Tooltip>
-            {(idx === 0) && <div className="w-[2px] h-5 bg-gray-600" />}
+            {(idx !== navItems.length - 1) && <div className="w-[2px] h-5 bg-gray-600" />}
           </Fragment>
         ))
       }

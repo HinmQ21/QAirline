@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
+import { PlanesManagerPage } from "./dashboard-contents/PlanesManagerPage";
 import { DashboardNavigation } from "@/components/admin/navigation/DashboardNavigation";
 
 export const AdminDashboardPage = () => {
@@ -47,6 +48,8 @@ const AdminDashboardContent = ({ index }) => {
   switch (index) {
     case 1:
       return <NewsManagerPage />;
+    case 2:
+      return <PlanesManagerPage />;
     default:
       return <div>Page {index}</div>
   }
