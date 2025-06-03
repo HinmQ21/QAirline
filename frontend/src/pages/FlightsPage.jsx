@@ -9,7 +9,7 @@ import { LuPlaneLanding } from "react-icons/lu";
 import { MiniPage } from "@/components/misc/MiniPage";
 import { FaFilterCircleDollar } from "react-icons/fa6";
 
-const itemsPerPage = 10; // Number of items to display per page
+const itemsPerPage = 11; // Number of items to display per page
 // const pageCount = Math.ceil(flightsMock.length / itemsPerPage); // Total number of pages
 const pageCount = 3;
 
