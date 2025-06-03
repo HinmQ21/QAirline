@@ -5,6 +5,7 @@ import {
 
 import flightsMock from "../data/flights.json";
 import { getFlightPaged } from "../services/client/flight";
+import { MainFlightCard } from "@/components/flights/main/FlightCard";
 
 import { useNavigate } from "react-router-dom";
 import { LuPlaneTakeoff } from "react-icons/lu";
@@ -62,7 +63,7 @@ export default function FlightsPage() {
         }
       }
     } catch (error) {
-      console.error("Error fetching flights:", error);s
+      console.error("Error fetching flights:", error);
     }
   }
 
@@ -89,6 +90,33 @@ export default function FlightsPage() {
       </div>
     );
   };
+
+  const navigatePageButton = (text, boundPageNumb, currentPage, isLowBound) => {
+    const handleUpBoundClick = (p) => {
+       setPage((p) => Math.min(boundPageNumb, p + 1));
+    }
+
+    const handleLowBoundClick = (p) => {
+      setPage((p) => Math.max(1, p - 1));
+    }
+    return (
+      <>
+        <button
+          className="px-3 py-1 rounded bg-gray-200 mb-4"
+          disabled={currentPage == boundPageNumb}
+          onClick={() => {
+            if (isLowBound) {
+              handleLowBoundClick();
+            } else {
+              handleUpBoundClick();
+            }
+          }}
+        >
+          {text}
+        </button>
+      </>
+    );
+  }
   return <>
     <MiniPage className="mx-30">
       <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
@@ -118,42 +146,10 @@ export default function FlightsPage() {
         <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
           {results.length > 0 ? (
             results.map((f, idx) => (
-              <div key={idx} className="w-80 rounded-xl overflow-hidden shadow-xl bg-white">
-                {/* Flight Image */}
-                <img
-                  src="/home/tokyo.jpg" // Replace with your flight image
-                  alt="Flight"
-                  className="w-full h-40 object-cover"
-                />
-
-                {/* Flight Info */}
-                <div className="p-4">
-                  {/* Route */}
-                  <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
-                    ✈️ {f.from}
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
-                    ✈️ {f.to}
-                  </div>
-
-                  {/* Date */}
-                  <p className="text-sm text-gray-500 mt-1">Departure Date: {f.departureTime}</p>
-
-                  {/* Price */}
-                  <div className="mt-2">
-                    <p className="text-red-600 text-xl font-bold">{f.price} VNĐ</p>
-                    <p className="text-xs text-gray-500">{f.type}</p>
-                  </div>
-                </div>
-
-                {/* Book Now Button */}
-                <button
-                  className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-3"
-                  onClick={() => setIsOpen(true)}
-                >
-                  Book Now
-                </button>
+              <div key={idx}>
+                <MainFlightCard />
               </div>
+              
 
             ))
           ) : (
@@ -163,13 +159,7 @@ export default function FlightsPage() {
 
         {/* Pagination */}
           <div className="flex justify-center items-center gap-2 mt-4">
-            <button
-              className="px-3 py-1 rounded bg-gray-200 mb-4"
-              disabled={page === 1}
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-            >
-              Previous
-            </button>
+            {navigatePageButton("Previous", 1, page, true)}
             {[...Array(totalPages)].map((_, i) => (
               <button
                 key={i}
@@ -179,13 +169,7 @@ export default function FlightsPage() {
                 {i + 1}
               </button>
             ))}
-            <button
-              className="px-3 py-1 rounded bg-gray-200 mb-4"
-              disabled={page === totalPages}
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            >
-              Next
-            </button>
+            {navigatePageButton("Next", totalPages, page, false)}
           </div>
       </div>
     </MiniPage>
