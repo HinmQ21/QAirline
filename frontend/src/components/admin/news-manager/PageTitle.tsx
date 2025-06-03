@@ -1,5 +1,6 @@
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
-import { newsCategoryLabels, NewsType } from "@/services/admin/news";
+import { NewsType } from "@/services/schemes/news";
+import { newsCategoryLabels } from "@/services/schemes/news";
 import { Dispatch, SetStateAction } from "react";
 import { CreateNewsButton } from "./CreateNewsButton";
 

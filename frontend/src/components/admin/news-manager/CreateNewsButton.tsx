@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createNews, NewsType } from "@/services/admin/news";
+import { createNews } from "@/services/admin/news";
+import { NewsType } from "@/services/schemes/news";
 import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 
 type CreateNewsButtonProps = {

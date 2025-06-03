@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { createPlane, PlaneType } from "@/services/admin/planes";
+import { createPlane } from "@/services/admin/planes";
+import { PlaneType } from "@/services/schemes/planes";
 import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 
 type CreatePlaneButtonProps = {

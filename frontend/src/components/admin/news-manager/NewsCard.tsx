@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 import Skeleton from "react-loading-skeleton";
 import { NewsCategoryBadge } from "./NewsList";
-import { NewsType, updateNews } from "@/services/admin/news";
+import { updateNews } from "@/services/admin/news";
+import { NewsType } from "@/services/schemes/news";
 import { DeleteNewsButton } from "./DeleteNewsButton";
 import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 import { useForm } from "react-hook-form";

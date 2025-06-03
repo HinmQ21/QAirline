@@ -1,7 +1,9 @@
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 import { NewsList } from "@/components/admin/news-manager/NewsList";
-import { getNewsList, NewsType, NewsCategoryType } from "@/services/admin/news";
+import { getNewsList } from "@/services/client/news";
+import { NewsType } from "@/services/schemes/news";
+import { NewsCategoryType } from "@/services/schemes/news";
 import { NewsManagerPageTitle } from "@/components/admin/news-manager/PageTitle";
 
 export const NewsManagerPage = () => {

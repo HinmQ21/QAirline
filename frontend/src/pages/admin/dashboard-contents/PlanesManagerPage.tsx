@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { PlaneList } from "@/components/admin/airplanes-manager/PlaneList";
-import { getPlaneList, ManufacturerType, PlaneType } from "@/services/admin/planes";
+import { PlaneType } from "@/services/schemes/planes";
+import { ManufacturerType } from "@/services/schemes/planes";
+import { getPlaneList } from "@/services/client/planes";
 import { PlanesManagerpageTitle } from "@/components/admin/airplanes-manager/PageTitle";
 
 export const PlanesManagerPage = () => {

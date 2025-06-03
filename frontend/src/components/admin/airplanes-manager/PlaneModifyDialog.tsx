@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
-import { manufacturerLabels, manufacturerList } from "@/services/admin/planes";
+import { manufacturerList } from "@/services/schemes/planes";
+import { manufacturerLabels } from "@/services/schemes/planes";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 

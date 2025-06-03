@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { PiAirplaneTilt } from "react-icons/pi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DeletePlaneButton } from "./DeletePlaneButton";
-import { PlaneType, updatePlane } from "@/services/admin/planes"
+import { updatePlane } from "@/services/admin/planes"
+import { PlaneType } from "@/services/schemes/planes";
 import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 
 type PlaneCardProps = {

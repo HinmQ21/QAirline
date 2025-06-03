@@ -1,5 +1,5 @@
 import { PlaneCard } from "./PlaneCard";
-import { PlaneType } from "@/services/admin/planes";
+import { PlaneType } from "@/services/schemes/planes";
 import { PlaneCardSkeleton } from "./PlaneCardSkeleton";
 
 type PlaneListProps = {

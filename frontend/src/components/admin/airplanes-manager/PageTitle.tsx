@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { CreatePlaneButton } from "./CreatePlaneButton";
 import { DropdownSelect } from "@/components/misc/DropdownSelect";
-import { manufacturerLabels, PlaneType } from "@/services/admin/planes";
+import { PlaneType } from "@/services/schemes/planes";
+import { manufacturerLabels } from "@/services/schemes/planes";
 
 const allManufacturerLabels = {
   all: "Tất cả",
