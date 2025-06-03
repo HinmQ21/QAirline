@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { z } from "zod";
 import toast from "react-hot-toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 type NewsCardProps = {
   news: NewsType;
@@ -75,31 +76,38 @@ export const NewsCard = ({
       hover:shadow-2xl transition-all duration-300
       cursor-pointer
     ">
-        <div className="flex flex-row h-full items-center">
-          <div className="
-                flex flex-col ml-3 items-center justify-center
-                text-gray-900 montserrat-medium
-              ">
-            <p className="text-sm">
-              {created_date.format("MMM D")}
-            </p>
-            <p className="text-md">
-              {created_date.format("YYYY")}
-            </p>
-          </div>
-          <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
-          <div className="
-                flex flex-col justify-center
-                text-gray-900 w-60
-              ">
-            <p className="text-xl montserrat-semibold truncate">
-              {news.title}
-            </p>
-            <p className="text-xs montserrat-medium truncate">
-              {news.content}
-            </p>
-          </div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="flex flex-row h-full items-center">
+              <div className="
+                    flex flex-col ml-3 items-center justify-center
+                    text-gray-900 montserrat-medium
+                  ">
+                <p className="text-sm">
+                  {created_date.format("MMM D")}
+                </p>
+                <p className="text-md">
+                  {created_date.format("YYYY")}
+                </p>
+              </div>
+              <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
+              <div className="
+                    flex flex-col justify-center
+                    text-gray-900 w-60
+                  ">
+                <p className="text-xl montserrat-semibold truncate">
+                  {news.title}
+                </p>
+                <p className="text-xs montserrat-medium truncate">
+                  {news.content}
+                </p>
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            {`ID: ${news.news_id}`}
+          </TooltipContent>
+        </Tooltip>
         <div className="flex flex-row h-full items-center">
           <NewsCategoryBadge category={news.category} />
           <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />

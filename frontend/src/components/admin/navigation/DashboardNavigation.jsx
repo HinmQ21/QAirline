@@ -4,10 +4,11 @@ import { LogoutButton } from "./LogoutButton";
 import { NavigationIcon } from "./NavigationIcon";
 import { IoHomeOutline, IoHome } from "react-icons/io5";
 import { FaRegPenToSquare, FaPenToSquare } from "react-icons/fa6";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems = [
-  { icon: IoHomeOutline, iconOnHover: IoHome },
-  { icon: FaRegPenToSquare, iconOnHover: FaPenToSquare },
+  { icon: IoHomeOutline, iconOnHover: IoHome, iconLabel: "Home" },
+  { icon: FaRegPenToSquare, iconOnHover: FaPenToSquare, iconLabel: "News" },
 ];
 
 export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
@@ -16,12 +17,19 @@ export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
       {
         navItems.map((item, idx) => (
           <Fragment key={idx}>
-            <NavigationIcon
-              icon={item.icon}
-              iconOnHover={item.iconOnHover}
-              isSelected={selectedTab === idx}
-              onClick={() => onTabSelect(idx)}
-            />
+            <Tooltip>
+              <TooltipTrigger>
+                <NavigationIcon
+                  icon={item.icon}
+                  iconOnHover={item.iconOnHover}
+                  isSelected={selectedTab === idx}
+                  onClick={() => onTabSelect(idx)}
+                />
+              </TooltipTrigger>
+              <TooltipContent side="right" sideOffset={4}>
+                {item.iconLabel}
+              </TooltipContent>
+            </Tooltip>
             {(idx === 0) && <div className="w-[2px] h-5 bg-gray-600" />}
           </Fragment>
         ))
