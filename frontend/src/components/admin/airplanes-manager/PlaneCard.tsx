@@ -1,13 +1,13 @@
-import { PiAirplaneTilt } from "react-icons/pi";
-import { PlaneType, updatePlane } from "@/services/admin/planes"
-import { Badge } from "@/components/ui/badge";
-import { DeletePlaneButton } from "./DeletePlaneButton";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { Badge } from "@/components/ui/badge";
+import { PiAirplaneTilt } from "react-icons/pi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DeletePlaneButton } from "./DeletePlaneButton";
+import { PlaneType, updatePlane } from "@/services/admin/planes"
+import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 
 type PlaneCardProps = {
   plane: PlaneType;
@@ -104,6 +104,5 @@ export const PlaneCard = ({
           deletePlaneStateAction={deletePlaneStateAction} />
       </div>
     </div>
-
   )
 }

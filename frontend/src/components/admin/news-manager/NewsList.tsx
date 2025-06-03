@@ -1,5 +1,6 @@
+import { NewsCard } from "./NewsCard";
 import { Badge } from "@/components/ui/badge";
-import { NewsCard, NewsCardSkeleton } from "./NewsCard";
+import { NewsCardSkeleton } from "./NewsCardSkeleton";
 import { newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/admin/news";
 
 export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {

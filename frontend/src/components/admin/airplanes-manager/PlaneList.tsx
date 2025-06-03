@@ -1,5 +1,6 @@
 import { PlaneCard } from "./PlaneCard";
 import { PlaneType } from "@/services/admin/planes";
+import { PlaneCardSkeleton } from "./PlaneCardSkeleton";
 
 type PlaneListProps = {
   isLoading: boolean;
@@ -25,12 +26,16 @@ export const PlaneList = ({
       flex flex-row flex-wrap items-center justify-center
       gap-4
     ">{
-      planeList.map((e) => (
-        <PlaneCard key={e.airplane_id} plane={e}
-          updatePlaneStateAction={updatePlaneStateAction}
-          deletePlaneStateAction={deletePlaneStateAction}
-        />
-      ))
-    }</div>
+        isLoading ? (
+          Array(8).fill(0).map((_, i) => <PlaneCardSkeleton key={i} />)
+        ) : (
+          planeList.map((e) => (
+            <PlaneCard key={e.airplane_id} plane={e}
+              updatePlaneStateAction={updatePlaneStateAction}
+              deletePlaneStateAction={deletePlaneStateAction}
+            />
+          ))
+        )
+      }</div>
   );
 }
