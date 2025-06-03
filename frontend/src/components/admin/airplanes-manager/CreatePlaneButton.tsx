@@ -22,7 +22,7 @@ export const CreatePlaneButton = ({
       code: "",
       manufacturer: "airbus",
       model: "",
-      total_seats: 0
+      total_seats: 300
     },
   });
 
@@ -46,7 +46,7 @@ export const CreatePlaneButton = ({
           planeForm.reset();
           setIsSubmitting(false);
           createPlaneStateAction(data);
-          return "Tạo bài viết thành công!";
+          return "Tạo máy bay mới thành công!";
         }
       }
     );
@@ -57,6 +57,7 @@ export const CreatePlaneButton = ({
   
   return (
     <PlaneModifyDialog
+      dialogTitle="Tạo máy bay mới"
       isSubmitting={isSubmitting}
       open={open} setOpen={setOpen}
       planeForm={planeForm} onSubmit={onSubmit}
