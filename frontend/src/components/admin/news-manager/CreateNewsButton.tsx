@@ -57,6 +57,7 @@ export const CreateNewsButton = ({ className, createNewsStateAction }: CreateNew
       isSubmitting={isSubmitting}
       open={open} setOpen={setOpen}
       newsForm={newsForm} onSubmit={onSubmit}
+      submitText="Submit"
     >
       <Button variant="outline" className={`${className}`}>
         <p className="poppins-regular">Đăng bài viết mới</p>

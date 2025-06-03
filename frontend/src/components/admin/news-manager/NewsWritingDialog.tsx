@@ -26,11 +26,12 @@ type NewsWritingDialogProps = {
   isSubmitting?: boolean | undefined;
   newsForm: UseFormReturn<z.infer<typeof newsSchema>>;
   onSubmit?(values: z.infer<typeof newsSchema>): void;
+  submitText: string;
   children: ReactNode;
 }
 
 export const NewsWritingDialog = ({
-  open, setOpen, newsForm, onSubmit, isSubmitting, children
+  open, setOpen, newsForm, onSubmit, isSubmitting, children, submitText
 }: NewsWritingDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -112,9 +113,7 @@ export const NewsWritingDialog = ({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
-                </Button>
+                <Button type="submit" disabled={isSubmitting}>{submitText}</Button>
               </div>
             </form>
           </Form>

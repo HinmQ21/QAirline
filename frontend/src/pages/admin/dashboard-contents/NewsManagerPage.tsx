@@ -14,7 +14,7 @@ export const NewsManagerPage = () => {
     setNewsList([news, ...newsList]);
   }
   const updateNewsStateAction = (news: NewsType) => {
-    setNewsList([news, ...newsList.filter((x) => x.news_id != news.news_id)]);
+    setNewsList(newsList.map((x) => (x.news_id == news.news_id) ? news : x));
   }
   const deleteNewsStateAction = (news_id: number) => {
     setNewsList(newsList.filter(n => n.news_id !== news_id));
@@ -51,7 +51,9 @@ export const NewsManagerPage = () => {
         createNewsStateAction={createNewsStateAction}
       />
       <div className="h-10" />
-      <NewsList isLoading={isLoading} newsList={newsList} deleteNewsStateAction={deleteNewsStateAction} />
+      <NewsList isLoading={isLoading} newsList={newsList}
+        updateNewsStateAction={updateNewsStateAction}
+        deleteNewsStateAction={deleteNewsStateAction} />
     </div>
   );
 }

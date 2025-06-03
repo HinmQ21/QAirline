@@ -5,6 +5,7 @@ export const adminLogin = async (username: string, password: string) => {
 
   const { accessToken, refreshToken, data } = res.data;
 
+  console.log(`admin access token: ${accessToken}`);
   localStorage.setItem("adminAccessToken", accessToken);
   localStorage.setItem("adminRefreshToken", refreshToken);
   localStorage.setItem("adminUser", JSON.stringify(data));

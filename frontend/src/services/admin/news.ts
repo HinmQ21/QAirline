@@ -28,7 +28,9 @@ export type CreateNewsRequest = {
   category: NewsCategoryType;
 }
 
-export const createNews = async (data: CreateNewsRequest): Promise<NewsType> => {
+export const createNews = async (
+  data: CreateNewsRequest
+): Promise<NewsType> => {
   return (await adminApi.post('/news', data)).data.data;
 }
 
@@ -46,10 +48,12 @@ export const getNewsList = async (params: {
   return (await adminApi.get('/news', { params })).data.data;
 }
 
-export const deleteNews = async (news_id: number ) => {
+export const deleteNews = async (news_id: number) => {
   return await adminApi.delete(`/news/${news_id}`);
 }
 
-export const updateNews = async (news_id: number, data: CreateNewsRequest) => {
-  return await adminApi.put(`/news/${news_id}`, data);
+export const updateNews = async (
+  news_id: number, data: CreateNewsRequest
+): Promise<NewsType> => {
+  return (await adminApi.put(`/news/${news_id}`, data)).data.data;
 }
