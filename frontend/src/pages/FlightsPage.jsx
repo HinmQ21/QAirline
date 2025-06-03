@@ -9,6 +9,10 @@ import { LuPlaneLanding } from "react-icons/lu";
 import { MiniPage } from "@/components/misc/MiniPage";
 import { FaFilterCircleDollar } from "react-icons/fa6";
 
+const itemsPerPage = 10; // Number of items to display per page
+// const pageCount = Math.ceil(flightsMock.length / itemsPerPage); // Total number of pages
+const pageCount = 3;
+
 
 export default function FlightsPage() {
   const navigate = useNavigate();
@@ -20,6 +24,11 @@ export default function FlightsPage() {
     infant: 0,
   });
   const [isOpen, setIsOpen] = useState(false);
+
+  // Pagination state
+  const [page, setPage] = useState(1);  
+  const [totalPages, setTotalPages] = useState(pageCount);
+
 
   const updateCount = (type, delta) => {
     setPassengers((prev) => {
@@ -125,6 +134,33 @@ export default function FlightsPage() {
             <div>Không có chuyến bay phù hợp.</div>
           )}
         </div>
+
+        {/* Pagination */}
+          <div className="flex justify-center items-center gap-2 mt-4">
+            <button
+              className="px-3 py-1 rounded bg-gray-200 mb-4"
+              disabled={page === 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+            >
+              Previous
+            </button>
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                className={`px-3 py-1 rounded mb-4 ${page === i + 1 ? "bg-red-600 text-white" : "bg-gray-200"}`}
+                onClick={() => setPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              className="px-3 py-1 rounded bg-gray-200 mb-4"
+              disabled={page === totalPages}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </button>
+          </div>
       </div>
     </MiniPage>
 
