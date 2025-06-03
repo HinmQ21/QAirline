@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { 
+  useState,
+  useEffect,
+} from "react";
 
 import flightsMock from "../data/flights.json";
 import { getFlightPaged } from "../services/client/flight";
@@ -9,9 +12,7 @@ import { LuPlaneLanding } from "react-icons/lu";
 import { MiniPage } from "@/components/misc/MiniPage";
 import { FaFilterCircleDollar } from "react-icons/fa6";
 
-const itemsPerPage = 11; // Number of items to display per page
-// const pageCount = Math.ceil(flightsMock.length / itemsPerPage); // Total number of pages
-const pageCount = 3;
+const itemsPerPage = 10; // Number of items to display per page
 
 
 export default function FlightsPage() {
@@ -27,7 +28,7 @@ export default function FlightsPage() {
 
   // Pagination state
   const [page, setPage] = useState(1);  
-  const [totalPages, setTotalPages] = useState(pageCount);
+  const [totalPages, setTotalPages] = useState(3);
 
 
   const updateCount = (type, delta) => {
@@ -44,6 +45,31 @@ export default function FlightsPage() {
     );
     setResults(matched);
   };
+
+  const getFlights = async () => {
+    try {
+      const res = await getFlightPaged(itemsPerPage, page);
+      if (res) {
+        //set up for pagination
+        const totalPages = res.pagination.totalPages;
+        setTotalPages(totalPages);
+        //set up the data for render
+        if (res.data && res.data.length > 0) {
+          setResults(res.data);
+          console.log("Flight data fetched successfully:", res.data);
+        } else {
+          setResults([]);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching flights:", error);s
+    }
+  }
+
+  useEffect(() => {
+    // Fetch flights when the component mounts or when the page changes
+    getFlights();
+  }, [page]);
 
   const inputStyle = "border border-gray-300 rounded p-2 w-full";
   const flightsearchInput = (placeholder, value, onChange, Icon) => {
