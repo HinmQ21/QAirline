@@ -6,7 +6,6 @@ import { SortFlight } from "@/components/flights/search/SortFlight"
 import { FlightCard } from "@/components/flights/search/FlightCard";
 
 import { LuPlaneTakeoff } from "react-icons/lu";
-import { clientApi } from "@/services/client/main";
 
 
 // const flights = [
