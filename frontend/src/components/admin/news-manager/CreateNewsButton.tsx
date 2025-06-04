@@ -3,10 +3,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { adminApi } from "@/services/admin/main";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { createNews } from "@/services/admin/news";
 import { NewsType } from "@/services/schemes/news";
+import { zodResolver } from "@hookform/resolvers/zod"
 import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 
 type CreateNewsButtonProps = {
@@ -32,7 +32,7 @@ export const CreateNewsButton = ({
   const onSubmit = (values: z.infer<typeof newsSchema>) => {
     setIsSubmitting(true);
     toast.promise(
-      createNews(values),
+      adminApi.createNews(values),
       {
         loading: "Đang tạo bài viết",
         error: (err) => {

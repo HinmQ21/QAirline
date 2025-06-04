@@ -1,15 +1,15 @@
 import axios from "axios";
 import { API_BASE_URL } from "@/constants/env";
 
-export const api = axios.create({ baseURL: API_BASE_URL });
+export const clientAxios = axios.create({ baseURL: API_BASE_URL });
 
-api.interceptors.request.use((config) => {
+clientAxios.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("userAccessToken");
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });
 
-api.interceptors.response.use(
+clientAxios.interceptors.response.use(
   (res) => res,
   async (err) => {
     const originalRequest = err.config;
@@ -28,9 +28,8 @@ api.interceptors.response.use(
         localStorage.setItem("userAccessToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return api(originalRequest);
+        return clientAxios(originalRequest);
       } catch (e) {
-        // TODO: is it safe to do this?
         localStorage.removeItem("userAccessToken");
         localStorage.removeItem("userRefreshToken");
         return Promise.reject(e);

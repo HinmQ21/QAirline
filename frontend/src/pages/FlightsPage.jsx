@@ -1,16 +1,13 @@
-import { 
-  useState,
-  useEffect,
-} from "react"; 
+import { useState, useEffect } from "react";
 
 // import flightsMock from "../data/flights.json";
-import { getFlightPaged } from "../services/client/flight";
-import { MainFlightCard } from "@/components/flights/main/FlightCard";
-import { addPricesToFlights } from "@/util/FlightPriceHelper";
-import { SearchFlight } from "@/components/flights/main/SearchFlight";
-
 import { useNavigate } from "react-router-dom";
 import { MiniPage } from "@/components/misc/MiniPage";
+import { addPricesToFlights } from "@/util/FlightPriceHelper";
+import { MainFlightCard } from "@/components/flights/main/FlightCard";
+import { SearchFlight } from "@/components/flights/main/SearchFlight";
+import { clientApi } from "@/services/client/main";
+
 
 
 
@@ -42,7 +39,7 @@ export default function FlightsPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Pagination state
-  const [page, setPage] = useState(1);  
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(3);
 
 
@@ -56,7 +53,7 @@ export default function FlightsPage() {
 
   const getFlights = async () => {
     try {
-      const res = await getFlightPaged(itemsPerPage, page);
+      const res = await clientApi.getFlightPaged(itemsPerPage, page);
       if (res) {
         //set up for pagination
         const totalPages = res.pagination.totalPages;
@@ -66,7 +63,7 @@ export default function FlightsPage() {
           // Add prices to flights
           const flightsWithPrices = addPricesToFlights(res.data);
           setResults(flightsWithPrices);
-          
+
           console.log("Flight data fetched successfully:", res.data);
         } else {
           setResults([]);
@@ -84,12 +81,12 @@ export default function FlightsPage() {
 
   // const handleToggeleAirportList = () => {
   //   setToggleAirportList((prev) => !prev);
-    
+
   // }
 
   const navigatePageButton = (text, boundPageNumb, currentPage, isLowBound) => {
     const handleUpBoundClick = (p) => {
-       setPage((p) => Math.min(boundPageNumb, p + 1));
+      setPage((p) => Math.min(boundPageNumb, p + 1));
     }
     const handleLowBoundClick = (p) => {
       setPage((p) => Math.max(1, p - 1));
@@ -125,7 +122,7 @@ export default function FlightsPage() {
               <div key={idx}>
                 <MainFlightCard flight={f} formatTime={formatDateTime} />
               </div>
-              
+
 
             ))
           ) : (
@@ -134,19 +131,19 @@ export default function FlightsPage() {
         </div>
 
         {/* Pagination */}
-          <div className="flex justify-center items-center gap-2 mt-4">
-            {navigatePageButton("Previous", 1, page, true)}
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i}
-                className={`px-3 py-1 rounded mb-4 ${page === i + 1 ? "bg-red-600 text-white" : "bg-gray-200"}`}
-                onClick={() => setPage(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
-            {navigatePageButton("Next", totalPages, page, false)}
-          </div>
+        <div className="flex justify-center items-center gap-2 mt-4">
+          {navigatePageButton("Previous", 1, page, true)}
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={`px-3 py-1 rounded mb-4 ${page === i + 1 ? "bg-red-600 text-white" : "bg-gray-200"}`}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          {navigatePageButton("Next", totalPages, page, false)}
+        </div>
       </div>
     </MiniPage>
 

@@ -1,9 +1,9 @@
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
-import { NewsList } from "@/components/admin/news-manager/NewsList";
-import { getNewsList } from "@/services/client/news";
+import { clientApi } from "@/services/client/main";
 import { NewsType } from "@/services/schemes/news";
 import { NewsCategoryType } from "@/services/schemes/news";
+import { NewsList } from "@/components/admin/news-manager/NewsList";
 import { NewsManagerPageTitle } from "@/components/admin/news-manager/PageTitle";
 
 export const NewsManagerPage = () => {
@@ -26,7 +26,7 @@ export const NewsManagerPage = () => {
   useEffect(() => {
     if (isLoading === false) return;
     let _category = category === "all" ? undefined : category as NewsCategoryType;
-    getNewsList({ page: 1, limit: 10, category: _category })
+    clientApi.getNewsList({ page: 1, limit: 10, category: _category })
     .then(
       (response) => {
         console.log(response);

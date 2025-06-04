@@ -1,15 +1,14 @@
+import { z } from "zod";
 import dayjs from "dayjs";
-import Skeleton from "react-loading-skeleton";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 import { NewsCategoryBadge } from "./NewsList";
-import { updateNews } from "@/services/admin/news";
+import { adminApi } from "@/services/admin/main";
 import { NewsType } from "@/services/schemes/news";
 import { DeleteNewsButton } from "./DeleteNewsButton";
-import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { z } from "zod";
-import toast from "react-hot-toast";
+import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 type NewsCardProps = {
@@ -39,7 +38,7 @@ export const NewsCard = ({
   const onSubmit = (values: z.infer<typeof newsSchema>) => {
     setIsSubmitting(true);
     toast.promise(
-      updateNews(news.news_id, values),
+      adminApi.updateNews(news.news_id, values),
       {
         loading: "Đang cập nhật bài viết",
         error: (err) => {

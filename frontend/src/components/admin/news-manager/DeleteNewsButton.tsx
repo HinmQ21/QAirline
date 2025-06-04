@@ -1,12 +1,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import { deleteNews } from "@/services/admin/news";
 import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
 import {
   DialogContent, DialogDescription, DialogFooter,
   Dialog, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
+import { adminApi } from "@/services/admin/main";
 
 type DeleteNewsButtonProps = {
   news_id: number;
@@ -22,7 +22,7 @@ export const DeleteNewsButton = (
   const onDeleteEvent = () => {
     setIsDeleting(true);
     toast.promise(
-      deleteNews(news_id),
+      adminApi.deleteNews(news_id),
       {
         loading: "Đang xóa bài viết",
         error: (err) => {

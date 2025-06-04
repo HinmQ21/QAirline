@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { deletePlane } from "@/services/admin/planes";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
 import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { adminApi } from "@/services/admin/main";
 
 type DeletePlaneButtonProps = {
   plane_id: number;
@@ -19,7 +19,7 @@ export const DeletePlaneButton = (
   const onDeleteEvent = () => {
     setIsDeleting(true);
     toast.promise(
-      deletePlane(plane_id),
+      adminApi.deletePlane(plane_id),
       {
         loading: "Đang xóa máy bay",
         error: (err) => {

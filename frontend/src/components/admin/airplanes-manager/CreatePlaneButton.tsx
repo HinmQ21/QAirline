@@ -3,10 +3,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { adminApi } from "@/services/admin/main";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { createPlane } from "@/services/admin/planes";
 import { PlaneType } from "@/services/schemes/planes";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 
 type CreatePlaneButtonProps = {
@@ -30,7 +30,7 @@ export const CreatePlaneButton = ({
   const onSubmit = (values: z.infer<typeof planeSchema>) => {
     setIsSubmitting(true);
     toast.promise(
-      createPlane(values),
+      adminApi.createPlane(values),
       {
         loading: "Đang tạo máy bay mới",
         error: (err) => {

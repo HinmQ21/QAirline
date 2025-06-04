@@ -1,15 +1,15 @@
 import axios from "axios";
 import { API_BASE_URL } from "@/constants/env";
 
-export const adminApi = axios.create({ baseURL: API_BASE_URL });
+export const adminAxios = axios.create({ baseURL: API_BASE_URL });
 
-adminApi.interceptors.request.use((config) => {
+adminAxios.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("adminAccessToken");
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });
 
-adminApi.interceptors.response.use(
+adminAxios.interceptors.response.use(
   (res) => res,
   async (err) => {
     const originalRequest = err.config;
@@ -28,9 +28,8 @@ adminApi.interceptors.response.use(
         localStorage.setItem("adminRefreshToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return adminApi(originalRequest);
+        return adminAxios(originalRequest);
       } catch (e) {
-        // TODO: is it safe to do this?
         localStorage.removeItem("adminAccessToken");
         localStorage.removeItem("adminRefreshToken");
         window.location.href = "/admin";

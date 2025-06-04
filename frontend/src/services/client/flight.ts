@@ -1,7 +1,7 @@
-import { api } from '@/lib/axios/client';
+import { clientAxios } from '@/lib/axios/client';
 
-export const getFlightPaged = async (pageSize: number, pageNumber: number) => {
-  const res = await api.get("flights/paged", {
+const getFlightPaged = async (pageSize: number, pageNumber: number) => {
+  const res = await clientAxios.get("flights/paged", {
     params: {
       pageSize,
       pageNumber,
@@ -11,3 +11,4 @@ export const getFlightPaged = async (pageSize: number, pageNumber: number) => {
   return res.data;
 }
 
+export const flightApiObject = { getFlightPaged: getFlightPaged };

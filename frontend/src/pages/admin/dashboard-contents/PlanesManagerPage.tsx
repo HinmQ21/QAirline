@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PlaneList } from "@/components/admin/airplanes-manager/PlaneList";
 import { PlaneType } from "@/services/schemes/planes";
 import { ManufacturerType } from "@/services/schemes/planes";
-import { getPlaneList } from "@/services/client/planes";
+import { PlaneList } from "@/components/admin/airplanes-manager/PlaneList";
 import { PlanesManagerpageTitle } from "@/components/admin/airplanes-manager/PageTitle";
+import { clientApi } from "@/services/client/main";
 
 export const PlanesManagerPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ export const PlanesManagerPage = () => {
   useEffect(() => {
     if (isLoading === false) return;
     let _manufacturer = manufacturer === "all" ? undefined : manufacturer as ManufacturerType;
-    getPlaneList({manufacturer: _manufacturer}).then(
+    clientApi.getPlaneList({manufacturer: _manufacturer}).then(
       (response) => {
         console.log(response);
         setPlaneList(response);

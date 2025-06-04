@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { Badge } from "@/components/ui/badge";
 import { PiAirplaneTilt } from "react-icons/pi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DeletePlaneButton } from "./DeletePlaneButton";
-import { updatePlane } from "@/services/admin/planes"
 import { PlaneType } from "@/services/schemes/planes";
+import { DeletePlaneButton } from "./DeletePlaneButton";
 import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
+import { adminApi } from "@/services/admin/main";
 
 type PlaneCardProps = {
   plane: PlaneType;
@@ -47,7 +47,7 @@ export const PlaneCard = ({
   const onSubmit = (values: z.infer<typeof planeSchema>) => {
     setIsSubmitting(true);
     toast.promise(
-      updatePlane(plane.airplane_id, values),
+      adminApi.updatePlane(plane.airplane_id, values),
       {
         loading: "Đang cập nhật thông tin máy bay",
         error: (err) => {

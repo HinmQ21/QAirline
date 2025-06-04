@@ -1,7 +1,7 @@
-import { adminApi } from "@/lib/axios/admin";
+import { adminAxios } from "@/lib/axios/admin";
 
-export const adminLogin = async (username: string, password: string) => {
-  const res = await adminApi.post("/auth/admin/login", { username, password });
+const login = async (username: string, password: string) => {
+  const res = await adminAxios.post("/auth/admin/login", { username, password });
 
   const { accessToken, refreshToken, data } = res.data;
 
@@ -13,6 +13,11 @@ export const adminLogin = async (username: string, password: string) => {
   return res.data;
 };
 
-export const adminMe = async () => {
-  return await adminApi.get("/auth/admin/me");
+const me = async () => {
+  return await adminAxios.get("/auth/admin/me");
 };
+
+export const authApiObject = {
+  me: me,
+  login: login
+}

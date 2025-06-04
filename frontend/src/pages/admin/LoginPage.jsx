@@ -9,9 +9,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MiniPage } from "@/components/misc/MiniPage";
-import { adminLogin, adminMe } from "@/services/admin/auth";
+import { adminMe } from "@/services/admin/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { adminApi } from "@/services/admin/main";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username không được để trống"),
@@ -23,7 +24,7 @@ const checkLogin = async (navigate) => {
   if (token != null) {
     try {
       toast.promise(
-        adminMe(),
+        adminApi.me(),
         {
           loading: 'Đang chuyển hướng...',
           success: (_) => {
@@ -64,7 +65,7 @@ export const AdminLoginPage = () => {
   function onSubmit(values) {
     setIsSubmitting(true);
     toast.promise(
-      adminLogin(values.username, values.password),
+      adminApi.login(values.username, values.password),
       {
         loading: 'Vui lòng chờ...',
         success: (_) => {
