@@ -18,11 +18,11 @@ import { IoMdClose } from "react-icons/io";
 type GetAirportListProps = {
   data: GetAirportRequest[] | null;
   setData: (data: GetAirportRequest[]) => void;
-  setCityStart: (city: string) => void;
+  setInputValue: (city: string) => void;
 }
 
 
-export const AirportList = ({ data, setData, setCityStart }: GetAirportListProps) => {
+export const AirportList = ({ data, setData, setInputValue }: GetAirportListProps) => {
   const code = "";
   const name = "";
   const city = "";
@@ -59,7 +59,7 @@ export const AirportList = ({ data, setData, setCityStart }: GetAirportListProps
         ) : (
             
               data.map((airport) => (
-              <div key={airport.code} onClick={() => {setCityStart(airport.city)}}
+              <div key={airport.code} onClick={() => {setInputValue(airport.city)}}
               className="flex rounded-xl justify-between items-center p-3 hover:bg-red-300"
               >
                 <div>

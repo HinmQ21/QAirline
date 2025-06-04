@@ -1,8 +1,15 @@
 //Textinput co controller track lai value
 //Viet cai nay lai thanh component tot hon dung duoc ca cho trang khac
 //hoan thien giao dien newSearch
-//them tinh nang querry cho new Search: Nhap ten thanh pho thi hien thi ra san bay tuong ung
-// 
+//them tinh nang querry cho new Search: Nhap ten vao co the tim kiem duoc
+// dau tien la tim theo ten san bay, neu co hien thi, neu khong co tim theo ten thanh pho, neu khong co tim theo tne quoc gia
+// neu van khong thay thi ko hien
+
+//Muc tieu la chay duoc va nhanh nhat co the
+//B1: Co the nhap vao trong nay
+//An lai vao thi bi dong mat cua so => Do thu vien Dropdown Cai dat
+// Dung thu vien khac, phuong an thiet ke khac, tu custom
+// Sua sang thu vien SelectFramWork
 
 
 
@@ -18,7 +25,7 @@ import { AirportList } from './AirportList';
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
 import { FaFilterCircleDollar } from "react-icons/fa6";
-import { Button } from "@/components/ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,7 +41,45 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
+const frameworks = [
+  {
+    value: "next.js",
+    label: "Next.js",
+  },
+  {
+    value: "sveltekit",
+    label: "SvelteKit",
+  },
+  {
+    value: "nuxt.js",
+    label: "Nuxt.js",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+  },
+  {
+    value: "astro",
+    label: "Astro",
+  },
+]
 
 
 
@@ -46,6 +91,11 @@ export const SearchFlight = () => {
   const [endAirportStatus, setEndAirportStatus] = useState(false);
   const [data, setData] = useState(null);
   const [cityStart, setCityStart] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("")
+  
 
 
   const handleToggleStartAirportList = () => {
@@ -94,7 +144,8 @@ export const SearchFlight = () => {
   };
 
   const styleSearchBar = "m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
-  const newSearchInput = (styleName, placeholder) => {
+
+  const newSearchInput = (styleName, placeholder, inputValue) => {
     return (
       <>
         <DropdownMenu>
@@ -103,7 +154,8 @@ export const SearchFlight = () => {
               <input 
                 type="text"
                 placeholder={placeholder}
-                value={cityStart}
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
               />
             </div>
           </DropdownMenuTrigger>
@@ -111,12 +163,60 @@ export const SearchFlight = () => {
             <AirportList
               data={data}   
               setData = {setData}
-              setCityStart={setCityStart}
+              setInputValue={setInputValue}
             />
           </DropdownMenuContent>
           
         </DropdownMenu>
       </>
+    );
+  }
+
+  const newNewSearchInput = () => {
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[200px] justify-between"
+          >
+            {value
+              ? frameworks.find((framework) => framework.value === value)?.label
+              : "Select framework..."}
+            <ChevronsUpDown className="opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput placeholder="Search framework..." className="h-9" />
+            <CommandList>
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandGroup>
+                {frameworks.map((framework) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue)
+                      setOpen(false)
+                    }}
+                  >
+                    {framework.label}
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        value === framework.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover> 
     );
   }
 
@@ -146,7 +246,9 @@ export const SearchFlight = () => {
         )} */}
 
 
-        {newSearchInput(styleSearchBar, "Start Destination")}
+        {newSearchInput(styleSearchBar, "Start Destination", inputValue)}
+
+        {newNewSearchInput()}
       </div>
     </>
   );
