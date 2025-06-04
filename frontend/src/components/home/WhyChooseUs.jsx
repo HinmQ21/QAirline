@@ -1,8 +1,8 @@
+import { css } from "@/css/styles";
 import { FiGlobe } from "react-icons/fi";
+import { LuPlane } from "react-icons/lu";
 import { FaRegClock } from "react-icons/fa";
 import { PiSeatBold } from "react-icons/pi";
-import { LuPlane } from "react-icons/lu";
-import { MiniPageH } from "../misc/MiniPage";
 
 
 const ICON_SIZE = "45";
@@ -33,7 +33,7 @@ const reasons = [
 export const WhyChooseUs = () => (
   <div className="flex flex-col">
     <div className="flex flex-col items-center">
-      <MiniPageH className="mb-7">Why choose us?</MiniPageH>
+      <p className={`mb-7 ${css.headerText}`}>Why choose us?</p>
       <div className="flex flex-wrap gap-5 max-w-[90%] justify-center">
         {reasons.map((reason, index) => (
           <div key={index} className="flex-1 rounded-xl min-w-50 cursor-pointer

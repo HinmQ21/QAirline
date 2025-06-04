@@ -8,7 +8,8 @@ import { FlightBooking } from "@/components/home/FlightBooking";
 import { TopDestinations } from "@/components/home/TopDestinations";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { Sponsors } from "@/components/home/Sponsors";
-import { MiniPage, MiniPageH } from "@/components/misc/MiniPage";
+import { MiniPage } from "@/components/misc/MiniPage";
+import { css } from "@/css/styles";
 
 
 
@@ -68,7 +69,7 @@ export const HomePage = () => {
           <div className="min-h-screen flex flex-col justify-between">
             <MiniPage className="mt-25 mb-10 mx-30">
               <div className="flex flex-col items-center my-10 gap-3">
-                <MiniPageH>More content</MiniPageH>
+                <p className={css.headerText}>More content</p>
                 <img src="/miscs/coming-soon.gif" loading="lazy" />
               </div>
             </MiniPage>
