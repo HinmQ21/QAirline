@@ -1,5 +1,5 @@
 //Textinput co controller track lai value
-
+//Viet cai nay lai thanh component tot hon dung duoc ca cho trang khac
 
 import React from 'react';
 import { 
@@ -88,25 +88,18 @@ export const SearchFlight = () => {
   };
 
 
-  const newSearchInput = ({Icon}) => {
+  const newSearchInput = () => {
     return (
       <>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger>
             <div className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row">
-              {Icon && <Icon className="mr-2 w-5 h-5 text-gray-500" />}
+              
               <input 
                 type="text"
-                placeholder={placeholder}
-                value={value}
                 
               />
             </div>
-            cityStart === "" ? (
-                <p>a</p>
-              ) : (
-                <p>{cityStart}</p>
-              )
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <AirportList
@@ -147,7 +140,7 @@ export const SearchFlight = () => {
         )} */}
 
 
-        {newSearchInput()}
+        {newSearchInput({})}
       </div>
     </>
   );
