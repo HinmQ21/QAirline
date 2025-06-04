@@ -27,7 +27,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+
+
 
 
 
@@ -38,23 +39,26 @@ export const SearchFlight = () => {
   const [startAirportStatus, setStartAirportStatus] = useState(false);
   const [endAirportStatus, setEndAirportStatus] = useState(false);
   const [data, setData] = useState(null);
+  const [cityStart, setCityStart] = useState("");
 
 
   const handleToggleStartAirportList = () => {
     setStartAirportStatus(prev => !prev);
     setEndAirportStatus(false);
-
   }
+
   const handleToggleEndAirportList = () => {
     setEndAirportStatus(prev => !prev);
     setStartAirportStatus(false);
   }
+
   const handleSearch = () => {
     const matched = flightsMock.filter(
       f => f.from.includes(query.from) && f.to.includes(query.to)
     );
     setResults(matched);
   };
+
   const flightsearchInput = (placeholder, value, onChange, Icon, isStartDes) => {
     return (
       <div className="relative" >
@@ -89,12 +93,19 @@ export const SearchFlight = () => {
       <>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <p>a</p>
+            {
+              cityStart === "" ? (
+                <p>a</p>
+              ) : (
+                <p>{cityStart}</p>
+              )
+            }
           </DropdownMenuTrigger>
-          <DropdownMenuContent >
+          <DropdownMenuContent>
             <AirportList
             data={data}   
             setData = {setData}
+            setCityStart={setCityStart}
           />
           </DropdownMenuContent>
           

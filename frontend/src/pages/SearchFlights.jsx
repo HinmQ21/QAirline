@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { clientApi } from "@/services/client/main";
 import { FlightRecap } from "@/components/flights/search/FlightRecap";
 import { SortFlight } from "@/components/flights/search/SortFlight"
 import { FlightCard } from "@/components/flights/search/FlightCard";
@@ -7,9 +8,6 @@ import { FlightCard } from "@/components/flights/search/FlightCard";
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { clientApi } from "@/services/client/main";
 
-const getFlights = async () => {
-  return (await clientApi.get("/api/airplanes")).data;
-};
 
 // const flights = [
 //   {  
@@ -99,10 +97,23 @@ const FlightSearchPage = () => {
   const [sortOption, setSortOption] = useState("Mac Dinh");
   const [flights, setFlights] = useState([]);
 
+  const getFlightList = async () => {
+    try {
+      const res = await clientApi.getPlaneList();
+      if (res) {
+        console.log("Flight list fetched successfully:", res);
+        return res;
+      }
+    } catch (error) {
+      console.error("Error fetching flight list:", error);
+      return [];
+    }
+  }
+
   useEffect(() => {
     const fetchFlights = async () => {
       console.log("attempting to fetch flights");
-      const flights = await getFlights();
+      const flights = getFlightList();
       setFlights(flights);
     };
     try {

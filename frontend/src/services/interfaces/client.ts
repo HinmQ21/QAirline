@@ -22,4 +22,12 @@ export interface ClientApiInterface {
   getPlaneList: (params: {
     manufacturer?: ManufacturerType;
   }) => Promise<PlaneType[]>;
+
+  // Airports
+  getAirportList: (params: {
+    code: string,
+    name: string,
+    city: string,
+    country: string,
+  }) => Promise<any>;
 }
