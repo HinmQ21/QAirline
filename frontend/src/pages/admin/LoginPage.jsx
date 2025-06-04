@@ -9,7 +9,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MiniPage } from "@/components/misc/MiniPage";
-import { adminMe } from "@/services/admin/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { adminApi } from "@/services/admin/main";

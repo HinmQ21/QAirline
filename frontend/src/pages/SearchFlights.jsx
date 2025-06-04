@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import { api } from "@/lib/axios/client";
 import { FlightRecap } from "@/components/flights/search/FlightRecap";
 import { SortFlight } from "@/components/flights/search/SortFlight"
 import { FlightCard } from "@/components/flights/search/FlightCard";
 
 import { LuPlaneTakeoff } from "react-icons/lu";
+import { clientApi } from "@/services/client/main";
 
 const getFlights = async () => {
-  return (await api.get("/api/airplanes")).data;
+  return (await clientApi.get("/api/airplanes")).data;
 };
 
 // const flights = [
