@@ -1,4 +1,5 @@
 import { clientAxios } from "@/lib/axios/client"
+import { GetAirportRequest } from "../schemes/airport"
 
 
 const getAirportList = async (params: {
@@ -6,7 +7,7 @@ const getAirportList = async (params: {
     name: string,
     city: string,
     country: string,
-  }): Promise<any> => {
+  }): Promise<GetAirportRequest> => {
     return (await clientAxios.get("airports", { params })).data.data;
   };
 

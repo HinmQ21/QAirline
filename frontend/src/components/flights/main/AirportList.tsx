@@ -9,22 +9,28 @@ import {
 } from "react";
 
 import { clientApi } from "@/services/client/main";
+import { GetAirportRequest } from "@/services/schemes/airport";
 
 import { IoMdClose } from "react-icons/io";
 
 
 //make it only fetch api from first click
+type GetAirportListProps = {
+  data: GetAirportRequest[] | null;
+  setData: (data: GetAirportRequest[]) => void;
+  setCityStart: (city: string) => void;
+}
 
 
-export const AirportList = ({ data, setData, setCityStart }) => {
-  const code = null;
-  const name = null;
-  const city = null;
-  const country = null;
+export const AirportList = ({ data, setData, setCityStart }: GetAirportListProps) => {
+  const code = "";
+  const name = "";
+  const city = "";
+  const country = "";
 
   const getAirportList = async () => {
     try { 
-      const res = await clientApi.getAirportList(code, name, city, country);
+      const res = await clientApi.getAirportList({code, name, city, country});
       if (res) {
         console.log("Airport list fetched successfully:", res);
         //----temp comment --------
