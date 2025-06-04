@@ -1,5 +1,11 @@
 //Textinput co controller track lai value
 //Viet cai nay lai thanh component tot hon dung duoc ca cho trang khac
+//hoan thien giao dien newSearch
+//them tinh nang querry cho new Search: Nhap ten thanh pho thi hien thi ra san bay tuong ung
+// 
+
+
+
 
 import React from 'react';
 import { 
@@ -87,17 +93,17 @@ export const SearchFlight = () => {
     );
   };
 
-
-  const newSearchInput = () => {
+  const styleSearchBar = "m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
+  const newSearchInput = (styleName, placeholder) => {
     return (
       <>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <div className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row">
-              
+            <div className={`${styleName}`}>
               <input 
                 type="text"
-                
+                placeholder={placeholder}
+                value={cityStart}
               />
             </div>
           </DropdownMenuTrigger>
@@ -140,7 +146,7 @@ export const SearchFlight = () => {
         )} */}
 
 
-        {newSearchInput({})}
+        {newSearchInput(styleSearchBar, "Start Destination")}
       </div>
     </>
   );
