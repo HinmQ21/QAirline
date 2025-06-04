@@ -31,7 +31,8 @@ adminApi.interceptors.response.use(
         return adminApi(originalRequest);
       } catch (e) {
         // TODO: is it safe to do this?
-        localStorage.clear();
+        localStorage.removeItem("adminAccessToken");
+        localStorage.removeItem("adminRefreshToken");
         window.location.href = "/admin";
         return Promise.reject(e);
       }

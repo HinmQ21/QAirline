@@ -75,7 +75,7 @@ export const PlaneCard = ({
   return (
     <div className="
       flex flex-row items-center justify-between pl-3
-      bg-white rounded-2xl h-14 w-130 cursor-pointer
+      bg-white rounded-2xl h-14 w-125 cursor-pointer
       ">
       <PlaneModifyDialog
         open={open} setOpen={setOpen}
@@ -90,7 +90,7 @@ export const PlaneCard = ({
             <PlaneLogo manufacturer={plane.manufacturer} />
           </div>
           <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
-          <div className="flex flex-col justify-center w-45">
+          <div className="flex flex-col justify-center w-42">
             <p className="montserrat-semibold text-xl truncate">{plane.code}</p>
             <p className="text-gray-700 text-xs truncate">{`Model: ${plane.model}`}</p>
           </div>

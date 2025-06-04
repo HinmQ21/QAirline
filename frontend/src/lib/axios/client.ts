@@ -31,8 +31,8 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (e) {
         // TODO: is it safe to do this?
-        localStorage.clear();
-        window.location.href = "/";
+        localStorage.removeItem("userAccessToken");
+        localStorage.removeItem("userRefreshToken");
         return Promise.reject(e);
       }
     }
