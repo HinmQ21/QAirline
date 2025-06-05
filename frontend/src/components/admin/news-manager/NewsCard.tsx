@@ -63,15 +63,14 @@ export const NewsCard = ({
   }
 
   return (
-    <div className="
-      flex flex-row items-center justify-between
-      h-18 w-120 bg-white rounded-xl
-      hover:shadow-2xl transition-all duration-300
-      cursor-pointer
-    ">
-
-      <Tooltip>
-        <TooltipTrigger asChild>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="
+          flex flex-row items-center justify-between
+          h-18 w-120 bg-white rounded-xl
+          hover:shadow-2xl transition-all duration-300
+          cursor-pointer
+        ">
           <NewsWritingDialog
             open={open} setOpen={setOpen}
             newsForm={newsForm}
@@ -105,18 +104,18 @@ export const NewsCard = ({
               </div>
             </div>
           </NewsWritingDialog>
-        </TooltipTrigger>
-        <TooltipContent>
-          {`ID: ${news.news_id}`}
-        </TooltipContent>
-      </Tooltip>
 
-      <div className="flex flex-row h-full items-center">
-        <NewsCategoryBadge category={news.category} />
-        <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
-        <DeleteNewsButton news_id={news.news_id} deleteNewsStateAction={deleteNewsStateAction} />
-      </div>
-    </div>
+          <div className="flex flex-row h-full items-center">
+            <NewsCategoryBadge category={news.category} />
+            <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
+            <DeleteNewsButton news_id={news.news_id} deleteNewsStateAction={deleteNewsStateAction} />
+          </div>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="top">
+        {`ID: ${news.news_id}`}
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

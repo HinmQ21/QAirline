@@ -9,6 +9,7 @@ import { PlaneType } from "@/services/schemes/planes";
 import { DeletePlaneButton } from "./DeletePlaneButton";
 import { PlaneModifyDialog, planeSchema } from "./PlaneModifyDialog";
 import { adminApi } from "@/services/admin/main";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 type PlaneCardProps = {
   plane: PlaneType;
@@ -73,37 +74,44 @@ export const PlaneCard = ({
   }
 
   return (
-    <div className="
-      flex flex-row items-center justify-between pl-3
-      bg-white rounded-2xl h-14 w-125 cursor-pointer
-      ">
-      <PlaneModifyDialog
-        open={open} setOpen={setOpen}
-        planeForm={planeForm}
-        onSubmit={onSubmit}
-        isSubmitting={isSubmitting}
-        submitText="Cập nhật"
-        dialogTitle="Cập nhật máy bay"
-      >
-        <div className="flex flex-row h-full items-center">
-          <div className="w-35 flex flex-col items-center">
-            <PlaneLogo manufacturer={plane.manufacturer} />
-          </div>
-          <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
-          <div className="flex flex-col justify-center w-42">
-            <p className="montserrat-semibold text-xl truncate">{plane.code}</p>
-            <p className="text-gray-700 text-xs truncate">{`Model: ${plane.model}`}</p>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className="
+          flex flex-row items-center justify-between pl-3
+          bg-white rounded-2xl h-14 w-125 cursor-pointer
+          ">
+          <PlaneModifyDialog
+            open={open} setOpen={setOpen}
+            planeForm={planeForm}
+            onSubmit={onSubmit}
+            isSubmitting={isSubmitting}
+            submitText="Cập nhật"
+            dialogTitle="Cập nhật máy bay"
+          >
+            <div className="flex flex-row h-full items-center">
+              <div className="w-35 flex flex-col items-center">
+                <PlaneLogo manufacturer={plane.manufacturer} />
+              </div>
+              <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
+              <div className="flex flex-col justify-center w-42">
+                <p className="montserrat-semibold text-xl truncate">{plane.code}</p>
+                <p className="text-gray-700 text-xs truncate">{`Model: ${plane.model}`}</p>
+              </div>
+            </div>
+          </PlaneModifyDialog>
+          <div className="flex flex-row h-full items-center justify-end">
+            <Badge className="bg-sky-700 hover:bg-sky-600">
+              {`${plane.total_seats} ghế ngồi`}
+            </Badge>
+            <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
+            <DeletePlaneButton plane_id={plane.airplane_id}
+              deletePlaneStateAction={deletePlaneStateAction} />
           </div>
         </div>
-      </PlaneModifyDialog>
-      <div className="flex flex-row h-full items-center justify-end">
-        <Badge className="bg-sky-700 hover:bg-sky-600">
-          {`${plane.total_seats} ghế ngồi`}
-        </Badge>
-        <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
-        <DeletePlaneButton plane_id={plane.airplane_id}
-          deletePlaneStateAction={deletePlaneStateAction} />
-      </div>
-    </div>
+      </TooltipTrigger>
+      <TooltipContent side="top">
+        {`ID: ${plane.airplane_id}`}
+      </TooltipContent>
+    </Tooltip>
   )
 }
