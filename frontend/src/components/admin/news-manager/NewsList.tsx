@@ -1,20 +1,6 @@
 import { NewsCard } from "./NewsCard";
-import { Badge } from "@/components/ui/badge";
-import { NewsCardSkeleton } from "./NewsCardSkeleton";
 import { NewsType } from "@/services/schemes/news";
-import { NewsCategoryType } from "@/services/schemes/news";
-import { newsCategoryLabels } from "@/services/schemes/news";
-
-export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
-  let className;
-  switch (category) {
-    case "news": className = "bg-slate-500 hover:bg-slate-400"; break;
-    case "announcement": className = "bg-red-500 hover:bg-red-400"; break;
-    case "introduction": className = "bg-cyan-600 hover:bg-cyan-500"; break;
-    case "promotion": className = "bg-orange-500 hover:bg-orange-400"; break;
-  }
-  return <Badge className={`${className}`}>{newsCategoryLabels[category]}</Badge>
-}
+import { NewsCardSkeleton } from "./NewsCardSkeleton";
 
 type NewsListProps = {
   isLoading: boolean;

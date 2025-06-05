@@ -123,7 +123,7 @@ export default function FlightsPage() {
 
   return (
     <>
-      <div className={`${css.minipage.xl} mx-30`}>
+      <div className={`${css.minipage.xl} ${css.minipagemx}`}>
         <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
           <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 

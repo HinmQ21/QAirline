@@ -1,15 +1,15 @@
 import { z } from "zod";
-import dayjs from "dayjs";
+import dayjs from '@/util/dayjs';
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { NewsCategoryBadge } from "./NewsList";
 import { adminApi } from "@/services/admin/main";
-import { NewsType } from "@/services/schemes/news";
 import { DeleteNewsButton } from "./DeleteNewsButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/schemes/news";
+import { Badge } from "@/components/ui/badge";
 
 type NewsCardProps = {
   news: NewsType;
@@ -119,3 +119,14 @@ export const NewsCard = ({
     </div>
   );
 };
+
+export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
+  let className;
+  switch (category) {
+    case "news": className = "bg-slate-500 hover:bg-slate-400"; break;
+    case "announcement": className = "bg-red-500 hover:bg-red-400"; break;
+    case "introduction": className = "bg-cyan-600 hover:bg-cyan-500"; break;
+    case "promotion": className = "bg-orange-500 hover:bg-orange-400"; break;
+  }
+  return <Badge className={`${className}`}>{newsCategoryLabels[category]}</Badge>
+}

@@ -55,10 +55,10 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
-            <div className={`${css.minipage.lg} mx-30 mt-25 mb-10`}>
+            <div className={`${css.minipage.lg} ${css.minipagemx} mt-25 mb-10`}>
               <TopNews />
             </div>
-            <div className={`${css.minipage.xl} mb-10 mx-30`}>
+            <div className={`${css.minipage.xl} mb-10 ${css.minipagemx}`}>
               <div className="flex flex-col m-15 gap-y-22">
                 <TopDestinations />
                 <WhyChooseUs />
@@ -68,14 +68,14 @@ export const HomePage = () => {
         </div>
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-between">
-            <div className={`${css.minipage.xl} mt-25 mb-10 mx-30`}>
+            <div className={`${css.minipage.xl} mt-25 mb-10 ${css.minipagemx}`}>
               <div className="flex flex-col items-center my-10 gap-3">
                 <p className={css.headerText}>More content</p>
                 <img src="/miscs/coming-soon.gif" loading="lazy" />
               </div>
             </div>
             <div className="flex flex-col">
-              <div className={`${css.minipage.xl} mb-10 mx-30`}>
+              <div className={`${css.minipage.xl} mb-10 ${css.minipagemx}`}>
                 <div className="m-10">
                   <Sponsors />
                 </div>

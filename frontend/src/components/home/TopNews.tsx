@@ -1,27 +1,29 @@
-import dayjs from "dayjs";
+import dayjs from '@/util/dayjs';
 import { css } from "@/css/styles";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { FaArrowRight } from "react-icons/fa";
+import { NewsDialog } from "../misc/NewsDialog";
 import { FaRegNewspaper } from "react-icons/fa6";
 import { clientApi } from "@/services/client/main";
 import { NewsType } from "@/services/schemes/news";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
-
 const SimpleNewsCard = ({ news, offstage = false }: { news: NewsType, offstage?: boolean }) => {
   const created_date = dayjs(news.created_at);
 
   return (
     <div className={`
-      flex flex-col w-max absolute justify-center h-full
+      flex flex-col absolute justify-center h-full
       ${offstage ? css.offstage.on : css.offstage.off}
     `}>
       <p className="text-sm text-gray-700">{created_date.format("DD - MM - YYYY")}</p>
-      <p className="reddit-medium underline text-blue-800 cursor-pointer" onClick={
-        () => console.log("News clicked:", news.news_id)
-      }>{news.title}</p>
+      <NewsDialog news={news}>
+        <p className="truncate reddit-medium underline text-blue-800 cursor-pointer" onClick={
+          () => console.log("News clicked:", news.news_id)
+        }>{news.title}</p>
+      </NewsDialog>
     </div>
   );
 }

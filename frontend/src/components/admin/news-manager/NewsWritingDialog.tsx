@@ -1,5 +1,5 @@
 import { z } from "zod";
-import dayjs from "dayjs";
+import dayjs from '@/util/dayjs';
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import { ReactNode } from "react";
 export const newsSchema = z.object({
   title: z.string()
     .nonempty("Tiêu đề không được để trống!")
-    .max(50, "Tiêu đề không được dài quá 50 kí tự!"),
+    .max(75, "Tiêu đề không được dài quá 75 kí tự!"),
   content: z.string()
     .nonempty("Nội dung không được để trống!")
     .max(1000, "Nội dung không được dài quá 1000 kí tự!"),

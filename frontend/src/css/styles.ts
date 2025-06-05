@@ -12,4 +12,6 @@ export class css {
     md: "bg-gray-100 shadow-xl rounded-2xl",
     sm: "bg-gray-100 shadow-xl rounded-xl",
   } as const;
+
+  static readonly minipagemx = "xl:mx-30 lg:mx-20 md:mx-10 sm:mx-5 mx-2";
 }
