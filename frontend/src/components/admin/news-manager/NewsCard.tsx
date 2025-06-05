@@ -96,10 +96,10 @@ export const NewsCard = ({
                 flex flex-col justify-center
                 text-gray-900 w-60
               ">
-                <p className="text-xl montserrat-semibold truncate">
+                <p className="text-lg montserrat-semibold truncate">
                   {news.title}
                 </p>
-                <p className="text-xs montserrat-medium truncate">
+                <p className="text-[11px] montserrat-medium truncate">
                   {news.content}
                 </p>
               </div>

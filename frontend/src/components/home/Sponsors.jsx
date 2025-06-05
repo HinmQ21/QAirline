@@ -1,3 +1,4 @@
+import { css } from "@/css/styles";
 import { useState, useRef, useEffect } from "react";
 import { FaFacebook } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
@@ -52,11 +53,10 @@ export const Sponsors = () => {
               {
                 triple.map((sponsor, idx) => (
                   <img key={idx} src={`/sponsors/${sponsor.src}`} alt={sponsor.alt}
-                    className={`w-36 h-10 absolute
-                      transition-all duration-500
-                      ${indexToShow === idx
-                        ? 'opacity-100 blur-[0px] scale-100'
-                        : 'opacity-0 blur-[5px] scale-75'}`}
+                    className={`w-36 h-10 absolute ${indexToShow === idx
+                      ? css.offstage.off
+                      : css.offstage.on
+                      }`}
                   />
                 ))
               }

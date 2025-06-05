@@ -1,16 +1,13 @@
+import { css } from "@/css/styles";
 import { LuPlaneTakeoff } from "react-icons/lu";
-import { useState, useEffect, use } from "react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu"
-import { MiniPage } from "@/components/misc/MiniPage";
+} from "@/components/ui/dropdown-menu"
 
 
 export const SortFlight = ({ sortOption, onSortChange }) => {
@@ -27,7 +24,7 @@ export const SortFlight = ({ sortOption, onSortChange }) => {
         </button>
 
 
-        <MiniPage className="flex flex-col justify-center h-10">
+        <div className={`${css.minipage.xl} flex flex-col justify-center h-10`}>
           <div className="flex flex-row mx-4">
             <p className="mr-2">Sap xep theo</p>
             {/* <Dropdown buttonText={buttonText} content={
@@ -55,7 +52,7 @@ export const SortFlight = ({ sortOption, onSortChange }) => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </MiniPage>
+        </div>
       </div>
     </>
   );

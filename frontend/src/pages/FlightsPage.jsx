@@ -1,12 +1,10 @@
+import { css } from "@/css/styles";
 import { useState, useEffect } from "react";
-
-// import flightsMock from "../data/flights.json";
 import { useNavigate } from "react-router-dom";
-import { MiniPage } from "@/components/misc/MiniPage";
+import { clientApi } from "@/services/client/main";
 import { addPricesToFlights } from "@/util/FlightPriceHelper";
 import { MainFlightCard } from "@/components/flights/main/FlightCard";
 import { SearchFlight } from "@/components/flights/main/SearchFlight";
-import { clientApi } from "@/services/client/main";
 
 
 
@@ -113,7 +111,7 @@ export default function FlightsPage() {
   }
 
   return <>
-    <MiniPage className="mx-30">
+    <div className={`${css.minipage.xl} mx-30`}>
       <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
         <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
@@ -153,7 +151,7 @@ export default function FlightsPage() {
           {navigatePageButton("Next", totalPages, page, false)}
         </div>
       </div>
-    </MiniPage>
+    </div>
 
     {/* Modal */}
     {isOpen && (

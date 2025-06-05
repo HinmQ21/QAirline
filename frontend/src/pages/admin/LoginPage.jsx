@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { css } from "@/css/styles";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -8,7 +9,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { MiniPage } from "@/components/misc/MiniPage";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { adminApi } from "@/services/admin/main";
@@ -74,7 +74,7 @@ export const AdminLoginPage = () => {
         error: (err) => {
           let errMsg;
           try { errMsg = err.response.data.message; }
-          catch(_) { errMsg = err.toString(); }
+          catch (_) { errMsg = err.toString(); }
           setIsSubmitting(false);
           return `Lỗi: ${errMsg}`;
         }
@@ -88,7 +88,7 @@ export const AdminLoginPage = () => {
       style={{ backgroundImage: "url('/miscs/admin-bg.jpg')" }}
     >
       <div className="flex justify-center items-center h-screen">
-        <MiniPage>
+        <div className={`${css.minipage.xl}`}>
           <div className="flex flex-col items-center mx-10 my-8">
             <p className="special-gothic-expanded-one-regular text-2xl mb-4">QAIRLINE</p>
 
@@ -126,7 +126,7 @@ export const AdminLoginPage = () => {
               </form>
             </Form>
           </div>
-        </MiniPage>
+        </div>
       </div>
     </div>
   );
