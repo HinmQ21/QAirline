@@ -16,47 +16,22 @@ import {
 import { clientApi } from "@/services/client/main";
 import { GetAirportRequest } from "@/services/schemes/airport";
 
-import { IoMdClose } from "react-icons/io";
-
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import {
-  Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
+
+//make it only fetch api from first click
+type GetAirportListProps = {
+  data: GetAirportRequest[] | null;
+  setData: (data: GetAirportRequest[]) => void;
+  setInputValue: (city: string) => void;
+}
 
 //make it only fetch api from first click
 
@@ -90,7 +65,9 @@ export const NewAirportList = ({ data, setData, value, setValue, setOpen }: any)
   return (
   <>
         {data == null ? (
-          <CommandEmpty className={cn("flex flex-row items-center justify-center h-full inter-bold text-red-800 text-2xl")}>Data is Loading</CommandEmpty>
+          <CommandEmpty className={cn("flex flex-row items-center justify-center h-full inter-bold text-red-800 text-2xl")}>
+            Data is Loading
+          </CommandEmpty>
         ) : (
           <CommandList>
             <CommandEmpty>No Airport found.</CommandEmpty>
@@ -124,7 +101,8 @@ export const NewAirportList = ({ data, setData, value, setValue, setOpen }: any)
                     )}
                   />
                 </CommandItem>
-              ))}      </CommandGroup>
+              ))}      
+            </CommandGroup>
           </CommandList>
         )}     
   </>

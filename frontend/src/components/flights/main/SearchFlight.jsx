@@ -16,47 +16,22 @@
 // Xoa bot
 
 
-
-
 import React from 'react';
 import { 
   useState,
   useEffect,
 } from "react";
 
-import { AirportList } from './AirportList';
 import { NewAirportList } from "./NewAirportList"
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
-import { FaFilterCircleDollar } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Command,
-  CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
-  CommandList,
 } from "@/components/ui/command"
 import {
   Popover,
@@ -64,64 +39,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
-
-
 
 export const SearchFlight = () => {
-
   const [query, setQuery] = useState({ from: "", to: "" });
-  const [toggleAirportList, setToggleAirportList] = useState(false);
-  const [startAirportStatus, setStartAirportStatus] = useState(false);
-  const [endAirportStatus, setEndAirportStatus] = useState(false);
   const [data, setData] = useState(null);
-  const [cityStart, setCityStart] = useState("");
-  const [inputValue, setInputValue] = useState("");
-
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
   
 
-
-  const handleToggleStartAirportList = () => {
-    setStartAirportStatus(prev => !prev);
-    setEndAirportStatus(false);
-  }
-
-  const handleToggleEndAirportList = () => {
-    setEndAirportStatus(prev => !prev);
-    setStartAirportStatus(false);
-  }
-
-  const handleSearch = () => {
-    const matched = flightsMock.filter(
-      f => f.from.includes(query.from) && f.to.includes(query.to)
-    );
-    setResults(matched);
-  };
-
-  const flightsearchInput = (placeholder, value, onChange, Icon, isStartDes) => {
+  const flightsearchInput = (placeholder, value, onChange, Icon) => {
     return (
       <div className="relative" >
         <div className="flex flex-row border border-gray-300 rounded p-2 m-2 bg-white w-80">
@@ -133,51 +59,14 @@ export const SearchFlight = () => {
             value={value}
             onChange={onChange}
             className="flex-1 bg-transparent outline-none text-gray-700 w-full"
-            onClick={() => {
-              if (isStartDes) {
-                handleToggleStartAirportList();
-              } else {
-                handleToggleEndAirportList();
-              }
-            }}
+          
           />
         </div>
 
-        {isStartDes && startAirportStatus && <AirportList />}
-        {!isStartDes && endAirportStatus && <AirportList />}
+        
       </div>
     );
   };
-
-  const styleSearchBar = "m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
-
-  const newSearchInput = (styleName, placeholder, inputValue) => {
-    return (
-      <>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className={`${styleName}`}>
-              <input 
-                type="text"
-                placeholder={placeholder}
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-              />
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <AirportList
-              data={data}   
-              setData = {setData}
-              setInputValue={setInputValue}
-            />
-          </DropdownMenuContent>
-          
-        </DropdownMenu>
-      </>
-    );
-  }
-
   const newNewSearchInput = () => {
     return (
       <Popover open={open} onOpenChange={setOpen}>
@@ -228,17 +117,6 @@ export const SearchFlight = () => {
           LuPlaneLanding,
           false,
         )}
-        {/* {flightsearchInput(
-          "Maximum Price",
-          query.to,
-          (e) => setQuery({ ...query, to: e.target.value }),
-          FaFilterCircleDollar,
-      
-        )} */}
-
-
-        {newSearchInput(styleSearchBar, "Start Destination", inputValue)}
-
         {newNewSearchInput()}
       </div>
     </>
