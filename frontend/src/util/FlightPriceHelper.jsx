@@ -4,11 +4,13 @@ const basePrice = 1000000;
 
 // input: flights - array of flight objects, each should have a DepartureTime field
 // output: new array with each flight having an added 'price' field
-export const addPricesToFlights = (flights) => {
-  return flights.map(flight => ({
-    ...flight,
-    basePrice: FlightPriceHelper(flight.departure_time)
-  }));
+export const addPricetoFlights = (flights) => {
+  return flights
+    .map(flight => ({
+      ...flight,
+      basePrice: FlightPriceHelper(flight.departure_time)
+    }))
+    .filter(flight => flight.basePrice >= 0);
 };
 
 const calculatePrice = (diffHours) => {
@@ -32,18 +34,16 @@ const calculatePrice = (diffHours) => {
     case diffHours > 0:
       return 5; // Giá rất cao nếu đặt sát giờ bay
     default:
-      return -1; // Chuyến bay đã khởi hành
+      return 1; // Chuyến bay đã khởi hành
   }
 }
 
 const FlightPriceHelper = (DepartureTime) => {
   const now = new Date();
+  now.setFullYear(now.getFullYear() - 1); // Lùi ngày hiện tại đi 1 năm
   const departure = new Date(DepartureTime);
   const diffHours = (departure - now) / (1000 * 60 * 60);
 
-  console.log(`Current time: ${now}`);
-  console.log(`Departure time: ${departure}`);
-  console.log(`Difference in hours: ${diffHours}`);
 
   return (calculatePrice(diffHours) * basePrice);
 }

@@ -51,7 +51,6 @@ export const SearchFlight
 
         <Input type="text" placeholder='Toi da' className={SearchInputLayout} 
         value={maxPrice} onChange={e => setMaxPrice(e.target.value)}/>
-        <Button type="submit" className="w-30 h-10" onClick={handleSearch}>Tim kiem</Button>
       </div>
     </>
   );
