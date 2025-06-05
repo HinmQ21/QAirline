@@ -6,14 +6,14 @@
 // neu van khong thay thi ko hien
 
 //Muc tieu la chay duoc va nhanh nhat co the
-//B1: Co the nhap vao trong nay
-//An lai vao thi bi dong mat cua so => Do thu vien Dropdown Cai dat
-// Dung thu vien khac, phuong an thiet ke khac, tu custom
-// Sua sang thu vien SelectFramWork
-// Thu vien chay duoc
-// H Noi chung lam lai tinh nang fetch data cho no Oke xong
-// H no xoa may cai xau di va thua di - lay style cua chieu qua app sang - hoi xau - oke
-// Xoa bot
+// Xoa bot - don
+// Thay cai search
+// search moi cai dat duoc
+// Cho phep tuy chinh
+// placeholder
+// Icon - oke- chuc nang truoc
+// vaule nua truyen tu parent cha main page --> FightSearch --> SearchInput
+
 
 
 import React from 'react';
@@ -22,7 +22,8 @@ import {
   useEffect,
 } from "react";
 
-import { NewAirportList } from "./NewAirportList"
+import { AirportList } from "./AirportList"
+import { SearchInput } from "./SearchInput"
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
@@ -44,7 +45,7 @@ export const SearchFlight = () => {
   const [query, setQuery] = useState({ from: "", to: "" });
   const [data, setData] = useState(null);
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("") //tam thoi de value cha o day sau nay cho len parrent
   
 
   const flightsearchInput = (placeholder, value, onChange, Icon) => {
@@ -67,43 +68,43 @@ export const SearchFlight = () => {
       </div>
     );
   };
-  const newNewSearchInput = () => {
-    return (
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
-          >
-            {value
-              ? data.find((airport) => airport.code === value.slice(0, 3))?.city
-              : "Select framework..."}
-            <ChevronsUpDown className="opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[400px] h-[250px] pl-1 pr-3 pt-3">
-        <IoMdClose className="absolute top-3 right-3 z-10"/>
-        <Command>
-        <CommandInput placeholder="Search ..." className="h-9" />
-         <NewAirportList
-          data={data}
-          setData={setData}
-          value={value}
-          setValue={setValue}
-          setOpen={setOpen}
-        />
-        </Command>
-    </PopoverContent>
-      </Popover> 
-    );
-  }
+  // const SearchInput = () => {
+  //   return (
+  //     <Popover open={open} onOpenChange={setOpen}>
+  //       <PopoverTrigger asChild>
+  //         <Button
+  //           variant="outline"
+  //           role="combobox"
+  //           aria-expanded={open}
+  //           className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
+  //         >
+  //           {value
+  //             ? data.find((airport) => airport.code === value.slice(0, 3))?.city
+  //             : "Select framework..."}
+  //           <ChevronsUpDown className="opacity-50" />
+  //         </Button>
+  //       </PopoverTrigger>
+  //       <PopoverContent className="w-[400px] h-[250px] pl-1 pr-3 pt-3">
+  //       <IoMdClose className="absolute top-3 right-3 z-10"/>
+  //       <Command>
+  //       <CommandInput placeholder="Search ..." className="h-9" />
+  //        <AirportList
+  //         data={data}
+  //         setData={setData}
+  //         value={value}
+  //         setValue={setValue}
+  //         setOpen={setOpen}
+  //       />
+  //       </Command>
+  //   </PopoverContent>
+  //     </Popover> 
+  //  );
+  // }
 
   return (
     <>
       <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full">
-        {flightsearchInput(
+        {/* {flightsearchInput(
           "Start Destination",
           query.from,
           (e) => setQuery({ ...query, from: e.target.value }),
@@ -116,8 +117,13 @@ export const SearchFlight = () => {
           (e) => setQuery({ ...query, to: e.target.value }),
           LuPlaneLanding,
           false,
-        )}
-        {newNewSearchInput()}
+        )} */}
+        <SearchInput
+          data={data}
+          setData={setData}
+          placeholder="Start"
+          Icon={LuPlaneTakeoff}
+        />
       </div>
     </>
   );

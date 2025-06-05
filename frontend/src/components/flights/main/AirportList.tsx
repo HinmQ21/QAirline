@@ -1,20 +1,12 @@
 // New AirportList component
-// Try to fetch API only once when the component is mounted and save data to paren component
-// Fetch va show duoc ra truoc da
-// B1: xong - fetch API 1 lan
-// B2: fetch data - oke
-//B3: Tinh nang query - oke
-//B4: Chon Airport - hien thi ra ngoai parrent cha
-//B5: Xoa may cai xau  va thua di
+
 
 import { 
   useEffect, 
-  useState, 
-  useRef
 } from "react";
 
 import { clientApi } from "@/services/client/main";
-import { GetAirportRequest } from "@/services/schemes/airport";
+// import { GetAirportRequest } from "@/services/schemes/airport";
 
 import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -27,16 +19,16 @@ import {
 
 
 //make it only fetch api from first click
-type GetAirportListProps = {
-  data: GetAirportRequest[] | null;
-  setData: (data: GetAirportRequest[]) => void;
-  setInputValue: (city: string) => void;
-}
+// type GetAirportListProps = {
+//   data: GetAirportRequest[] | null;
+//   setData: (data: GetAirportRequest[]) => void;
+//   setInputValue: (city: string) => void;
+// }
 
 //make it only fetch api from first click
 
 
-export const NewAirportList = ({ data, setData, value, setValue, setOpen }: any) => {
+export const AirportList = ({ data, setData, value, setValue, setOpen }: any) => {
   const code = "";
   const name = "";
   const city = "";
