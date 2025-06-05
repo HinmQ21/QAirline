@@ -65,7 +65,7 @@ export const CreatePlaneButton = ({
       submitText="Submit"
     >
       <Button variant="outline" className={`${className}`}>
-        <p className="poppins-regular">Tạo máy bay mới</p>
+        <p className="reddit-regular">Tạo máy bay mới</p>
         <IoIosAddCircleOutline />
       </Button>
     </PlaneModifyDialog>

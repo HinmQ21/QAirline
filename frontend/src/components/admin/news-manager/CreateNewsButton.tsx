@@ -63,7 +63,7 @@ export const CreateNewsButton = ({
       submitText="Submit"
     >
       <Button variant="outline" className={`${className}`}>
-        <p className="poppins-regular">Đăng bài viết mới</p>
+        <p className="reddit-regular">Đăng bài viết mới</p>
         <FaRegPenToSquare />
       </Button>
     </NewsWritingDialog>

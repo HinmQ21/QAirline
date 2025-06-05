@@ -103,7 +103,7 @@ export const AdminLoginPage = () => {
                       <FormControl>
                         <Input placeholder="thanhduc2k4" {...field} />
                       </FormControl>
-                      <FormMessage className="poppins-regular" />
+                      <FormMessage className="reddit-regular" />
                     </FormItem>
                   )}
                 />
@@ -116,7 +116,7 @@ export const AdminLoginPage = () => {
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
-                      <FormMessage className="poppins-regular" />
+                      <FormMessage className="reddit-regular" />
                     </FormItem>
                   )}
                 />

@@ -24,7 +24,7 @@
     @apply h-[60px] bg-gray-950 shadow-md;
   }
 
-  .header-link.poppins-regular {
+  .header-link.reddit-regular {
     @apply cursor-pointer hover:text-red-500 transition-all duration-300;
   }
 }

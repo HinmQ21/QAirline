@@ -55,16 +55,16 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
           QAIRLINE
         </Link>
         <div className="flex ml-22 gap-x-10">
-          <Link to="/" className="header-link poppins-regular">
+          <Link to="/" className="header-link reddit-regular">
             Home
           </Link>
-          <Link to="/flights" className="header-link poppins-regular">
+          <Link to="/flights" className="header-link reddit-regular">
             Flights
           </Link>
-          <Link to="/destinations" className="header-link poppins-regular">
+          <Link to="/destinations" className="header-link reddit-regular">
             Destinations
           </Link>
-          <Link to="/contact" className="header-link poppins-regular">
+          <Link to="/contact" className="header-link reddit-regular">
             Contact
           </Link>
         </div>
@@ -200,17 +200,17 @@ const AuthButtons = () => {
     <>
       <button
         onClick={() => handleOpenDialog("login")}
-        className="header-link poppins-regular ml-5"
+        className="header-link reddit-regular ml-5"
       >
         Log in
       </button>
 
-      <p className="poppins-regular text-base select-none">|</p>
+      <p className="reddit-regular text-base select-none">|</p>
 
       <button
         onClick={() => handleOpenDialog("signup")}
         className="cursor-pointer
-          poppins-regular text-base bg-red-500
+          reddit-regular text-base bg-red-500
           border border-black rounded-xl py-2 px-3
           hover:border-white transition-all duration-150
         "
@@ -226,7 +226,7 @@ const AuthButtons = () => {
             </DialogTitle>
           </DialogHeader>
           <Tabs value={currentTab} onValueChange={(val) => setCurrentTab(val as TabType)}>
-            <TabsList className="grid grid-cols-2 mb-4 poppins-regular">
+            <TabsList className="grid grid-cols-2 mb-4 reddit-regular">
               <TabsTrigger value="login">Log in</TabsTrigger>
               <TabsTrigger value="signup">Sign up</TabsTrigger>
             </TabsList>

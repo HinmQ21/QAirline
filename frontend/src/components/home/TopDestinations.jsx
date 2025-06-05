@@ -37,13 +37,13 @@ const DestinationCard = ({ dest }) => (
       </p>
       <div className="w-full mt-1 flex justify-between items-center">
         <div className="flex items-center gap-1.5">
-          <p className="text-md poppins-medium text-gray-800">From:</p>
+          <p className="text-md reddit-medium text-gray-800">From:</p>
           <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
         </div>
         <button className="
           bg-pink-950 hover:bg-red-500 text-white
           transition-all duration-300
-          py-2 px-4 rounded-2xl poppins-medium text-sm cursor-pointer
+          py-2 px-4 rounded-2xl reddit-medium text-sm cursor-pointer
         ">
           Book Now
         </button>

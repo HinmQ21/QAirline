@@ -21,8 +21,8 @@ export const DropdownSelect = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={variant} className={`${className}`}>
-          <p className="poppins-regular">{title}:</p>
-          <p className="text-indigo-700 poppins-semibold">{labelMap[value]}</p>
+          <p className="reddit-regular">{title}:</p>
+          <p className="text-indigo-700 reddit-semibold">{labelMap[value]}</p>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

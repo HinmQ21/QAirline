@@ -42,7 +42,7 @@ export const WhyChooseUs = () => (
                               py-5 gap-4 justify-evenly px-4 text-white">
               <div className="flex flex-col items-center gap-3">
                 {reason.icon}
-                <h3 className="poppins-semibold text-2xl leading-[28px]">
+                <h3 className="reddit-semibold text-2xl leading-[28px]">
                   {reason.title}
                 </h3>
               </div>

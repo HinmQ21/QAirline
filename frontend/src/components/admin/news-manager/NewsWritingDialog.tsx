@@ -59,10 +59,10 @@ export const NewsWritingDialog = ({
                         />
                       </FormControl>
                       <div className="relative bottom-1.5">
-                        <FormDescription className="poppins-medium absolute">{
+                        <FormDescription className="reddit-medium absolute">{
                           dayjs().format("[Today at] HH:mm")
                         }</FormDescription>
-                        <FormMessage className="poppins-regular relative left-30" />
+                        <FormMessage className="reddit-regular relative left-30" />
                       </div>
                     </FormItem>
                   )}
@@ -87,10 +87,10 @@ export const NewsWritingDialog = ({
                         />
                       </FormControl>
                       <div>
-                        <FormDescription className="poppins-medium absolute">{
+                        <FormDescription className="reddit-medium absolute">{
                           `${field.value.length}/1000`
                         }</FormDescription>
-                        <FormMessage className="poppins-regular relative left-30" />
+                        <FormMessage className="reddit-regular relative left-30" />
                       </div>
                     </FormItem>
                   )}
@@ -110,7 +110,7 @@ export const NewsWritingDialog = ({
                             className="px-0"
                           />
                         </FormControl>
-                        <FormMessage className="poppins-regular text-sm" />
+                        <FormMessage className="reddit-regular text-sm" />
                       </div>
                     </FormItem>
                   )}

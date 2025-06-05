@@ -74,16 +74,16 @@ export const WeatherDisplay = () => {
 
   if (!weather) {
     return loading ? (
-      <div className="poppins-regular">Loading...</div>
+      <div className="reddit-regular">Loading...</div>
     ) : loadErr ? (
-      <div className="text-red-500 poppins-regular">Đã xảy ra lỗi.</div>
+      <div className="text-red-500 reddit-regular">Đã xảy ra lỗi.</div>
     ) : (
       <div></div>
     );
   }
 
   return (
-    <div className="text-white poppins-semibold">
+    <div className="text-white reddit-semibold">
       {weather.city} {weather.icon} {weather.temp}°C
     </div>
   );

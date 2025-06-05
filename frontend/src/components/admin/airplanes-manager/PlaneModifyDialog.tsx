@@ -54,7 +54,7 @@ export const PlaneModifyDialog = ({
                   <FormControl>
                     <Input placeholder="CI-A333-001" {...field} />
                   </FormControl>
-                  <FormMessage className="poppins-regular" />
+                  <FormMessage className="reddit-regular" />
                 </FormItem>
               )}
             />
@@ -67,7 +67,7 @@ export const PlaneModifyDialog = ({
                   <FormControl>
                     <Input placeholder="A330-300" {...field} />
                   </FormControl>
-                  <FormMessage className="poppins-regular" />
+                  <FormMessage className="reddit-regular" />
                 </FormItem>
               )}
             />
@@ -80,7 +80,7 @@ export const PlaneModifyDialog = ({
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
-                  <FormMessage className="poppins-regular" />
+                  <FormMessage className="reddit-regular" />
                 </FormItem>
               )}
             />
@@ -98,7 +98,7 @@ export const PlaneModifyDialog = ({
                           className="px-0"
                         />
                       </FormControl>
-                      <FormMessage className="poppins-regular text-sm" />
+                      <FormMessage className="reddit-regular text-sm" />
                     </div>
                   </FormItem>
                 )}

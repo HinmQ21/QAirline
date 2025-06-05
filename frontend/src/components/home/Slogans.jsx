@@ -5,7 +5,7 @@ import { GoShieldCheck, GoGlobe } from "react-icons/go";
 const Slogan = ({ icon, children }) => (
   <div className="flex items-center gap-3">
     {icon}
-    <p className="poppins-regular text-xl">{children}</p>
+    <p className="reddit-regular text-xl">{children}</p>
   </div>
 );
 

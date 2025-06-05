@@ -13,9 +13,6 @@ Which font to use?
 - shantell-sans-{light => extrabold}:
   poetic, bay bướm, user reviews, ...
 
-- poppins-{thin => black}:
-  general purpose, chữ tròn dễ đọc
-
 - national-park-{extralight => extrabold}: 
   văn bản dài, chữ co ngắn, không chân
 
@@ -277,56 +274,58 @@ Which font to use?
   font-style: normal;
 }
 
-.poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.poppins-extralight {
-  font-family: "Poppins", sans-serif;
+.reddit-extralight {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 200;
   font-style: normal;
 }
 
-.poppins-light {
-  font-family: "Poppins", sans-serif;
+.reddit-light {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
 }
 
-.poppins-regular {
-  font-family: "Poppins", sans-serif;
+.reddit-regular {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
 
-.poppins-medium {
-  font-family: "Poppins", sans-serif;
+.reddit-medium {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
 
-.poppins-semibold {
-  font-family: "Poppins", sans-serif;
+.reddit-semibold {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
 }
 
-.poppins-bold {
-  font-family: "Poppins", sans-serif;
+.reddit-bold {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
 }
 
-.poppins-extrabold {
-  font-family: "Poppins", sans-serif;
+.reddit-extrabold {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
 }
 
-.poppins-black {
-  font-family: "Poppins", sans-serif;
+.reddit-black {
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 900;
   font-style: normal;
 }
