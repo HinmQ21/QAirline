@@ -23,19 +23,19 @@ export const FlightBooking = () => {
             placeholder="From"
             value={from}  
             onChange={(e) => setFrom(e.target.value)}
-            className="bg-gray-100 text-black p-3 rounded border"
+            className="bg-gray-100 text-black p-3 rounded border-3"
           />
           <input
             type="text"
             placeholder="To"
             value={to}
             onChange={(e) => setTo(e.target.value)}
-            className="bg-gray-100 text-black p-3 rounded border"
+            className="bg-gray-100 text-black p-3 rounded border-3  "
           />
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 items-center">
-          <div className="flex items-center gap-2 bg-gray-100 p-3 rounded border">
+          <div className="flex items-center gap-2 bg-gray-100 p-3 rounded border-3">
             <User className="w-5 h-5 text-gray-600" />
             <input
               type="number"
