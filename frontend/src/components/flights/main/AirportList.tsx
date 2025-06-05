@@ -1,6 +1,3 @@
-// New AirportList component
-
-
 import { 
   useEffect, 
 } from "react";
@@ -8,7 +5,6 @@ import {
 import { clientApi } from "@/services/client/main";
 // import { GetAirportRequest } from "@/services/schemes/airport";
 
-import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   CommandEmpty,
@@ -16,6 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command"
+import { Check } from "lucide-react"
 
 
 //make it only fetch api from first click
@@ -28,7 +25,8 @@ import {
 //make it only fetch api from first click
 
 
-export const AirportList = ({ data, setData, value, setValue, setOpen }: any) => {
+export const AirportList 
+= ({ data, setData, value, setValue, setOpen }: any) => {
   const code = "";
   const name = "";
   const city = "";
@@ -57,7 +55,10 @@ export const AirportList = ({ data, setData, value, setValue, setOpen }: any) =>
   return (
   <>
         {data == null ? (
-          <CommandEmpty className={cn("flex flex-row items-center justify-center h-full inter-bold text-red-800 text-2xl")}>
+          <CommandEmpty 
+          className={
+            cn("flex flex-row items-center justify-center h-full inter-bold text-red-800 text-2xl")
+          }>
             Data is Loading
           </CommandEmpty>
         ) : (
@@ -73,8 +74,7 @@ export const AirportList = ({ data, setData, value, setValue, setOpen }: any) =>
                     setOpen(false)
                   }}    
                   className={cn("")}
-                > 
-                  
+                >                   
                     <div className=" flex-1 flex rounded-xl justify-between items-center p-3">
                       <div>
                         <div className="text-[14px] inter-medium">{airport.city}</div>
@@ -84,8 +84,7 @@ export const AirportList = ({ data, setData, value, setValue, setOpen }: any) =>
                       <div className="w-16 h-8 bg-red-800 rounded-lg flex justify-center items-center inter-bold text-white">
                         {airport.code}
                       </div>
-                    </div>
-                  
+                    </div>                  
                   <Check
                     className={cn(
                       "ml-auto",

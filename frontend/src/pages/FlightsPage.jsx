@@ -37,6 +37,8 @@ export default function FlightsPage() {
     infant: 0,
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [startAirport, setStartAirport] = useState("");
+  const [endAirport, setEndAirport] = useState("");
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -109,12 +111,18 @@ export default function FlightsPage() {
       </>
     );
   }
+
   return <>
     <MiniPage className="mx-30">
       <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
         <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
 
-        <SearchFlight />
+        <SearchFlight 
+          startAirport={startAirport}
+          setStartAirport={setStartAirport}
+          endAirport={endAirport}
+          setEndAirport={setEndAirport}
+        />
 
         <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
           {results.length > 0 ? (
