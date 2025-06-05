@@ -10,14 +10,20 @@ const login = async (username: string, password: string) => {
   localStorage.setItem("adminRefreshToken", refreshToken);
   localStorage.setItem("adminUser", JSON.stringify(data));
 
-  return res.data;
+  return data;
 };
 
 const me = async () => {
   return await adminAxios.get("/auth/admin/me");
 };
 
+const logout = () => {
+  localStorage.removeItem("adminAccessToken");
+  localStorage.removeItem("adminRefreshToken");
+}
+
 export const authApiObject = {
   me: me,
-  login: login
+  login: login,
+  logout: logout
 }

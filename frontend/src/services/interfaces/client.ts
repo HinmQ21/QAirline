@@ -5,6 +5,8 @@ import { ManufacturerType, PlaneType } from "../schemes/planes";
 export interface ClientApiInterface {
   // Auth
   me: () => Promise<User>;
+  logout: () => void;
+  login: (username: string, password: string) => Promise<User>;
 
   // Flight
   // TODO: change `any` to a more specific type

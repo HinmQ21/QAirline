@@ -6,6 +6,7 @@ import { NavigationIcon } from "./NavigationIcon";
 import { useNavigate } from 'react-router-dom';
 import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
 import toast from 'react-hot-toast';
+import { adminApi } from '@/services/admin/main';
 
 
 export const LogoutButton = ({ className = "" }) => {
@@ -44,14 +45,7 @@ export const LogoutButton = ({ className = "" }) => {
 }
 
 const onLogoutEvent = (navigate) => {
-  toast.promise(
-    async () => {
-      localStorage.clear();
-      navigate("/admin");
-    },
-    {
-      loading: "Đang chuyển hướng...",
-      success: "Đăng xuất thành công!"
-    }
-  );
+  adminApi.logout();
+  navigate("/admin");
+  toast.success("Đăng xuất thành công!");
 }

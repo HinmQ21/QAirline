@@ -5,6 +5,7 @@ export interface AdminApiInterface {
   // Auth
   me: () => Promise<any>;
   login: (username: string, password: string) => Promise<any>;
+  logout: () => void;
 
   // News
   createNews: (data: CreateNewsRequest) => Promise<NewsType>;

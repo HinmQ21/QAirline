@@ -15,6 +15,7 @@ export class UserContext {
   }
 
   async getchUser() {
+    console.log(this.user);
     if (!this.user) {
       await this.fetchUser();
     }

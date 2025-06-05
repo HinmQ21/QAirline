@@ -82,8 +82,7 @@ export const AdminLoginPage = () => {
     )
   }
 
-  return <>
-    <Toaster position="bottom-right" />
+  return (
     <div
       className="min-h-screen min-w-screen bg-cover"
       style={{ backgroundImage: "url('/miscs/admin-bg.jpg')" }}
@@ -130,5 +129,5 @@ export const AdminLoginPage = () => {
         </MiniPage>
       </div>
     </div>
-  </>;
+  );
 }
