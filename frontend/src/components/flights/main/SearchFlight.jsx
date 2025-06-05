@@ -11,7 +11,9 @@
 // Dung thu vien khac, phuong an thiet ke khac, tu custom
 // Sua sang thu vien SelectFramWork
 // Thu vien chay duoc
-// H Noi chung lam lai tinh nang fetch data cho no
+// H Noi chung lam lai tinh nang fetch data cho no Oke xong
+// H no xoa may cai xau di va thua di - lay style cua chieu qua app sang - hoi xau - oke
+// Xoa bot
 
 
 
@@ -28,6 +30,7 @@ import { NewAirportList } from "./NewAirportList"
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
 import { FaFilterCircleDollar } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
 import {
   DropdownMenu,
@@ -183,17 +186,18 @@ export const SearchFlight = () => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
           >
             {value
-              ? frameworks.find((framework) => framework.value === value)?.label
+              ? data.find((airport) => airport.code === value.slice(0, 3))?.city
               : "Select framework..."}
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[400px] h-[250px] pl-1 pr-3 pt-3">
+        <IoMdClose className="absolute top-3 right-3 z-10"/>
         <Command>
-        <CommandInput placeholder="Search framework..." className="h-9" />
+        <CommandInput placeholder="Search ..." className="h-9" />
          <NewAirportList
           data={data}
           setData={setData}
