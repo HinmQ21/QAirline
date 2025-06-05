@@ -25,6 +25,8 @@ function formatDateTime(dateString) {
 
 
 
+
+
 export default function FlightsPage() {
   const navigate = useNavigate();
   // const [query, setQuery] = useState({ from: "", to: "" });
@@ -34,9 +36,10 @@ export default function FlightsPage() {
     child: 0,
     infant: 0,
   });
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); //modal open state
   const [startAirport, setStartAirport] = useState("");
   const [endAirport, setEndAirport] = useState("");
+  const [maxPrice, setMaxPrice] = useState(0);
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -76,7 +79,7 @@ export default function FlightsPage() {
 
   useEffect(() => {
     // Fetch flights when the component mounts or when the page changes
-    //getFlights();
+    getFlights();
   }, [page]);
 
   // const handleToggeleAirportList = () => {
@@ -120,6 +123,8 @@ export default function FlightsPage() {
           setStartAirport={setStartAirport}
           endAirport={endAirport}
           setEndAirport={setEndAirport}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
         />
 
         <div className="flex flex-wrap justify-center items-center gap-6 pb-8">

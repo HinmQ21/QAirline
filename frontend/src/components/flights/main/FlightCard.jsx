@@ -3,6 +3,8 @@ import {
   UseState,
 } from 'react';
 
+const formatVND 
+= (price) => price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 
 export const MainFlightCard = ({flight, formatTime, pressBooking }) => {
 
@@ -33,7 +35,7 @@ export const MainFlightCard = ({flight, formatTime, pressBooking }) => {
 
             {/* Price */}
             <div className="mt-2">
-              <p className="text-red-600 text-xl font-bold"> {flight.basePrice} VNĐ</p>
+              <p className="text-red-600 text-xl font-bold"> {formatVND(flight.basePrice)}</p>
               <p className="text-xs text-gray-500">
                 
               </p>
