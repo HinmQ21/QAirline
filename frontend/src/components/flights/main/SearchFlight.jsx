@@ -22,9 +22,6 @@ export const SearchFlight
 = ({startAirport, setStartAirport, endAirport, setEndAirport, maxPrice, setMaxPrice}) => {
   const [airPortList, setAirportList] = useState(null);
   
-  const handleSearch = () => {
-
-  }
   return (
     <>
       <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full ">
@@ -51,6 +48,9 @@ export const SearchFlight
 
         <Input type="text" placeholder='Toi da' className={SearchInputLayout} 
         value={maxPrice} onChange={e => setMaxPrice(e.target.value)}/>
+
+        {/* <Input type="text" placeholder='Nguoi' className={SearchInputLayout}
+        value={people} onChange={e => setPeople(e.target.value)}/> */}
       </div>
     </>
   );

@@ -5,11 +5,12 @@ import { clientApi } from "@/services/client/main";
 import { addPricetoFlights } from "@/util/FlightPriceHelper";
 import { MainFlightCard } from "@/components/flights/main/FlightCard";
 import { SearchFlight } from "@/components/flights/main/SearchFlight";
+import { PeopleSelectModal } from "@/components/flights/main/PeopleSelectModal";
 
 
 
 
-const itemsPerPage = 2; // Number of items to display per page
+const itemsPerPage = 10; // Number of items to display per page
 
 function formatDateTime(dateString) {
   const date = new Date(dateString);
@@ -22,11 +23,6 @@ function formatDateTime(dateString) {
   return `${hours}:${minutes} ${day}-${month}-${year}`;
 }
 
-
-
-
-
-
 export default function FlightsPage() {
   const navigate = useNavigate();
   // const [query, setQuery] = useState({ from: "", to: "" });
@@ -35,6 +31,10 @@ export default function FlightsPage() {
   const [startAirport, setStartAirport] = useState("");
   const [endAirport, setEndAirport] = useState("");
   const [maxPrice, setMaxPrice] = useState(0);
+  const [openPassengerModal, setOpenPassengerModal] = useState(false);
+  const [people, setPeople] = useState(0);
+  
+
   
 
   // Pagination state
@@ -51,7 +51,6 @@ export default function FlightsPage() {
         setTotalPages(totalPages);
         //set up the data for render
         if (res.data && res.data.length > 0) {
-          console.log("aaaaaaaaa", res)
           // Add prices to flights
           const flightsWithPrices = addPricetoFlights(res.data);
           setResults(flightsWithPrices);
@@ -116,47 +115,63 @@ export default function FlightsPage() {
     );
   }
 
-  return <>
-    <div className={`${css.minipage.xl} mx-30`}>
-      <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
-        <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
+  useEffect(() => {
+    if (people > 0) {
+      navigate('/book/availability');
+    }
+  }, [people]);
 
-        <SearchFlight 
-          startAirport={startAirport}
-          setStartAirport={setStartAirport}
-          endAirport={endAirport}
-          setEndAirport={setEndAirport}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
+  return (
+    <>
+      <div className={`${css.minipage.xl} mx-30`}>
+        <div className="mx-100px lg:mx-200px xl:mx-250px my-10">
+          <h2 className="flex justify-center items-center p-4 text-2xl font-bold">Flights with cost-effective prices to popular destination</h2>
+
+          <SearchFlight 
+            startAirport={startAirport}
+            setStartAirport={setStartAirport}
+            endAirport={endAirport}
+            setEndAirport={setEndAirport}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+          />
+
+          <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
+            {results.length > 0 ? (
+              advancedFilter(results).map((f, idx) => (
+                <div key={idx}>
+                  <MainFlightCard flight={f} formatTime={formatDateTime} setIsOpen={setOpenPassengerModal} />
+                </div>
+              ))
+            ) : (
+              <div>Không có chuyến bay phù hợp.</div>
+            )}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center items-center gap-2 mt-4">
+            {navigatePageButton("Previous", 1, page, true)}
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                className={`px-3 py-1 rounded mb-4 ${page === i + 1 ? "bg-red-600 text-white" : "bg-gray-200"}`}
+                onClick={() => setPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+            {navigatePageButton("Next", totalPages, page, false)}
+          </div>
+        </div>
+      </div> 
+
+      {openPassengerModal && (
+        <PeopleSelectModal 
+          isOpen={openPassengerModal}
+          setIsOpen={setOpenPassengerModal}
+          setTotal={setPeople}          
         />
-
-        <div className="flex flex-wrap justify-center items-center gap-6 pb-8">
-          {results.length > 0 ? (
-            advancedFilter(results).map((f, idx) => (
-              <div key={idx}>
-                <MainFlightCard flight={f} formatTime={formatDateTime} />
-              </div>
-            ))
-          ) : (
-            <div>Không có chuyến bay phù hợp.</div>
-          )}
-        </div>
-
-        {/* Pagination */}
-        <div className="flex justify-center items-center gap-2 mt-4">
-          {navigatePageButton("Previous", 1, page, true)}
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              className={`px-3 py-1 rounded mb-4 ${page === i + 1 ? "bg-red-600 text-white" : "bg-gray-200"}`}
-              onClick={() => setPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          {navigatePageButton("Next", totalPages, page, false)}
-        </div>
-      </div>
-    </div> 
-  </>;
+      )}
+    </>
+  );
 }

@@ -6,7 +6,7 @@ import {
 const formatVND 
 = (price) => price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 
-export const MainFlightCard = ({flight, formatTime, pressBooking }) => {
+export const MainFlightCard = ({flight, formatTime, setIsOpen,  }) => {
 
   return (
     <>

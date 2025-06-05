@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
 import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
-import SearchFlights from "../pages/SearchFlights";
+import { BookAvailability } from "../pages/BookAvailability";
 import { SideBar } from "../components/layouts/SideBar";
 import { AdminLoginPage } from "../pages/admin/LoginPage";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
@@ -25,10 +25,10 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/searchflights",
+    path: "/book/availability",
     element: <MainLayout />,
     children: [
-      { path: "", element: <SearchFlights /> },
+      { path: "", element: <BookAvailability/> },
     ],
   },
   {

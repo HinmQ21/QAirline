@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export const PeopleSelectModal = ({isOpen, setIsOpen}) => {
+export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
     const [passengers, setPassengers] = useState({
-      adult: 1,
+      adult: 0,
       child: 0,
       infant: 0,
     });
@@ -13,6 +13,8 @@ export const PeopleSelectModal = ({isOpen, setIsOpen}) => {
         return { ...prev, [type]: newCount };
       });
     };
+
+  
 
 
   return (
@@ -65,9 +67,11 @@ export const PeopleSelectModal = ({isOpen, setIsOpen}) => {
               <button
                 className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
                 onClick={() => {
-                  // Add your logic for "Continue" here
+                  // Tính tổng số người
+                  const total = passengers.adult + passengers.child + passengers.infant;
+                  setTotal(total);
                   setIsOpen(false);
-                  navigate("/searchflights");
+                  
                 }}
               >
                 Continue
