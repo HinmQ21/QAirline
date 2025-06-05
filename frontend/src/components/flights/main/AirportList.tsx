@@ -1,6 +1,4 @@
-//User click in the airport
-// Render a list of airports
-// call api here - 
+
 
 import { 
   useEffect, 

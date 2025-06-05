@@ -10,6 +10,8 @@
 //An lai vao thi bi dong mat cua so => Do thu vien Dropdown Cai dat
 // Dung thu vien khac, phuong an thiet ke khac, tu custom
 // Sua sang thu vien SelectFramWork
+// Thu vien chay duoc
+// H Noi chung lam lai tinh nang fetch data cho no
 
 
 
@@ -21,6 +23,7 @@ import {
 } from "react";
 
 import { AirportList } from './AirportList';
+import { NewAirportList } from "./NewAirportList"
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
@@ -189,33 +192,17 @@ export const SearchFlight = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
-          <Command>
-            <CommandInput placeholder="Search framework..." className="h-9" />
-            <CommandList>
-              <CommandEmpty>No framework found.</CommandEmpty>
-              <CommandGroup>
-                {frameworks.map((framework) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue === value ? "" : currentValue)
-                      setOpen(false)
-                    }}
-                  >
-                    {framework.label}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        value === framework.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
+        <Command>
+        <CommandInput placeholder="Search framework..." className="h-9" />
+         <NewAirportList
+          data={data}
+          setData={setData}
+          value={value}
+          setValue={setValue}
+          setOpen={setOpen}
+        />
+        </Command>
+    </PopoverContent>
       </Popover> 
     );
   }
