@@ -12,7 +12,14 @@
 // Cho phep tuy chinh
 // placeholder
 // Icon - oke- chuc nang truoc
-// vaule nua truyen tu parent cha main page --> FightSearch --> SearchInput
+// vaule nua truyen tu parent cha main page --> (tamthoi)FightSearch --> SearchInput : oke
+// string cho phep style: width, height, bgColor, border, borderRadius,
+// theme sang hoac toi - cho phep chon
+
+// Truyen vao cac gia tri co the thay doi theo theme duoc
+// bg CommandItem
+// Text trong commendItem
+// Hover cua no -- chua chinh duoc
 
 
 
@@ -24,6 +31,7 @@ import {
 
 import { AirportList } from "./AirportList"
 import { SearchInput } from "./SearchInput"
+import { FlightBooking } from '@/components/home/FlightBooking';
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
@@ -44,8 +52,8 @@ import {
 export const SearchFlight = () => {
   const [query, setQuery] = useState({ from: "", to: "" });
   const [data, setData] = useState(null);
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("") //tam thoi de value cha o day sau nay cho len parrent
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(""); //tam thoi de value cha o day sau nay cho len parrent
   
 
   const flightsearchInput = (placeholder, value, onChange, Icon) => {
@@ -103,7 +111,7 @@ export const SearchFlight = () => {
 
   return (
     <>
-      <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full">
+      <div className="m-4 mb-8 flex flex-wrap justify-center items-center w-full ">
         {/* {flightsearchInput(
           "Start Destination",
           query.from,
@@ -123,7 +131,23 @@ export const SearchFlight = () => {
           setData={setData}
           placeholder="Start"
           Icon={LuPlaneTakeoff}
+          value={value}
+          setValue={setValue}
+          layout="m-2 w-80 h-10 border border-gray-300 rounded bg-white p-2 flex flex-row"
+          
         />
+
+        <SearchInput
+          data={data}
+          setData={setData}
+          placeholder="End"
+          Icon={LuPlaneTakeoff}
+          value={value}
+          setValue={setValue}
+          layout="m-2 w-80 h-10 border border-gray-300 rounded p-2 flex flex-row text-black"
+        />
+
+        
       </div>
     </>
   );

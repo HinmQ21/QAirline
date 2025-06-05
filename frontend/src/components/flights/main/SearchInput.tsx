@@ -16,10 +16,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export const SearchInput = ({data, setData, placeholder, Icon} : any) => {
+export const SearchInput = ({data, setData, placeholder, Icon, value, setValue, layout} : any) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-
+  
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
@@ -28,7 +27,7 @@ export const SearchInput = ({data, setData, placeholder, Icon} : any) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="m-2 w-80 border border-gray-300 rounded bg-white p-2 flex flex-row"
+            className={`${layout}`}
           >
             {Icon && <Icon className="" />}
             {value
