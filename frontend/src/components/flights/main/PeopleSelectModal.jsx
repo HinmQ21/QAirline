@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
+import { useServices } from "@/context/ServiceContext";
+
+
 export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
+    //Booking Context
+    const { preBookingContext } = useServices();
+    
     const [passengers, setPassengers] = useState({
       adult: 0,
       child: 0,
@@ -69,9 +75,11 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
                 onClick={() => {
                   // Tính tổng số người
                   const total = passengers.adult + passengers.child + passengers.infant;
+                  preBookingContext.updateBooking({
+                    passengers: total,
+                  })
                   setTotal(total);
-                  setIsOpen(false);
-                  
+                  setIsOpen(false);                  
                 }}
               >
                 Continue

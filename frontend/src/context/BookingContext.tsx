@@ -1,20 +1,38 @@
-type BookingType = {
-  flight: any,
+type PreBookingType = {
+  flight: any;
   passengers: number;
 };
 
-export class BookingContext {
-  booking: BookingType | null = null;
+export class PreBookingContext {
+  booking: PreBookingType | null = null;
 
   clearBooking() {
     this.booking = null;
     localStorage.removeItem('booking');
   }
 
-  setBooking(booking: BookingType) {
+  setFlight(flight: any) {
+    if (!this.booking) {
+      this.booking = { flight, passengers: 1 };
+    } else {
+      this.booking.flight = flight;
+    }
+    localStorage.setItem('booking', JSON.stringify(this.booking));
+  }
+
+  // Chỉ gọi khi Booking không null
+  updateBooking(booking: Partial<PreBookingType>) {
+    this.booking = { ...this.booking!, ...booking };
+    console.log("aaaaaaaaa", this.booking);
+    localStorage.setItem('booking', JSON.stringify(this.booking));
+  }
+
+  
+  setBooking(booking: PreBookingType) {
     // luu vao localstorage luon
-    localStorage.setItem('booking', JSON.stringify(booking));
     this.booking = booking;
+    console.log("aaaaaaaaa", this.booking);
+    localStorage.setItem('booking', JSON.stringify(booking));
   }
 
   getBooking() {

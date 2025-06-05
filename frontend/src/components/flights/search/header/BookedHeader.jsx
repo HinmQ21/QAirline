@@ -3,6 +3,8 @@ import { FlightRecap } from "../FlightRecap";
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 
+import { useServices } from "@/context/ServiceContext";
+
 
 export const BookedHeader = ({ }) => {
 
@@ -10,6 +12,7 @@ export const BookedHeader = ({ }) => {
   const testEnd = new Date(2025, 4, 7);
   const passanger = 1;
 
+  const { preBookingContext } = useServices();
 
   return (
     <>
@@ -19,6 +22,9 @@ export const BookedHeader = ({ }) => {
           <div className="w-3/5 h-full py-2 flex">
             {/* Flight Recap */}
             <FlightRecap from="CGK" to="DPS" roundtrip={true} start={testStart} end={testEnd} passanger={passanger}/>
+            
+              <p className="text-white">{preBookingContext.getBooking().flight.basePrice}</p>
+            
           </div>
           <div className="w-1/5 h-full flex justify-center items-center">
             <button className="w-3/5 h-full flex flex-col justify-center items-center     

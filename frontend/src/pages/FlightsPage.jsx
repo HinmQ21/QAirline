@@ -1,12 +1,19 @@
+import { 
+  useState, 
+  useEffect,
+  useRef 
+} from "react";
+
 import { css } from "@/css/styles";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useServices } from "@/context/ServiceContext";
 import { clientApi } from "@/services/client/main";
 import { addPricetoFlights } from "@/util/FlightPriceHelper";
 import { MainFlightCard } from "@/components/flights/main/FlightCard";
 import { SearchFlight } from "@/components/flights/main/SearchFlight";
 import { PeopleSelectModal } from "@/components/flights/main/PeopleSelectModal";
 
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -34,7 +41,9 @@ export default function FlightsPage() {
   const [openPassengerModal, setOpenPassengerModal] = useState(false);
   const [people, setPeople] = useState(0);
   
-
+  //booking context
+  const { preBookingContext } = useServices();
+  
   
 
   // Pagination state
@@ -117,6 +126,15 @@ export default function FlightsPage() {
 
   useEffect(() => {
     if (people > 0) {
+      // //save tp context
+      // preBookingContext.setBooking({
+      //   flights: {
+      //     departureAirport: startAirport,
+      //     arrivalAirport: endAirport,
+      //     departureTime: new Date({})
+      //   },
+      //   passengers: people
+      // })
       navigate('/book/availability');
     }
   }, [people]);

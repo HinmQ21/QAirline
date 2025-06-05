@@ -8,6 +8,7 @@ import { BookedHeader } from "@/components/flights/search/header/BookedHeader";
 
 
 
+
 const flights = [
   {  
     id: "QA41",

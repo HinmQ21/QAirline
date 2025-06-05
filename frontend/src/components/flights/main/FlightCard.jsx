@@ -3,10 +3,17 @@ import {
   UseState,
 } from 'react';
 
+import { useServices } from "@/context/ServiceContext";
+
+
+
 const formatVND 
 = (price) => price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 
 export const MainFlightCard = ({flight, formatTime, setIsOpen,  }) => {
+
+  //Booking Context
+  const { preBookingContext } = useServices();
 
   return (
     <>
@@ -45,7 +52,16 @@ export const MainFlightCard = ({flight, formatTime, setIsOpen,  }) => {
           {/* Book Now Button */}
           <button
             className="w-full bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-3"
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              // xoa du lieu context cu - luu lai du lieu fligt moi
+              console.log("Booking flight:", flight);
+             
+              preBookingContext.setBooking({
+                flight: flight,
+                passengers: 1 // Default to 1 passenger, can be changed later
+              });
+              setIsOpen(true)}
+            }            
           >
             Book Now
           </button>
