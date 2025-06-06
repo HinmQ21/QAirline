@@ -1,0 +1,462 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Search, 
+  MapPin, 
+  Star, 
+  Users, 
+  Calendar,
+  Filter,
+  Globe,
+  ArrowRight,
+  Heart,
+  Camera,
+  Plane,
+  TrendingUp,
+  Sun,
+  Mountain,
+  Waves,
+  Building
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { css } from '@/css/styles';
+
+// Mock data for destinations
+const destinationsData = [
+  {
+    id: 1,
+    name: 'Paris',
+    country: 'France',
+    continent: 'Europe',
+    image: 'https://images.unsplash.com/photo-1549144511-f099e773c147?w=500&h=300&fit=crop',
+    price: '$899',
+    rating: 4.8,
+    reviews: 2547,
+    category: 'Romance',
+    description: 'The City of Light awaits with its iconic landmarks, world-class cuisine, and romantic atmosphere.',
+    highlights: ['Eiffel Tower', 'Louvre Museum', 'Seine River Cruise'],
+    bestTime: 'Apr-Oct',
+    duration: '5-7 days',
+    isPopular: true,
+    isTrending: false
+  },
+  {
+    id: 2,
+    name: 'Tokyo',
+    country: 'Japan',
+    continent: 'Asia',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&h=300&fit=crop',
+    price: '$1,299',
+    rating: 4.9,
+    reviews: 3421,
+    category: 'Culture',
+    description: 'Experience the perfect blend of traditional culture and cutting-edge technology.',
+    highlights: ['Shibuya Crossing', 'Mount Fuji', 'Traditional Temples'],
+    bestTime: 'Mar-May',
+    duration: '7-10 days',
+    isPopular: true,
+    isTrending: true
+  },
+  {
+    id: 3,
+    name: 'Santorini',
+    country: 'Greece',
+    continent: 'Europe',
+    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=500&h=300&fit=crop',
+    price: '$1,199',
+    rating: 4.7,
+    reviews: 1876,
+    category: 'Beach',
+    description: 'Stunning sunsets, white-washed buildings, and crystal-clear waters await.',
+    highlights: ['Oia Sunset', 'Blue Domes', 'Volcanic Beaches'],
+    bestTime: 'May-Sep',
+    duration: '4-6 days',
+    isPopular: false,
+    isTrending: true
+  },
+  {
+    id: 4,
+    name: 'New York',
+    country: 'USA',
+    continent: 'North America',
+    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&h=300&fit=crop',
+    price: '$1,099',
+    rating: 4.6,
+    reviews: 4532,
+    category: 'City',
+    description: 'The city that never sleeps offers endless entertainment and iconic sights.',
+    highlights: ['Statue of Liberty', 'Central Park', 'Broadway Shows'],
+    bestTime: 'Apr-Jun',
+    duration: '4-7 days',
+    isPopular: true,
+    isTrending: false
+  },
+  {
+    id: 5,
+    name: 'Bali',
+    country: 'Indonesia',
+    continent: 'Asia',
+    image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=500&h=300&fit=crop',
+    price: '$799',
+    rating: 4.8,
+    reviews: 2891,
+    category: 'Beach',
+    description: 'Tropical paradise with beautiful beaches, ancient temples, and vibrant culture.',
+    highlights: ['Rice Terraces', 'Beach Clubs', 'Hindu Temples'],
+    bestTime: 'Apr-Oct',
+    duration: '7-14 days',
+    isPopular: true,
+    isTrending: true
+  },
+  {
+    id: 6,
+    name: 'Dubai',
+    country: 'UAE',
+    continent: 'Asia',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&h=300&fit=crop',
+    price: '$1,399',
+    rating: 4.5,
+    reviews: 1654,
+    category: 'Luxury',
+    description: 'Ultra-modern city with luxury shopping, stunning architecture, and desert adventures.',
+    highlights: ['Burj Khalifa', 'Desert Safari', 'Luxury Malls'],
+    bestTime: 'Nov-Mar',
+    duration: '3-5 days',
+    isPopular: false,
+    isTrending: true
+  }
+];
+
+const categories = [
+  { name: 'All', icon: Globe, color: 'bg-gray-100 text-gray-700' },
+  { name: 'Beach', icon: Waves, color: 'bg-blue-100 text-blue-700' },
+  { name: 'City', icon: Building, color: 'bg-purple-100 text-purple-700' },
+  { name: 'Culture', icon: Camera, color: 'bg-green-100 text-green-700' },
+  { name: 'Romance', icon: Heart, color: 'bg-pink-100 text-pink-700' },
+  { name: 'Luxury', icon: Star, color: 'bg-yellow-100 text-yellow-700' }
+];
+
+const DestinationsPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedContinent, setSelectedContinent] = useState('All');
+  const [filteredDestinations, setFilteredDestinations] = useState(destinationsData);
+  const [showFilters, setShowFilters] = useState(false);
+  const [favorites, setFavorites] = useState(new Set());
+
+  const continents = ['All', 'Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania'];
+
+  useEffect(() => {
+    let filtered = destinationsData;
+
+    // Search filter
+    if (searchTerm) {
+      filtered = filtered.filter(dest => 
+        dest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dest.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dest.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Category filter
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(dest => dest.category === selectedCategory);
+    }
+
+    // Continent filter
+    if (selectedContinent !== 'All') {
+      filtered = filtered.filter(dest => dest.continent === selectedContinent);
+    }
+
+    setFilteredDestinations(filtered);
+  }, [searchTerm, selectedCategory, selectedContinent]);
+
+  const toggleFavorite = (id) => {
+    const newFavorites = new Set(favorites);
+    if (newFavorites.has(id)) {
+      newFavorites.delete(id);
+    } else {
+      newFavorites.add(id);
+    }
+    setFavorites(newFavorites);
+  };
+
+  const DestinationCard = ({ destination }) => (
+    <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+      <div className="relative">
+        <img 
+          src={destination.image} 
+          alt={destination.name}
+          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        
+        {/* Overlay badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+          {destination.isPopular && (
+            <Badge className="bg-red-500 text-white border-none">
+              <Star className="w-3 h-3 mr-1" />
+              Popular
+            </Badge>
+          )}
+          {destination.isTrending && (
+            <Badge className="bg-green-500 text-white border-none">
+              <TrendingUp className="w-3 h-3 mr-1" />
+              Trending
+            </Badge>
+          )}
+        </div>
+
+        {/* Favorite button */}
+        <button 
+          onClick={() => toggleFavorite(destination.id)}
+          className="absolute top-4 right-4 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
+        >
+          <Heart 
+            className={`w-5 h-5 ${favorites.has(destination.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'}`}
+          />
+        </button>
+
+        {/* Price tag */}
+        <div className="absolute bottom-4 right-4">
+          <div className="bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
+            From {destination.price}
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{destination.name}</h3>
+            <div className="flex items-center text-gray-600 text-sm">
+              <MapPin className="w-4 h-4 mr-1" />
+              {destination.country}, {destination.continent}
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="flex items-center">
+              <Star className="w-4 h-4 text-yellow-500 mr-1" />
+              <span className="font-semibold">{destination.rating}</span>
+            </div>
+            <div className="text-xs text-gray-500">{destination.reviews} reviews</div>
+          </div>
+        </div>
+
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {destination.description}
+        </p>
+
+        <div className="space-y-3 mb-4">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center text-gray-600">
+              <Calendar className="w-4 h-4 mr-1" />
+              Best time: {destination.bestTime}
+            </div>
+            <div className="flex items-center text-gray-600">
+              <Users className="w-4 h-4 mr-1" />
+              {destination.duration}
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap gap-1">
+            {destination.highlights.slice(0, 2).map((highlight, index) => (
+              <Badge key={index} variant="outline" className="text-xs">
+                {highlight}
+              </Badge>
+            ))}
+            {destination.highlights.length > 2 && (
+              <Badge variant="outline" className="text-xs">
+                +{destination.highlights.length - 2} more
+              </Badge>
+            )}
+          </div>
+        </div>
+
+        <Button className="w-full bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white">
+          <Plane className="w-4 h-4 mr-2" />
+          Book Flight
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-pink-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-pink-950">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative z-10 px-4 py-20 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Discover Amazing <span className="text-pink-300">Destinations</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
+              Explore the world's most beautiful places and create unforgettable memories
+            </p>
+            
+            {/* Search bar */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search destinations, countries, or experiences..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-4 text-lg bg-white text-gray-900 rounded-2xl border border-gray-200 focus:ring-4 focus:ring-pink-300/50 focus:outline-none focus:border-pink-300 shadow-xl transition-all duration-200"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-32 -translate-y-32"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-48 translate-y-48"></div>
+      </div>
+
+      <div className={`${css.minipage.xl} ${css.minipagemx} -mt-8 relative z-20`}>
+        <div className="mx-4 lg:mx-8 xl:mx-16 my-10">
+          {/* Filters Section */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-pink-950 bg-clip-text text-transparent">
+                Explore by Category
+              </h2>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center lg:hidden"
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                Filters
+              </Button>
+            </div>
+
+            {/* Category filters */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              {categories.map((category) => {
+                const Icon = category.icon;
+                const isSelected = selectedCategory === category.name;
+                return (
+                  <button
+                    key={category.name}
+                    onClick={() => setSelectedCategory(category.name)}
+                    className={`flex items-center px-4 py-2 rounded-full transition-all duration-200 ${
+                      isSelected 
+                        ? 'bg-gradient-to-r from-gray-900 to-pink-950 text-white shadow-lg transform scale-105' 
+                        : `${category.color} hover:scale-105 hover:shadow-md`
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 mr-2" />
+                    {category.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Continent filter */}
+            <div className={`${showFilters ? 'block' : 'hidden lg:block'}`}>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Filter by Continent</h3>
+              <div className="flex flex-wrap gap-2">
+                {continents.map((continent) => (
+                  <button
+                    key={continent}
+                    onClick={() => setSelectedContinent(continent)}
+                    className={`px-3 py-1 rounded-full text-sm transition-all duration-200 ${
+                      selectedContinent === continent
+                        ? 'bg-gray-800 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {continent}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Results summary */}
+          <div className="mb-6 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {filteredDestinations.length} destinations found
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  {searchTerm && `Showing results for "${searchTerm}"`}
+                  {selectedCategory !== 'All' && ` in ${selectedCategory} category`}
+                  {selectedContinent !== 'All' && ` in ${selectedContinent}`}
+                </p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
+                  <Globe className="w-3 h-3 mr-1" />
+                  {filteredDestinations.filter(d => d.isPopular).length} Popular
+                </Badge>
+                <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">
+                  <TrendingUp className="w-3 h-3 mr-1" />
+                  {filteredDestinations.filter(d => d.isTrending).length} Trending
+                </Badge>
+              </div>
+            </div>
+          </div>
+
+          {/* Destinations Grid */}
+          {filteredDestinations.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              {filteredDestinations.map((destination) => (
+                <DestinationCard key={destination.id} destination={destination} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 bg-white rounded-xl shadow-lg border border-gray-100">
+              <div className="max-w-md mx-auto">
+                <Globe className="h-20 w-20 text-gray-300 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  No destinations found
+                </h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                  We couldn't find any destinations matching your search criteria. Try adjusting your filters or search terms.
+                </p>
+                <Button 
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('All');
+                    setSelectedContinent('All');
+                  }}
+                  className="bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  Show All Destinations
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Newsletter Section */}
+          <div className="mt-16 bg-gradient-to-r from-gray-900 to-pink-950 rounded-2xl p-8 text-center text-white">
+            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
+            <p className="text-gray-100 mb-6 max-w-2xl mx-auto">
+              Get the latest travel deals and destination guides delivered to your inbox
+            </p>
+            <div className="max-w-md mx-auto flex gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
+              />
+              <Button className="bg-white text-gray-800 hover:bg-gray-100 px-6">
+                Subscribe
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DestinationsPage;

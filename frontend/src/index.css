@@ -30,6 +30,35 @@
     text-xs font-bold
     transition-all duration-100 scale-0 origin-left
   }
+
+  /* Enhanced animations for improved UI */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-gradient-x {
+    animation: gradientX 15s ease infinite;
+    background-size: 400% 400%;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
 }
 
 #fp-nav ul li a span {
@@ -40,6 +69,35 @@
   0%, 100% {transform: translateX(0px); }
   25% { transform: translateX(-3px); }
   75% { transform: translateX(3px); }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientX {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .fp-watermark { scale: 0 }

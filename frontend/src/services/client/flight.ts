@@ -31,7 +31,32 @@ const getFlightPaged = async (pageSize: number, pageNumber: number) => {
   return res.data;
 }
 
+const searchFlights = async (
+  departure_airport_id: string,
+  arrival_airport_id: string,
+  departure_date: string,
+  return_date?: string
+) => {
+  const res = await clientAxios.get("flights/search", {
+    params: {
+      departure_airport_id,
+      arrival_airport_id,
+      departure_date,
+      return_date,
+    }
+  });
+
+  return res.data;
+}
+
+const getFlightById = async (id: string) => {
+  const res = await clientAxios.get(`flights/${id}`);
+  return res.data;
+}
+
 export const flightApiObject = { 
   getFlight: getFlight,
   getFlightPaged: getFlightPaged,
+  searchFlights: searchFlights,
+  getFlightById: getFlightById,
 };

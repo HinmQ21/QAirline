@@ -4,6 +4,7 @@ import { HomePage } from "../pages/HomePage";
 import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
 import { BookAvailability } from "../pages/BookAvailability";
+import DestinationsPage from "../pages/Destination";
 import { SideBar } from "../components/layouts/SideBar";
 import { AdminLoginPage } from "../pages/admin/LoginPage";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
@@ -22,6 +23,13 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "", element: <FlightsPage /> },
+    ],
+  },
+  {
+    path: "/destinations",
+    element: <MainLayout />,
+    children: [
+      { path: "", element: <DestinationsPage /> },
     ],
   },
   {
