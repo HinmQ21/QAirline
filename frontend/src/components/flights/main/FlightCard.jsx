@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, Plane, Calendar, Users, Eye } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -46,21 +47,25 @@ const calculateDuration = (departure, arrival) => {
 };
 
 export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen }) => {
+  const navigate = useNavigate();
   const { preBookingContext } = useServices();
   const [showDetails, setShowDetails] = useState(false);
 
   const handleBookFlight = () => {
-    console.log("Booking flight:", flight);
-    preBookingContext.setBooking({
-      flight: flight,
-      passengers: 1
+    // Navigate to booking page with flight ID and passenger count
+    navigate(`/booking/${flight.flight_id}`, {
+      state: {
+        passengers: 1 // Default to 1 passenger, can be modified later
+      }
     });
-    setIsOpen(true);
   };
 
   const handleViewDetails = () => {
     setShowDetails(true);
   };
+
+  // Check if flight can be booked
+  const canBook = flight.status !== 'cancelled' && new Date(flight.departure_time) > new Date();
 
   return (
     <>
@@ -172,10 +177,15 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
                 View Details
               </Button>
               <Button
-                className="bg-red-600 hover:bg-red-700 text-white flex-1 h-auto py-2"
+                className={`flex-1 h-auto py-2 ${
+                  canBook 
+                    ? 'bg-red-600 hover:bg-red-700 text-white' 
+                    : 'bg-gray-400 text-gray-700 cursor-not-allowed'
+                }`}
                 onClick={handleBookFlight}
+                disabled={!canBook}
               >
-                Book Now
+                {canBook ? 'Book Now' : 'Unavailable'}
               </Button>
             </div>
           </div>

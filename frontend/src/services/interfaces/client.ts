@@ -1,6 +1,7 @@
 import { User } from "../schemes/auth";
 import { NewsCategoryType, NewsListResponse } from "../schemes/news";
 import { ManufacturerType, PlaneType } from "../schemes/planes";
+import { BookingRequest, BookingResponse } from "../client/booking";
 
 export interface ClientApiInterface {
   // Auth
@@ -19,7 +20,13 @@ export interface ClientApiInterface {
   ) => Promise<any>;
   
   getFlightPaged: (pageSize: number, pageNumber: number) => Promise<any>;
+  getFlightById: (id: string) => Promise<any>;
 
+  // Booking
+  createBooking: (bookingData: BookingRequest) => Promise<BookingResponse>;
+  getCustomerBookings: () => Promise<any>;
+  getBookingById: (bookingId: number) => Promise<any>;
+  cancelBooking: (bookingId: number) => Promise<any>;
 
   // News
   getNewsList: (params: {

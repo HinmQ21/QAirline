@@ -1,6 +1,6 @@
 import { z } from "zod";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -18,7 +18,7 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
-import { User as UserIcon, Lock, Eye, EyeOff, Mail, Plane, Shield } from "lucide-react";
+import { User as UserIcon, Lock, Eye, EyeOff, Mail, Plane, Shield, Ticket } from "lucide-react";
 
 type TabType = "login" | "signup";
 
@@ -93,6 +93,7 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
 }
 
 const UserAvatarButton = ({ user }: { user: User }) => {
+  const navigate = useNavigate();
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -115,7 +116,13 @@ const UserAvatarButton = ({ user }: { user: User }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2 dark" align="end">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate('/bookings');
+                setDropdownOpen(false);
+              }}
+            >
+              <Ticket className="w-4 h-4 mr-2" />
               Xem lịch sử đặt vé
             </DropdownMenuItem>
             <DropdownMenuItem

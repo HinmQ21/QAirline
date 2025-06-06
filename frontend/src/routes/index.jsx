@@ -9,6 +9,8 @@ import { NewsPage } from "../pages/NewsPage";
 import { SideBar } from "../components/layouts/SideBar";
 import { AdminLoginPage } from "../pages/admin/LoginPage";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
+import BookingPage from "../pages/BookingPage";
+import MyBookingsPage from "../pages/MyBookingsPage";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,20 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "", element: <FlightsPage /> },
+    ],
+  },
+  {
+    path: "/booking/:flightId",
+    element: <MainLayout />,
+    children: [
+      { path: "", element: <BookingPage /> },
+    ],
+  },
+  {
+    path: "/bookings",
+    element: <MainLayout />,
+    children: [
+      { path: "", element: <MyBookingsPage /> },
     ],
   },
   {
