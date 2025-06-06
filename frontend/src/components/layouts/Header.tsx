@@ -65,8 +65,8 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
           <Link to="/destinations" className="header-link reddit-regular">
             Destinations
           </Link>
-          <Link to="/contact" className="header-link reddit-regular">
-            Contact
+          <Link to="/news" className="header-link reddit-regular">
+            News
           </Link>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import { css } from "@/css/styles";
 import fullpage from "fullpage.js";
 import "fullpage.js/dist/fullpage.min.css";
-import { TopNews } from "@/components/home/TopNews";
 import { useEffect, useRef, useState } from "react";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
@@ -123,11 +122,6 @@ export const HomePage = () => {
         {/* Content Section */}
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
-            <div className={`${css.minipage.lg} ${css.minipagemx} mt-25 mb-10 transform transition-all duration-1000`}>
-              <div data-animate>
-                <TopNews />
-              </div>
-            </div>
             <div className={`${css.minipage.xl} mb-10 ${css.minipagemx} backdrop-blur-sm bg-white/10`}>
               <div className="flex flex-col m-15 gap-y-22" data-animate>
                 <div className="transform transition-all duration-1000 delay-300">

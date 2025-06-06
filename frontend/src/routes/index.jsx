@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
 import { BookAvailability } from "../pages/BookAvailability";
 import DestinationsPage from "../pages/Destination";
+import { NewsPage } from "../pages/NewsPage";
 import { SideBar } from "../components/layouts/SideBar";
 import { AdminLoginPage } from "../pages/admin/LoginPage";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
@@ -30,6 +31,13 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "", element: <DestinationsPage /> },
+    ],
+  },
+  {
+    path: "/news",
+    element: <MainLayout />,
+    children: [
+      { path: "", element: <NewsPage /> },
     ],
   },
   {
