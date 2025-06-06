@@ -10,7 +10,16 @@ export interface ClientApiInterface {
 
   // Flight
   // TODO: change `any` to a more specific type
+  getFlight: (
+    flightNumber: string, 
+    departure_airport: string, 
+    arrival_airport: string,
+    departure_date: string,
+    status: string,
+  ) => Promise<any>;
+  
   getFlightPaged: (pageSize: number, pageNumber: number) => Promise<any>;
+
 
   // News
   getNewsList: (params: {

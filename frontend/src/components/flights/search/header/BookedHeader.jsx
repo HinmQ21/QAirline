@@ -1,5 +1,5 @@
 
-import { FlightRecap } from "../FlightRecap";
+import { FlightRecap } from "./FlightRecap";
 
 import { LuPlaneTakeoff } from "react-icons/lu";
 

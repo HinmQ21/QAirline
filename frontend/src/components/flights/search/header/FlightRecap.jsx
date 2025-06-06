@@ -1,5 +1,5 @@
-import { RecapCode } from "./RecapCode";
-import { RecapDate } from "./RecapDate";
+import { RecapCode } from "../RecapCode";
+import { RecapDate } from "../RecapDate";
 
 export const FlightRecap = ({ from, to, roundtrip, start, end, passanger }) => {
   return (

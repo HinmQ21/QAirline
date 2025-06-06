@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { clientApi } from "@/services/client/main";
-import { FlightRecap } from "@/components/flights/search/FlightRecap";
 import { SortFlight } from "@/components/flights/search/SortFlight"
 import { FlightCard } from "@/components/flights/search/FlightCard";
 import { BookedHeader } from "@/components/flights/search/header/BookedHeader";
@@ -99,7 +98,7 @@ export const BookAvailability = () => {
 
   const getFlightList = async () => {
     try {
-      const res = await clientApi.getPlaneList();
+      const res = await clientApi.getFlight();
       if (res) {
         console.log("Flight list fetched successfully:", res);
         return res;
@@ -113,7 +112,8 @@ export const BookAvailability = () => {
   useEffect(() => {
     const fetchFlights = async () => {
       console.log("attempting to fetch flights");
-      // const flights = await getFlightList();
+      const flights = await getFlightList();
+      console.log("flight: ", flights);
       setFlights(flights);
     };
     try {
@@ -124,7 +124,7 @@ export const BookAvailability = () => {
   }, []);
 
   useEffect(() => {
-    console.log("flight: ", flights);
+    
   }, [flights]);
 
   const handleExpandCard = (flightId) => {
@@ -135,15 +135,18 @@ export const BookAvailability = () => {
     setSortOption(option);
   };
 
-  const sortedFlights = [...flights].sort((a, b) => {
-    if (sortOption === "Gia tot nhat") {
-      return a.price.eco - b.price.eco;
-    } else if (sortOption === "Khoi hanh som nhat") {
-      return new Date(`2025-05-03T${a.depatureTime}:00`) - new Date(`2025-05-03T${b.depatureTime}:00`); 
-    } else {
-      return 0; // Default sorting
-    }
-  });
+  // const sortedFlights = [...flights].sort((a, b) => {
+  //   if (sortOption === "Gia tot nhat") {
+  //     return a.price.eco - b.price.eco;
+  //   } else if (sortOption === "Khoi hanh som nhat") {
+  //     return 0;
+  //     // 
+  //     //new Date(`2025-05-03T${a.depatureTime}:00`) - new Date(`2025-05-03T${b.depatureTime}:00`); 
+  //     //
+  //   } else {
+  //     return 0; // Default sorting
+  //   }
+  // });
 
   
 
@@ -151,26 +154,12 @@ export const BookAvailability = () => {
     <>
       <div className="flex-1 w-full h-full">
         <BookedHeader />
-        
-
-        {/* Destination */}
-        {/* TODO: nên uncomment chỗ này ko Thành ơi */}
-        {/* Để em xem cách làm nó đẹp hơn */}
-        {/* Comment lại đẹp hơn thật */}
-        {/* <div className="w-full h-50">
-          <img
-            src={destImage}
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div> */}
-
         {/* Main  */}
         <div className="w-full min-h-screen mb-12 flex justify-center">
             <div className="w-8/10 h-fit flex flex-col mt-4 gap-12 items-center">
               <SortFlight sortOption={sortOption} onSortChange={handleSortChange} />
-              {(sortedFlights.length > 0) ? (
-                sortedFlights.map((flight) => (
+              {(flights.length > 0) ? (
+                flights.map((flight) => (
                   <FlightCard
                     key={flight.id}
                     flight={flight}

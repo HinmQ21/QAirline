@@ -23,7 +23,6 @@ export class PreBookingContext {
   // Chỉ gọi khi Booking không null
   updateBooking(booking: Partial<PreBookingType>) {
     this.booking = { ...this.booking!, ...booking };
-    console.log("aaaaaaaaa", this.booking);
     localStorage.setItem('booking', JSON.stringify(this.booking));
   }
 
@@ -31,7 +30,6 @@ export class PreBookingContext {
   setBooking(booking: PreBookingType) {
     // luu vao localstorage luon
     this.booking = booking;
-    console.log("aaaaaaaaa", this.booking);
     localStorage.setItem('booking', JSON.stringify(booking));
   }
 
