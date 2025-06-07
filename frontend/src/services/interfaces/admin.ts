@@ -1,5 +1,6 @@
 import { CreateNewsRequest, NewsType } from "../schemes/news";
 import { CreatePlaneRequest, PlaneType } from "../schemes/planes";
+import { CreateFlightRequest, UpdateFlightRequest, FlightResponse } from "../admin/flights";
 
 export interface AdminApiInterface {
   // Auth
@@ -38,4 +39,17 @@ export interface AdminApiInterface {
     start_row?: number;
     end_row?: number;
   }) => Promise<any>;
+
+  // Flights
+  createFlight: (data: CreateFlightRequest) => Promise<FlightResponse>;
+  updateFlight: (flight_id: number, data: UpdateFlightRequest) => Promise<FlightResponse>;
+  deleteFlight: (flight_id: number) => Promise<any>;
+  getFlights: (params?: {
+    flight_number?: string;
+    departure_airport?: number;
+    arrival_airport?: number;
+    departure_date?: string;
+    status?: string;
+  }) => Promise<any>;
+  getFlightById: (flight_id: number) => Promise<any>;
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
 import { PlanesManagerPage } from "./dashboard-contents/PlanesManagerPage";
+import FlightsManagerPage from "./dashboard-contents/FlightsManagerPage";
 import { DashboardNavigation } from "@/components/admin/navigation/DashboardNavigation";
 import { AdminHeader } from "@/components/admin/navigation/AdminHeader";
 import { Card } from "@/components/ui/card";
@@ -45,6 +46,8 @@ const AdminDashboardContent = ({ index }) => {
       return <NewsManagerPage />;
     case 2:
       return <PlanesManagerPage />;
+    case 3:
+      return <FlightsManagerPage />;
     default:
       return <DashboardOverview />
   }
