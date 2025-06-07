@@ -9,26 +9,28 @@ import { clientApi } from "@/services/client/main";
 import { NewsType } from "@/services/schemes/news";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const SimpleNewsCard = ({ news, offstage = false }: { news: NewsType, offstage?: boolean }) => {
   const created_date = dayjs(news.created_at);
 
   return (
     <div className={`
-      flex flex-col absolute justify-center h-full
+      flex flex-col absolute justify-center items-start h-full overflow-hidden w-full
       ${offstage ? css.offstage.on : css.offstage.off}
     `}>
       <p className="text-sm text-gray-700">{created_date.format("DD - MM - YYYY")}</p>
       <NewsDialog news={news}>
-        <p className="truncate reddit-medium underline text-blue-800 cursor-pointer" onClick={
-          () => console.log("News clicked:", news.news_id)
-        }>{news.title}</p>
+        <p className="truncate reddit-medium underline text-blue-800 cursor-pointer">{
+          news.title
+        }</p>
       </NewsDialog>
     </div>
   );
 }
 
 export const TopNews = () => {
+  const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const [newsList, setNewsList] = useState<NewsType[] | null>(null);
 
@@ -69,10 +71,10 @@ export const TopNews = () => {
   return (
     <div className="
       my-3 h-12
-      flex flex-row flex-wrap
+      flex flex-row flex-wrap gap-2
       items-center justify-between
     ">
-      <div className="flex flex-row items-center h-full">
+      <div className="flex flex-row items-center h-full flex-1">
         <div className="flex flex-row items-center px-7 text-blue-900 text-xl gap-x-2">
           <FaRegNewspaper />
           <p className="montserrat-medium">Tin tức</p>
@@ -85,7 +87,7 @@ export const TopNews = () => {
             <p className="text-gray-800">Loading...</p>
           ) : newsList.length > 0 ? (
             <div
-              className="relative h-full"
+              className="relative h-full flex-1"
               onMouseEnter={stopSwitfing}
               onMouseLeave={startSwifting}
             >{
@@ -120,7 +122,15 @@ export const TopNews = () => {
             }}
           />
         </div>
-        <Button className="bg-slate-300 hover:bg-slate-200 text-sky-900 py-6 px-7 cursor-pointer">
+        <Button
+          className="
+            bg-slate-300 hover:bg-slate-200
+            text-sky-900 py-6 px-7 cursor-pointer
+          "
+          onClick={() => {
+            navigate('/news');
+          }}
+        >
           Xem Thêm
           <FaArrowRight />
         </Button>

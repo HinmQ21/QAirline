@@ -1,16 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { TestPage } from "@/pages/TestPage";
 import { HomePage } from "../pages/HomePage";
 import MainLayout from "../layouts/MainLayout";
 import FlightsPage from "../pages/FlightsPage";
-import { BookAvailability } from "../pages/BookAvailability";
 import DestinationsPage from "../pages/Destination";
 import { NewsPage } from "../pages/NewsPage";
 import { SideBar } from "../components/layouts/SideBar";
 import { AdminLoginPage } from "../pages/admin/LoginPage";
+import { BookAvailability } from "../pages/BookAvailability";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
 import BookingPage from "../pages/BookingPage";
 import MyBookingsPage from "../pages/MyBookingsPage";
+import { UpdateSeatsPage } from "@/pages/admin/planes/UpdateSeatsPage"
 
 const router = createBrowserRouter([
   {
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
     path: "/book/availability",
     element: <MainLayout />,
     children: [
-      { path: "", element: <BookAvailability/> },
+      { path: "", element: <BookAvailability /> },
     ],
   },
   {
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
   {
     path: '/admin/dashboard',
     element: <AdminDashboardPage />
+  },
+  {
+    path: '/test',
+    element: <TestPage />
+  },
+  {
+    path: '/admin/airplane/update-seats/:airplane_id',
+    element: <UpdateSeatsPage />
   }
 ]);
 

@@ -1,13 +1,21 @@
 import { z } from "zod";
+import {
+  Form, FormControl, FormField,
+  FormItem, FormLabel, FormMessage
+} from "@/components/ui/form";
+import {
+  Dialog, DialogContent,
+  DialogHeader, DialogTitle, DialogTrigger
+} from "@/components/ui/dialog"
 import { ReactNode } from "react"
+import { CiEdit } from "react-icons/ci";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { DropdownSelect } from "@/components/misc/DropdownSelect";
 import { manufacturerList } from "@/services/schemes/planes";
 import { manufacturerLabels } from "@/services/schemes/planes";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownSelect } from "@/components/misc/DropdownSelect";;
 
 export const planeSchema = z.object({
   code: z.string().nonempty().max(20),
@@ -23,17 +31,19 @@ type PlaneModifyDialogProps = {
   setOpen?(open: boolean): void;
   isSubmitting?: boolean | undefined;
   planeForm: UseFormReturn<z.infer<typeof planeSchema>>;
+  airplaneId?: number | undefined;
   onSubmit?(values: z.infer<typeof planeSchema>): void;
   submitText: string;
   children: ReactNode;
 }
 
 export const PlaneModifyDialog = ({
-  dialogTitle, open, setOpen, planeForm,
-  onSubmit, isSubmitting, children, submitText
+  dialogTitle, open, setOpen, planeForm, onSubmit,
+  airplaneId, isSubmitting, children, submitText
 }: PlaneModifyDialogProps) => {
+  const navigation = useNavigate();
   const formLabelClassName = "text-black inter-medium";
-  
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -84,6 +94,20 @@ export const PlaneModifyDialog = ({
                 </FormItem>
               )}
             />
+            {
+              airplaneId &&
+              <Button type="button" variant="link"
+                onClick={
+                  () => {
+                    setOpen?.(false);
+                    navigation(`/admin/airplane/update-seats/${airplaneId}`);
+                  }
+                }
+              >
+                Cập nhật thông tin ghế
+                <CiEdit />
+              </Button>
+            }
             <div className="flex flex-row justify-between w-full">
               <FormField
                 control={planeForm.control}

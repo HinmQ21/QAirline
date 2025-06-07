@@ -8,4 +8,8 @@ const getPlaneList = async (params: {
   return (await adminAxios.get('/airplanes', { params })).data.data;
 };
 
-export const planeApiObject = { getPlaneList: getPlaneList };
+const getPlane = async (airplane_id: number): Promise<PlaneType> => {
+  return (await adminAxios.get(`/airplanes/${airplane_id}`)).data.data;
+};
+
+export const planeApiObject = { getPlaneList: getPlaneList, getPlane: getPlane };

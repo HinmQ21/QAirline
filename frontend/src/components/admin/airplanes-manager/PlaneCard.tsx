@@ -17,15 +17,26 @@ type PlaneCardProps = {
   deletePlaneStateAction: (plane_id: number) => void;
 }
 
-const PlaneLogo = ({ manufacturer }: { manufacturer: string }) => {
+export const PlaneLogo = ({
+  manufacturer,
+  className,
+}: {
+  manufacturer: string;
+  className?: string | undefined;
+}) => {
   switch (manufacturer) {
-    case "Airbus": return <img src="/planecards/airbus.png" className="h-9" />;
-    case "Boeing": return <img src="/planecards/boeing.png" className="h-9" />;
-    case "ATR": return <img src="/planecards/atr.png" className="h-9" />;
-    case "Embraer": return <img src="/planecards/embraer.png" className="h-9" />;
-    default: return <PiAirplaneTilt className="h-9 w-9 text-gray-500" />;
+    case "Airbus":
+      return <img src="/planecards/airbus.png" className={className} />;
+    case "Boeing":
+      return <img src="/planecards/boeing.png" className={className} />;
+    case "ATR":
+      return <img src="/planecards/atr.png" className={className} />;
+    case "Embraer":
+      return <img src="/planecards/embraer.png" className={className} />;
+    default:
+      return <PiAirplaneTilt className={`text-gray-500 ${className}`} />;
   }
-}
+};
 
 export const PlaneCard = ({
   plane,
@@ -75,7 +86,7 @@ export const PlaneCard = ({
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <div className="
           flex flex-row items-center justify-between pl-3
           bg-white rounded-2xl h-14 w-125 cursor-pointer
@@ -83,6 +94,7 @@ export const PlaneCard = ({
           <PlaneModifyDialog
             open={open} setOpen={setOpen}
             planeForm={planeForm}
+            airplaneId={plane.airplane_id}
             onSubmit={onSubmit}
             isSubmitting={isSubmitting}
             submitText="Cập nhật"
@@ -90,7 +102,7 @@ export const PlaneCard = ({
           >
             <div className="flex flex-row h-full items-center">
               <div className="w-35 flex flex-col items-center">
-                <PlaneLogo manufacturer={plane.manufacturer} />
+                <PlaneLogo manufacturer={plane.manufacturer} className="h-9" />
               </div>
               <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
               <div className="flex flex-col justify-center w-42">

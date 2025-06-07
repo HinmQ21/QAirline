@@ -41,6 +41,8 @@ export interface ClientApiInterface {
     manufacturer?: ManufacturerType;
   }) => Promise<PlaneType[]>;
 
+  getPlane: (airplane_id: number) => Promise<PlaneType>;
+
   // Airports
   getAirportList: (params: {
     code: string,

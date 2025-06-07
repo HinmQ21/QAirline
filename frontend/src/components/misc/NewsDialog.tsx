@@ -16,11 +16,12 @@ export const NewsDialog = ({ news, children }: { news: NewsType, children: React
       <DialogTrigger>
         {children}
       </DialogTrigger>
-      <DialogContent className="w-180 max-w-none">
+      <DialogContent className="w-2/3 max-w-none">
         <DialogHeader>
           <DialogTitle className="inter-semibold text-3xl">{
             news.title
           }</DialogTitle>
+          <div className='h-3' />
           <DialogDescription className='flex flex-row items-center gap-3'>
             {formattedDate}
             <NewsCategoryBadge category={news.category} />

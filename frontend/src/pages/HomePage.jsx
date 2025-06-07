@@ -2,14 +2,15 @@ import { css } from "@/css/styles";
 import fullpage from "fullpage.js";
 import "fullpage.js/dist/fullpage.min.css";
 import { useEffect, useRef, useState } from "react";
+import { TopNews } from "@/components/home/TopNews";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
 import { SloganRow } from "@/components/home/Slogans";
 import { Sponsors } from "@/components/home/Sponsors";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { ArrowDown, Star, Users, Globe } from "lucide-react";
 import { FlightBooking } from "@/components/home/FlightBooking";
 import { TopDestinations } from "@/components/home/TopDestinations";
-import { ArrowDown, Star, Users, Globe } from "lucide-react";
 
 export const HomePage = () => {
   const fullpageInstance = useRef(null);
@@ -58,7 +59,7 @@ export const HomePage = () => {
           <div className="min-h-screen flex flex-col justify-between relative">
             {/* Animated background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-red-900/30 animate-gradient-x"></div>
-            
+
             {/* Hero content */}
             <div className="relative z-10 flex-1 flex flex-col justify-center items-center text-center px-4">
               <div data-animate className="space-y-6 max-w-4xl mx-auto">
@@ -68,7 +69,7 @@ export const HomePage = () => {
                 <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
                   Discover amazing destinations with the best flight deals around the world
                 </p>
-                
+
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-8 mt-12 max-w-lg mx-auto">
                   <div className="text-center">
@@ -108,7 +109,7 @@ export const HomePage = () => {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-              <button 
+              <button
                 onClick={scrollToNext}
                 className="flex flex-col items-center text-white hover:text-blue-400 transition-colors group"
               >
@@ -122,6 +123,11 @@ export const HomePage = () => {
         {/* Content Section */}
         <div className="section homepage-bg-gradient">
           <div className="min-h-screen flex flex-col justify-start">
+            <div className={`${css.minipage.lg} ${css.minipagemx} mt-25 mb-10 transform transition-all duration-1000`}>
+              <div data-animate>
+                <TopNews />
+              </div>
+            </div>
             <div className={`${css.minipage.xl} mb-10 ${css.minipagemx} backdrop-blur-sm bg-white/10`}>
               <div className="flex flex-col m-15 gap-y-22" data-animate>
                 <div className="transform transition-all duration-1000 delay-300">
@@ -145,9 +151,9 @@ export const HomePage = () => {
                   We're working on exciting new features to make your travel experience even better
                 </p>
                 <div className="relative">
-                  <img 
-                    src="/miscs/coming-soon.gif" 
-                    loading="lazy" 
+                  <img
+                    src="/miscs/coming-soon.gif"
+                    loading="lazy"
                     className="rounded-lg shadow-2xl max-w-md w-full"
                     alt="Coming Soon"
                   />
