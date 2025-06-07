@@ -127,7 +127,13 @@ export const NewsCard = ({
   );
 };
 
-export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
+export const NewsCategoryBadge = ({ 
+  category, 
+  size = "default" 
+}: { 
+  category: NewsCategoryType;
+  size?: "default" | "large";
+}) => {
   let className;
   switch (category) {
     case "news": 
@@ -143,8 +149,14 @@ export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) 
       className = "bg-orange-100 text-orange-800 hover:bg-orange-200"; 
       break;
   }
+
+  const sizeClasses = {
+    default: "px-2 py-0.5 text-xs",
+    large: "text-md px-3 py-1"
+  };
+
   return (
-    <Badge className={`${className} border-0 font-medium px-2 py-1 text-xs`}>
+    <Badge className={`${className} ${sizeClasses[size]} reddit-semibold`}>
       {newsCategoryLabels[category]}
     </Badge>
   );
