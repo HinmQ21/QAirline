@@ -52,12 +52,11 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
   const [showDetails, setShowDetails] = useState(false);
 
   const handleBookFlight = () => {
-    // Navigate to booking page with flight ID and passenger count
-    navigate(`/booking/${flight.flight_id}`, {
-      state: {
-        passengers: 1 // Default to 1 passenger, can be modified later
-      }
-    });
+    // Save flight info to context
+    preBookingContext.setFlight(flight);
+    
+    // Open passenger selection modal
+    setIsOpen(true);
   };
 
   const handleViewDetails = () => {

@@ -265,9 +265,17 @@ export default function FlightsPage() {
 
   useEffect(() => {
     if (people > 0) {
-      navigate('/book/availability');
+      // Navigate to booking page with passenger count
+      const flight = preBookingContext.getBooking()?.flight;
+      if (flight) {
+        navigate(`/booking/${flight.flight_id}`, {
+          state: {
+            passengers: people
+          }
+        });
+      }
     }
-  }, [people, navigate]);
+  }, [people, navigate, preBookingContext]);
 
   // Prepare flights to display
   const getFlightsToDisplay = () => {

@@ -63,26 +63,30 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
             <div className="flex justify-between mt-6">
               {/* Close Button */}
               <button
-                className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
+                className="w-[48%] bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded"
                 onClick={() => setIsOpen(false)}
               >
-                Close
+                Hủy
               </button>
-
-              {/* Continue Button */}
+              
+              {/* Confirm Button */}
               <button
                 className="w-[48%] bg-red-600 hover:bg-red-700 text-white py-2 rounded"
                 onClick={() => {
-                  // Tính tổng số người
-                  const total = passengers.adult + passengers.child + passengers.infant;
-                  preBookingContext.updateBooking({
-                    passengers: total,
-                  })
-                  setTotal(total);
-                  setIsOpen(false);                  
+                  const totalPassengers = passengers.adult + passengers.child + passengers.infant;
+                  if (totalPassengers > 0) {
+                    // Update booking context with passenger count
+                    preBookingContext.updateBooking({ passengers: totalPassengers });
+                    
+                    // Update total in parent component
+                    setTotal(totalPassengers);
+                    
+                    // Close modal
+                    setIsOpen(false);
+                  }
                 }}
               >
-                Continue
+                Xác nhận ({passengers.adult + passengers.child + passengers.infant} người)
               </button>
             </div>
           </div>

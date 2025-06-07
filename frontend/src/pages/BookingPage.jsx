@@ -24,11 +24,13 @@ import { clientApi } from "@/services/client/main";
 import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 import { calculateTicketPrice, formatCurrency } from '@/utils/pricing';
+import { useServices } from "@/context/ServiceContext";
 
 export default function BookingPage() {
   const { flightId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { preBookingContext } = useServices();
   
   // State management
   const [flight, setFlight] = useState(null);
@@ -38,9 +40,10 @@ export default function BookingPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [bookingResult, setBookingResult] = useState(null);
+  const [currentPassengerIndex, setCurrentPassengerIndex] = useState(0); // Track which passenger is selecting seat
 
-  // Get passenger count from navigation state
-  const passengerCount = location.state?.passengers || 1;
+  // Get passenger count from booking context
+  const passengerCount = preBookingContext.getBooking()?.passengers || 1;
 
   // Debug authentication state
   useEffect(() => {
@@ -70,40 +73,39 @@ export default function BookingPage() {
         const flightResponse = await clientApi.getFlightById(flightId);
         console.log('Flight response:', flightResponse);
         
-        if (flightResponse.success && flightResponse.data) {
-          setFlight(flightResponse.data);
-          
-          // Extract seats from flight.Airplane.Seats if available
-          if (flightResponse.data.Airplane && flightResponse.data.Airplane.Seats) {
-            const seats = flightResponse.data.Airplane.Seats.map(seat => ({
-              seat_id: seat.seat_id,
-              seat_number: seat.seat_number,
-              class: seat.class,
-              is_available: seat.is_available
-            }));
-            setAvailableSeats(seats);
-          } else {
-            // Fallback to mock data if seats not included
-            console.log('No seats data from API, using mock data');
-            const mockSeats = [];
-            for (let i = 1; i <= 180; i++) {
-              let seatClass = 'economy';
-              if (i <= 12) seatClass = 'first';
-              else if (i <= 36) seatClass = 'business';
-              
-              mockSeats.push({
-                seat_id: i,
-                seat_number: `${Math.ceil(i / 6)}${['A', 'B', 'C', 'D', 'E', 'F'][i % 6]}`,
-                class: seatClass,
-                is_available: Math.random() > 0.3 // 70% availability
-              });
-            }
-            setAvailableSeats(mockSeats);
-          }
-        } else {
+        if (!flightResponse.success || !flightResponse.data) {
           throw new Error('Invalid response format');
         }
+
+        setFlight(flightResponse.data);
         
+        // Extract seats from flight.Airplane.Seats if available
+        if (flightResponse.data.Airplane?.Seats) {
+          const seats = flightResponse.data.Airplane.Seats.map(seat => ({
+            seat_id: seat.seat_id,
+            seat_number: seat.seat_number,
+            class: seat.class,
+            is_available: seat.is_available
+          }));
+          setAvailableSeats(seats);
+        } else {
+          // Fallback to mock data if seats not included
+          console.log('No seats data from API, using mock data');
+          const mockSeats = [];
+          for (let i = 1; i <= 180; i++) {
+            let seatClass = 'economy';
+            if (i <= 12) seatClass = 'first';
+            else if (i <= 36) seatClass = 'business';
+            
+            mockSeats.push({
+              seat_id: i,
+              seat_number: `${Math.ceil(i/6)}${['A','B','C','D','E','F'][i%6]}`,
+              class: seatClass,
+              is_available: Math.random() > 0.3 // 70% availability
+            });
+          }
+          setAvailableSeats(mockSeats);
+        }
       } catch (error) {
         console.error('Error fetching flight data:', error);
         if (error.response?.status === 404) {
@@ -128,23 +130,53 @@ export default function BookingPage() {
     setPassengers(updatedPassengers);
   };
 
-  // Handle seat selection
-  const handleSeatSelect = (passengerIndex, seatId) => {
+  // Handle seat selection and deselection
+  const handleSeatSelect = (seatId) => {
     const updatedPassengers = [...passengers];
-    const previousSeatId = updatedPassengers[passengerIndex].seat_id;
     
-    // Remove previous seat from selected seats
-    if (previousSeatId) {
+    // Check if the seat is already selected
+    const passengerWithSeat = passengers.findIndex(p => p.seat_id === seatId);
+    
+    if (passengerWithSeat !== -1) {
+      // If clicking an already selected seat, deselect it
+      updatedPassengers[passengerWithSeat].seat_id = null;
       setSelectedSeats(prev => {
         const newSet = new Set(prev);
-        newSet.delete(previousSeatId);
+        newSet.delete(seatId);
         return newSet;
       });
+      // Set current passenger to the one whose seat was just deselected
+      setCurrentPassengerIndex(passengerWithSeat);
+    } else {
+      // Selecting a new seat
+      let passengerIndex = currentPassengerIndex;
+      if (!passengers[passengerIndex] || passengers[passengerIndex].seat_id) {
+        passengerIndex = passengers.findIndex(p => !p.seat_id);
+        if (passengerIndex === -1) return; // All passengers have seats
+        setCurrentPassengerIndex(passengerIndex);
+      }
+
+      // Remove previous seat if exists
+      const previousSeatId = updatedPassengers[passengerIndex].seat_id;
+      if (previousSeatId) {
+        setSelectedSeats(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(previousSeatId);
+          return newSet;
+        });
+      }
+      
+      // Add new seat
+      setSelectedSeats(prev => new Set([...prev, seatId]));
+      updatedPassengers[passengerIndex].seat_id = seatId;
+
+      // Move to next passenger without seat
+      const nextPassenger = updatedPassengers.findIndex((p, i) => i > passengerIndex && !p.seat_id);
+      if (nextPassenger !== -1) {
+        setCurrentPassengerIndex(nextPassenger);
+      }
     }
-    
-    // Add new seat to selected seats
-    setSelectedSeats(prev => new Set([...prev, seatId]));
-    updatedPassengers[passengerIndex].seat_id = seatId;
+
     setPassengers(updatedPassengers);
   };
 
@@ -254,15 +286,44 @@ export default function BookingPage() {
   };
 
   // Render seat map
-  const renderSeatMap = (passengerIndex) => {
+  const renderSeatMap = () => {
     const seatsByClass = {
       first: availableSeats.filter(s => s.class === 'first'),
       business: availableSeats.filter(s => s.class === 'business'),
       economy: availableSeats.filter(s => s.class === 'economy')
     };
 
+    // Find which passenger is currently selecting
+    const currentPassenger = passengers[currentPassengerIndex];
+    const remainingSeats = passengerCount - Array.from(selectedSeats).length;
+
     return (
       <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <h3 className="font-semibold">Chọn ghế cho hành khách</h3>
+            <p className="text-sm text-gray-500">
+              {currentPassenger ? (
+                <>
+                  Đang chọn cho: <span className="font-medium">
+                    {currentPassenger.name || `Hành khách ${currentPassengerIndex + 1}`}
+                  </span>
+                  {currentPassenger.seat_id && (
+                    <span className="ml-2 text-gray-400">
+                      (Nhấn vào ghế đã chọn để hủy)
+                    </span>
+                  )}
+                </>
+              ) : (
+                'Đã chọn đủ ghế'
+              )}
+            </p>
+          </div>
+          <Badge variant="outline">
+            Còn {remainingSeats} ghế cần chọn
+          </Badge>
+        </div>
+
         {Object.entries(seatsByClass).map(([className, seats]) => (
           <div key={className} className="space-y-2">
             <div className="flex items-center gap-2">
@@ -277,19 +338,26 @@ export default function BookingPage() {
             
             <div className="grid grid-cols-6 gap-1 max-w-md">
               {seats.map((seat) => {
-                const isSelected = passengers[passengerIndex]?.seat_id === seat.seat_id;
-                const isOccupied = selectedSeats.has(seat.seat_id) && !isSelected;
-                const isAvailable = seat.is_available && !isOccupied;
+                const isSelected = Array.from(selectedSeats).includes(seat.seat_id);
+                const passengerWithSeat = passengers.find(p => p.seat_id === seat.seat_id);
+                const isAvailable = seat.is_available && (!isSelected || passengerWithSeat);
+                const isCurrentPassengerSeat = currentPassenger?.seat_id === seat.seat_id;
                 
                 return (
                   <button
                     key={seat.seat_id}
-                    onClick={() => isAvailable && handleSeatSelect(passengerIndex, seat.seat_id)}
-                    disabled={!isAvailable}
+                    onClick={() => isAvailable && handleSeatSelect(seat.seat_id)}
+                    disabled={!seat.is_available || (!isSelected && !currentPassenger)}
+                    title={passengerWithSeat ? 
+                      `Ghế của ${passengerWithSeat.name || `Hành khách ${passengers.indexOf(passengerWithSeat) + 1}`}` : 
+                      isAvailable ? 'Ghế trống' : 'Ghế không khả dụng'
+                    }
                     className={`
-                      w-8 h-8 text-xs rounded-md border transition-colors
+                      w-8 h-8 text-xs rounded-md border transition-colors relative
                       ${isSelected 
-                        ? 'bg-blue-500 text-white border-blue-600' 
+                        ? isCurrentPassengerSeat
+                          ? 'bg-green-500 text-white border-green-600 ring-2 ring-green-300'
+                          : 'bg-blue-500 text-white border-blue-600 hover:bg-blue-400'
                         : isAvailable
                         ? 'bg-white hover:bg-gray-50 border-gray-300 text-gray-700'
                         : 'bg-gray-200 border-gray-300 text-gray-400 cursor-not-allowed'
@@ -297,12 +365,38 @@ export default function BookingPage() {
                     `}
                   >
                     {seat.seat_number}
+                    {isSelected && (
+                      <span className={`
+                        absolute -top-2 -right-2 w-4 h-4 rounded-full text-white text-[10px] 
+                        flex items-center justify-center
+                        ${isCurrentPassengerSeat ? 'bg-green-500' : 'bg-blue-500'}
+                      `}>
+                        {passengers.findIndex(p => p.seat_id === seat.seat_id) + 1}
+                      </span>
+                    )}
                   </button>
                 );
               })}
             </div>
           </div>
         ))}
+
+        <div className="mt-4 text-sm text-gray-500">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-blue-500 rounded"></div>
+              <span>Ghế đã chọn</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-green-500 rounded"></div>
+              <span>Ghế đang chọn</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-gray-200 rounded"></div>
+              <span>Ghế không khả dụng</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
@@ -470,46 +564,50 @@ export default function BookingPage() {
                   Thông tin hành khách ({passengers.length} người)
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {passengers.map((passenger, index) => (
-                  <div key={index} className="space-y-4 p-4 border rounded-lg">
-                    <h4 className="font-semibold">Hành khách {index + 1}</h4>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor={`name-${index}`}>Họ và tên *</Label>
-                        <Input
-                          id={`name-${index}`}
-                          placeholder="Nhập họ và tên"
-                          value={passenger.name}
-                          onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
-                        />
-                      </div>
+              <CardContent>
+                {/* Passenger Forms */}
+                <div className="space-y-6">
+                  {passengers.map((passenger, index) => (
+                    <div key={index} className="space-y-4 p-4 border rounded-lg">
+                      <h4 className="font-semibold">Hành khách {index + 1}</h4>
                       
-                      <div className="space-y-2">
-                        <Label htmlFor={`dob-${index}`}>Ngày sinh</Label>
-                        <Input
-                          id={`dob-${index}`}
-                          type="date"
-                          value={passenger.dob}
-                          onChange={(e) => handlePassengerChange(index, 'dob', e.target.value)}
-                        />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor={`name-${index}`}>Họ và tên *</Label>
+                          <Input
+                            id={`name-${index}`}
+                            placeholder="Nhập họ và tên"
+                            value={passenger.name}
+                            onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor={`dob-${index}`}>Ngày sinh</Label>
+                          <Input
+                            id={`dob-${index}`}
+                            type="date"
+                            value={passenger.dob}
+                            onChange={(e) => handlePassengerChange(index, 'dob', e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <Label>Chọn ghế *</Label>
-                        {passenger.seat_id && (
+                      {passenger.seat_id && (
+                        <div className="mt-2">
                           <Badge variant="secondary">
-                            Đã chọn: {availableSeats.find(s => s.seat_id === passenger.seat_id)?.seat_number}
+                            Ghế đã chọn: {availableSeats.find(s => s.seat_id === passenger.seat_id)?.seat_number}
                           </Badge>
-                        )}
-                      </div>
-                      {renderSeatMap(index)}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+
+                {/* Seat Map */}
+                <div className="mt-8">
+                  {renderSeatMap()}
+                </div>
               </CardContent>
             </Card>
           </div>
