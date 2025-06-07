@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { NewsManagerPage } from "./dashboard-contents/NewsManagerPage";
 import { PlanesManagerPage } from "./dashboard-contents/PlanesManagerPage";
 import FlightsManagerPage from "./dashboard-contents/FlightsManagerPage";
+import { BookingManagerPage } from "./dashboard-contents/BookingManagerPage";
 import { DashboardNavigation } from "@/components/admin/navigation/DashboardNavigation";
 import { AdminHeader } from "@/components/admin/navigation/AdminHeader";
 import { Card } from "@/components/ui/card";
@@ -67,6 +68,8 @@ const AdminDashboardContent = ({ index, onTabSelect }) => {
       return <PlanesManagerPage />;
     case 3:
       return <FlightsManagerPage />;
+    case 4:
+      return <BookingManagerPage />;
     default:
       return <DashboardOverview onTabSelect={onTabSelect} />
   }
@@ -392,7 +395,8 @@ const DashboardOverview = ({ onTabSelect }) => {
           {[
             { label: "Quản lý tin tức", action: () => onTabSelect(1) },
             { label: "Quản lý máy bay", action: () => onTabSelect(2) },
-            { label: "Quản lý chuyến bay", action: () => onTabSelect(3) }
+            { label: "Quản lý chuyến bay", action: () => onTabSelect(3) },
+            { label: "Quản lý đặt chỗ", action: () => onTabSelect(4) }
           ].map((item, index) => (
             <button
               key={index}

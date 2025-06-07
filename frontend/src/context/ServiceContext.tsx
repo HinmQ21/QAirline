@@ -7,6 +7,9 @@ export const serviceContainer = {
   userContext: new UserContext(),
   preBookingContext: new PreBookingContext(),
   adminApi: adminApi,
+  flightApi: {
+    getAllFlights: adminApi.getAllFlights,
+  }
 }
 
 export const ServiceContext = createContext<typeof serviceContainer | undefined>(undefined);

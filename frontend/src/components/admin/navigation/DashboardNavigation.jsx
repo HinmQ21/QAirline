@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import toast from 'react-hot-toast';
 import { LogoutButton } from "./LogoutButton";
 import { NavigationIcon } from "./NavigationIcon";
-import { Home, PenTool, Plane, BarChart3, MapPin } from "lucide-react";
+import { Home, PenTool, Plane, BarChart3, MapPin, Calendar } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { icon: PenTool, iconLabel: "Tin tức", description: "Quản lý tin tức & thông báo" },
   { icon: Plane, iconLabel: "Máy bay", description: "Quản lý đội bay" },
   { icon: MapPin, iconLabel: "Chuyến bay", description: "Quản lý chuyến bay" },
+  { icon: Calendar, iconLabel: "Đặt vé", description: "Quản lý đặt vé khách hàng" },
 ];
 
 export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (

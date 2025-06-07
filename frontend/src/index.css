@@ -59,6 +59,26 @@
   .backdrop-blur-sm {
     backdrop-filter: blur(4px);
   }
+
+  /* Select dropdown improvements */
+  .select-content {
+    @apply relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md;
+  }
+
+  .select-viewport {
+    @apply p-1;
+  }
+
+  /* Ensure proper z-index stacking for Select components */
+  [data-radix-select-content] {
+    z-index: 9999 !important;
+    position: fixed !important;
+  }
+
+  /* Prevent body scroll blocking when dropdown is open */
+  [data-radix-select-trigger][data-state="open"] ~ * {
+    pointer-events: auto !important;
+  }
 }
 
 #fp-nav ul li a span {

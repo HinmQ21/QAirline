@@ -62,10 +62,15 @@ const getFlightById = async (flight_id: number) => {
   return (await adminAxios.get(`/flights/${flight_id}`)).data.data;
 };
 
+const getAllFlights = async () => {
+  return (await adminAxios.get('/flights')).data;
+};
+
 export const flightApiObject = {
   createFlight,
   updateFlight,
   deleteFlight,
   getFlights,
   getFlightById,
+  getAllFlights,
 }; 

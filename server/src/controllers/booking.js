@@ -586,3 +586,236 @@ exports.generateBookingConfirmation = async (req, res) => {
     });
   }
 };
+
+/**
+ * @desc    Get all bookings for admin
+ * @route   GET /api/admin/bookings
+ * @access  Private (Admin only)
+ */
+exports.getAllBookingsForAdmin = async (req, res) => {
+  try {
+    const { page = 1, limit = 20, flight_id, status, search } = req.query;
+    const offset = (page - 1) * limit;
+
+    // Log để debug
+    console.log('Search query:', { page, limit, flight_id, status, search });
+
+    // Build where clause
+    let whereClause = {};
+    
+    if (flight_id) {
+      whereClause.flight_id = flight_id;
+    }
+    
+    if (status) {
+      whereClause.status = status;
+    }
+
+    // Build customer include với điều kiện tìm kiếm
+    let customerInclude = {
+      model: Customer,
+      attributes: ['customer_id', 'full_name', 'email', 'phone']
+    };
+
+    // Chỉ thêm where khi có search
+    if (search && search.trim()) {
+      customerInclude.where = {
+        email: { [Op.like]: `%${search.trim()}%` }
+      };
+      console.log('Applied search filter:', customerInclude.where);
+    }
+
+    const { count, rows } = await Booking.findAndCountAll({
+      where: whereClause,
+      include: [
+        customerInclude,
+        {
+          model: Flight,
+          attributes: ['flight_id', 'flight_number', 'departure_time', 'arrival_time', 'status'],
+          include: [
+            { 
+              model: Airport, 
+              as: 'departureAirport',
+              attributes: ['name', 'code', 'city']
+            },
+            { 
+              model: Airport, 
+              as: 'arrivalAirport',
+              attributes: ['name', 'code', 'city'] 
+            }
+          ]
+        },
+        {
+          model: Ticket,
+          attributes: ['ticket_id', 'passenger_name', 'price'],
+          include: [
+            {
+              model: Seat,
+              attributes: ['seat_number', 'class']
+            }
+          ]
+        }
+      ],
+      order: [['booking_date', 'DESC']],
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+
+    console.log(`Found ${count} bookings, returning ${rows.length} rows`);
+
+    res.status(200).json({
+      success: true,
+      data: rows,
+      pagination: {
+        total: count,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        totalPages: Math.ceil(count / limit)
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching bookings for admin:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi lấy danh sách đặt vé',
+      error: process.env.NODE_ENV === 'production' ? {} : error
+    });
+  }
+};
+
+/**
+ * @desc    Get booking statistics for admin
+ * @route   GET /api/admin/bookings/stats
+ * @access  Private (Admin only)
+ */
+exports.getBookingStats = async (req, res) => {
+  try {
+    const { flight_id } = req.query;
+    
+    // Base stats
+    let whereClause = {};
+    if (flight_id) {
+      whereClause.flight_id = flight_id;
+    }
+
+    // Total bookings
+    const totalBookings = await Booking.count({
+      where: whereClause
+    });
+
+    // Bookings by status
+    const bookingsByStatus = await Booking.findAll({
+      where: whereClause,
+      attributes: [
+        'status',
+        [Booking.sequelize.fn('COUNT', Booking.sequelize.col('booking_id')), 'count']
+      ],
+      group: ['status']
+    });
+
+    // Revenue stats
+    const revenueStats = await Booking.findOne({
+      where: { ...whereClause, status: 'booked' },
+      attributes: [
+        [Booking.sequelize.fn('SUM', Booking.sequelize.col('total_price')), 'totalRevenue'],
+        [Booking.sequelize.fn('AVG', Booking.sequelize.col('total_price')), 'avgBookingValue']
+      ]
+    });
+
+    // Bookings by month for the last 6 months
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const monthlyBookings = await Booking.findAll({
+      where: {
+        ...whereClause,
+        booking_date: {
+          [Op.gte]: sixMonthsAgo
+        }
+      },
+      attributes: [
+        [Booking.sequelize.fn('DATE_FORMAT', Booking.sequelize.col('booking_date'), '%Y-%m'), 'month'],
+        [Booking.sequelize.fn('COUNT', Booking.sequelize.col('booking_id')), 'count'],
+        [Booking.sequelize.fn('SUM', Booking.sequelize.col('total_price')), 'revenue']
+      ],
+      group: [Booking.sequelize.fn('DATE_FORMAT', Booking.sequelize.col('booking_date'), '%Y-%m')],
+      order: [[Booking.sequelize.fn('DATE_FORMAT', Booking.sequelize.col('booking_date'), '%Y-%m'), 'ASC']]
+    });
+
+    // Top routes (if not filtering by flight_id)
+    let topRoutes = [];
+    if (!flight_id) {
+      try {
+        // Sử dụng raw query đơn giản để tránh lỗi ambiguous column
+        const topRoutesRaw = await Booking.sequelize.query(`
+          SELECT 
+            f.flight_number,
+            da.code as departure_code,
+            da.city as departure_city,
+            aa.code as arrival_code,
+            aa.city as arrival_city,
+            COUNT(b.booking_id) as bookingCount,
+            SUM(b.total_price) as revenue
+          FROM booking b
+          LEFT JOIN flight f ON b.flight_id = f.flight_id
+          LEFT JOIN airport da ON f.departure_airport_id = da.airport_id
+          LEFT JOIN airport aa ON f.arrival_airport_id = aa.airport_id
+          WHERE b.status = 'booked'
+          GROUP BY b.flight_id, f.flight_number, da.code, da.city, aa.code, aa.city
+          ORDER BY COUNT(b.booking_id) DESC
+          LIMIT 5
+        `, { 
+          type: Booking.sequelize.QueryTypes.SELECT 
+        });
+
+        topRoutes = topRoutesRaw.map(route => ({
+          flight: {
+            number: route.flight_number,
+            departure: {
+              code: route.departure_code,
+              city: route.departure_city
+            },
+            arrival: {
+              code: route.arrival_code,
+              city: route.arrival_city
+            }
+          },
+          bookingCount: parseInt(route.bookingCount),
+          revenue: parseFloat(route.revenue)
+        }));
+      } catch (topRoutesError) {
+        console.error('Error fetching top routes:', topRoutesError);
+        // Nếu lỗi thì trả về array rỗng
+        topRoutes = [];
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        totalBookings,
+        bookingsByStatus: bookingsByStatus.map(item => ({
+          status: item.status,
+          count: parseInt(item.getDataValue('count'))
+        })),
+        revenue: {
+          total: parseFloat(revenueStats?.getDataValue('totalRevenue') || 0),
+          average: parseFloat(revenueStats?.getDataValue('avgBookingValue') || 0)
+        },
+        monthlyTrends: monthlyBookings.map(item => ({
+          month: item.getDataValue('month'),
+          count: parseInt(item.getDataValue('count')),
+          revenue: parseFloat(item.getDataValue('revenue'))
+        })),
+        topRoutes: topRoutes
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching booking statistics:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi lấy thống kê đặt vé',
+      error: process.env.NODE_ENV === 'production' ? {} : error
+    });
+  }
+};

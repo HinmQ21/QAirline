@@ -56,4 +56,18 @@ export interface AdminApiInterface {
     status?: string;
   }) => Promise<any>;
   getFlightById: (flight_id: number) => Promise<any>;
+  getAllFlights: () => Promise<any>;
+
+  // Bookings
+  getAllBookings: (params?: {
+    page?: number;
+    limit?: number;
+    flight_id?: string;
+    status?: string;
+    search?: string;
+  }) => Promise<any>;
+  getBookingStats: (params?: {
+    flight_id?: string;
+  }) => Promise<any>;
+  getBookingById: (bookingId: number) => Promise<any>;
 }

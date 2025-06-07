@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/admin');
 const { authenticateAdmin } = require('../middleware/auth');
+const bookingController = require('../controllers/booking');
 
 /**
  * @swagger
@@ -264,6 +265,157 @@ router.put('/users/:admin_id', authenticateAdmin, adminController.updateAdmin);
  *         description: "Lỗi máy chủ"
  */
 router.delete('/users/:admin_id', authenticateAdmin, adminController.deleteAdmin);
+
+// Booking management routes
+
+/**
+ * @swagger
+ * /api/admin/bookings:
+ *   get:
+ *     summary: Lấy danh sách tất cả đặt vé cho admin
+ *     tags: [Admin Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: "Số trang"
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *         description: "Số lượng kết quả mỗi trang"
+ *       - in: query
+ *         name: flight_id
+ *         schema:
+ *           type: integer
+ *         description: "Lọc theo ID chuyến bay"
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [booked, cancelled]
+ *         description: "Lọc theo trạng thái đặt vé"
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: "Tìm kiếm theo tên, email hoặc số điện thoại khách hàng"
+ *     responses:
+ *       200:
+ *         description: "Danh sách đặt vé"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: integer
+ *                     page:
+ *                       type: integer
+ *                     limit:
+ *                       type: integer
+ *                     totalPages:
+ *                       type: integer
+ *       401:
+ *         description: "Chưa xác thực"
+ *       403:
+ *         description: "Không có quyền truy cập"
+ *       500:
+ *         description: "Lỗi server"
+ */
+router.get('/bookings', authenticateAdmin, bookingController.getAllBookingsForAdmin);
+
+/**
+ * @swagger
+ * /api/admin/bookings/stats:
+ *   get:
+ *     summary: Lấy thống kê đặt vé cho admin
+ *     tags: [Admin Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: flight_id
+ *         schema:
+ *           type: integer
+ *         description: "Lọc thống kê theo ID chuyến bay"
+ *     responses:
+ *       200:
+ *         description: "Thống kê đặt vé"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalBookings:
+ *                       type: integer
+ *                     bookingsByStatus:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           status:
+ *                             type: string
+ *                           count:
+ *                             type: integer
+ *                     revenue:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                         average:
+ *                           type: number
+ *                     monthlyTrends:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           month:
+ *                             type: string
+ *                           count:
+ *                             type: integer
+ *                           revenue:
+ *                             type: number
+ *                     topRoutes:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *       401:
+ *         description: "Chưa xác thực"
+ *       403:
+ *         description: "Không có quyền truy cập"
+ *       500:
+ *         description: "Lỗi server"
+ */
+router.get('/bookings/stats', authenticateAdmin, bookingController.getBookingStats);
+
+/**
+ * @swagger
+ * tags:
+ *   name: Admin Bookings
+ *   description: "Quản lý đặt vé cho admin"
+ */
 
 /**
  * @swagger
