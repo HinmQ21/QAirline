@@ -64,10 +64,10 @@ export const HomePage = () => {
             <div className="z-10 flex-1 flex flex-col justify-center items-center text-center px-4">
               <div data-animate className="space-y-6 max-w-4xl mx-auto">
                 <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                  Your Journey <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Starts Here</span>
+                  Hành Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Bắt Đầu Từ Đây</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-                  Discover amazing destinations with the best flight deals around the world
+                  Khám phá những điểm đến tuyệt vời với những chuyến bay giá tốt nhất trên toàn thế giới
                 </p>
 
                 {/* Stats */}
@@ -77,21 +77,21 @@ export const HomePage = () => {
                       <Users className="text-blue-400 w-6 h-6" />
                     </div>
                     <div className="text-2xl font-bold text-white">1M+</div>
-                    <div className="text-gray-300 text-sm">Happy Travelers</div>
+                    <div className="text-gray-300 text-sm">Hành Khách Hài Lòng</div>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-2">
                       <Globe className="text-green-400 w-6 h-6" />
                     </div>
                     <div className="text-2xl font-bold text-white">500+</div>
-                    <div className="text-gray-300 text-sm">Destinations</div>
+                    <div className="text-gray-300 text-sm">Điểm Đến</div>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-2">
                       <Star className="text-yellow-400 w-6 h-6" />
                     </div>
                     <div className="text-2xl font-bold text-white">4.9</div>
-                    <div className="text-gray-300 text-sm">Rating</div>
+                    <div className="text-gray-300 text-sm">Đánh Giá</div>
                   </div>
                 </div>
               </div>
@@ -130,16 +130,16 @@ export const HomePage = () => {
           <div className="min-h-screen flex flex-col justify-between">
             <div className={`${css.minipage.xl} mt-25 mb-10 ${css.minipagemx}`}>
               <div className="flex flex-col items-center my-10 gap-6" data-animate>
-                <h2 className={`${css.headerText} text-center`}>Coming Soon</h2>
+                <h2 className={`${css.headerText} text-center`}>Sắp Ra Mắt</h2>
                 <p className="text-gray-600 text-center max-w-2xl">
-                  We're working on exciting new features to make your travel experience even better
+                  Chúng tôi đang phát triển những tính năng mới thú vị để mang đến trải nghiệm du lịch tốt hơn cho bạn
                 </p>
                 <div className="relative">
                   <img
                     src="/miscs/coming-soon.gif"
                     loading="lazy"
                     className="rounded-lg shadow-2xl max-w-md w-full"
-                    alt="Coming Soon"
+                    alt="Sắp Ra Mắt"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-lg"></div>
                 </div>

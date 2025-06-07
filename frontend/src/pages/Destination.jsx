@@ -26,68 +26,68 @@ const destinationsData = [
   {
     id: 1,
     name: 'Paris',
-    country: 'France',
-    continent: 'Europe',
+    country: 'Pháp',
+    continent: 'Châu Âu',
     image: 'https://images.unsplash.com/photo-1549144511-f099e773c147?w=500&h=300&fit=crop',
     price: '$899',
     rating: 4.8,
     reviews: 2547,
-    category: 'Romance',
-    description: 'The City of Light awaits with its iconic landmarks, world-class cuisine, and romantic atmosphere.',
-    highlights: ['Eiffel Tower', 'Louvre Museum', 'Seine River Cruise'],
-    bestTime: 'Apr-Oct',
-    duration: '5-7 days',
+    category: 'Lãng mạn',
+    description: 'Thành phố ánh sáng chào đón bạn với những địa danh biểu tượng, ẩm thực đẳng cấp thế giới và bầu không khí lãng mạn.',
+    highlights: ['Tháp Eiffel', 'Bảo tàng Louvre', 'Du thuyền sông Seine'],
+    bestTime: 'Tháng 4-10',
+    duration: '5-7 ngày',
     isPopular: true,
     isTrending: false
   },
   {
     id: 2,
     name: 'Tokyo',
-    country: 'Japan',
-    continent: 'Asia',
+    country: 'Nhật Bản',
+    continent: 'Châu Á',
     image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&h=300&fit=crop',
     price: '$1,299',
     rating: 4.9,
     reviews: 3421,
-    category: 'Culture',
-    description: 'Experience the perfect blend of traditional culture and cutting-edge technology.',
-    highlights: ['Shibuya Crossing', 'Mount Fuji', 'Traditional Temples'],
-    bestTime: 'Mar-May',
-    duration: '7-10 days',
+    category: 'Văn hóa',
+    description: 'Trải nghiệm sự kết hợp hoàn hảo giữa văn hóa truyền thống và công nghệ hiện đại.',
+    highlights: ['Ngã tư Shibuya', 'Núi Phú Sĩ', 'Đền chùa truyền thống'],
+    bestTime: 'Tháng 3-5',
+    duration: '7-10 ngày',
     isPopular: true,
     isTrending: true
   },
   {
     id: 3,
     name: 'Santorini',
-    country: 'Greece',
-    continent: 'Europe',
+    country: 'Hy Lạp',
+    continent: 'Châu Âu',
     image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=500&h=300&fit=crop',
     price: '$1,199',
     rating: 4.7,
     reviews: 1876,
-    category: 'Beach',
-    description: 'Stunning sunsets, white-washed buildings, and crystal-clear waters await.',
-    highlights: ['Oia Sunset', 'Blue Domes', 'Volcanic Beaches'],
-    bestTime: 'May-Sep',
-    duration: '4-6 days',
+    category: 'Biển',
+    description: 'Hoàng hôn tuyệt đẹp, những tòa nhà trắng và làn nước trong vắt đang chờ đón bạn.',
+    highlights: ['Hoàng hôn Oia', 'Mái vòm xanh', 'Bãi biển núi lửa'],
+    bestTime: 'Tháng 5-9',
+    duration: '4-6 ngày',
     isPopular: false,
     isTrending: true
   },
   {
     id: 4,
     name: 'New York',
-    country: 'USA',
-    continent: 'North America',
+    country: 'Hoa Kỳ',
+    continent: 'Bắc Mỹ',
     image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&h=300&fit=crop',
     price: '$1,099',
     rating: 4.6,
     reviews: 4532,
-    category: 'City',
-    description: 'The city that never sleeps offers endless entertainment and iconic sights.',
-    highlights: ['Statue of Liberty', 'Central Park', 'Broadway Shows'],
-    bestTime: 'Apr-Jun',
-    duration: '4-7 days',
+    category: 'Thành phố',
+    description: 'Thành phố không bao giờ ngủ với vô số giải trí và những địa danh biểu tượng.',
+    highlights: ['Tượng Nữ thần Tự do', 'Công viên Trung tâm', 'Show Broadway'],
+    bestTime: 'Tháng 4-6',
+    duration: '4-7 ngày',
     isPopular: true,
     isTrending: false
   },
@@ -95,16 +95,16 @@ const destinationsData = [
     id: 5,
     name: 'Bali',
     country: 'Indonesia',
-    continent: 'Asia',
+    continent: 'Châu Á',
     image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=500&h=300&fit=crop',
     price: '$799',
     rating: 4.8,
     reviews: 2891,
-    category: 'Beach',
-    description: 'Tropical paradise with beautiful beaches, ancient temples, and vibrant culture.',
-    highlights: ['Rice Terraces', 'Beach Clubs', 'Hindu Temples'],
-    bestTime: 'Apr-Oct',
-    duration: '7-14 days',
+    category: 'Biển',
+    description: 'Thiên đường nhiệt đới với những bãi biển đẹp, đền cổ và văn hóa sôi động.',
+    highlights: ['Ruộng bậc thang', 'Câu lạc bộ bãi biển', 'Đền Hindu'],
+    bestTime: 'Tháng 4-10',
+    duration: '7-14 ngày',
     isPopular: true,
     isTrending: true
   },
@@ -112,39 +112,39 @@ const destinationsData = [
     id: 6,
     name: 'Dubai',
     country: 'UAE',
-    continent: 'Asia',
+    continent: 'Châu Á',
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&h=300&fit=crop',
     price: '$1,399',
     rating: 4.5,
     reviews: 1654,
-    category: 'Luxury',
-    description: 'Ultra-modern city with luxury shopping, stunning architecture, and desert adventures.',
-    highlights: ['Burj Khalifa', 'Desert Safari', 'Luxury Malls'],
-    bestTime: 'Nov-Mar',
-    duration: '3-5 days',
+    category: 'Sang trọng',
+    description: 'Thành phố siêu hiện đại với mua sắm xa xỉ, kiến trúc ấn tượng và những cuộc phiêu lưu sa mạc.',
+    highlights: ['Tòa tháp Burj Khalifa', 'Safari sa mạc', 'Trung tâm mua sắm sang trọng'],
+    bestTime: 'Tháng 11-3',
+    duration: '3-5 ngày',
     isPopular: false,
     isTrending: true
   }
 ];
 
 const categories = [
-  { name: 'All', icon: Globe, color: 'bg-gray-100 text-gray-700' },
-  { name: 'Beach', icon: Waves, color: 'bg-blue-100 text-blue-700' },
-  { name: 'City', icon: Building, color: 'bg-purple-100 text-purple-700' },
-  { name: 'Culture', icon: Camera, color: 'bg-green-100 text-green-700' },
-  { name: 'Romance', icon: Heart, color: 'bg-pink-100 text-pink-700' },
-  { name: 'Luxury', icon: Star, color: 'bg-yellow-100 text-yellow-700' }
+  { name: 'Tất cả', icon: Globe, color: 'bg-gray-100 text-gray-700' },
+  { name: 'Biển', icon: Waves, color: 'bg-blue-100 text-blue-700' },
+  { name: 'Thành phố', icon: Building, color: 'bg-purple-100 text-purple-700' },
+  { name: 'Văn hóa', icon: Camera, color: 'bg-green-100 text-green-700' },
+  { name: 'Lãng mạn', icon: Heart, color: 'bg-pink-100 text-pink-700' },
+  { name: 'Sang trọng', icon: Star, color: 'bg-yellow-100 text-yellow-700' }
 ];
 
 const DestinationsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedContinent, setSelectedContinent] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Tất cả');
+  const [selectedContinent, setSelectedContinent] = useState('Tất cả');
   const [filteredDestinations, setFilteredDestinations] = useState(destinationsData);
   const [showFilters, setShowFilters] = useState(false);
   const [favorites, setFavorites] = useState(new Set());
 
-  const continents = ['All', 'Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania'];
+  const continents = ['Tất cả', 'Châu Âu', 'Châu Á', 'Bắc Mỹ', 'Nam Mỹ', 'Châu Phi', 'Châu Đại Dương'];
 
   useEffect(() => {
     let filtered = destinationsData;
@@ -159,12 +159,12 @@ const DestinationsPage = () => {
     }
 
     // Category filter
-    if (selectedCategory !== 'All') {
+    if (selectedCategory !== 'Tất cả') {
       filtered = filtered.filter(dest => dest.category === selectedCategory);
     }
 
     // Continent filter
-    if (selectedContinent !== 'All') {
+    if (selectedContinent !== 'Tất cả') {
       filtered = filtered.filter(dest => dest.continent === selectedContinent);
     }
 
@@ -195,13 +195,13 @@ const DestinationsPage = () => {
           {destination.isPopular && (
             <Badge className="bg-red-500 text-white border-none">
               <Star className="w-3 h-3 mr-1" />
-              Popular
+              Phổ biến
             </Badge>
           )}
           {destination.isTrending && (
             <Badge className="bg-green-500 text-white border-none">
               <TrendingUp className="w-3 h-3 mr-1" />
-              Trending
+              Xu hướng
             </Badge>
           )}
         </div>
@@ -219,7 +219,7 @@ const DestinationsPage = () => {
         {/* Price tag */}
         <div className="absolute bottom-4 right-4">
           <div className="bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            From {destination.price}
+            Từ {destination.price}
           </div>
         </div>
       </div>
@@ -238,7 +238,7 @@ const DestinationsPage = () => {
               <Star className="w-4 h-4 text-yellow-500 mr-1" />
               <span className="font-semibold">{destination.rating}</span>
             </div>
-            <div className="text-xs text-gray-500">{destination.reviews} reviews</div>
+            <div className="text-xs text-gray-500">{destination.reviews} đánh giá</div>
           </div>
         </div>
 
@@ -250,7 +250,7 @@ const DestinationsPage = () => {
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center text-gray-600">
               <Calendar className="w-4 h-4 mr-1" />
-              Best time: {destination.bestTime}
+              Thời gian tốt nhất: {destination.bestTime}
             </div>
             <div className="flex items-center text-gray-600">
               <Users className="w-4 h-4 mr-1" />
@@ -266,7 +266,7 @@ const DestinationsPage = () => {
             ))}
             {destination.highlights.length > 2 && (
               <Badge variant="outline" className="text-xs">
-                +{destination.highlights.length - 2} more
+                +{destination.highlights.length - 2} điểm khác
               </Badge>
             )}
           </div>
@@ -274,7 +274,7 @@ const DestinationsPage = () => {
 
         <Button className="w-full bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white">
           <Plane className="w-4 h-4 mr-2" />
-          Book Flight
+          Đặt chuyến bay
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
@@ -289,10 +289,10 @@ const DestinationsPage = () => {
         <div className="relative z-10 px-4 py-20 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Discover Amazing <span className="text-pink-300">Destinations</span>
+              Khám phá những <span className="text-pink-300">Điểm đến</span> tuyệt vời
             </h1>
             <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-              Explore the world's most beautiful places and create unforgettable memories
+              Khám phá những địa điểm đẹp nhất thế giới và tạo nên những kỷ niệm khó quên
             </p>
             
             {/* Search bar */}
@@ -301,7 +301,7 @@ const DestinationsPage = () => {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Search destinations, countries, or experiences..."
+                  placeholder="Tìm kiếm điểm đến, quốc gia hoặc trải nghiệm..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 text-lg bg-white text-gray-900 rounded-2xl border border-gray-200 focus:ring-4 focus:ring-pink-300/50 focus:outline-none focus:border-pink-300 shadow-xl transition-all duration-200"
@@ -322,7 +322,7 @@ const DestinationsPage = () => {
           <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-pink-950 bg-clip-text text-transparent">
-                Explore by Category
+                Khám phá theo danh mục
               </h2>
               <Button 
                 variant="outline" 
@@ -331,7 +331,7 @@ const DestinationsPage = () => {
                 className="flex items-center lg:hidden"
               >
                 <Filter className="w-4 h-4 mr-2" />
-                Filters
+                Bộ lọc
               </Button>
             </div>
 
@@ -359,7 +359,7 @@ const DestinationsPage = () => {
 
             {/* Continent filter */}
             <div className={`${showFilters ? 'block' : 'hidden lg:block'}`}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Filter by Continent</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Lọc theo châu lục</h3>
               <div className="flex flex-wrap gap-2">
                 {continents.map((continent) => (
                   <button
@@ -383,22 +383,22 @@ const DestinationsPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  {filteredDestinations.length} destinations found
+                  Tìm thấy {filteredDestinations.length} điểm đến
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  {searchTerm && `Showing results for "${searchTerm}"`}
-                  {selectedCategory !== 'All' && ` in ${selectedCategory} category`}
-                  {selectedContinent !== 'All' && ` in ${selectedContinent}`}
+                  {searchTerm && `Hiển thị kết quả cho "${searchTerm}"`}
+                  {selectedCategory !== 'Tất cả' && ` trong danh mục ${selectedCategory}`}
+                  {selectedContinent !== 'Tất cả' && ` tại ${selectedContinent}`}
                 </p>
               </div>
               <div className="flex items-center space-x-2">
                 <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
                   <Globe className="w-3 h-3 mr-1" />
-                  {filteredDestinations.filter(d => d.isPopular).length} Popular
+                  {filteredDestinations.filter(d => d.isPopular).length} Phổ biến
                 </Badge>
                 <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">
                   <TrendingUp className="w-3 h-3 mr-1" />
-                  {filteredDestinations.filter(d => d.isTrending).length} Trending
+                  {filteredDestinations.filter(d => d.isTrending).length} Xu hướng
                 </Badge>
               </div>
             </div>
@@ -416,21 +416,21 @@ const DestinationsPage = () => {
               <div className="max-w-md mx-auto">
                 <Globe className="h-20 w-20 text-gray-300 mx-auto mb-6" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  No destinations found
+                  Không tìm thấy điểm đến nào
                 </h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">
-                  We couldn't find any destinations matching your search criteria. Try adjusting your filters or search terms.
+                  Chúng tôi không tìm thấy điểm đến nào phù hợp với tiêu chí tìm kiếm của bạn. Hãy thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm.
                 </p>
                 <Button 
                   onClick={() => {
                     setSearchTerm('');
-                    setSelectedCategory('All');
-                    setSelectedContinent('All');
+                    setSelectedCategory('Tất cả');
+                    setSelectedContinent('Tất cả');
                   }}
                   className="bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  Show All Destinations
+                  Hiển thị tất cả điểm đến
                 </Button>
               </div>
             </div>
@@ -438,18 +438,18 @@ const DestinationsPage = () => {
 
           {/* Newsletter Section */}
           <div className="mt-16 bg-gradient-to-r from-gray-900 to-pink-950 rounded-2xl p-8 text-center text-white">
-            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
+            <h3 className="text-2xl font-bold mb-4">Cập nhật thông tin</h3>
             <p className="text-gray-100 mb-6 max-w-2xl mx-auto">
-              Get the latest travel deals and destination guides delivered to your inbox
+              Nhận những ưu đãi du lịch mới nhất và hướng dẫn điểm đến qua email
             </p>
             <div className="max-w-md mx-auto flex gap-3">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Nhập email của bạn"
                 className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
               <Button className="bg-white text-gray-800 hover:bg-gray-100 px-6">
-                Subscribe
+                Đăng ký
               </Button>
             </div>
           </div>

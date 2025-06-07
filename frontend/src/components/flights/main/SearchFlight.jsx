@@ -586,14 +586,21 @@ export const SearchFlight = ({
               )}
 
               {/* Price Filter */}
-              <div className="space-y-3">
+              <div className="space-y-3 mt-2">
                 <Label className="text-sm font-semibold text-gray-700">Giá tối đa (VND)</Label>
                 <div className="relative">
                   <Input
                     type="number"
                     placeholder="Nhập ngân sách tối đa"
                     value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
+                    min="0"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Chỉ cập nhật nếu value là số dương hoặc chuỗi rỗng
+                      if (value === "" || parseInt(value) >= 0) {
+                        setMaxPrice(value);
+                      }
+                    }}
                     className="h-12 pl-10 border-2 hover:border-gray-300 transition-colors"
                   />
                   <div className="absolute left-3 top-3 text-gray-400">₫</div>

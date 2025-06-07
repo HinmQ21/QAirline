@@ -466,7 +466,7 @@ export default function FlightsPage() {
                             <div className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-pink-950 bg-clip-text text-transparent">
                               {totalFlights}
                             </div>
-                            <div className="text-sm text-gray-600 font-medium">flights available</div>
+                            <div className="text-sm text-gray-600 font-medium">chuyến bay khả dụng</div>
                             <div className="flex items-center justify-end mt-1">
                               <Star className="w-4 h-4 text-pink-500 mr-1" />
                               <span className="text-xs text-gray-500">Đảm bảo giá tốt nhất</span>

@@ -100,25 +100,25 @@ export const BookAvailability = () => {
     try {
       const res = await clientApi.getFlight();
       if (res) {
-        console.log("Flight list fetched successfully:", res.data);
+        console.log("Lấy danh sách chuyến bay thành công:", res.data);
         return res.data;
       }
     } catch (error) {
-      console.error("Error fetching flight list:", error);
+      console.error("Lỗi khi lấy danh sách chuyến bay:", error);
       return [];
     }
   }
 
   useEffect(() => {
     const fetchFlights = async () => {
-      console.log("attempting to fetch flights");
+      console.log("Đang thử lấy danh sách chuyến bay");
       const flights = await getFlightList();
       setFlights(flights);
     };
     try {
       fetchFlights();
     } catch (error) {
-      console.error("Error fetching flights:", error);
+      console.error("Lỗi khi lấy danh sách chuyến bay:", error);
     }
   }, []);
 
