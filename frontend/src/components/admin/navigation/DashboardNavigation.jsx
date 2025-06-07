@@ -44,10 +44,6 @@ export const DashboardNavigation = ({ selectedTab, onTabSelect }) => (
                   `} 
                 />
                 
-                {/* Active indicator */}
-                {selectedTab === idx && (
-                  <div className="absolute -right-[1px] top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-l-full" />
-                )}
               </button>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={12} className="bg-slate-800 border-slate-700">
