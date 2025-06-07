@@ -155,15 +155,7 @@ export const SearchFlight = ({
   };
   
   return (
-    <div className="w-full max-w-7xl mx-auto mb-8">
-      {/* Header */}
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-4">
-          <Plane className="h-4 w-4 text-blue-600 mr-2" />
-          <span className="text-sm font-medium text-blue-800">Tìm Chuyến Bay</span>
-        </div>
-      </div>
-
+    <div className="w-full max-w-7xl mx-auto">
       <Card className="border-2 border-gray-100 shadow-xl bg-gradient-to-br from-white to-gray-50">
         <CardContent className="p-8">
           <div className="space-y-8">

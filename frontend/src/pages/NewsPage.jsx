@@ -91,8 +91,8 @@ export const NewsPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Header */}
-      <div className={`relative overflow-hidden bg-gradient-to-r ${css.homepageGgGradient}`}>
-        <div className="absolute inset-0 bg-black/10"></div>
+      <div className={`relative overflow-x-clip`}>
+        <div className="absolute inset-0"></div>
         <div className="relative z-10 px-4 py-16 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
@@ -291,7 +291,7 @@ export const NewsPage = () => {
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="px-6 py-3 bg-gray-100 border border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 text-gray-700 font-medium transition-colors"
+                  className="px-4 py-1 bg-gray-100 border border-gray-500 rounded-xl disabled:opacity-70 disabled:cursor-not-allowed hover:bg-gray-200 text-gray-900 font-medium transition-colors"
                 >
                   Trước
                 </button>
@@ -302,9 +302,9 @@ export const NewsPage = () => {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${currentPage === page
+                      className={`px-3 py-1 rounded-xl font-semibold transition-all duration-200 ${currentPage === page
                         ? "bg-blue-600 text-white shadow-lg scale-105"
-                        : "bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200"
+                        : "bg-gray-100 text-gray-900 border border-gray-500 hover:bg-gray-200"
                         }`}
                     >
                       {page}
@@ -315,7 +315,7 @@ export const NewsPage = () => {
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="px-6 py-3 bg-gray-100 border border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 text-gray-700 font-medium transition-colors"
+                  className="px-4 py-1 bg-gray-100 border border-gray-500 rounded-xl disabled:opacity-70 disabled:cursor-not-allowed hover:bg-gray-200 text-gray-900 font-medium transition-colors"
                 >
                   Sau
                 </button>
