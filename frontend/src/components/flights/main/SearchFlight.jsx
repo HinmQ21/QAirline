@@ -50,7 +50,6 @@ export const SearchFlight = ({
   const [departureDate, setDepartureDate] = useState();
   const [returnDate, setReturnDate] = useState();
   const [isRoundTrip, setIsRoundTrip] = useState(false);
-  const [passengers, setPassengers] = useState(1);
   const [airports, setAirports] = useState([]);
   const [showDepartureAirports, setShowDepartureAirports] = useState(false);
   const [showArrivalAirports, setShowArrivalAirports] = useState(false);
@@ -193,27 +192,6 @@ export const SearchFlight = ({
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4 text-gray-500" />
-                <Label className="text-sm font-medium text-gray-700">Hành khách:</Label>
-                <div className="flex items-center border rounded-lg">
-                  <button
-                    type="button"
-                    className="px-3 py-1 text-gray-600 hover:text-gray-800"
-                    onClick={() => setPassengers(Math.max(1, passengers - 1))}
-                  >
-                    -
-                  </button>
-                  <span className="px-4 py-1 text-sm font-medium">{passengers}</span>
-                  <button
-                    type="button"
-                    className="px-3 py-1 text-gray-600 hover:text-gray-800"
-                    onClick={() => setPassengers(Math.min(9, passengers + 1))}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
             </div>
 
             {/* Main Search Form */}
