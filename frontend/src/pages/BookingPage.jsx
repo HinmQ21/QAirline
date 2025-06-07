@@ -392,193 +392,199 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      {/* Header */}
-      <div className="mb-6">
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto">
         <Button 
-          variant="ghost" 
+          variant="outline" 
           onClick={() => navigate(-1)}
-          className="mb-4"
+          className="mb-6 text-gray-400 border-gray-400 hover:bg-gray-700 hover:text-white hover:border-white transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft className="w-4 h-4 mr-2"/>
           Quay lại
         </Button>
-        <h1 className="text-3xl font-bold text-gray-900">Đặt vé chuyến bay</h1>
-        <p className="text-gray-600">Vui lòng điền thông tin hành khách và chọn ghế</p>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Flight Information */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Flight Details Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Plane className="w-5 h-5" />
-                Thông tin chuyến bay
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-semibold text-lg">{flight.flight_number}</p>
-                    <p className="text-gray-600">{flight.airline}</p>
-                  </div>
-                  <Badge variant="outline">{flight.status === 'scheduled' ? 'Đúng giờ' : flight.status}</Badge>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <MapPin className="w-4 h-4" />
-                      Điểm khởi hành
-                    </div>
-                    <p className="font-semibold">{flight.departureAirport?.name || 'N/A'}</p>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="w-4 h-4" />
-                      {dayjs(flight.departure_time).format('HH:mm, DD/MM/YYYY')}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <MapPin className="w-4 h-4" />
-                      Điểm đến
-                    </div>
-                    <p className="font-semibold">{flight.arrivalAirport?.name || 'N/A'}</p>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="w-4 h-4" />
-                      {dayjs(flight.arrival_time).format('HH:mm, DD/MM/YYYY')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Passenger Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5" />
-                Thông tin hành khách ({passengers.length} người)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {passengers.map((passenger, index) => (
-                <div key={index} className="space-y-4 p-4 border rounded-lg">
-                  <h4 className="font-semibold">Hành khách {index + 1}</h4>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor={`name-${index}`}>Họ và tên *</Label>
-                      <Input
-                        id={`name-${index}`}
-                        placeholder="Nhập họ và tên"
-                        value={passenger.name}
-                        onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor={`dob-${index}`}>Ngày sinh</Label>
-                      <Input
-                        id={`dob-${index}`}
-                        type="date"
-                        value={passenger.dob}
-                        onChange={(e) => handlePassengerChange(index, 'dob', e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Label>Chọn ghế *</Label>
-                      {passenger.seat_id && (
-                        <Badge variant="secondary">
-                          Đã chọn: {availableSeats.find(s => s.seat_id === passenger.seat_id)?.seat_number}
-                        </Badge>
-                      )}
-                    </div>
-                    {renderSeatMap(index)}
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+            Đặt vé chuyến bay
+          </h1>
+          <p className="text-gray-200 text-lg inter-semibold">
+            Vui lòng điền thông tin hành khách và chọn ghế
+          </p>
         </div>
 
-        {/* Booking Summary */}
-        <div className="space-y-6">
-          <Card className="sticky top-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5" />
-                Tóm tắt đặt vé
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span>Chuyến bay:</span>
-                  <span className="font-medium">{flight.flight_number}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Số hành khách:</span>
-                  <span className="font-medium">{passengers.length} người</span>
-                </div>
-                
-                <Separator />
-                
-                {passengers.map((passenger, index) => {
-                  if (!passenger.seat_id) return null;
-                  const seat = availableSeats.find(s => s.seat_id === passenger.seat_id);
-                  const ticketPrice = calculateTicketPrice(seat.class);
-                  
-                  return (
-                    <div key={index} className="space-y-1">
-                      <div className="flex justify-between text-sm">
-                        <span>Hành khách {index + 1}</span>
-                        <span className="font-medium">{formatCurrency(ticketPrice)}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Flight Information */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Flight Details Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Plane className="w-5 h-5" />
+                  Thông tin chuyến bay
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-lg">{flight.flight_number}</p>
+                      <p className="text-gray-600">{flight.airline}</p>
+                    </div>
+                    <Badge variant="outline">{flight.status === 'scheduled' ? 'Đúng giờ' : flight.status}</Badge>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <MapPin className="w-4 h-4" />
+                        Điểm khởi hành
                       </div>
-                      <div className="text-xs text-gray-500 pl-4">
-                        Ghế {seat?.seat_number} ({seat?.class === 'first' ? 'Hạng nhất' : 
-                                                   seat?.class === 'business' ? 'Hạng thương gia' : 'Hạng phổ thông'})
+                      <p className="font-semibold">{flight.departureAirport?.name || 'N/A'}</p>
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Clock className="w-4 h-4" />
+                        {dayjs(flight.departure_time).format('HH:mm, DD/MM/YYYY')}
                       </div>
                     </div>
-                  );
-                })}
-                
-                <Separator />
-                
-                <div className="flex justify-between font-bold text-lg">
-                  <span>Tổng cộng:</span>
-                  <span className="text-blue-600">{formatCurrency(calculateTotalPrice())}</span>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={handleSubmit}
-                disabled={submitting || passengers.some(p => !p.name.trim() || !p.seat_id)}
-                className="w-full"
-                size="lg"
-              >
-                {submitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Đang xử lý...
-                  </>
-                ) : (
-                  'Xác nhận đặt vé'
-                )}
-              </Button>
 
-              <p className="text-xs text-gray-500 text-center">
-                Bằng cách nhấn "Xác nhận đặt vé", bạn đồng ý với các điều khoản và điều kiện của chúng tôi.
-              </p>
-            </CardContent>
-          </Card>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <MapPin className="w-4 h-4" />
+                        Điểm đến
+                      </div>
+                      <p className="font-semibold">{flight.arrivalAirport?.name || 'N/A'}</p>
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Clock className="w-4 h-4" />
+                        {dayjs(flight.arrival_time).format('HH:mm, DD/MM/YYYY')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Passenger Information */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  Thông tin hành khách ({passengers.length} người)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {passengers.map((passenger, index) => (
+                  <div key={index} className="space-y-4 p-4 border rounded-lg">
+                    <h4 className="font-semibold">Hành khách {index + 1}</h4>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor={`name-${index}`}>Họ và tên *</Label>
+                        <Input
+                          id={`name-${index}`}
+                          placeholder="Nhập họ và tên"
+                          value={passenger.name}
+                          onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor={`dob-${index}`}>Ngày sinh</Label>
+                        <Input
+                          id={`dob-${index}`}
+                          type="date"
+                          value={passenger.dob}
+                          onChange={(e) => handlePassengerChange(index, 'dob', e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Label>Chọn ghế *</Label>
+                        {passenger.seat_id && (
+                          <Badge variant="secondary">
+                            Đã chọn: {availableSeats.find(s => s.seat_id === passenger.seat_id)?.seat_number}
+                          </Badge>
+                        )}
+                      </div>
+                      {renderSeatMap(index)}
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Booking Summary */}
+          <div className="space-y-6">
+            <Card className="sticky top-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CreditCard className="w-5 h-5" />
+                  Tóm tắt đặt vé
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span>Chuyến bay:</span>
+                    <span className="font-medium">{flight.flight_number}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span>Số hành khách:</span>
+                    <span className="font-medium">{passengers.length} người</span>
+                  </div>
+                  
+                  <Separator />
+                  
+                  {passengers.map((passenger, index) => {
+                    if (!passenger.seat_id) return null;
+                    const seat = availableSeats.find(s => s.seat_id === passenger.seat_id);
+                    const ticketPrice = calculateTicketPrice(seat.class);
+                    
+                    return (
+                      <div key={index} className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span>Hành khách {index + 1}</span>
+                          <span className="font-medium">{formatCurrency(ticketPrice)}</span>
+                        </div>
+                        <div className="text-xs text-gray-500 pl-4">
+                          Ghế {seat?.seat_number} ({seat?.class === 'first' ? 'Hạng nhất' : 
+                                                     seat?.class === 'business' ? 'Hạng thương gia' : 'Hạng phổ thông'})
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  <Separator />
+                  
+                  <div className="flex justify-between font-bold text-lg">
+                    <span>Tổng cộng:</span>
+                    <span className="text-blue-600">{formatCurrency(calculateTotalPrice())}</span>
+                  </div>
+                </div>
+                
+                <Button 
+                  onClick={handleSubmit}
+                  disabled={submitting || passengers.some(p => !p.name.trim() || !p.seat_id)}
+                  className="w-full"
+                  size="lg"
+                >
+                  {submitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Đang xử lý...
+                    </>
+                  ) : (
+                    'Xác nhận đặt vé'
+                  )}
+                </Button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  Bằng cách nhấn "Xác nhận đặt vé", bạn đồng ý với các điều khoản và điều kiện của chúng tôi.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

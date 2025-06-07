@@ -32,10 +32,10 @@ const popularDestinations = [
 ];
 
 const quickDateOptions = [
-  { label: 'Today', days: 0 },
-  { label: 'Tomorrow', days: 1 },
-  { label: 'This Weekend', days: 'weekend' },
-  { label: 'Next Week', days: 7 },
+  { label: 'Hôm nay', days: 0 },
+  { label: 'Ngày mai', days: 1 },
+  { label: 'Cuối tuần này', days: 'weekend' },
+  { label: 'Tuần sau', days: 7 },
 ];
 
 export const SearchFlight = ({ 
@@ -160,7 +160,7 @@ export const SearchFlight = ({
       <div className="text-center mb-6">
         <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-4">
           <Plane className="h-4 w-4 text-blue-600 mr-2" />
-          <span className="text-sm font-medium text-blue-800">Search Flights</span>
+          <span className="text-sm font-medium text-blue-800">Tìm Chuyến Bay</span>
         </div>
       </div>
 
@@ -171,7 +171,7 @@ export const SearchFlight = ({
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center space-x-6">
                 <div className="flex items-center space-x-4">
-                  <Label className="text-sm font-semibold text-gray-700">Trip Type:</Label>
+                  <Label className="text-sm font-semibold text-gray-700">Loại chuyến bay:</Label>
                   <div className="flex bg-gray-100 rounded-lg p-1">
                     <button
                       type="button"
@@ -183,7 +183,7 @@ export const SearchFlight = ({
                       )}
                       onClick={() => setIsRoundTrip(false)}
                     >
-                      One Way
+                      Một chiều
                     </button>
                     <button
                       type="button"
@@ -195,7 +195,7 @@ export const SearchFlight = ({
                       )}
                       onClick={() => setIsRoundTrip(true)}
                     >
-                      Round Trip
+                      Khứ hồi
                     </button>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export const SearchFlight = ({
 
               <div className="flex items-center space-x-2">
                 <Users className="h-4 w-4 text-gray-500" />
-                <Label className="text-sm font-medium text-gray-700">Passengers:</Label>
+                <Label className="text-sm font-medium text-gray-700">Hành khách:</Label>
                 <div className="flex items-center border rounded-lg">
                   <button
                     type="button"
@@ -230,7 +230,7 @@ export const SearchFlight = ({
               <div className="lg:col-span-2 space-y-2">
                 <Label className="text-sm font-semibold text-gray-700 flex items-center">
                   <MapPin className="w-4 h-4 mr-1 text-green-600" />
-                  Departure
+                  Điểm đi
                 </Label>
                 <Popover open={showDepartureAirports} onOpenChange={setShowDepartureAirports}>
                   <PopoverTrigger asChild>
@@ -255,8 +255,8 @@ export const SearchFlight = ({
                             <MapPin className="h-5 w-5 text-gray-400" />
                           </div>
                           <div>
-                            <div className="font-medium text-gray-400">From where?</div>
-                            <div className="text-xs text-gray-400">Select departure</div>
+                            <div className="font-medium text-gray-400">Bạn muốn bay từ đâu?</div>
+                            <div className="text-xs text-gray-400">Chọn điểm khởi hành</div>
                           </div>
                         </div>
                       )}
@@ -268,7 +268,7 @@ export const SearchFlight = ({
                         <div className="relative flex-1">
                           <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                           <Input
-                            placeholder="Search airports, cities..."
+                            placeholder="Tìm sân bay, thành phố..."
                             value={departureSearch}
                             onChange={(e) => setDepartureSearch(e.target.value)}
                             className="pl-10 h-10"
@@ -282,7 +282,7 @@ export const SearchFlight = ({
                         <div className="mb-4">
                           <Label className="text-xs font-medium text-gray-600 mb-2 flex items-center">
                             <TrendingUp className="h-3 w-3 mr-1" />
-                            Popular Destinations
+                            Điểm đến phổ biến
                           </Label>
                           <div className="grid grid-cols-2 gap-2">
                             {popularDestinations.slice(0, 4).map((dest) => (
@@ -329,7 +329,7 @@ export const SearchFlight = ({
                           ))
                         ) : (
                           <div className="text-center py-4 text-gray-500">
-                            No airports found
+                            Không tìm thấy sân bay nào
                           </div>
                         )}
                       </div>
@@ -354,7 +354,7 @@ export const SearchFlight = ({
               <div className="lg:col-span-2 space-y-2">
                 <Label className="text-sm font-semibold text-gray-700 flex items-center">
                   <MapPin className="w-4 h-4 mr-1 text-red-600" />
-                  Destination
+                  Điểm đến
                 </Label>
                 <Popover open={showArrivalAirports} onOpenChange={setShowArrivalAirports}>
                   <PopoverTrigger asChild>
@@ -379,8 +379,8 @@ export const SearchFlight = ({
                             <MapPin className="h-5 w-5 text-gray-400" />
                           </div>
                           <div>
-                            <div className="font-medium text-gray-400">To where?</div>
-                            <div className="text-xs text-gray-400">Select destination</div>
+                            <div className="font-medium text-gray-400">Bạn muốn bay đến đâu?</div>
+                            <div className="text-xs text-gray-400">Chọn điểm đến</div>
                           </div>
                         </div>
                       )}
@@ -392,7 +392,7 @@ export const SearchFlight = ({
                         <div className="relative flex-1">
                           <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                           <Input
-                            placeholder="Search airports, cities..."
+                            placeholder="Tìm sân bay, thành phố..."
                             value={arrivalSearch}
                             onChange={(e) => setArrivalSearch(e.target.value)}
                             className="pl-10 h-10"
@@ -406,7 +406,7 @@ export const SearchFlight = ({
                         <div className="mb-4">
                           <Label className="text-xs font-medium text-gray-600 mb-2 flex items-center">
                             <Star className="h-3 w-3 mr-1" />
-                            Popular Destinations
+                            Điểm đến phổ biến
                           </Label>
                           <div className="grid grid-cols-2 gap-2">
                             {popularDestinations.slice(0, 4).map((dest) => (
@@ -453,7 +453,7 @@ export const SearchFlight = ({
                           ))
                         ) : (
                           <div className="text-center py-4 text-gray-500">
-                            No airports found
+                            Không tìm thấy sân bay nào
                           </div>
                         )}
                       </div>
@@ -469,7 +469,7 @@ export const SearchFlight = ({
                   className="w-full h-14 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <Search className="w-5 h-5 mr-2" />
-                  Search
+                  Tìm kiếm
                 </Button>
               </div>
             </div>
@@ -480,7 +480,7 @@ export const SearchFlight = ({
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-gray-700 flex items-center">
                   <CalendarDays className="w-4 h-4 mr-1 text-blue-600" />
-                  Departure Date
+                  Ngày đi
                 </Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -500,7 +500,7 @@ export const SearchFlight = ({
                               <div className="text-xs text-gray-500">{dayjs(departureDate).format('dddd')}</div>
                             </>
                           ) : (
-                            <div className="text-gray-500">Select date</div>
+                            <div className="text-gray-500">Chọn ngày</div>
                           )}
                         </div>
                       </div>
@@ -510,7 +510,7 @@ export const SearchFlight = ({
                     <div className="p-4">
                       {/* Quick Date Options */}
                       <div className="mb-4">
-                        <Label className="text-xs font-medium text-gray-600 mb-2 block">Quick Select</Label>
+                        <Label className="text-xs font-medium text-gray-600 mb-2 block">Chọn nhanh</Label>
                         <div className="flex flex-wrap gap-2">
                           {quickDateOptions.map((option, index) => (
                             <Badge
@@ -519,7 +519,10 @@ export const SearchFlight = ({
                               className="cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-colors"
                               onClick={() => handleQuickDate(option)}
                             >
-                              {option.label}
+                              {option.label === 'Today' ? 'Hôm nay' :
+                               option.label === 'Tomorrow' ? 'Ngày mai' :
+                               option.label === 'This Weekend' ? 'Cuối tuần này' :
+                               option.label === 'Next Week' ? 'Tuần sau' : option.label}
                             </Badge>
                           ))}
                         </div>
@@ -535,14 +538,14 @@ export const SearchFlight = ({
                     </div>
                   </PopoverContent>
                 </Popover>
-      </div>
+              </div>
 
               {/* Return Date */}
               {isRoundTrip && (
                 <div className="space-y-3">
                   <Label className="text-sm font-semibold text-gray-700 flex items-center">
                     <CalendarDays className="w-4 h-4 mr-1 text-green-600" />
-                    Return Date
+                    Ngày về
                   </Label>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -562,7 +565,7 @@ export const SearchFlight = ({
                                 <div className="text-xs text-gray-500">{dayjs(returnDate).format('dddd')}</div>
                               </>
                             ) : (
-                              <div className="text-gray-500">Select return date</div>
+                              <div className="text-gray-500">Chọn ngày về</div>
                             )}
                           </div>
                         </div>
@@ -584,11 +587,11 @@ export const SearchFlight = ({
 
               {/* Price Filter */}
               <div className="space-y-3">
-                <Label className="text-sm font-semibold text-gray-700">Max Price (VND)</Label>
+                <Label className="text-sm font-semibold text-gray-700">Giá tối đa (VND)</Label>
                 <div className="relative">
                   <Input
                     type="number"
-                    placeholder="Enter max budget"
+                    placeholder="Nhập ngân sách tối đa"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
                     className="h-12 pl-10 border-2 hover:border-gray-300 transition-colors"
@@ -602,7 +605,7 @@ export const SearchFlight = ({
             <div className="pt-6 border-t border-gray-200">
               <Label className="text-sm font-semibold text-gray-700 mb-4 flex items-center">
                 <TrendingUp className="w-4 h-4 mr-1" />
-                Popular Routes
+                Tuyến bay phổ biến
               </Label>
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {popularDestinations.map((dest, index) => (

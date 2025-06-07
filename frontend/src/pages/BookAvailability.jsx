@@ -93,15 +93,15 @@ const flights = [
 export const BookAvailability = () => {
   
   const [expandCard, setExpandedCard] = useState(false);
-  const [sortOption, setSortOption] = useState("Mac Dinh");
+  const [sortOption, setSortOption] = useState("Mặc Định");
   const [flights, setFlights] = useState([]);
 
   const getFlightList = async () => {
     try {
       const res = await clientApi.getFlight();
       if (res) {
-        console.log("Flight list fetched successfully:", res);
-        return res;
+        console.log("Flight list fetched successfully:", res.data);
+        return res.data;
       }
     } catch (error) {
       console.error("Error fetching flight list:", error);
@@ -113,7 +113,6 @@ export const BookAvailability = () => {
     const fetchFlights = async () => {
       console.log("attempting to fetch flights");
       const flights = await getFlightList();
-      console.log("flight: ", flights);
       setFlights(flights);
     };
     try {
@@ -136,9 +135,9 @@ export const BookAvailability = () => {
   };
 
   // const sortedFlights = [...flights].sort((a, b) => {
-  //   if (sortOption === "Gia tot nhat") {
+  //   if (sortOption === "Giá tốt nhất") {
   //     return a.price.eco - b.price.eco;
-  //   } else if (sortOption === "Khoi hanh som nhat") {
+  //   } else if (sortOption === "Khởi hành sớm nhất") {
   //     return 0;
   //     // 
   //     //new Date(`2025-05-03T${a.depatureTime}:00`) - new Date(`2025-05-03T${b.depatureTime}:00`); 
@@ -168,7 +167,7 @@ export const BookAvailability = () => {
                 ))
               ) : (
                 <>
-                  <p>No flight available</p>
+                  <p>Không có chuyến bay nào</p>
                 </>
               )}
             </div>              

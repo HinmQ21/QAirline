@@ -294,29 +294,29 @@ export default function FlightsPage() {
           <div className="relative z-10 px-4 py-16 text-center">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Find Your Perfect <span className="text-pink-300">Flight</span>
+                Tìm Chuyến Bay <span className="text-pink-300">Hoàn Hảo</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-                Discover flights with cost-effective prices to popular destinations around the world
+                Khám phá các chuyến bay với giá cả hợp lý đến các điểm đến phổ biến trên toàn thế giới
               </p>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">200+</div>
-                  <div className="text-gray-200 text-sm">Airlines</div>
+                  <div className="text-gray-200 text-sm">Hãng Bay</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">1000+</div>
-                  <div className="text-gray-200 text-sm">Routes</div>
+                  <div className="text-gray-200 text-sm">Tuyến Bay</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-white">24/7</div>
-                  <div className="text-gray-200 text-sm">Support</div>
+                  <div className="text-gray-200 text-sm">Hỗ Trợ</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">Best</div>
-                  <div className="text-gray-200 text-sm">Prices</div>
+                  <div className="text-2xl font-bold text-white">Tốt Nhất</div>
+                  <div className="text-gray-200 text-sm">Giá Cả</div>
                 </div>
               </div>
             </div>
@@ -350,19 +350,19 @@ export default function FlightsPage() {
                     <div className="flex items-center space-x-2">
                       <Plane className="text-gray-800 w-6 h-6" />
                       <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-pink-950 bg-clip-text text-transparent">
-                        Search Results
+                        Kết Quả Tìm Kiếm
                       </h2>
                     </div>
                     {searchResults && (
                       <div className="flex items-center space-x-2">
                         <Badge variant="secondary" className="text-sm bg-gray-100 text-gray-800 border-gray-200">
                           <TrendingUp className="w-3 h-3 mr-1" />
-                          {totalFlights} flights found
+                          {totalFlights} chuyến bay được tìm thấy
                         </Badge>
                         {flightsToDisplay.length !== totalFlights && (
                           <Badge variant="outline" className="text-sm border-pink-200 text-pink-700">
                             <Filter className="w-3 h-3 mr-1" />
-                            {flightsToDisplay.length} after filters
+                            {flightsToDisplay.length} sau khi lọc
                           </Badge>
                         )}
                       </div>
@@ -377,7 +377,7 @@ export default function FlightsPage() {
                       className="flex items-center hover:bg-gray-50 border-gray-200"
                     >
                       <RefreshCw className={`h-4 w-4 mr-2 ${searchLoading ? 'animate-spin' : ''}`} />
-                      Refresh
+                      Làm Mới
                     </Button>
                     <Button 
                       variant="outline" 
@@ -386,7 +386,7 @@ export default function FlightsPage() {
                       className="flex items-center hover:bg-pink-50 border-pink-200"
                     >
                       <SlidersHorizontal className="h-4 w-4 mr-2" />
-                      Filters
+                      Bộ Lọc
                       {Object.keys(filters).length > 0 && (
                         <Badge variant="destructive" className="ml-2 text-xs">
                           {Object.keys(filters).length}
@@ -399,7 +399,7 @@ export default function FlightsPage() {
                       size="sm"
                       className="hover:bg-gray-50"
                     >
-                      Browse All Flights
+                      Xem Tất Cả Chuyến Bay
                     </Button>
                   </div>
                 </div>
@@ -432,10 +432,10 @@ export default function FlightsPage() {
                       </div>
                     </div>
                     <span className="mt-4 text-lg text-gray-600 font-medium">
-                      Loading amazing flights for you...
+                      Đang tải các chuyến bay tuyệt vời cho bạn...
                     </span>
                     <span className="mt-2 text-sm text-gray-400">
-                      This won't take long
+                      Sẽ không mất nhiều thời gian
                     </span>
                   </div>
                 )}
@@ -469,7 +469,7 @@ export default function FlightsPage() {
                             <div className="text-sm text-gray-600 font-medium">flights available</div>
                             <div className="flex items-center justify-end mt-1">
                               <Star className="w-4 h-4 text-pink-500 mr-1" />
-                              <span className="text-xs text-gray-500">Best prices guaranteed</span>
+                              <span className="text-xs text-gray-500">Đảm bảo giá tốt nhất</span>
                             </div>
                           </div>
                         </div>
@@ -502,12 +502,12 @@ export default function FlightsPage() {
                               </div>
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                              No flights found
+                              Không tìm thấy chuyến bay
                             </h3>
                             <p className="text-gray-600 mb-8 leading-relaxed">
                               {searchMode 
-                                ? "We couldn't find any flights matching your criteria. Try adjusting your search parameters or browse all available flights."
-                                : "No flights are currently available. Please check back later or contact our support team."
+                                ? "Chúng tôi không tìm thấy chuyến bay nào phù hợp với tiêu chí của bạn. Hãy thử điều chỉnh tham số tìm kiếm hoặc xem tất cả các chuyến bay hiện có."
+                                : "Hiện không có chuyến bay nào. Vui lòng quay lại sau hoặc liên hệ đội ngũ hỗ trợ của chúng tôi."
                               }
                             </p>
                             <div className="flex flex-wrap justify-center gap-3">
@@ -518,7 +518,7 @@ export default function FlightsPage() {
                                     className="bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white shadow-lg"
                                   >
                                     <Plane className="w-4 h-4 mr-2" />
-                                    Browse All Flights
+                                    Xem Tất Cả Chuyến Bay
                                   </Button>
                                   {Object.keys(filters).length > 0 && (
                                     <Button 
@@ -527,7 +527,7 @@ export default function FlightsPage() {
                                       className="border-gray-300 hover:bg-gray-50"
                                     >
                                       <Filter className="w-4 h-4 mr-2" />
-                                      Clear Filters
+                                      Xóa Bộ Lọc
                                     </Button>
                                   )}
                                 </>
@@ -543,7 +543,7 @@ export default function FlightsPage() {
                 {/* Enhanced Pagination */}
                 {!searchMode && !loading && results.length > 0 && (
                   <div className="flex justify-center items-center gap-2 bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-                    {navigatePageButton("Previous", 1, page, true)}
+                    {navigatePageButton("Trước", 1, page, true)}
                     <div className="flex items-center gap-1">
                       {[...Array(Math.min(totalPages, 7))].map((_, i) => {
                         let pageNum;
@@ -574,7 +574,7 @@ export default function FlightsPage() {
                         );
                       })}
                     </div>
-                    {navigatePageButton("Next", totalPages, page, false)}
+                    {navigatePageButton("Sau", totalPages, page, false)}
                   </div>
                 )}
               </div>

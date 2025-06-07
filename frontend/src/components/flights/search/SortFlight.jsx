@@ -20,13 +20,13 @@ export const SortFlight = ({ sortOption, onSortChange }) => {
         >
           {/* Icon  */}
           <LuPlaneTakeoff className="w-4 h-4 mr-2" />
-          <p className="w-fit">Bo loc</p>
+          <p className="w-fit">Bộ lọc</p>
         </button>
 
 
         <div className={`${css.minipage.xl} flex flex-col justify-center h-10`}>
           <div className="flex flex-row mx-4">
-            <p className="mr-2">Sap xep theo</p>
+            <p className="mr-2">Sắp xếp theo</p>
             {/* <Dropdown buttonText={buttonText} content={
               <>
                   {
@@ -45,9 +45,9 @@ export const SortFlight = ({ sortOption, onSortChange }) => {
               <DropdownMenuContent className="">
                 {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
                 <DropdownMenuRadioGroup value={sortOption} onValueChange={onSortChange}>
-                  <DropdownMenuRadioItem value="Mac Dinh">Mac Dinh</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="Gia tot nhat">Gia tot nhat</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="Khoi hanh som nhat">Khoi hanh som nhat</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Mặc định">Mặc định</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Giá tốt nhất">Giá tốt nhất</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Khởi hành sớm nhất">Khởi hành sớm nhất</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>

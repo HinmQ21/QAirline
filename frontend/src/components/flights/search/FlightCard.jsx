@@ -37,8 +37,8 @@ export const FlightCard = ({children, flight, OnToggle}) => {
             </div>
 
             <div className="flex justify-between items-center mt-3">
-              <p>Nha ga 1</p>
-              <p>Nha ga 1</p>
+              <p>Nhà ga 1</p>
+              <p>Nhà ga 1</p>
             </div>
           </div>
           {/* FlightDetails */}
@@ -46,18 +46,18 @@ export const FlightCard = ({children, flight, OnToggle}) => {
                           pt-2 flex flex-col justify-center">
             <div className="flex m-1">
               <LuAArrowDown className="w-6 h-6 m-1" />
-              <p>{`Thoi gian bay 8h10`}</p>
+              <p>{`Thời gian bay 8h10`}</p>
             </div>
 
             <div className="flex m-1">
               <LuAArrowDown className="w-6 h-6 m-1" />
-              <p>{`${flight.aircraft} duoc QAirline khai thac`}</p>
+              <p>{`${flight.aircraft} được QAirline khai thác`}</p>
             </div>
             <div className="flex m-1">
               <div className='w-6 h-6 m-1'></div>
               <p className='text-red-600 underline m-1
                             hover:text-red-700 cursor-pointer'>
-                Xem chi tiet tren hanh trinh
+                Xem chi tiết hành trình
               </p>            
             </div>
           </div>        
@@ -65,7 +65,7 @@ export const FlightCard = ({children, flight, OnToggle}) => {
         {/* FlightPrice */}
         <div className="w-2/5 h-full flex justify-end items-center">
           <PriceCard 
-            type={"eco"} 
+            type={"Phổ thông"} 
             slot={flight.slot.eco} 
             booked={flight.booked.eco} 
             price={flight.price.eco} 
@@ -74,7 +74,7 @@ export const FlightCard = ({children, flight, OnToggle}) => {
             selected={priceService}
           />        
           <PriceCard 
-            type={"business"} 
+            type={"Thương gia"} 
             slot={flight.slot.business} 
             booked={flight.booked.business} 
             price={flight.price.business} 
@@ -91,9 +91,9 @@ export const FlightCard = ({children, flight, OnToggle}) => {
           <div className={`m-2 w-3/10 h-9/10  bg-white rounded-lg shadow-lg
                           flex flex-col justify-center items-start
                           hover:border-4
-                          ${serviceType == "eco" ? "border-amber-950" : "border-red-700"}  
+                          ${serviceType == "Phổ thông" ? "border-amber-950" : "border-red-700"}  
                         `}> 
-            {serviceType == "eco" && (
+            {serviceType == "Phổ thông" && (
               <>
                 {/* Header */}
                 <div className="h-20 w-full mb-0.5
@@ -106,23 +106,20 @@ export const FlightCard = ({children, flight, OnToggle}) => {
                 </div>
                 {/* Details  */}
                 <div className="h-60 w-full py-4
-                
-                                flex flex-col justify-evenly items-start gap-2
-                               ">
-                  <p className="ml-4 ">Hành lý xách tay: 7kg</p>
-                  <p className="ml-4 ">01 kiện hành lý ký gửi 20kg</p>
-                  <p className="ml-4 ">Hoàn/huỷ trước giờ khởi hành: 450.000 VND</p>
-                  <p className="ml-4 ">Chọn ghế ngồi mất phí</p>
-
+                                flex flex-col justify-evenly items-start gap-2">
+                  <p className="ml-4">Hành lý xách tay: 7kg</p>
+                  <p className="ml-4">01 kiện hành lý ký gửi 20kg</p>
+                  <p className="ml-4">Hoàn/hủy trước giờ khởi hành: 450.000 VND</p>
+                  <p className="ml-4">Chọn ghế ngồi mất phí</p>
                 </div>
 
                 {/* ViewMore  */}
                 <div className="h-20 w-full py-4 px-4">
-                  <p className="underline text-amber-950" onClick={() => {}}>(*) Xem chi tiet</p>
+                  <p className="underline text-amber-950" onClick={() => {}}>(*) Xem chi tiết</p>
                 </div>
               </>
             )}
-            {serviceType == "business" && (
+            {serviceType == "Thương gia" && (
               <>
                 {/* Header */}
                 <div className="h-20 w-full
@@ -135,19 +132,16 @@ export const FlightCard = ({children, flight, OnToggle}) => {
                 </div>
                 {/* Details  */}
                 <div className="h-60 w-full py-4
-                
-                                flex flex-col justify-evenly items-start gap-2
-                               ">
-                  <p className="ml-4 ">Hành lý xách tay: 10kg</p>
-                  <p className="ml-4 ">01 kiện hành lý ký gửi 30kg</p>
-                  <p className="ml-4 ">Hoàn/huỷ trước giờ khởi hành: 350.000 VND</p>
-                  <p className="ml-4 ">Chọn ghế ngồi KHONG mất phí</p>
-
+                                flex flex-col justify-evenly items-start gap-2">
+                  <p className="ml-4">Hành lý xách tay: 10kg</p>
+                  <p className="ml-4">01 kiện hành lý ký gửi 30kg</p>
+                  <p className="ml-4">Hoàn/hủy trước giờ khởi hành: 350.000 VND</p>
+                  <p className="ml-4">Chọn ghế ngồi KHÔNG mất phí</p>
                 </div>
                 
                 {/* ViewMore  */}
                 <div className="h-20 w-full py-4 px-4">
-                  <p className="underline text-red-600" onClick={() => {}}>(*) Xem chi tiet</p>
+                  <p className="underline text-red-600" onClick={() => {}}>(*) Xem chi tiết</p>
                 </div>
               </>
             )}

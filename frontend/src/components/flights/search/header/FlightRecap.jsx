@@ -12,8 +12,8 @@ export const FlightRecap = ({ from, to, roundtrip, start, end, passanger }) => {
         </div>
 
         <div className="w-full h-4/10 flex justify-between items-start">
-          <p className="inter-regular text-white">{from.city}</p>
-          <p className="inter-regular text-white">{to.city}</p>
+          <p className="inter-black text-white">{from.city}</p>
+          <p className="inter-black text-white">{to.city}</p>
         </div>
       </div>
       {/* RecapDate */}
@@ -22,8 +22,8 @@ export const FlightRecap = ({ from, to, roundtrip, start, end, passanger }) => {
       {/* PassangerRecap */}
       <div className="w-1/4 h-full px-2 flex flex-col justify-between
                             border-r-2 border-white">
-        <p className="inter-regular text-white">Hành khách</p>
-        <p className="inter-regular text-white">{passanger}</p>
+        <p className="inter-black text-white">Hành khách</p>
+        <p className="inter-black text-white">{passanger}</p>
       </div>
 
 

@@ -20,10 +20,10 @@ export const SearchLoadingOverlay = ({ isVisible, searchParams }) => {
 
           {/* Loading Text */}
           <h3 className="text-xl font-bold text-gray-900 mb-2">
-            Searching Flights...
+            Đang Tìm Chuyến Bay...
           </h3>
           <p className="text-gray-600 mb-6">
-            Finding the best deals for your journey
+            Tìm kiếm các ưu đãi tốt nhất cho hành trình của bạn
           </p>
 
           {/* Search Details */}
@@ -31,18 +31,18 @@ export const SearchLoadingOverlay = ({ isVisible, searchParams }) => {
             <div className="bg-gray-50 rounded-lg p-4 text-left">
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Route:</span>
+                  <span className="text-gray-600">Tuyến bay:</span>
                   <span className="font-medium">
                     {searchParams.from} → {searchParams.to}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Departure:</span>
+                  <span className="text-gray-600">Khởi hành:</span>
                   <span className="font-medium">{searchParams.departureDate}</span>
                 </div>
                 {searchParams.returnDate && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Return:</span>
+                    <span className="text-gray-600">Quay về:</span>
                     <span className="font-medium">{searchParams.returnDate}</span>
                   </div>
                 )}

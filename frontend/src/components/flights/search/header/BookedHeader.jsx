@@ -30,7 +30,7 @@ export const BookedHeader = ({ }) => {
       {/* RecapHeader */}
       
         <div className="h-fit w-full xl:w-9/10 flex flex-row justify-between items-center">
-          <div className="w-7/10 h-full py-2 flex">
+          <div className="xl:ml-12 w-7/10 h-full flex">
             {/* Flight Recap */}
             <FlightRecap from={departureAirport} to={arrivalAirport} roundtrip={true} 
             start={departure_time} end={arrival_time} passanger={passenger}/>
