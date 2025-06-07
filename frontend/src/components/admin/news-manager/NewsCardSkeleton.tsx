@@ -1,35 +1,51 @@
 import Skeleton from "react-loading-skeleton";
+import { Card } from "@/components/ui/card";
 
 export const NewsCardSkeleton = () => {
   return (
-    <div className="flex flex-row h-18 w-120 bg-white rounded-xl items-center justify-between p-3">
-      <div className="flex flex-row h-full items-center">
-        {/* Ngày tháng */}
-        <div className="flex flex-col items-center justify-center text-gray-900">
-          <Skeleton height={16} width={40} />
-          <Skeleton height={16} width={50} style={{ marginTop: '4px' }} />
-        </div>
-
-        {/* Divider */}
-        <div className="w-0.5 h-[60%] bg-gray-400 mx-3" />
-
-        {/* Title & content */}
-        <div className="flex flex-col justify-center w-60">
-          <Skeleton height={20} width="100%" />
-          <Skeleton height={12} width="80%" style={{ marginTop: '4px' }} />
+    <Card className="overflow-hidden bg-white border-0 shadow-md">
+      {/* Header with Date and Category */}
+      <div className="bg-gradient-to-r from-slate-50 to-gray-50 px-4 py-3 border-b border-gray-100">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Skeleton height={16} width={16} />
+            <Skeleton height={14} width={80} />
+          </div>
+          <Skeleton height={20} width={60} borderRadius={10} />
         </div>
       </div>
 
-      <div className="flex flex-row h-full items-center">
-        {/* Badge giả */}
-        <Skeleton height={24} width={60} borderRadius={12} />
+      {/* Content */}
+      <div className="p-5">
+        <div className="mb-4">
+          {/* Title */}
+          <Skeleton height={20} width="90%" className="mb-2" />
+          <Skeleton height={20} width="75%" className="mb-2" />
+          
+          {/* Content */}
+          <Skeleton height={14} width="100%" className="mb-1" />
+          <Skeleton height={14} width="85%" className="mb-1" />
+          <Skeleton height={14} width="70%" />
+        </div>
 
-        {/* Divider */}
-        <div className="ml-3 w-0.5 h-[60%] bg-gray-400" />
+        {/* Stats */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1">
+              <Skeleton height={12} width={12} />
+              <Skeleton height={12} width={60} />
+            </div>
+            <Skeleton height={12} width={40} />
+          </div>
+          <Skeleton height={12} width={35} />
+        </div>
 
-        {/* Delete button giả */}
-        <Skeleton height={32} width={32} borderRadius={8} style={{ marginLeft: '12px' }} />
+        {/* Actions */}
+        <div className="flex items-center justify-between">
+          <Skeleton height={36} width={100} borderRadius={8} />
+          <Skeleton height={36} width={36} borderRadius={8} />
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };

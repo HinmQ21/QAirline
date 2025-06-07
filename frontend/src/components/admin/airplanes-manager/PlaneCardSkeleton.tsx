@@ -1,26 +1,57 @@
 import Skeleton from "react-loading-skeleton";
+import { Card } from "@/components/ui/card";
 
 export const PlaneCardSkeleton = () => {
   return (
-    <div className="
-      flex flex-row items-center justify-between pl-3
-      bg-white rounded-2xl h-14 w-130
-    ">
-      <div className="flex flex-row h-full items-center">
-        <div className="w-35 flex flex-col items-center justify-center">
-          <Skeleton circle height={40} width={40} />
-        </div>
-        <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
-        <div className="flex flex-col justify-center w-45">
-          <Skeleton height={20} width={80} />
-          <Skeleton height={14} width={100} className="mt-1" />
+    <Card className="overflow-hidden bg-white border-0 shadow-md">
+      {/* Compact Image Section */}
+      <div className="bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-5 border-b border-gray-100">
+        <div className="flex flex-col items-center space-y-3">
+          {/* Optimized Logo Skeleton */}
+          <div className="w-16 h-12 flex items-center justify-center">
+            <Skeleton height={48} width={64} />
+          </div>
+          
+          {/* Compact Manufacturer Badge Skeleton */}
+          <Skeleton height={20} width={60} borderRadius={10} />
         </div>
       </div>
-      <div className="flex flex-row h-full items-center justify-end pr-3">
-        <Skeleton height={28} width={80} borderRadius={999} />
-        <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
-        <Skeleton height={28} width={28} borderRadius={999} className="ml-3" />
+
+      {/* Content */}
+      <div className="p-4">
+        {/* Header with ID */}
+        <div className="flex items-center justify-between mb-3">
+          <Skeleton height={12} width={30} />
+        </div>
+
+        <div className="mb-3">
+          {/* Plane Code */}
+          <Skeleton height={20} width="70%" className="mb-2" />
+          
+          {/* Model */}
+          <Skeleton height={14} width="85%" className="mb-2" />
+
+          {/* Seat Information */}
+          <div className="flex items-center space-x-2 mb-2">
+            <Skeleton height={16} width={16} />
+            <Skeleton height={14} width={80} />
+          </div>
+        </div>
+
+        {/* Status */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center space-x-2">
+            <Skeleton height={16} width={16} />
+            <Skeleton height={14} width={60} />
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center justify-between">
+          <Skeleton height={32} width={80} borderRadius={8} />
+          <Skeleton height={32} width={32} borderRadius={8} />
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };

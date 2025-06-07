@@ -2,12 +2,11 @@ import {
   Dialog, DialogClose, DialogContent, DialogDescription,
   DialogFooter, DialogHeader, DialogTitle, DialogTrigger
 } from '@/components/ui/dialog';
-import { NavigationIcon } from "./NavigationIcon";
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { IoLogOutOutline, IoLogOut } from "react-icons/io5";
+import { LogOut } from "lucide-react";
 import toast from 'react-hot-toast';
 import { adminApi } from '@/services/admin/main';
-
 
 export const LogoutButton = ({ className = "" }) => {
   const navigate = useNavigate();
@@ -15,28 +14,32 @@ export const LogoutButton = ({ className = "" }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <NavigationIcon
-          icon={IoLogOutOutline}
-          iconOnHover={IoLogOut}
-          className={`${className} [&]:hover:bg-red-600 [&]:hover:shadow-red-600/60`}
-        />
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`${className} text-slate-300 hover:text-white hover:bg-red-600/80`}
+        >
+          <LogOut className="h-5 w-5" />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="inter-bold">Đăng xuất</DialogTitle>
+          <DialogTitle className="text-lg font-bold">Đăng xuất</DialogTitle>
           <DialogDescription>Bạn sẽ được đăng xuất khỏi trang admin.</DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-          <DialogClose type="button"
-            className="cursor-pointer bg-gray-900 hover:bg-gray-700 px-3 py-2 text-white rounded-lg"
-          >
-            Không
+        <DialogFooter className="gap-2">
+          <DialogClose asChild>
+            <Button variant="outline">
+              Không
+            </Button>
           </DialogClose>
-          <DialogClose type="button"
-            className="cursor-pointer bg-red-500 hover:bg-red-400 px-3 py-2 text-white rounded-lg"
-            onClick={() => onLogoutEvent(navigate)}
-          >
-            Có
+          <DialogClose asChild>
+            <Button 
+              variant="destructive"
+              onClick={() => onLogoutEvent(navigate)}
+            >
+              Có
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

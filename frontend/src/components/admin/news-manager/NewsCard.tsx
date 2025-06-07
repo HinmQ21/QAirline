@@ -10,6 +10,8 @@ import { newsSchema, NewsWritingDialog } from "./NewsWritingDialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/schemes/news";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Edit, Calendar, Eye } from "lucide-react";
 
 type NewsCardProps = {
   news: NewsType;
@@ -52,8 +54,6 @@ export const NewsCard = ({
         success: (data) => {
           console.log(data);
           setOpen(false);
-          // not reseting, we keep the latest data
-          // newsForm.reset();
           setIsSubmitting(false);
           updateNewsStateAction(data);
           return "Cập nhật bài viết thành công!";
@@ -63,14 +63,46 @@ export const NewsCard = ({
   }
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <div className="
-          flex flex-row items-center justify-between
-          h-18 w-120 bg-white rounded-xl
-          hover:shadow-2xl transition-all duration-300
-          cursor-pointer
-        ">
+    <Card className="overflow-hidden bg-white border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+      {/* Header with Date and Category */}
+      <div className="bg-gradient-to-r from-slate-50 to-gray-50 px-4 py-3 border-b border-gray-100">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Calendar className="h-4 w-4 text-gray-500" />
+            <span className="text-sm font-medium text-gray-600">
+              {created_date.format("DD/MM/YYYY")}
+            </span>
+          </div>
+          <NewsCategoryBadge category={news.category} />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+            {news.title}
+          </h3>
+          <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
+            {news.content}
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1">
+              <Eye className="h-3 w-3" />
+              <span>245 lượt xem</span>
+            </div>
+            <span>•</span>
+            <span>ID: {news.news_id}</span>
+          </div>
+          <span>{created_date.format("HH:mm")}</span>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center justify-between">
           <NewsWritingDialog
             open={open} setOpen={setOpen}
             newsForm={newsForm}
@@ -78,54 +110,42 @@ export const NewsCard = ({
             isSubmitting={isSubmitting}
             submitText="Cập nhật"
           >
-            <div className="flex flex-row h-full items-center">
-              <div className="
-                flex flex-col ml-3 items-center justify-center
-                text-gray-900 montserrat-medium w-13
-              ">
-                <p className="text-sm">
-                  {created_date.format("MMM D")}
-                </p>
-                <p className="text-md">
-                  {created_date.format("YYYY")}
-                </p>
-              </div>
-              <div className="w-0.5 h-[60%] bg-gray-600 mx-3" />
-              <div className="
-                flex flex-col justify-center
-                text-gray-900 w-60
-              ">
-                <p className="text-lg montserrat-semibold truncate">
-                  {news.title}
-                </p>
-                <p className="text-[11px] montserrat-medium truncate">
-                  {news.content}
-                </p>
-              </div>
-            </div>
+            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors duration-200 text-sm font-medium">
+              <Edit className="h-4 w-4" />
+              <span>Chỉnh sửa</span>
+            </button>
           </NewsWritingDialog>
 
-          <div className="flex flex-row h-full items-center">
-            <NewsCategoryBadge category={news.category} />
-            <div className="ml-3 w-0.5 h-[60%] bg-gray-600" />
-            <DeleteNewsButton news_id={news.news_id} deleteNewsStateAction={deleteNewsStateAction} />
-          </div>
+          <DeleteNewsButton 
+            news_id={news.news_id} 
+            deleteNewsStateAction={deleteNewsStateAction}
+            className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors duration-200"
+          />
         </div>
-      </TooltipTrigger>
-      <TooltipContent side="top">
-        {`ID: ${news.news_id}`}
-      </TooltipContent>
-    </Tooltip>
+      </div>
+    </Card>
   );
 };
 
 export const NewsCategoryBadge = ({ category }: { category: NewsCategoryType }) => {
   let className;
   switch (category) {
-    case "news": className = "bg-slate-500 hover:bg-slate-400"; break;
-    case "announcement": className = "bg-red-500 hover:bg-red-400"; break;
-    case "introduction": className = "bg-cyan-600 hover:bg-cyan-500"; break;
-    case "promotion": className = "bg-orange-500 hover:bg-orange-400"; break;
+    case "news": 
+      className = "bg-blue-100 text-blue-800 hover:bg-blue-200"; 
+      break;
+    case "announcement": 
+      className = "bg-red-100 text-red-800 hover:bg-red-200"; 
+      break;
+    case "introduction": 
+      className = "bg-teal-100 text-teal-800 hover:bg-teal-200"; 
+      break;
+    case "promotion": 
+      className = "bg-orange-100 text-orange-800 hover:bg-orange-200"; 
+      break;
   }
-  return <Badge className={`${className}`}>{newsCategoryLabels[category]}</Badge>
+  return (
+    <Badge className={`${className} border-0 font-medium px-2 py-1 text-xs`}>
+      {newsCategoryLabels[category]}
+    </Badge>
+  );
 }

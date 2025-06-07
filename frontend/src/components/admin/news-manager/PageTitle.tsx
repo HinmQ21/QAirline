@@ -3,6 +3,7 @@ import { NewsType } from "@/services/schemes/news";
 import { newsCategoryLabels } from "@/services/schemes/news";
 import { Dispatch, SetStateAction } from "react";
 import { CreateNewsButton } from "./CreateNewsButton";
+import { Filter, SortAsc } from "lucide-react";
 
 const sortLabels = {
   newest: "Mới nhất",
@@ -25,14 +26,35 @@ type NewsManagerPageTitleProps = {
 
 export const NewsManagerPageTitle = ({ sortBy, setSortBy, category, setCategory, createNewsStateAction }: NewsManagerPageTitleProps) => {
   return (
-    <div className="flex flex-row flex-wrap gap-4 justify-around">
-      <div className="flex flex-row flex-wrap gap-4">
-        <DropdownSelect title="Sắp xếp theo"
-          labelMap={sortLabels} value={sortBy} setValue={setSortBy} />
-        <DropdownSelect title="Danh mục"
-          labelMap={allCategoryLabels} value={category} setValue={setCategory} />
+    <div className="space-y-4">
+      {/* Title */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold text-gray-900">Danh sách tin tức</h2>
+        <CreateNewsButton createNewsStateAction={createNewsStateAction} />
       </div>
-      <CreateNewsButton createNewsStateAction={createNewsStateAction} />
+
+      {/* Filters */}
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2">
+          <SortAsc className="h-4 w-4 text-gray-500" />
+          <DropdownSelect 
+            title="Sắp xếp theo"
+            labelMap={sortLabels} 
+            value={sortBy} 
+            setValue={setSortBy} 
+          />
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <Filter className="h-4 w-4 text-gray-500" />
+          <DropdownSelect 
+            title="Danh mục"
+            labelMap={allCategoryLabels} 
+            value={category} 
+            setValue={setCategory} 
+          />
+        </div>
+      </div>
     </div>
   );
 };

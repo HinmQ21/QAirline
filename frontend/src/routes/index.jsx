@@ -12,7 +12,6 @@ import { BookAvailability } from "../pages/BookAvailability";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
 import BookingPage from "../pages/BookingPage";
 import MyBookingsPage from "../pages/MyBookingsPage";
-import { UpdateSeatsPage } from "@/pages/admin/planes/UpdateSeatsPage"
 
 const router = createBrowserRouter([
   {
@@ -76,10 +75,6 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <TestPage />
-  },
-  {
-    path: '/admin/airplane/update-seats/:airplane_id',
-    element: <UpdateSeatsPage />
   }
 ]);
 
