@@ -169,7 +169,7 @@ const DestinationsPage = () => {
   };
 
   const DestinationCard = ({ destination }) => (
-    <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+    <div className="group bg-white w-[360px] rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
       <div className="relative">
         <img 
           src={destination.image} 
@@ -308,10 +308,10 @@ const DestinationsPage = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-48 translate-y-48"></div>
       </div>
 
-      <div className={`${css.minipagemx} -mt-8 relative z-20`}>
-        <div className="mx-4 lg:mx-8 xl:mx-16 my-10">
+      <div className="-mt-8 relative z-20">
+        <div className="my-10">
           {/* Filters Section */}
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+          <div className={`${css.minipagemx} ${css.minipage.lg} p-6 mb-8`}>
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <h2 className={`text-2xl font-bold ${css.homepageGgGradient} bg-clip-text text-transparent`}>
                 Khám phá theo danh mục
@@ -371,7 +371,7 @@ const DestinationsPage = () => {
           </div>
 
           {/* Results summary */}
-          <div className="mb-6 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+          <div className={`${css.minipagemx} ${css.minipage.lg} mb-6 p-4`}>
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
@@ -398,13 +398,13 @@ const DestinationsPage = () => {
 
           {/* Destinations Grid */}
           {filteredDestinations.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="flex flex-wrap gap-4 justify-center mx-12">
               {filteredDestinations.map((destination) => (
                 <DestinationCard key={destination.id} destination={destination} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-xl shadow-lg border border-gray-100">
+            <div className={`${css.minipagemx} ${css.minipage.lg} text-center py-20`}>
               <div className="max-w-md mx-auto">
                 <Globe className="h-20 w-20 text-gray-300 mx-auto mb-6" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">

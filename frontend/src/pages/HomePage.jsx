@@ -1,16 +1,16 @@
 import { css } from "@/css/styles";
 import fullpage from "fullpage.js";
 import "fullpage.js/dist/fullpage.min.css";
+import { Star, Users, Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { TopNews } from "@/components/home/TopNews";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
 import { SloganRow } from "@/components/home/Slogans";
 import { Sponsors } from "@/components/home/Sponsors";
-import { WhyChooseUs } from "@/components/home/WhyChooseUs";
-import { ArrowDown, Star, Users, Globe } from "lucide-react";
-import { FlightBooking } from "@/components/home/FlightBooking";
 import { TopDestinations } from "@/components/home/TopDestinations";
+import { Testimonials } from "@/components/home/Testimonials";
+import { motion } from "framer-motion";
 
 export const HomePage = () => {
   const fullpageInstance = useRef(null);
@@ -97,11 +97,6 @@ export const HomePage = () => {
               </div>
             </div>
 
-            {/* Flight Booking Widget
-            <div className="relative z-10 mb-8">
-              <FlightBooking />
-            </div> */}
-
             {/* Slogans */}
             <div className="z-10">
               <SloganRow />
@@ -125,24 +120,19 @@ export const HomePage = () => {
           </div>
         </div>
 
+        {/* <div className={`section ${css.homepageGgGradient}`}>
+          <div className="mt-30">
+            <Testimonials />
+
+          </div>
+        </div> */}
+
         {/* Footer Section */}
         <div className={`section ${css.homepageGgGradient}`}>
           <div className="min-h-screen flex flex-col justify-between">
             <div className={`${css.minipage.xl} mt-25 mb-10 ${css.minipagemx}`}>
-              <div className="flex flex-col items-center my-10 gap-6" data-animate>
-                <h2 className={`${css.headerText} text-center`}>Sắp Ra Mắt</h2>
-                <p className="text-gray-600 text-center max-w-2xl">
-                  Chúng tôi đang phát triển những tính năng mới thú vị để mang đến trải nghiệm du lịch tốt hơn cho bạn
-                </p>
-                <div className="relative">
-                  <img
-                    src="/miscs/coming-soon.gif"
-                    loading="lazy"
-                    className="rounded-lg shadow-2xl max-w-md w-full"
-                    alt="Sắp Ra Mắt"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-lg"></div>
-                </div>
+              <div data-animate>
+                <Testimonials />
               </div>
             </div>
             <div className="flex flex-col">

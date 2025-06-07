@@ -15,7 +15,7 @@ export const Footer = () => (
 
       <div className="lg:w-fit flex flex-col md:flex-row gap-4 lg:gap-8 p-5 pl-0 lg:pr-10">
         <div>
-          <p className="reddit-semibold text-lg">Liên lạc</p>
+          <p className="reddit-semibold text-lg">Liên hệ với chúng tôi</p>
           <a href="mailto:djnner@proton.me" target="_blank" className="text-gray-600 hover:underline block">
             djnner@proton.me
           </a>
@@ -33,10 +33,15 @@ export const Footer = () => (
         </div>
 
         <div>
-          <p className="text-lg reddit-semibold">Giờ mở cửa</p>
-          <p className="text-gray-600">Thứ 2 - Thứ 6 : 08.00 am - 20.00 pm</p>
-          <p className="text-gray-600">Thứ 7, Chủ nhật : 09.00 am - 20.00 pm</p>
-          {/* <p className="text-gray-600">Chủ nhật: Xin hẹn tuần sau</p> */}
+          <p className="text-lg reddit-semibold">Giờ hành chính</p>
+          <div className="grid grid-cols-2">
+            <p className="text-gray-600">Thứ 2 - Thứ 6</p>
+            <p className="text-gray-600">07.00 am - 22.00 pm</p>
+            <p className="text-gray-600">Thứ 7</p>
+            <p className="text-gray-600">08.00 am - 21.00 pm</p>
+            <p className="text-gray-600">Chủ nhật</p>
+            <p className="text-gray-600">09.00 am - 20.00 pm</p>
+          </div>
         </div>
       </div>
     </div>

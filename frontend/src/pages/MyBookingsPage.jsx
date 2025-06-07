@@ -117,8 +117,8 @@ export default function MyBookingsPage() {
     return (
       <div className="container mx-auto px-4 py-8 flex justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Đang tải danh sách đặt vé...</p>
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-white" />
+          <p className="text-white">Đang tải danh sách đặt vé...</p>
         </div>
       </div>
     );

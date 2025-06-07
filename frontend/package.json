@@ -36,6 +36,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "dayjs": "^1.11.13",
+    "framer-motion": "^12.16.0",
     "fullpage.js": "^4.0.35",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.501.0",
