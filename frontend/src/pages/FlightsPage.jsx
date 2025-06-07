@@ -290,7 +290,6 @@ export default function FlightsPage() {
       <div className="min-h-screen">
         {/* Hero Header */}
         <div className="relative overflow-x-clip">
-          <div className="absolute inset-0"></div>
           <div className="relative z-10 px-4 py-16 text-center">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
@@ -327,9 +326,9 @@ export default function FlightsPage() {
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-48 translate-y-48"></div>
         </div>
 
-        <div className={`${css.minipagemx} -mt-8 relative z-20`}>
+        <div className="relative z-20">
           {/* Search Component with enhanced styling */}
-          <div className="p-8">
+          <div className={`${css.minipagemx} p-8`}>
             <SearchFlight
               onSearch={handleSearch}
               startAirport={startAirport}
@@ -444,13 +443,13 @@ export default function FlightsPage() {
                 <>
                   {/* Results Summary */}
                   {searchMode && searchResults && (
-                    <div className="mb-8 p-6 rounded-xl border border-gray-200/50 backdrop-blur-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
+                    <div className={`${css.minipage.lg} flex justify-center mb-8`}>
+                      <div className="flex items-center bg-red-400">
+                        <div className="flex items-center bg-green-400">
                           <div className="rounded-lg p-3 shadow-md">
                             <MapPin className="text-gray-800 w-6 h-6" />
                           </div>
-                          <div>
+                          <div className="bg-blue-400">
                             <h3 className="text-xl font-bold text-gray-900">
                               {startAirport?.code} → {endAirport?.code}
                             </h3>
@@ -461,7 +460,7 @@ export default function FlightsPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right bg-indigo-400">
                           <div className="text-3xl font-bold bg-clip-text text-transparent">
                             {totalFlights}
                           </div>
@@ -474,10 +473,10 @@ export default function FlightsPage() {
                       </div>
                     </div>
                   )}
-
-                  <div className="space-y-6 mb-8">
+                    
+                  <div className="mb-12">
                     {flightsToDisplay.length > 0 ? (
-                      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+                      <div className="flex flex-wrap gap-6 justify-center mx-18">
                         {flightsToDisplay.map((flight, idx) => (
                           <div
                             key={`${flight.flight_id}-${idx}`}
@@ -492,7 +491,7 @@ export default function FlightsPage() {
                         ))}
                       </div>
                     ) : (
-                      <div className="text-center py-20 rounded-xl shadow-lg border border-gray-100">
+                      <div className={`text-center py-20 ${css.minipage.xl} ${css.minipagemx}`}>
                         <div className="max-w-md mx-auto">
                           <div className="relative mb-8">
                             <Plane className="h-20 w-20 text-gray-300 mx-auto" />
