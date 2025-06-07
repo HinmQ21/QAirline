@@ -1,6 +1,5 @@
 import { ClientApiInterface } from "../interfaces/client";
 import { airportApiObject } from "./airport";
-import { airportApiObject } from "./airport";
 import { authApiObject } from "./auth";
 import { flightApiObject } from "./flight";
 import { newsApiObject } from "./news";
