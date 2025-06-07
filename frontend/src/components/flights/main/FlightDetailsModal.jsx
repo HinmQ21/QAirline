@@ -135,23 +135,23 @@ export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Plane className="h-5 w-5 mr-2" />
-                  Aircraft Information
+                  Thông tin máy bay
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <div className="text-sm text-gray-600">Aircraft Model</div>
+                    <div className="text-sm text-gray-600">Mẫu máy bay</div>
                     <div className="font-semibold">
                       {flight.Airplane.manufacturer} {flight.Airplane.model}
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-gray-600">Aircraft Code</div>
+                    <div className="text-sm text-gray-600">Mã máy bay</div>
                     <div className="font-semibold">{flight.Airplane.code}</div>
                   </div>
                   <div>
-                    <div className="text-sm text-gray-600">Total Seats</div>
+                    <div className="text-sm text-gray-600">Tổng số ghế</div>
                     <div className="font-semibold flex items-center">
                       <Users className="h-4 w-4 mr-1" />
                       {flight.Airplane.total_seats}

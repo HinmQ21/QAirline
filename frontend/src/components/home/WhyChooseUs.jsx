@@ -10,23 +10,23 @@ const ICON_SIZE = "45";
 const reasons = [
   {
     icon: <LuPlane size={ICON_SIZE} />,
-    title: "Modern Fleet",
-    description: "Fly on new, safe, and reliable aircraft."
+    title: "Phương tiện mới",
+    description: "Bay trên máy bay mới, an toàn và đáng tin cậy."
   },
   {
     icon: <FaRegClock size={ICON_SIZE} />,
-    title: "On-Time Guarantee",
-    description: "Take off and land right on schedule."
+    title: "Đảm bảo đúng giờ",
+    description: "Cất cánh và hạ cánh đúng giờ."
   },
   {
     icon: <PiSeatBold size={ICON_SIZE} />,
-    title: "Comfortable Seating",
-    description: "Sit back, relax, and enjoy extra comfort."
+    title: "Ghế thoải mái",
+    description: "Ngồi lại, thư giãn và thưởng thức sự thoải mái."
   },
   {
     icon: <FiGlobe size={ICON_SIZE} />,
-    title: "Global Network",
-    description: "Reach your favorite places around the world."
+    title: "Mạng lưới quốc tế",
+    description: "Đến được những điểm đến mơ ước của bạn."
   }
 ];
 

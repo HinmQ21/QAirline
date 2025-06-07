@@ -79,7 +79,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
               </span>
             </div>
             <Badge className={`${getStatusColor(flight.status)} border-0`}>
-              {flight.status || 'Scheduled'}
+              {flight.status || 'Đã đặt'}
             </Badge>
           </div>
         </CardHeader>
@@ -141,7 +141,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
               <div className="flex items-center space-x-2">
                 <Users className="h-4 w-4 text-gray-500" />
                 <span className="text-sm text-gray-700">
-                  {flight.Airplane.total_seats} seats
+                  {flight.Airplane.total_seats} ghế
                 </span>
               </div>
             )}
@@ -150,7 +150,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
           {/* Aircraft Information */}
           {flight.Airplane && (
             <div className="text-sm text-gray-600">
-              <span className="font-medium">Aircraft:</span> {flight.Airplane.manufacturer} {flight.Airplane.model}
+              <span className="font-medium">Máy bay:</span> {flight.Airplane.manufacturer} {flight.Airplane.model}
             </div>
           )}
 
@@ -158,11 +158,11 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
           <div className="pt-4 border-t border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <div className="text-xs text-gray-500">From</div>
+                <div className="text-xs text-gray-500">Chỉ từ</div>
                 <div className="text-2xl font-bold text-red-600">
                   {formatVND(flight.basePrice)}
                 </div>
-                <div className="text-xs text-gray-500">per person</div>
+                <div className="text-xs text-gray-500">Một người</div>
               </div>
             </div>
             
@@ -174,7 +174,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
                 onClick={handleViewDetails}
               >
                 <Eye className="h-4 w-4 mr-2" />
-                View Details
+                Chi tiết hành trình
               </Button>
               <Button
                 className={`flex-1 h-auto py-2 ${
@@ -185,7 +185,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
                 onClick={handleBookFlight}
                 disabled={!canBook}
               >
-                {canBook ? 'Book Now' : 'Unavailable'}
+                {canBook ? 'Đặt ngay' : 'Không khả dụng'}
               </Button>
             </div>
           </div>

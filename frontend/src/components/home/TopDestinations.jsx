@@ -38,7 +38,7 @@ const DestinationCard = ({ dest }) => (
       </p>
       <div className="w-full mt-1 flex justify-between items-center">
         <div className="flex items-center gap-1.5">
-          <p className="text-md reddit-medium text-gray-800">From:</p>
+          <p className="text-md reddit-medium text-gray-800">Giá chỉ từ:</p>
           <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
         </div>
         <button className="
@@ -46,7 +46,7 @@ const DestinationCard = ({ dest }) => (
           transition-all duration-300
           py-2 px-4 rounded-2xl reddit-medium text-sm cursor-pointer
         ">
-          Book Now
+          Đặt ngay
         </button>
       </div>
     </div>
@@ -92,13 +92,13 @@ export const TopDestinations = () => {
     <div className='flex flex-col'>
       <div className='flex mb-10 justify-between items-end'>
         <div>
-          <p className={css.headerText}>Popular Destination</p>
+          <p className={css.headerText}>Địa điểm</p>
           <p className="w-lg text-gray-500 mt-2">
-            Explore the world's most popular spots, find your dream getaway and book your next adventure with ease!
+             Khám phá những điểm đến nổi tiếng nhất thế giới, tìm chuyến đi mơ ước và đặt vé máy bay dễ dàng cho hành trình tiếp theo của bạn!
           </p>
         </div>
         <Link to='/destinations' className="h-fit flex items-center text-red-600 hover:text-red-400">
-          <p className="montserrat-semibold">See All Destinations</p>
+          <p className="montserrat-semibold">Xem tất cả</p>
           <MdOutlineKeyboardArrowRight className="ml-2" size="1.3em" />
         </Link>
       </div>

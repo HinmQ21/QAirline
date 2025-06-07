@@ -23,12 +23,12 @@ import dayjs from 'dayjs';
 import { airportApiObject } from '@/services/client/airport';
 
 const popularDestinations = [
-  { code: 'SGN', city: 'Ho Chi Minh City', country: 'Vietnam', icon: '🏙️' },
-  { code: 'HAN', city: 'Hanoi', country: 'Vietnam', icon: '🏛️' },
-  { code: 'DAD', city: 'Da Nang', country: 'Vietnam', icon: '🏖️' },
-  { code: 'NHA', city: 'Nha Trang', country: 'Vietnam', icon: '🌴' },
-  { code: 'PQC', city: 'Phu Quoc', country: 'Vietnam', icon: '🏝️' },
-  { code: 'DLI', city: 'Da Lat', country: 'Vietnam', icon: '🌸' }
+  { code: 'SGN', city: 'Thành phố Hồ Chí Minh', country: 'Việt Nam', icon: '🏙️' },
+  { code: 'HAN', city: 'Hà Nội', country: 'Việt Nam', icon: '🏛️' },
+  { code: 'DAD', city: 'Đà Nẵng', country: 'Việt Nam', icon: '🏖️' },
+  { code: 'NHA', city: 'Nha Trang', country: 'Việt Nam', icon: '🌴' },
+  { code: 'PQC', city: 'Phú Quốc', country: 'Việt Nam', icon: '🏝️' },
+  { code: 'DLI', city: 'Đà Lạt', country: 'Việt Nam', icon: '🌸' }
 ];
 
 const quickDateOptions = [
