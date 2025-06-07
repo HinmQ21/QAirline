@@ -1,12 +1,16 @@
 import { CreateNewsRequest, NewsType } from "../schemes/news";
 import { CreatePlaneRequest, PlaneType } from "../schemes/planes";
 import { CreateFlightRequest, UpdateFlightRequest, FlightResponse } from "../admin/flights";
+import { DashboardStats } from "../admin/dashboard";
 
 export interface AdminApiInterface {
   // Auth
   me: () => Promise<any>;
   login: (username: string, password: string) => Promise<any>;
   logout: () => void;
+
+  // Dashboard
+  getDashboardStats: () => Promise<DashboardStats>;
 
   // News
   createNews: (data: CreateNewsRequest) => Promise<NewsType>;
