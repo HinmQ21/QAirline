@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { adminApi } from "@/services/admin/main";
+import { useAdmin } from "@/context/AdminContext";
 import { Shield, User, Lock, Eye, EyeOff } from "lucide-react";
 
 const formSchema = z.object({
@@ -19,41 +19,17 @@ const formSchema = z.object({
   password: z.string().min(6, "Password phải từ 6 ký tự"),
 });
 
-const checkLogin = async (navigate) => {
-  const token = localStorage.getItem("adminAccessToken");
-  if (token != null) {
-    try {
-      toast.promise(
-        adminApi.me(),
-        {
-          loading: 'Đang chuyển hướng...',
-          success: (_) => {
-            navigate("/admin/dashboard");
-          },
-          error: (err) => {
-            const res = err.response;
-            let errMsg;
-            if (res !== undefined) {
-              errMsg = res.data.message;
-            } else {
-              errMsg = err.toString();
-            }
-            return `Lỗi: ${errMsg}`;
-          }
-        }
-      )
-    } catch (err) {
-      console.log(err.toString());
-    }
-  }
-};
-
 export const AdminLoginPage = () => {
   const navigate = useNavigate();
-
-  useEffect(() => { checkLogin(navigate); }, [navigate]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { admin, login, loading } = useAdmin();
   const [showPassword, setShowPassword] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (admin && !loading) {
+      navigate("/admin/dashboard");
+    }
+  }, [admin, loading, navigate]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -63,25 +39,23 @@ export const AdminLoginPage = () => {
     },
   });
 
-  function onSubmit(values) {
-    setIsSubmitting(true);
-    toast.promise(
-      adminApi.login(values.username, values.password),
-      {
-        loading: 'Vui lòng chờ...',
-        success: (_) => {
-          checkLogin(navigate);
-          return 'Đăng nhập thành công!';
-        },
-        error: (err) => {
-          let errMsg;
-          try { errMsg = err.response.data.message; }
-          catch (_) { errMsg = err.toString(); }
-          setIsSubmitting(false);
-          return `Lỗi: ${errMsg}`;
-        }
-      }
-    )
+  async function onSubmit(values) {
+    try {
+      await login(values.username, values.password);
+    } catch (error) {
+      // Error handling is done in the AdminContext
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-pink-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Đang kiểm tra đăng nhập...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -165,10 +139,10 @@ export const AdminLoginPage = () => {
 
                 <Button 
                   type="submit" 
-                  disabled={isSubmitting}
+                  disabled={loading}
                   className="w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {isSubmitting ? (
+                  {loading ? (
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                       <span>Đang đăng nhập...</span>
@@ -199,6 +173,7 @@ export const AdminLoginPage = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
-}
+};

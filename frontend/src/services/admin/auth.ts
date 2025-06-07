@@ -17,10 +17,23 @@ const me = async () => {
   return await adminAxios.get("/auth/admin/me");
 };
 
-const logout = () => {
-  localStorage.removeItem("adminAccessToken");
-  localStorage.removeItem("adminRefreshToken");
-}
+const logout = async () => {
+  try {
+    const refreshToken = localStorage.getItem("adminRefreshToken");
+    if (refreshToken) {
+      // Call server logout endpoint to invalidate refresh token
+      await adminAxios.post("/auth/logout", { refreshToken });
+    }
+  } catch (error) {
+    console.error("Error calling server logout:", error);
+    // Continue with local logout even if server call fails
+  } finally {
+    // Always clear local storage
+    localStorage.removeItem("adminAccessToken");
+    localStorage.removeItem("adminRefreshToken");
+    localStorage.removeItem("adminUser");
+  }
+};
 
 export const authApiObject = {
   me: me,

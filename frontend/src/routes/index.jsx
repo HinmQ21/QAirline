@@ -12,6 +12,17 @@ import { BookAvailability } from "../pages/BookAvailability";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
 import BookingPage from "../pages/BookingPage";
 import MyBookingsPage from "../pages/MyBookingsPage";
+import { AdminProvider } from "@/context/AdminContext";
+import { AdminRouteGuard } from "@/components/admin/AdminRouteGuard";
+
+// Admin Layout wrapper with AdminProvider
+const AdminLayout = ({ children }) => {
+  return (
+    <AdminProvider>
+      {children}
+    </AdminProvider>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -66,11 +77,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AdminLoginPage />
+    element: <AdminLayout><AdminLoginPage /></AdminLayout>
+  },
+  {
+    path: '/admin/login',
+    element: <AdminLayout><AdminLoginPage /></AdminLayout>
   },
   {
     path: '/admin/dashboard',
-    element: <AdminDashboardPage />
+    element: <AdminLayout><AdminRouteGuard><AdminDashboardPage /></AdminRouteGuard></AdminLayout>
   },
   {
     path: '/test',
