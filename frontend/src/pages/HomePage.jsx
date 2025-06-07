@@ -58,20 +58,20 @@ export const HomePage = () => {
         <div className="section homepage-bg-image relative overflow-hidden">
           <div className="min-h-screen flex flex-col justify-between relative">
             {/* Animated background overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-red-900/30 animate-gradient-x"></div>
+            <div className="absolute inset-0"></div>
 
             {/* Hero content */}
             <div className="z-10 flex-1 flex flex-col justify-center items-center text-center px-4">
-              <div data-animate className="space-y-6 max-w-4xl mx-auto">
-                <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                  Hành Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Bắt Đầu Từ Đây</span>
+              <div data-animate className="space-y-4 max-w-4xl mx-auto">
+                <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                  Hành Trình <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">Bắt Đầu Từ Đây</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
+                <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
                   Khám phá những điểm đến tuyệt vời với những chuyến bay giá tốt nhất trên toàn thế giới
                 </p>
 
                 {/* Stats */}
-                <div className="grid grid-cols-3 gap-8 mt-12 max-w-lg mx-auto">
+                <div className="grid grid-cols-3 gap-8 mt-6 max-w-lg mx-auto">
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-2">
                       <Users className="text-blue-400 w-6 h-6" />

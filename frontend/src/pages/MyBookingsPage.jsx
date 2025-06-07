@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Plane, 
-  Calendar, 
+import {
+  Plane,
+  Calendar,
   MapPin,
   Clock,
   Ticket,
@@ -24,7 +24,7 @@ import { formatCurrency } from '@/utils/pricing';
 
 export default function MyBookingsPage() {
   const navigate = useNavigate();
-  
+
   // State management
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,16 +38,16 @@ export default function MyBookingsPage() {
       } else {
         setLoading(true);
       }
-      
+
       const response = await clientApi.getCustomerBookings();
-      
+
       if (response.success) {
         setBookings(response.data || []);
         if (showRefreshToast) {
           toast.success('Đã cập nhật danh sách đặt vé');
         }
       }
-      
+
     } catch (error) {
       console.error('Error fetching bookings:', error);
       toast.error(error.message || 'Không thể tải danh sách đặt vé');
@@ -100,7 +100,7 @@ export default function MyBookingsPage() {
   // Handle cancel booking
   const handleCancelBooking = async (bookingId) => {
     if (!confirm('Bạn có chắc chắn muốn hủy đặt vé này?')) return;
-    
+
     try {
       const response = await clientApi.cancelBooking(bookingId);
       if (response.success) {
@@ -129,8 +129,8 @@ export default function MyBookingsPage() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Danh sách đặt vé</h1>
-            <p className="text-gray-600">Quản lý các chuyến bay đã đặt của bạn</p>
+            <h1 className="text-3xl font-bold text-white">Danh sách đặt vé</h1>
+            <p className="text-gray-200">Quản lý các chuyến bay đã đặt của bạn</p>
           </div>
           <Button
             onClick={handleRefresh}
@@ -162,8 +162,8 @@ export default function MyBookingsPage() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Danh sách đặt vé</h1>
-          <p className="text-gray-600">Quản lý các chuyến bay đã đặt của bạn ({bookings.length} đặt vé)</p>
+          <h1 className="text-3xl font-bold text-white">Danh sách đặt vé</h1>
+          <p className="text-gray-200">Quản lý các chuyến bay đã đặt của bạn ({bookings.length} vé)</p>
         </div>
         <Button
           onClick={handleRefresh}
@@ -180,7 +180,7 @@ export default function MyBookingsPage() {
         {bookings.map((booking) => {
           const statusInfo = getStatusInfo(booking.status);
           const StatusIcon = statusInfo.icon;
-          
+
           return (
             <Card key={booking.booking_id} className="overflow-hidden">
               <CardHeader className="bg-gray-50">
@@ -196,7 +196,7 @@ export default function MyBookingsPage() {
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="text-right">
                     <Badge className={statusInfo.color}>
                       <StatusIcon className="w-3 h-3 mr-1" />
@@ -208,13 +208,13 @@ export default function MyBookingsPage() {
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Flight Information */}
                   <div className="space-y-4">
                     <h4 className="font-semibold text-gray-900">Thông tin chuyến bay</h4>
-                    
+
                     <div className="space-y-3">
                       <div className="flex items-start gap-3">
                         <MapPin className="w-4 h-4 text-gray-500 mt-0.5" />
@@ -223,16 +223,16 @@ export default function MyBookingsPage() {
                           <p className="text-sm text-gray-600">{booking.Flight?.departureAirport?.city || 'N/A'}</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Clock className="w-4 h-4" />
                         {booking.Flight?.departure_time ? dayjs(booking.Flight.departure_time).format('HH:mm, DD/MM/YYYY') : 'N/A'}
                       </div>
-                      
+
                       <div className="w-full h-px bg-gray-200 relative">
                         <Plane className="w-4 h-4 text-gray-400 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white" />
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <MapPin className="w-4 h-4 text-gray-500 mt-0.5" />
                         <div>
@@ -240,18 +240,18 @@ export default function MyBookingsPage() {
                           <p className="text-sm text-gray-600">{booking.Flight?.arrivalAirport?.city || 'N/A'}</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Clock className="w-4 h-4" />
                         {booking.Flight?.arrival_time ? dayjs(booking.Flight.arrival_time).format('HH:mm, DD/MM/YYYY') : 'N/A'}
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Booking Details */}
                   <div className="space-y-4">
                     <h4 className="font-semibold text-gray-900">Chi tiết đặt vé</h4>
-                    
+
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
                         <User className="w-4 h-4 text-gray-500" />
@@ -259,7 +259,7 @@ export default function MyBookingsPage() {
                           {booking.Tickets?.length || 0} hành khách
                         </span>
                       </div>
-                      
+
                       {booking.Tickets && booking.Tickets.length > 0 && (
                         <div className="space-y-2">
                           {booking.Tickets.slice(0, 3).map((ticket, index) => (
@@ -277,9 +277,9 @@ export default function MyBookingsPage() {
                           )}
                         </div>
                       )}
-                      
+
                       <Separator />
-                      
+
                       <div className="flex justify-between items-center">
                         <span className="font-semibold">Tổng tiền:</span>
                         <span className="font-bold text-lg text-blue-600">
@@ -289,43 +289,34 @@ export default function MyBookingsPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Action Buttons */}
                 <div className="mt-6 pt-4 border-t border-gray-200">
-                  <div className="flex gap-3">
-                    <Button 
-                      variant="outline" 
+                  {booking.status === 'booked' && (
+                    <Button
+                      className="reddit-medium text-white"
+                      variant="destructive"
                       size="sm"
-                      onClick={() => {
-                        // Navigate to booking details or ticket view
-                        navigate(`/tickets/booking/${booking.booking_id}`);
-                      }}
+                      onClick={() => handleCancelBooking(booking.booking_id)}
                     >
-                      <Ticket className="w-4 h-4 mr-2" />
-                      Xem vé
+                      <XCircle className="w-4 h-4 mr-2" />
+                      Hủy vé
                     </Button>
-                    
-                    {booking.status === 'booked' && (
-                      <Button 
-                        variant="destructive" 
-                        size="sm"
-                        onClick={() => handleCancelBooking(booking.booking_id)}
-                      >
-                        <XCircle className="w-4 h-4 mr-2" />
-                        Hủy vé
-                      </Button>
-                    )}
-                  </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
           );
         })}
       </div>
-      
+
       {/* Bottom Actions */}
       <div className="mt-8 text-center">
-        <Button onClick={() => navigate('/flights')} size="lg">
+        <Button
+          className="reddit-medium dark"
+          onClick={() => navigate('/flights')}
+          size="lg"
+        >
           <Plane className="w-4 h-4 mr-2" />
           Đặt thêm chuyến bay
         </Button>

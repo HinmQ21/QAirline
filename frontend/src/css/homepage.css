@@ -8,6 +8,11 @@
 @layer components {
   .homepage-bg-image {
     @apply relative bg-cover bg-center bg-no-repeat;
-    background-image: url('/home/bg.png');
+    background-image: url('/home/home-bg.jpg');
+    /* &::before {
+      content: '';
+      @apply absolute inset-0;
+      backdrop-filter: blur(2px);
+    } */
   }
 }

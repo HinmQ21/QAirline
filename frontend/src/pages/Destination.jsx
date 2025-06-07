@@ -1,21 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Search, 
-  MapPin, 
-  Star, 
-  Users, 
-  Calendar,
-  Filter,
-  Globe,
-  ArrowRight,
-  Heart,
-  Camera,
-  Plane,
-  TrendingUp,
-  Sun,
-  Mountain,
-  Waves,
-  Building
+  Search, MapPin, Star, Users, Calendar, Filter,
+  Globe, ArrowRight, Heart, Camera,
+  Plane, TrendingUp, Sun, Mountain, Waves, Building
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -282,10 +269,10 @@ const DestinationsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-pink-50">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-pink-950">
-        <div className="absolute inset-0 bg-black/10"></div>
+      <div className="relative overflow-x-clip">
+        <div className="absolute inset-0"></div>
         <div className="relative z-10 px-4 py-20 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
@@ -304,7 +291,12 @@ const DestinationsPage = () => {
                   placeholder="Tìm kiếm điểm đến, quốc gia hoặc trải nghiệm..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 text-lg bg-white text-gray-900 rounded-2xl border border-gray-200 focus:ring-4 focus:ring-pink-300/50 focus:outline-none focus:border-pink-300 shadow-xl transition-all duration-200"
+                  className="
+                    w-full pl-12 pr-4 py-4 text-lg bg-white text-gray-900
+                    rounded-2xl border border-gray-200 focus:ring-4
+                    focus:ring-pink-300/50 focus:outline-none
+                    focus:border-pink-300 shadow-xl transition-all duration-200
+                  "
                 />
               </div>
             </div>
@@ -316,12 +308,12 @@ const DestinationsPage = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-48 translate-y-48"></div>
       </div>
 
-      <div className={`${css.minipage.xl} ${css.minipagemx} -mt-8 relative z-20`}>
+      <div className={`${css.minipagemx} -mt-8 relative z-20`}>
         <div className="mx-4 lg:mx-8 xl:mx-16 my-10">
           {/* Filters Section */}
           <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-pink-950 bg-clip-text text-transparent">
+              <h2 className={`text-2xl font-bold ${css.homepageGgGradient} bg-clip-text text-transparent`}>
                 Khám phá theo danh mục
               </h2>
               <Button 
@@ -435,24 +427,6 @@ const DestinationsPage = () => {
               </div>
             </div>
           )}
-
-          {/* Newsletter Section */}
-          <div className="mt-16 bg-gradient-to-r from-gray-900 to-pink-950 rounded-2xl p-8 text-center text-white">
-            <h3 className="text-2xl font-bold mb-4">Cập nhật thông tin</h3>
-            <p className="text-gray-100 mb-6 max-w-2xl mx-auto">
-              Nhận những ưu đãi du lịch mới nhất và hướng dẫn điểm đến qua email
-            </p>
-            <div className="max-w-md mx-auto flex gap-3">
-              <input
-                type="email"
-                placeholder="Nhập email của bạn"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <Button className="bg-white text-gray-800 hover:bg-gray-100 px-6">
-                Đăng ký
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
