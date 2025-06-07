@@ -19,7 +19,7 @@ export const planeSchema = z.object({
   code: z.string().nonempty().max(20),
   manufacturer: z.enum(manufacturerList),
   model: z.string().nonempty().max(50),
-  total_seats: z.number().positive(),
+  total_seats: z.number().positive().min(1, "Số ghế ngồi phải lớn hơn 0"),
 });
 
 
@@ -85,7 +85,15 @@ export const PlaneModifyDialog = ({
                 <FormItem>
                   <FormLabel className={formLabelClassName}>Số ghế ngồi</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input 
+                      type="number"
+                      {...field}
+                      value={field.value || ''}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value === '' ? 0 : parseInt(value, 10) || 0);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage className="reddit-regular" />
                 </FormItem>
