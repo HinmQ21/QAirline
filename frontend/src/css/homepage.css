@@ -10,12 +10,4 @@
     @apply relative bg-cover bg-center bg-no-repeat;
     background-image: url('/home/bg.png');
   }
-
-  .homepage-bg-gradient {
-    @apply bg-gradient-to-r from-gray-900 to-pink-950;
-  }
-
-  .homepage-bg-solid {
-    @apply bg-gray-100;
-  }
 }

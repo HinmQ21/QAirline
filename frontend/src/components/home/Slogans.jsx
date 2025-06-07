@@ -1,6 +1,6 @@
+import { css } from "../../css/styles";
 import { PiAirplaneTakeoffThin } from "react-icons/pi";
 import { GoShieldCheck, GoGlobe } from "react-icons/go";
-
 
 const Slogan = ({ icon, children }) => (
   <div className="flex items-center gap-3">
@@ -13,8 +13,9 @@ const Slogan = ({ icon, children }) => (
 export const SloganRow = () => {
   return (
     <div
-      className="flex w-full text-center justify-around
-                 text-white z-1 py-7 homepage-bg-gradient"
+      className={`flex w-full text-center justify-around
+                 text-white z-1 py-7
+                 ${css.homepageGgGradient}`}
     >
       <Slogan icon={<PiAirplaneTakeoffThin size='24'/>}>Fast Booking</Slogan>
       <Slogan icon={<GoShieldCheck size='24'/>}>Secure & Reliable</Slogan>

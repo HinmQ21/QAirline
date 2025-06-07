@@ -199,7 +199,6 @@ export const AdminLoginPage = () => {
           </div>
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

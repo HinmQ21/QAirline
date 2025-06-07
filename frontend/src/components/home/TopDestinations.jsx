@@ -1,12 +1,12 @@
+import { css } from "@/css/styles";
 import { Link } from "react-router-dom";
 import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react';
+import { useEffect, useRef } from "react";
 import { RiCompass3Line } from "react-icons/ri";
-import destinationsMock from "../../data/top_destinations.json";
+import { useKeenSlider } from 'keen-slider/react';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import destinationsMock from "../../data/top_destinations.json";
 import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
-import { useEffect, useRef, useState } from "react";
-import { css } from "@/css/styles";
 
 const DestinationCard = ({ dest }) => (
   <div className="flex flex-col">
@@ -31,8 +31,9 @@ const DestinationCard = ({ dest }) => (
         <RiCompass3Line />
         <div className="text-sm w-fit">{dest.location}</div>
       </div>
-      <p className="text-lg montserrat-semibold
-                  text-transparent bg-clip-text homepage-bg-gradient">
+      <p className={`text-lg montserrat-semibold
+                  text-transparent bg-clip-text
+                  ${css.homepageGgGradient}`}>
         {dest.name}
       </p>
       <div className="w-full mt-1 flex justify-between items-center">

@@ -14,4 +14,6 @@ export class css {
   } as const;
 
   static readonly minipagemx = "xl:mx-30 lg:mx-20 md:mx-10 sm:mx-5 mx-2";
+
+  static readonly homepageGgGradient = "bg-gradient-to-r from-gray-900 to-pink-950";
 }
