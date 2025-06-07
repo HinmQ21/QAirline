@@ -12,6 +12,7 @@ import { BookAvailability } from "../pages/BookAvailability";
 import { AdminDashboardPage } from "@/pages/admin/DashboardPage";
 import BookingPage from "../pages/BookingPage";
 import MyBookingsPage from "../pages/MyBookingsPage";
+import ProfilePage from "../pages/ProfilePage";
 import { AdminProvider } from "@/context/AdminContext";
 import { AdminRouteGuard } from "@/components/admin/AdminRouteGuard";
 
@@ -52,6 +53,13 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "", element: <MyBookingsPage /> },
+    ],
+  },
+  {
+    path: "/profile",
+    element: <MainLayout />,
+    children: [
+      { path: "", element: <ProfilePage /> },
     ],
   },
   {

@@ -375,6 +375,57 @@ router.put('/profile', authenticateUser, authController.updateCustomerProfile);
 
 /**
  * @swagger
+ * /api/auth/change-password:
+ *   put:
+ *     summary: Đổi mật khẩu của người dùng
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: [] # Requires user token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - currentPassword
+ *               - newPassword
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 format: password
+ *                 description: "Mật khẩu hiện tại"
+ *                 example: OldPassword123
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 description: "Mật khẩu mới"
+ *                 example: NewPassword123
+ *     responses:
+ *       200:
+ *         description: "Đổi mật khẩu thành công"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Đổi mật khẩu thành công
+ *       400:
+ *         description: "Mật khẩu hiện tại không đúng hoặc dữ liệu không hợp lệ"
+ *       404:
+ *         description: "Không tìm thấy thông tin người dùng"
+ *       500:
+ *         description: "Lỗi máy chủ"
+ */
+router.put('/change-password', authenticateUser, authController.changePassword);
+
+/**
+ * @swagger
  * /api/auth/account:
  *   delete:
  *     summary: Xóa tài khoản người dùng

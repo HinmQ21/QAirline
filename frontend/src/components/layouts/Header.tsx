@@ -97,6 +97,7 @@ const UserAvatarButton = ({ user }: { user: User }) => {
 
   const onLogout = () => {
     clientApi.logout();
+    navigate('/');
     window.location.reload();
     toast.success("Đăng xuất thành công!");
   };
@@ -114,6 +115,15 @@ const UserAvatarButton = ({ user }: { user: User }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2 dark" align="end">
           <DropdownMenuGroup>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate('/profile');
+                setDropdownOpen(false);
+              }}
+            >
+              <UserIcon className="w-4 h-4 mr-2" />
+              Thông tin cá nhân
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 navigate('/bookings');
@@ -210,6 +220,7 @@ const AuthButtons = () => {
       {
         loading: 'Vui lòng chờ...',
         success: (_) => {
+          setIsOpen(false);
           window.location.reload();
           return 'Đăng nhập thành công!';
         },

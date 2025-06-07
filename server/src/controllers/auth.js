@@ -365,6 +365,62 @@ exports.updateCustomerProfile = async (req, res) => {
   }
 };
 
+// Change password
+exports.changePassword = async (req, res) => {
+  try {
+    const { customer_id } = req.user;
+    const { currentPassword, newPassword } = req.body;
+    
+    // Validate input
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Vui lòng nhập mật khẩu hiện tại và mật khẩu mới'
+      });
+    }
+    
+    // Find user
+    const user = await Customer.findByPk(customer_id);
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy thông tin người dùng'
+      });
+    }
+    
+    // Verify current password
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    
+    if (!isCurrentPasswordValid) {
+      return res.status(400).json({
+        success: false,
+        message: 'Mật khẩu hiện tại không đúng'
+      });
+    }
+    
+    // Hash new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+    
+    // Update password
+    await user.update({
+      password: hashedNewPassword
+    });
+    
+    res.status(200).json({
+      success: true,
+      message: 'Đổi mật khẩu thành công'
+    });
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Đã xảy ra lỗi khi đổi mật khẩu',
+      error: error.message
+    });
+  }
+};
+
 // Delete customer account
 exports.deleteCustomerAccount = async (req, res) => {
   try {
