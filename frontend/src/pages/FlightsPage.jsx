@@ -31,7 +31,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
 
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 
 function formatDateTime(dateString) {
   const date = new Date(dateString);
