@@ -60,7 +60,7 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
   return (
     <div className={`header ${isAtTop ? "header-top" : "header-scrolled"} ${className}`}>
       <div className="flex items-center ml-10">
-        <Link to="/" className="special-gothic-expanded-one-regular text-2xl">
+        <Link to="/" className="special-gothic-expanded-one-regular text-2xl z-1">
           QAIRLINE
         </Link>
 
