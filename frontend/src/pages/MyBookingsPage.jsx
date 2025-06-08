@@ -59,13 +59,13 @@ export default function MyBookingsPage() {
 
   // Booking is completed if departure time is in the past
   const isBookingCompleted = (booking) => {
-    return booking.status === 'booked' && booking.Flight.departure_time < new Date();
+    return booking.status === 'booked' && new Date(booking.Flight.departure_time) < new Date();
   };
 
   // Cancel is valid if departure time is more than 5 days from now
   const bookingIsCancellable = (booking) => {
     const fiveDaysFromNow = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
-    return booking.status === 'booked' && fiveDaysFromNow < booking.Flight.departure_time;
+    return booking.status === 'booked' && fiveDaysFromNow < new Date(booking.Flight.departure_time);
   };
 
   // Initial load
@@ -306,8 +306,8 @@ export default function MyBookingsPage() {
                       onClick={() => handleCancelBooking(booking.booking_id)}
                       disabled={!bookingIsCancellable(booking)}
                       className={`relative group px-4 py-2 rounded-md text-sm font-medium
-                        ${bookingIsCancellable(booking) 
-                          ? 'bg-red-100 text-red-800 hover:bg-red-200' 
+                        ${bookingIsCancellable(booking)
+                          ? 'bg-red-100 text-red-800 hover:bg-red-200'
                           : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
                     >
                       Hủy vé
