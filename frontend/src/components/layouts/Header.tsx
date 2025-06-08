@@ -13,11 +13,24 @@ import { WeatherDisplay } from "@/components/layouts/Weather";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog";
-import { User as UserIcon, Lock, Eye, EyeOff, Mail, Plane, Shield, Ticket, LogOut, MoreHorizontal } from "lucide-react";
+import { 
+  User as UserIcon, 
+  Lock, 
+  Eye, 
+  EyeOff, 
+  Mail, 
+  Plane, 
+  Shield, 
+  Ticket, 
+  LogOut, 
+  MoreHorizontal,
+  Home,
+  Globe,
+  Newspaper
+} from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from "@/components/ui/alert-dialog";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 type TabType = "login" | "signup";
 
@@ -49,11 +62,13 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
   }, []);
 
   const navigationLinks = [
-    { to: "/", label: "Home" },
-    { to: "/flights", label: "Flights" },
-    { to: "/destinations", label: "Destinations" },
-    { to: "/news", label: "News" },
+    { to: "/", label: "Home", icon: Home },
+    { to: "/flights", label: "Flights", icon: Plane },
+    { to: "/destinations", label: "Destinations", icon: Globe },
+    { to: "/news", label: "News", icon: Newspaper },
   ];
+
+  const navigate = useNavigate();
 
   return (
     <div className={`header ${isAtTop ? "header-top" : "header-scrolled"} ${className}`}>
@@ -83,29 +98,33 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
 
         {/* Mobile Menu Button */}
         <div className="sm:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="text-white hover:text-red-600">
                 <MoreHorizontal className="h-6 w-6" />
               </Button>
-            </SheetTrigger>
-            <SheetContent side="left">
-              <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col gap-4 mt-6">
-                {navigationLinks.map((link) => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className="text-lg font-medium text-gray-700 hover:text-red-600 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent 
+              align="end" 
+              className="w-56 bg-gray-900/95 backdrop-blur-sm border border-gray-800"
+            >
+              <DropdownMenuGroup>
+                {navigationLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <DropdownMenuItem
+                      key={link.to}
+                      className="cursor-pointer text-gray-200 hover:text-white focus:text-white hover:bg-gray-800/80 focus:bg-gray-800/80 group"
+                      onClick={() => navigate(link.to)}
+                    >
+                      <Icon className="h-4 w-4 mr-3 text-gray-400 group-hover:text-red-500 group-focus:text-red-500" />
+                      {link.label}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {user ? (
