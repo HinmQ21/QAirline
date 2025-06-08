@@ -1,5 +1,5 @@
 import { css } from "@/css/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import 'keen-slider/keen-slider.min.css';
 import { useEffect, useRef } from "react";
 import { RiCompass3Line } from "react-icons/ri";
@@ -8,50 +8,56 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import destinationsMock from "../../data/top_destinations.json";
 import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 
-const DestinationCard = ({ dest }) => (
-  <div className="flex flex-col">
-    <div className="group relative w-full h-86 lg:h-108 cursor-pointer">
-      <img
-        src={dest.image}
-        alt={dest.name}
-        className="w-full h-full object-cover
+const DestinationCard = ({ dest }) => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col">
+      <div className="group relative w-full h-86 lg:h-108 cursor-pointer">
+        <img
+          src={dest.image}
+          alt={dest.name}
+          className="w-full h-full object-cover
                  filter group-hover:blur-lg group-hover:brightness-80
                  transition-all duration-200"
-      />
-      <p className="absolute inset-0 flex items-center
+        />
+        <p className="absolute inset-0 flex items-center
                   px-10 shantell-sans-regular
                   text-white text-lg opacity-0 group-hover:opacity-100
                   transition-opacity duration-750">
-        {dest.description}
-      </p>
-    </div>
-    <div className="w-full flex flex-col items-start justify-between
-                    bg-gray-300 pt-2 pb-3 px-4 select-text">
-      <div className="flex items-center text-black gap-1.5">
-        <RiCompass3Line />
-        <div className="text-sm w-fit">{dest.location}</div>
+          {dest.description}
+        </p>
       </div>
-      <p className={`text-lg montserrat-semibold
+      <div className="w-full flex flex-col items-start justify-between
+                    bg-gray-300 pt-2 pb-3 px-4 select-text">
+        <div className="flex items-center text-black gap-1.5">
+          <RiCompass3Line />
+          <div className="text-sm w-fit">{dest.location}</div>
+        </div>
+        <p className={`text-lg montserrat-semibold
                   text-transparent bg-clip-text
                   ${css.homepageGgGradient}`}>
-        {dest.name}
-      </p>
-      <div className="w-full mt-1 flex justify-between items-center">
-        <div className="flex items-center gap-1.5">
-          <p className="text-md reddit-medium text-gray-800">Giá chỉ từ:</p>
-          <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
+          {dest.name}
+        </p>
+        <div className="w-full mt-1 flex justify-between items-center">
+          <div className="flex items-center gap-1.5">
+            <p className="text-md reddit-medium text-gray-800">Giá chỉ từ:</p>
+            <p className="text-red-500 montserrat-regular text-sm">{dest.minPrice}</p>
+          </div>
+          <button className="
+            bg-pink-950 hover:bg-red-500 text-white
+            transition-all duration-300
+            py-2 px-4 rounded-2xl reddit-medium text-sm cursor-pointer
+          " onClick={() => {
+              navigate('/flights');
+            }}>
+            Đặt ngay
+          </button>
         </div>
-        <button className="
-          bg-pink-950 hover:bg-red-500 text-white
-          transition-all duration-300
-          py-2 px-4 rounded-2xl reddit-medium text-sm cursor-pointer
-        ">
-          Đặt ngay
-        </button>
       </div>
     </div>
-  </div>
-)
+  );
+}
 
 
 export const TopDestinations = () => {
@@ -94,7 +100,7 @@ export const TopDestinations = () => {
         <div>
           <p className={css.headerText}>Địa điểm</p>
           <p className="text-gray-500 mt-2">
-             Khám phá những điểm đến nổi tiếng nhất thế giới, tìm chuyến đi mơ ước và đặt vé máy bay dễ dàng cho hành trình tiếp theo của bạn!
+            Khám phá những điểm đến nổi tiếng nhất thế giới, tìm chuyến đi mơ ước và đặt vé máy bay dễ dàng cho hành trình tiếp theo của bạn!
           </p>
         </div>
         <Link to='/destinations' className="hidden md:flex h-fit min-w-max items-center text-red-600 hover:text-red-400">
