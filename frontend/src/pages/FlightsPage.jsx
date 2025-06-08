@@ -98,6 +98,8 @@ export default function FlightsPage() {
       setCurrentSearchParams({
         from: searchParams.departure_airport_id,
         to: searchParams.arrival_airport_id,
+        fromAirport: startAirport,
+        toAirport: endAirport,
         departureDate: dayjs(searchParams.departure_date).format('MMM DD, YYYY'),
         returnDate: searchParams.return_date ? dayjs(searchParams.return_date).format('MMM DD, YYYY') : null
       });

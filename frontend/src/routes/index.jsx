@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+// import { UserPage } from "@/pages/UserPage";
 import { TestPage } from "@/pages/TestPage";
 import { HomePage } from "../pages/HomePage";
 import MainLayout from "../layouts/MainLayout";
@@ -30,6 +31,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />
   },
+  // {
+  //   path: "/user",
+  //   element: <MainLayout />,
+  //   children: [
+  //     { path: "", element: <UserPage />}
+  //   ],
+  // },
   {
     path: "/sidebar",
     element: <SideBar />
