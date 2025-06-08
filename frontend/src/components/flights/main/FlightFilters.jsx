@@ -18,18 +18,18 @@ export const FlightFilters = ({
   };
 
   const timeSlots = [
-    { value: 'early-morning', label: 'Early Morning (6:00 - 9:00)', start: 6, end: 9 },
-    { value: 'morning', label: 'Morning (9:00 - 12:00)', start: 9, end: 12 },
-    { value: 'afternoon', label: 'Afternoon (12:00 - 18:00)', start: 12, end: 18 },
-    { value: 'evening', label: 'Evening (18:00 - 22:00)', start: 18, end: 22 },
-    { value: 'night', label: 'Night (22:00 - 6:00)', start: 22, end: 6 }
+    { value: 'early-morning', label: 'Sáng (6:00 - 9:00)', start: 6, end: 9 },
+    { value: 'morning', label: 'Buổi sáng (9:00 - 12:00)', start: 9, end: 12 },
+    { value: 'afternoon', label: 'Buổi chiều (12:00 - 18:00)', start: 12, end: 18 },
+    { value: 'evening', label: 'Buổi tối (18:00 - 22:00)', start: 18, end: 22 },
+    { value: 'night', label: 'Đêm (22:00 - 6:00)', start: 22, end: 6 }
   ];
 
   const durationOptions = [
-    { value: 'any', label: 'Any Duration' },
-    { value: 'short', label: 'Under 2 hours' },
-    { value: 'medium', label: '2-5 hours' },
-    { value: 'long', label: 'Over 5 hours' }
+    { value: 'any', label: 'Bất kỳ thời gian' },
+    { value: 'short', label: 'Dưới 2 giờ' },
+    { value: 'medium', label: '2-5 giờ' },
+    { value: 'long', label: 'Trên 5 giờ' }
   ];
 
   return (
@@ -37,7 +37,7 @@ export const FlightFilters = ({
       <CardHeader>
         <CardTitle className="flex items-center text-lg">
           <Filter className="h-5 w-5 mr-2" />
-          Filter Results
+          Kết quả tìm kiếm
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -45,11 +45,11 @@ export const FlightFilters = ({
         <div className="space-y-3">
           <Label className="flex items-center text-sm font-medium">
             <DollarSign className="h-4 w-4 mr-1" />
-            Price Range (VND)
+            Khoảng giá (VND)
           </Label>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <Label htmlFor="minPrice" className="text-xs text-gray-600">Min Price</Label>
+              <Label htmlFor="minPrice" className="text-xs text-gray-600">Giá tối thiểu</Label>
               <Input
                 id="minPrice"
                 type="number"
@@ -60,7 +60,7 @@ export const FlightFilters = ({
               />
             </div>
             <div>
-              <Label htmlFor="maxPrice" className="text-xs text-gray-600">Max Price</Label>
+              <Label htmlFor="maxPrice" className="text-xs text-gray-600">Giá tối đa</Label>
               <Input
                 id="maxPrice"
                 type="number"
@@ -77,7 +77,7 @@ export const FlightFilters = ({
         <div className="space-y-3">
           <Label className="flex items-center text-sm font-medium">
             <Clock className="h-4 w-4 mr-1" />
-            Departure Time
+            Giờ bay
           </Label>
           <div className="space-y-2">
             {timeSlots.map((slot) => (
@@ -105,14 +105,14 @@ export const FlightFilters = ({
         <div className="space-y-3">
           <Label className="flex items-center text-sm font-medium">
             <Plane className="h-4 w-4 mr-1" />
-            Flight Duration
+            Thời gian bay
           </Label>
           <Select 
             value={filters.duration || 'any'} 
             onValueChange={(value) => handleFilterChange('duration', value)}
           >
             <SelectTrigger className="h-9">
-              <SelectValue placeholder="Select duration" />
+              <SelectValue placeholder="Chọn thời gian" />
             </SelectTrigger>
             <SelectContent>
               {durationOptions.map((option) => (
@@ -130,7 +130,7 @@ export const FlightFilters = ({
             onClick={() => onFiltersChange({})}
             className="w-full text-sm text-red-600 hover:text-red-700 font-medium"
           >
-            Clear All Filters
+            Xóa tất cả bộ lọc
           </button>
         </div>
       </CardContent>

@@ -167,27 +167,27 @@ export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <CreditCard className="h-5 w-5 mr-2" />
-                Pricing
+                Giá cước
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm text-gray-600">Base Price</div>
+                  <div className="text-sm text-gray-600">Giá cơ bản</div>
                   <div className="text-3xl font-bold text-red-600">
                     {formatVND(flight.basePrice)}
                   </div>
-                  <div className="text-sm text-gray-500">per passenger</div>
+                  <div className="text-sm text-gray-500">mỗi người</div>
                 </div>
                 <div className="text-right">
                   <div className="text-sm text-gray-600 mb-2">
-                    • Taxes and fees included
+                    • Phí và thuế đã bao gồm
                   </div>
                   <div className="text-sm text-gray-600 mb-2">
-                    • Free cabin baggage (7kg)
+                    • Hành lý ký gửi miễn phí (7kg)
                   </div>
                   <div className="text-sm text-gray-600">
-                    • Free seat selection
+                    • Chọn ghế miễn phí
                   </div>
                 </div>
               </div>
@@ -197,13 +197,13 @@ export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
           {/* Action Buttons */}
           <div className="flex justify-end space-x-4 pt-4 border-t">
             <Button variant="outline" onClick={onClose}>
-              Close
+              Đóng
             </Button>
             <Button 
               className="bg-red-600 hover:bg-red-700 text-white px-8"
               onClick={onBook}
             >
-              Book This Flight
+              Đặt chuyến bay này
             </Button>
           </div>
         </div>

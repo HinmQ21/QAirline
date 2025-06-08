@@ -49,10 +49,10 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
   }, []);
 
   const navigationLinks = [
-    { to: "/", label: "Home", icon: Home },
-    { to: "/flights", label: "Flights", icon: Plane },
-    { to: "/destinations", label: "Destinations", icon: Globe },
-    { to: "/news", label: "News", icon: Newspaper },
+    // { to: "/", label: "Home", icon: Home },
+    { to: "/flights", label: "Chuyến bay", icon: Plane },
+    { to: "/destinations", label: "Điểm đến", icon: Globe },
+    { to: "/news", label: "Tin tức", icon: Newspaper },
   ];
 
   const navigate = useNavigate();
