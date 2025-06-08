@@ -13,10 +13,11 @@ import { WeatherDisplay } from "@/components/layouts/Weather";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog";
-import { User as UserIcon, Lock, Eye, EyeOff, Mail, Plane, Shield, Ticket } from "lucide-react";
+import { User as UserIcon, Lock, Eye, EyeOff, Mail, Plane, Shield, Ticket, LogOut, MoreHorizontal } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from "@/components/ui/alert-dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 type TabType = "login" | "signup";
 
@@ -47,44 +48,73 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
     );
   }, []);
 
+  const navigationLinks = [
+    { to: "/", label: "Home" },
+    { to: "/flights", label: "Flights" },
+    { to: "/destinations", label: "Destinations" },
+    { to: "/news", label: "News" },
+  ];
+
   return (
     <div className={`header ${isAtTop ? "header-top" : "header-scrolled"} ${className}`}>
       <div className="flex items-center ml-10">
         <Link to="/" className="special-gothic-expanded-one-regular text-2xl">
           QAIRLINE
         </Link>
-        <div className="flex ml-22 gap-x-10">
-          <Link to="/" className="header-link reddit-regular">
-            Home
-          </Link>
-          <Link to="/flights" className="header-link reddit-regular">
-            Flights
-          </Link>
-          <Link to="/destinations" className="header-link reddit-regular">
-            Destinations
-          </Link>
-          <Link to="/news" className="header-link reddit-regular">
-            News
-          </Link>
+        
+        {/* Desktop Navigation */}
+        <div className="hidden sm:flex ml-22 gap-x-10">
+          {navigationLinks.map((link) => (
+            <Link key={link.to} to={link.to} className="header-link reddit-regular">
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
 
       <div className="flex items-center mr-10 gap-x-4">
+        {/* Weather info - hidden on mobile */}
         <div
-          className={`${isAtTop ? "opacity-0" : "opacity-100"}
+          className={`${isAtTop ? "opacity-0" : "opacity-100"} hidden sm:block
                         transition-opacity duration-300`}
         >
           <WeatherDisplay />
         </div>
-        {
-          user ? (
-            <UserAvatarButton user={user} />
-          ) : isLoading ? (
-            <p>Logging in...</p>
-          ) : (
-            <AuthButtons />
-          )
-        }
+
+        {/* Mobile Menu Button */}
+        <div className="sm:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-white hover:text-red-600">
+                <MoreHorizontal className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col gap-4 mt-6">
+                {navigationLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="text-lg font-medium text-gray-700 hover:text-red-600 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        {user ? (
+          <UserAvatarButton user={user} />
+        ) : isLoading ? (
+          <p>Logging in...</p>
+        ) : (
+          <AuthButtons />
+        )}
       </div>
     </div>
   );
@@ -139,6 +169,7 @@ const UserAvatarButton = ({ user }: { user: User }) => {
                 setDropdownOpen(false); // đóng menu trước khi mở dialog
               }}
             >
+              <LogOut  className="w-4 h-4 mr-2" />
               Đăng xuất
             </DropdownMenuItem>
           </DropdownMenuGroup>
