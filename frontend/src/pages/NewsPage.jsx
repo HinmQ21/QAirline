@@ -4,6 +4,7 @@ import { css } from "@/css/styles";
 import { Search, Calendar, Filter, ChevronRight, Clock } from "lucide-react";
 import { NewsCategoryBadge } from "@/components/admin/news-manager/NewsCard";
 import { NewsDialog } from "@/components/misc/NewsDialog";
+import ReactMarkdown from 'react-markdown';
 
 export const NewsPage = () => {
   const [news, setNews] = useState([]);
@@ -235,14 +236,16 @@ export const NewsPage = () => {
                           </div>
 
                           {/* Title */}
-                          <h2 className="text-2xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-blue-600 transition-colors text-left">
+                          <h2 className="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-blue-600 transition-colors text-left">
                             {article.title}
                           </h2>
 
                           {/* Content Preview */}
-                          <p className="text-gray-600 mb-6 line-clamp-3 text-lg leading-relaxed text-left">
-                            {article.content.replace(/<[^>]*>/g, '').slice(0, 200)}...
-                          </p>
+                          <div className="text-gray-600 mb-6 line-clamp-3 text-base leading-relaxed text-left prose prose-base dark:prose-invert max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-em:text-gray-700 prose-code:text-gray-800 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded overflow-hidden">
+                            <ReactMarkdown>
+                              {article.content.length > 300 ? article.content.slice(0, 300) + '...' : article.content}
+                            </ReactMarkdown>
+                          </div>
 
                           {/* Meta Info */}
                           <div className="flex items-center gap-6 text-sm text-gray-500">

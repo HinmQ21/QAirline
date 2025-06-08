@@ -12,6 +12,7 @@ import { newsCategoryLabels, NewsCategoryType, NewsType } from "@/services/schem
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Edit, Calendar, Eye } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
 
 type NewsCardProps = {
   news: NewsType;
@@ -80,12 +81,14 @@ export const NewsCard = ({
       {/* Content */}
       <div className="p-5">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {news.title}
           </h3>
-          <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
-            {news.content}
-          </p>
+          <div className="text-sm text-gray-600 line-clamp-3 leading-relaxed prose prose-sm dark:prose-invert max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-em:text-gray-700 prose-code:text-gray-800 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded overflow-hidden">
+            <ReactMarkdown>
+              {news.content.length > 150 ? news.content.slice(0, 150) + '...' : news.content}
+            </ReactMarkdown>
+          </div>
         </div>
 
         {/* Stats */}
