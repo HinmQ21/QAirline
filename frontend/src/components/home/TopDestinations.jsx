@@ -10,7 +10,7 @@ import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 
 const DestinationCard = ({ dest }) => (
   <div className="flex flex-col">
-    <div className="group relative w-full h-86 cursor-pointer">
+    <div className="group relative w-full h-64 sm:h-86 cursor-pointer">
       <img
         src={dest.image}
         alt={dest.name}
@@ -60,10 +60,10 @@ export const TopDestinations = () => {
     loop: true,
     drag: false,
     breakpoints: {
-      "(max-width: 64rem)": {
+      "(max-width: 768px)": {
         slides: { perView: 2, spacing: 12 }
       },
-      "(max-width: 48rem)": {
+      "(max-width: 640px)": {
         slides: { perView: 1, spacing: 12 }
       }
     }
@@ -90,14 +90,14 @@ export const TopDestinations = () => {
 
   return (
     <div className='flex flex-col'>
-      <div className='flex mb-10 justify-between items-end'>
+      <div className='flex mb-10 justify-between items-end gap-x-5'>
         <div>
           <p className={css.headerText}>Địa điểm</p>
-          <p className="w-lg text-gray-500 mt-2">
+          <p className="text-gray-500 mt-2">
              Khám phá những điểm đến nổi tiếng nhất thế giới, tìm chuyến đi mơ ước và đặt vé máy bay dễ dàng cho hành trình tiếp theo của bạn!
           </p>
         </div>
-        <Link to='/destinations' className="h-fit flex items-center text-red-600 hover:text-red-400">
+        <Link to='/destinations' className="hidden md:flex h-fit min-w-max items-center text-red-600 hover:text-red-400">
           <p className="montserrat-semibold">Xem tất cả</p>
           <MdOutlineKeyboardArrowRight className="ml-2" size="1.3em" />
         </Link>

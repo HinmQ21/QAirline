@@ -32,7 +32,7 @@ export const Footer = () => (
           </a>
         </div>
 
-        <div>
+        <div className="min-w-max">
           <p className="text-lg reddit-semibold">Giờ hành chính</p>
           <div className="grid grid-cols-2">
             <p className="text-gray-600">Thứ 2 - Thứ 6</p>

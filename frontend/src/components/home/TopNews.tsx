@@ -19,9 +19,9 @@ const SimpleNewsCard = ({ news, offstage = false }: { news: NewsType, offstage?:
       flex flex-col absolute justify-center items-start h-full overflow-hidden w-full
       ${offstage ? css.offstage.on : css.offstage.off}
     `}>
-      <p className="text-sm text-gray-700">{created_date.format("DD - MM - YYYY")}</p>
+      <p className="text-xs lg:text-sm text-gray-700">{created_date.format("DD - MM - YYYY")}</p>
       <NewsDialog news={news}>
-        <p className="truncate reddit-medium underline text-blue-800 cursor-pointer">{
+        <p className="truncate reddit-medium underline text-blue-800 cursor-pointer text-sm lg:text-base">{
           news.title
         }</p>
       </NewsDialog>
@@ -75,11 +75,12 @@ export const TopNews = () => {
       items-center justify-between
     ">
       <div className="flex flex-row items-center h-full flex-1">
-        <div className="flex flex-row items-center px-7 text-blue-900 text-xl gap-x-2">
+        <div className="hidden md:flex flex-row items-center px-5 lg:px-7 text-blue-900 text-lg lg:text-xl gap-x-2">
           <FaRegNewspaper />
           <p className="montserrat-medium">Tin tức</p>
         </div>
-        <Separator orientation="vertical" className="w-px bg-gray-500 mr-7" />
+        <Separator orientation="vertical" className="hidden md:block w-px bg-gray-500" />
+        <div className='w-3 md:w-5 lg:w-7'/>
         {
           errMsg ? (
             <p className="text-red-500">{errMsg}</p>
@@ -104,8 +105,8 @@ export const TopNews = () => {
           )
         }
       </div>
-      <div className="mr-7 flex flex-row items-center h-full gap-x-5">
-        <div className="flex flex-col items-center">
+      <div className="mr-1 md:mr-5 lg:mr-7 flex flex-row items-center h-full gap-x-3 lg:gap-x-5">
+        <div className="hidden md:flex flex-col items-center">
           <IoIosArrowUp className="cursor-pointer"
             onClick={() => {
               stopSwitfing();
@@ -125,7 +126,8 @@ export const TopNews = () => {
         <Button
           className="
             bg-slate-300 hover:bg-slate-200
-            text-sky-900 py-6 px-7 cursor-pointer
+            text-sky-900 cursor-pointer
+            lg:py-6 lg:px-7 max-sm:hidden
           "
           onClick={() => {
             navigate('/news');

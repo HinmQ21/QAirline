@@ -13,8 +13,8 @@ const Slogan = ({ icon, children }) => (
 export const SloganRow = () => {
   return (
     <div
-      className={`flex w-full text-center justify-around
-                 text-white z-1 py-7
+      className={`hidden md:flex w-full text-center justify-around
+                 text-white z-1 lg:py-7 md:py-5
                  ${css.homepageGgGradient}`}
     >
       <Slogan icon={<PiAirplaneTakeoffThin size='24'/>}>Fast Booking</Slogan>
