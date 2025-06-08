@@ -48,7 +48,7 @@ export const NewsManagerPage = () => {
       setTotalItems(response.total || response.news.length);
       setTotalPages(Math.ceil((response.total || response.news.length) / itemsPerPage));
       setIsLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       let errMsg;
       try { errMsg = err.response.data.message; }
       catch { errMsg = err.toString(); }
@@ -96,13 +96,6 @@ export const NewsManagerPage = () => {
       color: "text-purple-600",
       bgColor: "bg-purple-50"
     },
-    // {
-    //   title: "Trang hiện tại",
-    //   value: `${currentPage}/${totalPages}`,
-    //   icon: Clock,
-    //   color: "text-orange-600",
-    //   bgColor: "bg-orange-50"
-    // }
   ];
 
   return (

@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  CalendarDays, 
-  MapPin, 
-  ArrowRightLeft, 
-  Search, 
-  TrendingUp,
-  Clock,
-  Star,
-  Users,
-  Plane,
-  Loader2
+import {
+  CalendarDays, MapPin, ArrowRightLeft,
+  Search, TrendingUp, Plane, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
@@ -38,25 +30,20 @@ const quickDateOptions = [
   { label: 'Tuần sau', days: 7 },
 ];
 
-export const SearchFlight = ({ 
-  onSearch, 
-  startAirport, 
-  setStartAirport, 
-  endAirport, 
+export const SearchFlight = ({
+  onSearch,
+  startAirport,
+  setStartAirport,
+  endAirport,
   setEndAirport,
-  maxPrice,
-  setMaxPrice 
 }) => {
   const [departureDate, setDepartureDate] = useState();
-  const [returnDate, setReturnDate] = useState();
-  const [isRoundTrip, setIsRoundTrip] = useState(false);
   const [airports, setAirports] = useState([]);
   const [showDepartureAirports, setShowDepartureAirports] = useState(false);
   const [showArrivalAirports, setShowArrivalAirports] = useState(false);
   const [departureSearch, setDepartureSearch] = useState('');
   const [arrivalSearch, setArrivalSearch] = useState('');
   const [loadingAirports, setLoadingAirports] = useState(false);
-  const [showPopularDestinations, setShowPopularDestinations] = useState(false);
 
   // Fetch airports on component mount
   useEffect(() => {
@@ -101,7 +88,6 @@ export const SearchFlight = ({
       departure_airport_id: startAirport.airport_id,
       arrival_airport_id: endAirport.airport_id,
       departure_date: dayjs(departureDate).format('YYYY-MM-DD'),
-      return_date: isRoundTrip && returnDate ? dayjs(returnDate).format('YYYY-MM-DD') : undefined
     };
 
     onSearch?.(searchParams);
@@ -122,7 +108,7 @@ export const SearchFlight = ({
   const handleQuickDate = (option) => {
     const today = new Date();
     let targetDate;
-    
+
     if (option.days === 'weekend') {
       // Get next Saturday
       const daysToSaturday = (6 - today.getDay()) % 7;
@@ -130,7 +116,7 @@ export const SearchFlight = ({
     } else {
       targetDate = new Date(today.getTime() + option.days * 24 * 60 * 60 * 1000);
     }
-    
+
     setDepartureDate(targetDate);
   };
 
@@ -150,49 +136,13 @@ export const SearchFlight = ({
         setArrivalSearch(airport.code);
       }
     }
-    setShowPopularDestinations(false);
   };
-  
+
   return (
     <div className="w-full max-w-7xl mx-auto">
       <Card className="border-2 border-gray-100 shadow-xl bg-gradient-to-br from-white to-gray-50">
         <CardContent className="p-8">
           <div className="space-y-8">
-            {/* Trip Type & Passengers */}
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-4">
-                  <Label className="text-sm font-semibold text-gray-700">Loại chuyến bay:</Label>
-                  <div className="flex bg-gray-100 rounded-lg p-1">
-                    <button
-                      type="button"
-                      className={cn(
-                        "px-4 py-2 text-sm font-medium rounded-md transition-all duration-200",
-                        !isRoundTrip 
-                          ? "bg-white text-red-600 shadow-sm" 
-                          : "text-gray-600 hover:text-gray-800"
-                      )}
-                      onClick={() => setIsRoundTrip(false)}
-                    >
-                      Một chiều
-                    </button>
-                    <button
-                      type="button"
-                      className={cn(
-                        "px-4 py-2 text-sm font-medium rounded-md transition-all duration-200",
-                        isRoundTrip 
-                          ? "bg-white text-red-600 shadow-sm" 
-                          : "text-gray-600 hover:text-gray-800"
-                      )}
-                      onClick={() => setIsRoundTrip(true)}
-                    >
-                      Khứ hồi
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
 
             {/* Main Search Form */}
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
@@ -246,33 +196,6 @@ export const SearchFlight = ({
                         </div>
                         {loadingAirports && <Loader2 className="h-4 w-4 animate-spin" />}
                       </div>
-
-                      {/* Popular Destinations */}
-                      {!departureSearch && (
-                        <div className="mb-4">
-                          <Label className="text-xs font-medium text-gray-600 mb-2 flex items-center">
-                            <TrendingUp className="h-3 w-3 mr-1" />
-                            Điểm đến phổ biến
-                          </Label>
-                          <div className="grid grid-cols-2 gap-2">
-                            {popularDestinations.slice(0, 4).map((dest) => (
-                              <button
-                                key={dest.code}
-                                className="p-2 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                                onClick={() => handlePopularDestination(dest)}
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-lg">{dest.icon}</span>
-                                  <div>
-                                    <div className="font-medium text-sm">{dest.code}</div>
-                                    <div className="text-xs text-gray-500">{dest.city}</div>
-                                  </div>
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
 
                       <div className="max-h-60 overflow-y-auto">
                         {filteredDepartureAirports.length > 0 ? (
@@ -371,33 +294,6 @@ export const SearchFlight = ({
                         {loadingAirports && <Loader2 className="h-4 w-4 animate-spin" />}
                       </div>
 
-                      {/* Popular Destinations */}
-                      {!arrivalSearch && (
-                        <div className="mb-4">
-                          <Label className="text-xs font-medium text-gray-600 mb-2 flex items-center">
-                            <Star className="h-3 w-3 mr-1" />
-                            Điểm đến phổ biến
-                          </Label>
-                          <div className="grid grid-cols-2 gap-2">
-                            {popularDestinations.slice(0, 4).map((dest) => (
-                              <button
-                                key={dest.code}
-                                className="p-2 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                                onClick={() => handlePopularDestination(dest)}
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-lg">{dest.icon}</span>
-                                  <div>
-                                    <div className="font-medium text-sm">{dest.code}</div>
-                                    <div className="text-xs text-gray-500">{dest.city}</div>
-                                  </div>
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
                       <div className="max-h-60 overflow-y-auto">
                         {filteredArrivalAirports.length > 0 ? (
                           filteredArrivalAirports.map((airport) => (
@@ -490,9 +386,9 @@ export const SearchFlight = ({
                               onClick={() => handleQuickDate(option)}
                             >
                               {option.label === 'Today' ? 'Hôm nay' :
-                               option.label === 'Tomorrow' ? 'Ngày mai' :
-                               option.label === 'This Weekend' ? 'Cuối tuần này' :
-                               option.label === 'Next Week' ? 'Tuần sau' : option.label}
+                                option.label === 'Tomorrow' ? 'Ngày mai' :
+                                  option.label === 'This Weekend' ? 'Cuối tuần này' :
+                                    option.label === 'Next Week' ? 'Tuần sau' : option.label}
                             </Badge>
                           ))}
                         </div>
@@ -508,73 +404,6 @@ export const SearchFlight = ({
                     </div>
                   </PopoverContent>
                 </Popover>
-              </div>
-
-              {/* Return Date */}
-              {isRoundTrip && (
-                <div className="space-y-3">
-                  <Label className="text-sm font-semibold text-gray-700 flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-1 text-green-600" />
-                    Ngày về
-                  </Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "w-full justify-start text-left font-normal h-12 border-2 hover:border-green-300 transition-colors",
-                          !returnDate && "text-muted-foreground"
-                        )}
-                      >
-                        <div className="flex items-center space-x-3">
-                          <CalendarDays className="h-4 w-4 text-green-600" />
-                          <div>
-                            {returnDate ? (
-                              <>
-                                <div className="font-semibold">{formatDateForDisplay(returnDate)}</div>
-                                <div className="text-xs text-gray-500">{dayjs(returnDate).format('dddd')}</div>
-                              </>
-                            ) : (
-                              <div className="text-gray-500">Chọn ngày về</div>
-                            )}
-                          </div>
-                        </div>
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={returnDate}
-                        onSelect={setReturnDate}
-                        disabled={(date) => date < (departureDate || new Date())}
-                        initialFocus
-                        className="rounded-lg border"
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              )}
-
-              {/* Price Filter */}
-              <div className="space-y-3 mt-2">
-                <Label className="text-sm font-semibold text-gray-700">Giá tối đa (VND)</Label>
-                <div className="relative">
-                  <Input
-                    type="number"
-                    placeholder="Nhập ngân sách tối đa"
-                    value={maxPrice}
-                    min="0"
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      // Chỉ cập nhật nếu value là số dương hoặc chuỗi rỗng
-                      if (value === "" || parseInt(value) >= 0) {
-                        setMaxPrice(value);
-                      }
-                    }}
-                    className="h-12 pl-10 border-2 hover:border-gray-300 transition-colors"
-                  />
-                  <div className="absolute left-3 top-3 text-gray-400">₫</div>
-                </div>
               </div>
             </div>
 

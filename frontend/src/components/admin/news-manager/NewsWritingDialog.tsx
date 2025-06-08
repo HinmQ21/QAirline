@@ -9,7 +9,10 @@ import { newsCategoryList } from "@/services/schemes/news";
 import { newsCategoryLabels } from "@/services/schemes/news";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import ReactMarkdown from 'react-markdown';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const newsSchema = z.object({
   title: z.string()
@@ -35,12 +38,14 @@ export const NewsWritingDialog = ({
   open, setOpen, newsForm, onSubmit,
   isSubmitting, children, submitText
 }: NewsWritingDialogProps) => {
+  const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-4xl max-h-[85vh]">
         <DialogHeader>
           <Form {...newsForm}>
             <form onSubmit={onSubmit ? newsForm.handleSubmit(onSubmit) : undefined}>
@@ -58,7 +63,7 @@ export const NewsWritingDialog = ({
                             "
                         />
                       </FormControl>
-                      <div className="relative bottom-1.5">
+                      <div className="relative bottom-1">
                         <FormDescription className="reddit-medium absolute">{
                           dayjs().format("[Today at] HH:mm")
                         }</FormDescription>
@@ -69,32 +74,50 @@ export const NewsWritingDialog = ({
                 />
               </DialogTitle>
               <div className="py-5">
-                <FormField
-                  control={newsForm.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Textarea placeholder="Nội dung bài viết" {...field}
-                          className="inter-regular text-gray-950
-                            border-none shadow-none focus-visible:ring-0 p-0
-                            resize-none overflow-hidden h-auto rounded-none
-                          " rows={5} onInput={(e) => {
-                            const el = e.currentTarget;
-                            el.style.height = "auto";
-                            el.style.height = el.scrollHeight + "px";
-                          }}
-                        />
-                      </FormControl>
-                      <div>
-                        <FormDescription className="reddit-medium absolute">{
-                          `${field.value.length}/1000`
-                        }</FormDescription>
-                        <FormMessage className="reddit-regular relative left-30" />
+                <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "edit" | "preview")} className="w-full">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="edit">Chỉnh sửa</TabsTrigger>
+                    <TabsTrigger value="preview">Xem trước</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="edit">
+                    <FormField
+                      control={newsForm.control}
+                      name="content"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Textarea placeholder="Nội dung bài viết" {...field}
+                              className="inter-regular text-gray-950
+                                border border-input rounded-md p-4
+                                resize-none overflow-hidden h-auto min-h-[300px]
+                                focus-visible:ring-1 focus-visible:ring-ring
+                              " onInput={(e) => {
+                                const el = e.currentTarget;
+                                el.style.height = "auto";
+                                el.style.height = el.scrollHeight + "px";
+                              }}
+                            />
+                          </FormControl>
+                          <div className="flex justify-between items-center mt-2">
+                            <FormDescription className="reddit-medium">
+                              {`${field.value.length}/1000 ký tự`}
+                            </FormDescription>
+                            <FormMessage className="reddit-regular" />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </TabsContent>
+                  <TabsContent value="preview">
+                    <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                        <ReactMarkdown>
+                          {newsForm.watch("content")}
+                        </ReactMarkdown>
                       </div>
-                    </FormItem>
-                  )}
-                />
+                    </ScrollArea>
+                  </TabsContent>
+                </Tabs>
               </div>
               <div className="flex flex-row justify-between w-full">
                 <FormField

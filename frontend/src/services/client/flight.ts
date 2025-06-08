@@ -35,14 +35,13 @@ const searchFlights = async (
   departure_airport_id: string,
   arrival_airport_id: string,
   departure_date: string,
-  return_date?: string
 ) => {
   const res = await clientAxios.get("flights/search", {
     params: {
       departure_airport_id,
       arrival_airport_id,
       departure_date,
-      return_date,
+      return_date: null,
     }
   });
 

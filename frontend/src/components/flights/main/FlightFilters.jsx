@@ -9,8 +9,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 export const FlightFilters = ({ 
   filters, 
   onFiltersChange,
-  availableAirlines = [],
-  priceRange = { min: 0, max: 10000000 }
 }) => {
   const handleFilterChange = (key, value) => {
     onFiltersChange({
@@ -124,31 +122,6 @@ export const FlightFilters = ({
               ))}
             </SelectContent>
           </Select>
-        </div>
-
-        {/* Flight Status */}
-        <div className="space-y-3">
-          <Label className="text-sm font-medium">Flight Status</Label>
-          <div className="space-y-2">
-            {['scheduled', 'on time', 'delayed'].map((status) => (
-              <div key={status} className="flex items-center space-x-2">
-                <Checkbox
-                  id={status}
-                  checked={filters.status?.includes(status) || false}
-                  onCheckedChange={(checked) => {
-                    const currentStatuses = filters.status || [];
-                    const newStatuses = checked
-                      ? [...currentStatuses, status]
-                      : currentStatuses.filter(s => s !== status);
-                    handleFilterChange('status', newStatuses);
-                  }}
-                />
-                <Label htmlFor={status} className="text-xs text-gray-700 capitalize">
-                  {status}
-                </Label>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Clear Filters */}

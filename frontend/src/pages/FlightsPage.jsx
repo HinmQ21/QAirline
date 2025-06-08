@@ -17,15 +17,7 @@ import { SearchLoadingOverlay } from "@/components/flights/main/SearchLoadingOve
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Loader2,
-  Plane,
-  SlidersHorizontal,
-  RefreshCw,
-  MapPin,
-  Calendar,
-  TrendingUp,
-  Star,
-  Filter
+  Loader2, Plane, RefreshCw, TrendingUp, Filter,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
@@ -96,30 +88,25 @@ export default function FlightsPage() {
 
       // Set current search params for the loading overlay
       setCurrentSearchParams({
-        from: searchParams.departure_airport_id,
-        to: searchParams.arrival_airport_id,
         fromAirport: startAirport,
         toAirport: endAirport,
         departureDate: dayjs(searchParams.departure_date).format('MMM DD, YYYY'),
-        returnDate: searchParams.return_date ? dayjs(searchParams.return_date).format('MMM DD, YYYY') : null
       });
 
       // Add a small delay for better UX
       await new Promise(resolve => setTimeout(resolve, 1000));
 
+      console.log(searchParams);
       const res = await flightApiObject.searchFlights(
         searchParams.departure_airport_id,
         searchParams.arrival_airport_id,
         searchParams.departure_date,
-        searchParams.return_date
       );
+      console.log(res);
 
       if (res && res.data) {
         setSearchResults(res.data);
-        // Show filters by default when search results are available
-        if ((res.data.departureFlights?.flights?.length || 0) + (res.data.returnFlights?.flights?.length || 0) > 6) {
-          setShowFilters(true);
-        }
+        setShowFilters(true);
       }
     } catch (error) {
       console.error("Error searching flights:", error);
@@ -150,7 +137,6 @@ export default function FlightsPage() {
         departure_airport_id: startAirport.airport_id,
         arrival_airport_id: endAirport.airport_id,
         departure_date: currentSearchParams.departureDate,
-        return_date: currentSearchParams.returnDate
       });
     }
   };
@@ -217,27 +203,21 @@ export default function FlightsPage() {
       });
     }
 
-    // Filter by flight status
-    if (filters.status && filters.status.length > 0) {
-      filteredFlights = filteredFlights.filter(flight =>
-        filters.status.includes(flight.status?.toLowerCase() || 'scheduled')
-      );
-    }
-
+    // TODO: remove this or no?
     // Legacy airport code filters (for backward compatibility)
-    if (startAirport && typeof startAirport === 'string') {
-      filteredFlights = filteredFlights.filter(flight => {
-        return startAirport.toLowerCase()
-          .includes(flight.departureAirport.code.toLowerCase());
-      });
-    }
+    // if (startAirport && typeof startAirport === 'string') {
+    //   filteredFlights = filteredFlights.filter(flight => {
+    //     return startAirport.toLowerCase()
+    //       .includes(flight.departureAirport.code.toLowerCase());
+    //   });
+    // }
 
-    if (endAirport && typeof endAirport === 'string') {
-      filteredFlights = filteredFlights.filter(flight => {
-        return endAirport.toLowerCase()
-          .includes(flight.arrivalAirport.code.toLowerCase());
-      });
-    }
+    // if (endAirport && typeof endAirport === 'string') {
+    //   filteredFlights = filteredFlights.filter(flight => {
+    //     return endAirport.toLowerCase()
+    //       .includes(flight.arrivalAirport.code.toLowerCase());
+    //   });
+    // }
 
     return filteredFlights;
   };
@@ -352,74 +332,36 @@ export default function FlightsPage() {
 
           {/* Search Results Header */}
           {searchMode && (
-            <div className="mb-8 p-6">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2">
-                    <Plane className="text-gray-800 w-6 h-6" />
-                    <h2 className="text-2xl font-bold bg-clip-text text-transparent">
-                      Kết Quả Tìm Kiếm
-                    </h2>
-                  </div>
-                  {searchResults && (
-                    <div className="flex items-center space-x-2">
-                      <Badge variant="secondary" className="text-sm text-gray-800 border-gray-200">
-                        <TrendingUp className="w-3 h-3 mr-1" />
-                        {totalFlights} chuyến bay được tìm thấy
-                      </Badge>
-                      {flightsToDisplay.length !== totalFlights && (
-                        <Badge variant="outline" className="text-sm border-pink-200 text-pink-700">
-                          <Filter className="w-3 h-3 mr-1" />
-                          {flightsToDisplay.length} sau khi lọc
-                        </Badge>
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
+            <div className={`${css.minipagemx} mb-8 p-6`}>
+              <div className="flex flex-wrap items-center justify-end gap-4">
+                {searchResults && (
                   <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={refreshSearch}
-                    disabled={searchLoading}
-                    className="flex items-center border-gray-200"
-                  >
-                    <RefreshCw className={`h-4 w-4 mr-2 ${searchLoading ? 'animate-spin' : ''}`} />
-                    Làm Mới
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowFilters(!showFilters)}
-                    className="flex items-center border-pink-200"
-                  >
-                    <SlidersHorizontal className="h-4 w-4 mr-2" />
-                    Bộ Lọc
-                    {Object.keys(filters).length > 0 && (
-                      <Badge variant="destructive" className="ml-2 text-xs">
-                        {Object.keys(filters).length}
-                      </Badge>
-                    )}
-                  </Button>
-                  <Button
-                    onClick={clearSearch}
                     variant="outline"
                     size="sm"
                     className=""
                   >
-                    Xem Tất Cả Chuyến Bay
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    {totalFlights} chuyến bay được tìm thấy
                   </Button>
-                </div>
+                )}
+                <Button
+                  onClick={clearSearch}
+                  variant="outline"
+                  size="sm"
+                  className="cursor-pointer"
+                >
+                  Xem Tất Cả Chuyến Bay
+                </Button>
               </div>
             </div>
           )}
 
           {/* Main Content Area */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className={`${css.minipagemx} grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8`}>
             {/* Filters Sidebar */}
             {showFilters && (
               <div className="lg:col-span-1">
-                <div className="rounded-xl shadow-lg p-6 sticky top-8 border border-gray-100">
+                <div className="rounded-xl shadow-lg sticky top-8">
                   <FlightFilters
                     filters={filters}
                     onFiltersChange={setFilters}
@@ -429,10 +371,10 @@ export default function FlightsPage() {
             )}
 
             {/* Flight Results */}
-            <div className={`${showFilters ? 'lg:col-span-3' : 'lg:col-span-4'}`}>
+            <div className={`${showFilters ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
               {/* Loading State */}
               {loading && !searchLoading && (
-                <div className="flex flex-col justify-center items-center rounded-xl shadow-lg mb-8">
+                <div className="flex flex-col justify-center items-center mb-8">
                   <div className="relative">
                     <Loader2 className="h-12 w-12 animate-spin text-gray-300" />
                     <div className="absolute inset-0 animate-ping">
@@ -440,10 +382,7 @@ export default function FlightsPage() {
                     </div>
                   </div>
                   <span className="mt-4 text-lg text-white font-medium">
-                    Đang tải các chuyến bay tuyệt vời cho bạn...
-                  </span>
-                  <span className="mt-2 text-sm text-white">
-                    Sẽ không mất nhiều thời gian
+                    Đang tải các chuyến bay tuyệt vời cho bạn! 🛩
                   </span>
                 </div>
               )}
@@ -451,39 +390,6 @@ export default function FlightsPage() {
               {/* Flight Results Grid */}
               {!loading && !searchLoading && (
                 <>
-                  {/* Results Summary */}
-                  {searchMode && searchResults && (
-                    <div className={`${css.minipage.lg} flex justify-center mb-8`}>
-                      <div className="flex items-center bg-red-400">
-                        <div className="flex items-center bg-green-400">
-                          <div className="rounded-lg p-3 shadow-md">
-                            <MapPin className="text-gray-800 w-6 h-6" />
-                          </div>
-                          <div className="bg-blue-400">
-                            <h3 className="text-xl font-bold text-gray-900">
-                              {startAirport?.code} → {endAirport?.code}
-                            </h3>
-                            <div className="flex items-center text-sm text-gray-600 mt-1">
-                              <Calendar className="w-4 h-4 mr-1" />
-                              {currentSearchParams?.departureDate}
-                              {currentSearchParams?.returnDate && ` - ${currentSearchParams.returnDate}`}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-right bg-indigo-400">
-                          <div className="text-3xl font-bold bg-clip-text text-transparent">
-                            {totalFlights}
-                          </div>
-                          <div className="text-sm text-gray-600 font-medium">chuyến bay khả dụng</div>
-                          <div className="flex items-center justify-end mt-1">
-                            <Star className="w-4 h-4 text-pink-500 mr-1" />
-                            <span className="text-xs text-gray-500">Đảm bảo giá tốt nhất</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                    
                   <div className="mb-12">
                     {flightsToDisplay.length > 0 ? (
                       <div className="flex flex-wrap gap-6 justify-center mx-18">

@@ -33,19 +33,13 @@ export const SearchLoadingOverlay = ({ isVisible, searchParams }) => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tuyến bay:</span>
                   <span className="font-medium">
-                    {searchParams.fromAirport?.code || searchParams.from} → {searchParams.toAirport?.code || searchParams.to}
+                    {searchParams.fromAirport.code} → {searchParams.toAirport.code}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Khởi hành:</span>
                   <span className="font-medium">{searchParams.departureDate}</span>
                 </div>
-                {searchParams.returnDate && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Quay về:</span>
-                    <span className="font-medium">{searchParams.returnDate}</span>
-                  </div>
-                )}
               </div>
             </div>
           )}
