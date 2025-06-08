@@ -17,7 +17,7 @@
   }
 
   .header-top {
-    @apply h-[100px] bg-transparent shadow-none;
+    @apply h-18 lg:h-24 bg-transparent shadow-none;
   }
 
   .header-scrolled {

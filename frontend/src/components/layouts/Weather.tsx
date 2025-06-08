@@ -83,7 +83,7 @@ export const WeatherDisplay = () => {
   }
 
   return (
-    <div className="text-white reddit-semibold">
+    <div className="text-white reddit-semibold text-sm md:text-base">
       {weather.city} {weather.icon} {weather.temp}°C
     </div>
   );

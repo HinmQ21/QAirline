@@ -13,16 +13,16 @@ import { WeatherDisplay } from "@/components/layouts/Weather";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog";
-import { 
-  User as UserIcon, 
-  Lock, 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Plane, 
-  Shield, 
-  Ticket, 
-  LogOut, 
+import {
+  User as UserIcon,
+  Lock,
+  Eye,
+  EyeOff,
+  Mail,
+  Plane,
+  Shield,
+  Ticket,
+  LogOut,
   MoreHorizontal,
   Home,
   Globe,
@@ -76,36 +76,26 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
         <Link to="/" className="special-gothic-expanded-one-regular text-2xl">
           QAIRLINE
         </Link>
-        
+
         {/* Desktop Navigation */}
-        <div className="hidden sm:flex ml-22 gap-x-10">
+        <div className="hidden md:flex ml-10 lg:ml-22 gap-x-10">
           {navigationLinks.map((link) => (
             <Link key={link.to} to={link.to} className="header-link reddit-regular">
               {link.label}
             </Link>
           ))}
         </div>
-      </div>
 
-      <div className="flex items-center mr-10 gap-x-4">
-        {/* Weather info - hidden on mobile */}
-        <div
-          className={`${isAtTop ? "opacity-0" : "opacity-100"} hidden sm:block
-                        transition-opacity duration-300`}
-        >
-          <WeatherDisplay />
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="sm:hidden">
+        {/* Mobile Navigation */}
+        <div className="md:hidden ml-5 sm:ml-8">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="text-white hover:text-red-600">
                 <MoreHorizontal className="h-6 w-6" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="end" 
+            <DropdownMenuContent
+              align="start"
               className="w-56 bg-gray-900/95 backdrop-blur-sm border border-gray-800"
             >
               <DropdownMenuGroup>
@@ -125,6 +115,17 @@ export const Header = ({ isAtTop = false, className = "" }: HeaderProps) => {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+      </div>
+
+      <div className="flex items-center mr-10 gap-x-4">
+        {/* Weather info - hidden on mobile */}
+        <div
+          className={`${isAtTop ? "opacity-0" : "opacity-100"}
+                        min-w-max
+                        transition-opacity duration-300`}
+        >
+          <WeatherDisplay />
         </div>
 
         {user ? (
@@ -188,7 +189,7 @@ const UserAvatarButton = ({ user }: { user: User }) => {
                 setDropdownOpen(false); // đóng menu trước khi mở dialog
               }}
             >
-              <LogOut  className="w-4 h-4 mr-2" />
+              <LogOut className="w-4 h-4 mr-2" />
               Đăng xuất
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -325,15 +326,15 @@ const AuthButtons = () => {
 
             <Tabs value={currentTab} onValueChange={(val) => setCurrentTab(val as TabType)}>
               <TabsList className="grid grid-cols-2 mb-6 bg-gray-100 p-1 rounded-xl">
-                <TabsTrigger 
-                  value="login" 
+                <TabsTrigger
+                  value="login"
                   className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-indigo-600 text-gray-600 shadow-sm"
                 >
                   <UserIcon className="w-4 h-4 mr-2" />
                   Đăng nhập
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="signup" 
+                <TabsTrigger
+                  value="signup"
                   className="rounded-lg data-[state=active]:bg-white data-[state=active]:text-indigo-600 text-gray-600 shadow-sm"
                 >
                   <Shield className="w-4 h-4 mr-2" />
@@ -362,7 +363,7 @@ const AuthButtons = () => {
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={loginForm.control}
                       name="password"

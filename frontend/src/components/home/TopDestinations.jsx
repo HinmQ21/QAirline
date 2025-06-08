@@ -10,7 +10,7 @@ import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx";
 
 const DestinationCard = ({ dest }) => (
   <div className="flex flex-col">
-    <div className="group relative w-full h-64 sm:h-86 cursor-pointer">
+    <div className="group relative w-full h-86 lg:h-108 cursor-pointer">
       <img
         src={dest.image}
         alt={dest.name}
@@ -60,7 +60,7 @@ export const TopDestinations = () => {
     loop: true,
     drag: false,
     breakpoints: {
-      "(max-width: 768px)": {
+      "(max-width: 1024px)": {
         slides: { perView: 2, spacing: 12 }
       },
       "(max-width: 640px)": {
