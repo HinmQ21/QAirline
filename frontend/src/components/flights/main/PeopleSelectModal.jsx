@@ -15,6 +15,10 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
 
     const updateCount = (type, delta) => {
       setPassengers((prev) => {
+        // If trying to add a child or infant when no adults, prevent the action
+        if (delta > 0 && type !== 'adult' && prev.adult === 0) {
+          return prev;
+        }
         const newCount = Math.max(0, (prev[type] || 0) + delta);
         return { ...prev, [type]: newCount };
       });
@@ -45,15 +49,26 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
                 </div>
                 <div className="flex items-center gap-2">
                   <button
-                    className="bg-red-500 text-white w-8 h-8 rounded-full"
+                    className={`text-white w-8 h-8 rounded-full ${
+                      passengers[type] === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500'
+                    }`}
                     onClick={() => updateCount(type, -1)}
+                    disabled={passengers[type] === 0}
                   >
                     −
                   </button>
                   <span>{passengers[type]}</span>
                   <button
-                    className="bg-red-500 text-white w-8 h-8 rounded-full"
+                    className={`text-white w-8 h-8 rounded-full ${
+                      (type !== 'adult' && passengers.adult === 0) 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-red-500'
+                    }`}
                     onClick={() => updateCount(type, 1)}
+                    disabled={type !== 'adult' && passengers.adult === 0}
+                    title={type !== 'adult' && passengers.adult === 0 
+                      ? 'At least one adult is required' 
+                      : undefined}
                   >
                     +
                   </button>
