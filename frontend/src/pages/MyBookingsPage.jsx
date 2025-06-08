@@ -57,38 +57,47 @@ export default function MyBookingsPage() {
     }
   };
 
+  // Booking is completed if departure time is in the past
+  const isBookingCompleted = (booking) => {
+    return booking.status === 'booked' && booking.Flight.departure_time < new Date();
+  };
+
+  // Cancel is valid if departure time is more than 5 days from now
+  const bookingIsCancellable = (booking) => {
+    const fiveDaysFromNow = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
+    return booking.status === 'booked' && fiveDaysFromNow < booking.Flight.departure_time;
+  };
+
   // Initial load
   useEffect(() => {
     fetchBookings();
   }, []);
 
   // Get status color and icon
-  const getStatusInfo = (status) => {
-    switch (status) {
-      case 'booked':
-        return {
-          color: 'bg-green-100 text-green-800',
-          icon: CheckCircle,
-          text: 'Đã đặt'
-        };
+  const getStatusInfo = (booking) => {
+    console.log(booking);
+
+    switch (booking.status) {
       case 'cancelled':
         return {
           color: 'bg-red-100 text-red-800',
           icon: XCircle,
           text: 'Đã hủy'
         };
-      case 'completed':
-        return {
-          color: 'bg-blue-100 text-blue-800',
-          icon: Plane,
-          text: 'Hoàn thành'
-        };
-      default:
-        return {
-          color: 'bg-gray-100 text-gray-800',
-          icon: AlertCircle,
-          text: status
-        };
+      case 'booked':
+        if (isBookingCompleted(booking)) {
+          return {
+            color: 'bg-blue-100 text-blue-800',
+            icon: Plane,
+            text: 'Hoàn thành'
+          }
+        } else {
+          return {
+            color: 'bg-green-100 text-green-800',
+            icon: CheckCircle,
+            text: 'Đã đặt'
+          }
+        }
     }
   };
 
@@ -178,7 +187,7 @@ export default function MyBookingsPage() {
       {/* Bookings List */}
       <div className="space-y-6">
         {bookings.map((booking) => {
-          const statusInfo = getStatusInfo(booking.status);
+          const statusInfo = getStatusInfo(booking);
           const StatusIcon = statusInfo.icon;
 
           return (
@@ -293,15 +302,22 @@ export default function MyBookingsPage() {
                 {/* Action Buttons */}
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   {booking.status === 'booked' && (
-                    <Button
-                      className="reddit-medium text-white"
-                      variant="destructive"
-                      size="sm"
+                    <button
                       onClick={() => handleCancelBooking(booking.booking_id)}
+                      disabled={!bookingIsCancellable(booking)}
+                      className={`relative group px-4 py-2 rounded-md text-sm font-medium
+                        ${bookingIsCancellable(booking) 
+                          ? 'bg-red-100 text-red-800 hover:bg-red-200' 
+                          : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
                     >
-                      <XCircle className="w-4 h-4 mr-2" />
                       Hủy vé
-                    </Button>
+                      {!bookingIsCancellable(booking) && (
+                        <div className="absolute invisible group-hover:visible bg-gray-800 text-white text-xs rounded py-1 px-2 left-full ml-2 top-1/2 transform -translate-y-1/2 whitespace-nowrap">
+                          Bạn không thể hủy vé trong vòng 5 ngày trước khi cất cánh
+                          <div className="absolute w-2 h-2 bg-gray-800 transform rotate-45 -left-1 top-1/2 -translate-y-1/2"></div>
+                        </div>
+                      )}
+                    </button>
                   )}
                 </div>
               </CardContent>
