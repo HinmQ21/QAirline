@@ -2,13 +2,14 @@ import { User } from "../schemes/auth";
 import { NewsCategoryType, NewsListResponse } from "../schemes/news";
 import { ManufacturerType, PlaneType } from "../schemes/planes";
 import { BookingRequest, BookingResponse } from "../client/booking";
+import { RegisterRequest } from "../schemes/auth";
 
 export interface ClientApiInterface {
   // Auth
   me: () => Promise<User>;
   logout: () => void;
   login: (username: string, password: string) => Promise<User>;
-
+  register: (data: RegisterRequest) => Promise<User>;
   // Flight
   // TODO: change `any` to a more specific type
   getFlight: (

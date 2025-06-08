@@ -1,4 +1,4 @@
-import { User } from "../schemes/auth";
+import { RegisterRequest, User } from "../schemes/auth";
 import { clientAxios } from "@/lib/axios/client";
 
 const me = async (): Promise<User> => {
@@ -16,6 +16,11 @@ const login = async (username: string, password: string): Promise<User> => {
   localStorage.setItem("user", JSON.stringify(data));
 
   return data;
+}
+
+const register = async (data: RegisterRequest): Promise<User> => {
+  const res = await clientAxios.post("/auth/register", data);
+  return res.data.data;
 }
 
 const logout = () => {
@@ -49,11 +54,12 @@ const deleteAccount = async (): Promise<void> => {
   localStorage.removeItem("user");
 }
 
-export const authApiObject = { 
-  me: me, 
-  login: login, 
+export const authApiObject = {
+  me: me,
+  login: login,
   logout: logout,
   updateProfile: updateProfile,
   changePassword: changePassword,
-  deleteAccount: deleteAccount
+  deleteAccount: deleteAccount,
+  register: register,
 };
