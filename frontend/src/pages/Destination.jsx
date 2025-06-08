@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Search, MapPin, Star, Users, Calendar, Filter,
   Globe, ArrowRight, Heart, Camera,
@@ -130,6 +131,7 @@ const DestinationsPage = () => {
   const [filteredDestinations, setFilteredDestinations] = useState(destinationsData);
   const [showFilters, setShowFilters] = useState(false);
   const [favorites, setFavorites] = useState(new Set());
+  const navigate = useNavigate();
 
   const continents = ['Tất cả', 'Châu Âu', 'Châu Á', 'Bắc Mỹ', 'Nam Mỹ', 'Châu Phi', 'Châu Đại Dương'];
 
@@ -259,7 +261,12 @@ const DestinationsPage = () => {
           </div>
         </div>
 
-        <Button className="w-full bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white">
+        <Button 
+          onClick={() => {
+            navigate('/flights');
+          }}
+          className="w-full bg-gradient-to-r from-gray-900 to-pink-950 hover:from-gray-800 hover:to-pink-900 text-white"
+        >
           <Plane className="w-4 h-4 mr-2" />
           Đặt chuyến bay
           <ArrowRight className="w-4 h-4 ml-2" />
