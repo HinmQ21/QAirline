@@ -24,9 +24,6 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
       });
     };
 
-  
-
-
   return (
     <>
       {isOpen && (
@@ -34,17 +31,21 @@ export const PeopleSelectModal = ({isOpen, setIsOpen, setTotal}) => {
         <div className="fixed inset-0 flex z-50 items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 transition-all duration-200 ">
 
           <div className="bg-white z-60 rounded-xl max-h-[calc(100vh-5em)] max-w-lg scale-90 overflow-y-auto overscroll-contain w-full p-6 transition-transform">
-            <h2 className="text-center font-bold text-lg mb-4">Select Passengers</h2>
+            <h2 className="text-center font-bold text-lg mb-4">Chọn số hành khách</h2>
 
             {/* Passenger Types */}
             {["adult", "child", "infant"].map((type) => (
               <div key={type} className="flex justify-between items-center py-2">
                 <div>
-                  <p className="font-medium capitalize">{type}</p>
+                  <p className="font-medium">
+                  {type == "adult" && "Người lớn"}
+                  {type == "child" && "Trẻ em"}
+                  {type == "infant" && "Trẻ sơ sinh"}
+                  </p>
                   <p className="text-sm text-gray-500">
-                    {type === "adult" && "More than 12 years old"}
-                    {type === "child" && "2-11 years old"}
-                    {type === "infant" && "Less than 2 years old"}
+                    {type === "adult" && "Trên 12 tuổi"}
+                    {type === "child" && "Từ 2 đến 11 tuổi"}
+                    {type === "infant" && "Dưới 2 tuổi"}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">

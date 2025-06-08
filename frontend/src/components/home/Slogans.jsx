@@ -17,9 +17,9 @@ export const SloganRow = () => {
                  text-white z-1 lg:py-7 md:py-5
                  ${css.homepageGgGradient}`}
     >
-      <Slogan icon={<PiAirplaneTakeoffThin size='24'/>}>Fast Booking</Slogan>
-      <Slogan icon={<GoShieldCheck size='24'/>}>Secure & Reliable</Slogan>
-      <Slogan icon={<GoGlobe size='24'/>}>Global Destinations</Slogan>
+      <Slogan icon={<PiAirplaneTakeoffThin size='24'/>}>Nhanh chóng</Slogan>
+      <Slogan icon={<GoShieldCheck size='24'/>}>An toàn & tin cậy</Slogan>
+      <Slogan icon={<GoGlobe size='24'/>}>Đến bất cứ đâu</Slogan>
     </div>
   );
 };
