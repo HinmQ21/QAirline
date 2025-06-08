@@ -31,17 +31,17 @@ export const AdminHeader = () => {
       <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="flex items-center justify-between h-16 px-6">
           {/* Left section - Logo and Breadcrumb */}
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">Q</span>
               </div>
-              <h1 className="text-xl font-bold text-gray-900">QAirline Admin</h1>
             </div>
-          </div>
+          </div> */}
+          <h1 className="text-2xl font-bold text-gray-900">QAirline Admin</h1>
 
           {/* Center section - Search */}
-          <div className="flex-1 max-w-md mx-8">
+          {/* <div className="flex-1 max-w-md mx-8">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
@@ -49,7 +49,7 @@ export const AdminHeader = () => {
                 className="pl-10 bg-gray-50 border-0 focus-visible:ring-2 focus-visible:ring-blue-500"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Right section - Actions and Profile */}
           <div className="flex items-center space-x-3">
