@@ -102,13 +102,13 @@ export const PlanesManagerPage = () => {
       color: "text-purple-600",
       bgColor: "bg-purple-50"
     },
-    {
-      title: "Trang hiện tại",
-      value: `${currentPage}/${totalPages}`,
-      icon: MapPin,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50"
-    }
+    // {
+    //   title: "Trang hiện tại",
+    //   value: `${currentPage}/${totalPages}`,
+    //   icon: MapPin,
+    //   color: "text-orange-600",
+    //   bgColor: "bg-orange-50"
+    // }
   ];
 
   return (
@@ -120,7 +120,7 @@ export const PlanesManagerPage = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {stats.map((stat, index) => (
           <Card key={index} className="p-4 bg-white/70 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between">
