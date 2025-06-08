@@ -48,15 +48,23 @@ const calculateDuration = (departure, arrival) => {
 
 export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen }) => {
   const navigate = useNavigate();
+  const { userContext } = useServices();
   const { preBookingContext } = useServices();
   const [showDetails, setShowDetails] = useState(false);
 
+
   const handleBookFlight = () => {
+    if (!userContext.user) {
+      alert('Vui lòng đăng nhập để đặt chuyến bay!');
+      return false;
+    }
+
     // Save flight info to context
     preBookingContext.setFlight(flight);
     
     // Open passenger selection modal
     setIsOpen(true);
+    return true;
   };
 
   const handleViewDetails = () => {
@@ -196,6 +204,7 @@ export const MainFlightCard = ({ flight, formatTime: legacyFormatTime, setIsOpen
         flight={flight}
         isOpen={showDetails}
         onClose={() => setShowDetails(false)}
+        canBook={canBook}
         onBook={handleBookFlight}
       />
     </>

@@ -357,11 +357,11 @@ export default function FlightsPage() {
           )}
 
           {/* Main Content Area */}
-          <div className={`${css.minipagemx} grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8`}>
+          <div className={`${css.minipagemx} flex flex-row mb-8`}>
             {/* Filters Sidebar */}
             {showFilters && (
-              <div className="lg:col-span-1">
-                <div className="rounded-xl shadow-lg sticky top-8">
+              <div className="lg:w-1/3">
+                <div className="sticky top-8">
                   <FlightFilters
                     filters={filters}
                     onFiltersChange={setFilters}
@@ -371,7 +371,7 @@ export default function FlightsPage() {
             )}
 
             {/* Flight Results */}
-            <div className={`${showFilters ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+            <div className="w-full">
               {/* Loading State */}
               {loading && !searchLoading && (
                 <div className="flex flex-col justify-center items-center mb-8">
@@ -392,7 +392,7 @@ export default function FlightsPage() {
                 <>
                   <div className="mb-12">
                     {flightsToDisplay.length > 0 ? (
-                      <div className="flex flex-wrap gap-6 justify-center mx-18">
+                      <div className="flex flex-wrap gap-6 justify-center">
                         {flightsToDisplay.map((flight, idx) => (
                           <div
                             key={`${flight.flight_id}-${idx}`}

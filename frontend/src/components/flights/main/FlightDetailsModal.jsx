@@ -9,10 +9,10 @@ const formatVND = (price) => price.toLocaleString("vi-VN", { style: "currency", 
 
 const formatTime = (dateString) => {
   const date = new Date(dateString);
-  return date.toLocaleTimeString('vi-VN', { 
-    hour: '2-digit', 
+  return date.toLocaleTimeString('vi-VN', {
+    hour: '2-digit',
     minute: '2-digit',
-    hour12: false 
+    hour12: false
   });
 };
 
@@ -45,7 +45,7 @@ const getStatusColor = (status) => {
   }
 };
 
-export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
+export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook, canBook }) => {
   if (!flight) return null;
 
   return (
@@ -171,23 +171,20 @@ export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between">
+              <div className="flex items-end justify-between">
                 <div>
-                  <div className="text-sm text-gray-600">Giá cơ bản</div>
+                  <div className="text-sm text-gray-600">Đơn giá</div>
                   <div className="text-3xl font-bold text-red-600">
                     {formatVND(flight.basePrice)}
                   </div>
                   <div className="text-sm text-gray-500">mỗi người</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm text-gray-600 mb-2">
-                    • Phí và thuế đã bao gồm
-                  </div>
-                  <div className="text-sm text-gray-600 mb-2">
-                    • Hành lý ký gửi miễn phí (7kg)
-                  </div>
                   <div className="text-sm text-gray-600">
                     • Chọn ghế miễn phí
+                  </div>
+                  <div className="text-sm text-gray-600 mb-2">
+                    • Miễn phí gửi hành lý (7kg)
                   </div>
                 </div>
               </div>
@@ -199,11 +196,16 @@ export const FlightDetailsModal = ({ flight, isOpen, onClose, onBook }) => {
             <Button variant="outline" onClick={onClose}>
               Đóng
             </Button>
-            <Button 
+            <Button
               className="bg-red-600 hover:bg-red-700 text-white px-8"
-              onClick={onBook}
+              onClick={() => {
+                if (onBook()) {
+                  onClose();
+                }
+              }}
+              disabled={!canBook}
             >
-              Đặt chuyến bay này
+              Đặt chuyến bay
             </Button>
           </div>
         </div>

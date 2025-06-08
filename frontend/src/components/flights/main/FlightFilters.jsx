@@ -33,7 +33,7 @@ export const FlightFilters = ({
   ];
 
   return (
-    <Card className="w-full">
+    <Card className="w-80">
       <CardHeader>
         <CardTitle className="flex items-center text-lg">
           <Filter className="h-5 w-5 mr-2" />
@@ -130,7 +130,7 @@ export const FlightFilters = ({
             onClick={() => onFiltersChange({})}
             className="w-full text-sm text-red-600 hover:text-red-700 font-medium"
           >
-            Xóa tất cả bộ lọc
+            Xóa bộ lọc
           </button>
         </div>
       </CardContent>
